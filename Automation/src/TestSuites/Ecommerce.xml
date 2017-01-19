@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<suite  name="EcommerceSuite">
+	<!-- <test name="EcommercePostCreation">
+		<groups>
+			<run>
+				<include name="PostCreation"></include>
+			</run>
+		</groups>
+		<classes>
+			<class name="PostCreation.ECommercePost"></class>
+		</classes>
+	</test>  -->
+	<test name="EcommerceCreateAndEditwithouthomeImage">
+		<groups>
+			<run>
+				<include name="CreateAndEdit"></include>
+				<include name="CreateAndEditWithouthomapageImage"></include>
+			</run>
+		</groups>
+		<packages>
+			<package name="PostCreation"></package>
+ 		</packages>
+	</test>
+
+
+	 <test name="EcommerceMovetoDraft">
+	        <groups>
+	            <run>
+	                <include name="EcommerceMovetoDraft"></include>
+	                <include name="EcommercewithoutHomeMovetoDraft"></include>	                
+	            </run>
+	        </groups>
+	        <packages>
+	            <package name="PostCreation"></package>
+	        </packages>
+	    </test>
+
+
+</suite>
