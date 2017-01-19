@@ -3,6 +3,7 @@ package Common;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.Properties;
@@ -52,6 +53,24 @@ public class Adminproperty
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         return driver;
+    }
+
+    public void uploadPrimaryImage(String primaryimage) throws Exception
+    {
+        findAndWrite("primary_image_insert", System.getProperty("user.dir")
+                + "//" + prop.getProperty("image_path") + primaryimage);
+        findAndClick("primary_image_upload");
+        WebElement element1 = findElement(prop
+                .getProperty("product_image_bulkupload")
+                + prop.getProperty("product_image_bulkupload1"));
+        if (element1.getAttribute("href") != null) {
+            isLinkBroken(new URL(element1.getAttribute("href")));
+            System.out.println(isLinkBroken(new URL(element1
+                    .getAttribute("href"))));
+        }
+        implicitWait();
+        findAndClick("primary_noraml_insert");
+        implicitWait();
     }
 
     public void findAndClick(String element)
@@ -134,4 +153,36 @@ public class Adminproperty
         System.out.println("Published post");
     }
 
+    public void insertTagAndCategory(String postcatagory, String tag)
+    {
+        findAndClick("Catagory_click");
+        findAndWrite("catagory", postcatagory);
+        List<WebElement> optionlist = findElementByClass(prop
+                .getProperty("catagory_ecommerce_by_ClassName"));
+        for (WebElement options : optionlist) {
+            if (options.getText().equalsIgnoreCase(postcatagory)) {
+                options.click();
+                break;
+            }
+        }
+        findAndWrite("tag_input", tag);
+        List<WebElement> Tagoptionlist = findElementByClass(prop
+                .getProperty("tag_list_Byclassname"));
+        for (WebElement options : Tagoptionlist) {
+            if (options.getText().equalsIgnoreCase(tag)) {
+                options.click();
+                break;
+            }
+        }
+
+    }
+    
+    public void Imagestatus(WebElement element) throws Exception
+    {
+        if (element.getAttribute("href") != null) {
+            isLinkBroken(new URL(element.getAttribute("href")));
+            System.out.println(isLinkBroken(new URL(element
+                    .getAttribute("href"))));
+        }
+    }
 }
