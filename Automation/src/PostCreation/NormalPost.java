@@ -12,7 +12,8 @@ public class NormalPost
 	String postTitle = "Automated Normal Post creation";
 	String postContent = "This is for testing. This is for testing \n";
 	String Image = "\\car.jpg";
-	Adminproperty property = new Adminproperty();
+	Adminproperty property = new Adminproperty(); 
+	
 @Test	
 public void Initial() throws Exception
 {
