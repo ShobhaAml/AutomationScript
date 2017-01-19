@@ -35,7 +35,7 @@ public class ECommercePost
     String tag = "Apple";
     String fbtext = "Hi testing for FB content";
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void Setup() throws IOException
     {
         prop = adminProperties.ReadProperties();
@@ -43,14 +43,9 @@ public class ECommercePost
                 prop.getProperty("browser"));
     }
 
-    public void login() throws Exception
-    {
-        adminProperties.adminLogin();
-    }
-
     public void Writeboard() throws Exception
     {
-        login();
+        adminProperties.adminLogin();
         adminProperties.findAndClick("navigation_header");
         adminProperties.findAndClick("create_post_link");
         adminProperties.findAndWrite("post_title", posttitle);
@@ -58,23 +53,7 @@ public class ECommercePost
         adminProperties.findAndClick("post_title");
         adminProperties.implicitWait();
         adminProperties.findAndClick("toolbar_image");
-        adminProperties.findAndWrite(
-                "primary_image_insert",
-                System.getProperty("user.dir") + "//"
-                        + prop.getProperty("image_path") + primaryimage);
-        adminProperties.findAndClick("primary_image_upload");
-        WebElement element1 = adminProperties.findElement(prop
-                .getProperty("product_image_bulkupload")
-                + prop.getProperty("product_image_bulkupload1"));
-        if (element1.getAttribute("href") != null) {
-            adminProperties
-                    .isLinkBroken(new URL(element1.getAttribute("href")));
-            System.out.println(adminProperties.isLinkBroken(new URL(element1
-                    .getAttribute("href"))));
-        }
-        adminProperties.implicitWait();
-        adminProperties.findAndClick("primary_noraml_insert");
-        adminProperties.implicitWait();
+        adminProperties.uploadPrimaryImage(primaryimage);
         adminProperties.findAndSendkey("post_content", Keys.END);
         adminProperties.findAndSendkey("post_content", Keys.ENTER);
         adminProperties.findAndSendkey("post_content", Keys.END);
@@ -105,18 +84,15 @@ public class ECommercePost
                     + cnt
                     + "]"
                     + prop.getProperty("product_image_bulkupload1"));
-            if (element.getAttribute("href") != null) {
-                adminProperties.isLinkBroken(new URL(element
-                        .getAttribute("href")));
-                System.out.println(adminProperties.isLinkBroken(new URL(element
-                        .getAttribute("href"))));
-            }
+            
+            adminProperties.Imagestatus(element);
+            
             cnt++;
         }
         adminProperties.findAndClick("insert_images");
         String catagory = "";
         cnt = 1;
-        int price;
+        int price = 0;
         for (String image : arr) {
             String name = image;
             price = Calendar.MINUTE + Calendar.MILLISECOND;
@@ -162,37 +138,13 @@ public class ECommercePost
 
     }
 
-    public void insertTagAndCategory()
-    {
-        adminProperties.findAndClick("Catagory_click");
-        adminProperties.findAndWrite("catagory", postcatagory);
-        List<WebElement> optionlist = adminProperties.findElementByClass(prop
-                .getProperty("catagory_ecommerce_by_ClassName"));
-        for (WebElement options : optionlist) {
-            if (options.getText().equalsIgnoreCase(postcatagory)) {
-                options.click();
-                break;
-            }
-        }
-        adminProperties.findAndWrite("tag_input", tag);
-        List<WebElement> Tagoptionlist = adminProperties
-                .findElementByClass(prop.getProperty("tag_list_Byclassname"));
-        for (WebElement options : Tagoptionlist) {
-            if (options.getText().equalsIgnoreCase(tag)) {
-                options.click();
-                break;
-            }
-        }
-
-    }
-
-    @Test
+    @Test(groups = { "PostCreation", "CreateAndEdit", "EcommerceMovetoDraft" })
     public void With_HomepageImage() throws Exception
     {
         Writeboard();
         adminProperties.findAndWrite("homepage_content",
                 "Homepage content for ecommerce post");
-        insertTagAndCategory();
+        adminProperties.insertTagAndCategory(postcatagory, tag);
         adminProperties.findAndWrite(
                 "ecommerce_homepage_image",
                 System.getProperty("user.dir") + "//"
@@ -209,12 +161,13 @@ public class ECommercePost
         adminProperties.addFbTwitterText(fbtext);
     }
 
-    @Test
+    @Test(groups = { "PostCreation", "CreateAndEditWithouthomapageImage",
+            "EcommercewithoutHomeMovetoDraft" })
     public void Without_HomepageImage() throws Exception
     {
         posttitle = "Automated eCommerce Post without homepage Image/content";
         Writeboard();
-        insertTagAndCategory();
+        adminProperties.insertTagAndCategory(postcatagory, tag);
         adminProperties.addFbTwitterText(fbtext);
     }
 
