@@ -70,7 +70,6 @@ public class EditEcommercePost
             }
             cnt++;
         }
-
         adminproperties.implicitWait();
         adminproperties.findAndClick(prop.getProperty("post_content"));
         adminproperties.findAndSendkey(prop.getProperty("post_content"),
