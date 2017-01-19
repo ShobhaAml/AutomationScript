@@ -19,8 +19,7 @@ public class EditEcommercePost
     WebDriver driver;
     int cnt = 1;
 
-    
-    @Test (groups={"EcommerceMovetoDraft","EcommercewithoutHomeMovetoDraft"}, priority=1)
+    @Test(groups = { "EcommerceMovetoDraft", "EcommercewithoutHomeMovetoDraft" }, priority = 1)
     public void Draftpublishedpost() throws Exception
     {
         String Postname = "Automated eCommerce Post with homepage Image/content";
@@ -33,7 +32,7 @@ public class EditEcommercePost
         for (WebElement list : postlist) {
             System.out.println(list.getText());
             if (list.getText().equalsIgnoreCase(Postname)) {
-                
+
                 adminproperties.findElement(
                         prop.getProperty("DashboardEditbuttontr") + "[" + cnt
                                 + "]"
@@ -43,16 +42,15 @@ public class EditEcommercePost
             }
             cnt++;
         }
-        
-       
+
         driver.switchTo().alert().accept();
     }
-    
-    @Test (groups={"CreateAndEdit","CreateAndEditWithouthomapageImage"} ,priority=0)
+
+    @Test(groups = { "CreateAndEdit", "CreateAndEditWithouthomapageImage" }, priority = 0)
     public void Editpublishedpost() throws Exception
     {
         String Postname = "Automated eCommerce Post without homepage Image/content";
-        
+
         prop = adminproperties.ReadProperties();
         driver = adminproperties.callproperty(prop.getProperty("url"),
                 prop.getProperty("browser"));
@@ -72,15 +70,16 @@ public class EditEcommercePost
             }
             cnt++;
         }
-        
+
         adminproperties.implicitWait();
         adminproperties.findAndClick(prop.getProperty("post_content"));
-        adminproperties.findAndSendkey(prop.getProperty("post_content"), Keys.END);
+        adminproperties.findAndSendkey(prop.getProperty("post_content"),
+                Keys.END);
         adminproperties.findAndSendkey(prop.getProperty("post_content"),
                 Keys.ENTER);
         adminproperties.findAndWrite(prop.getProperty("post_content"),
                 "Added new Data by Shobha  to test Edit feature");
         adminproperties.findAndClick(prop.getProperty("post_title"));
-     }
+    }
 
 }
