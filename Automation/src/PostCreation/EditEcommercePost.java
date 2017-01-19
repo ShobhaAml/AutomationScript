@@ -45,7 +45,7 @@ public class EditEcommercePost
 
         driver.switchTo().alert().accept();
     }
-
+    
     @Test(groups = { "CreateAndEdit", "CreateAndEditWithouthomapageImage" }, priority = 0)
     public void Editpublishedpost() throws Exception
     {
