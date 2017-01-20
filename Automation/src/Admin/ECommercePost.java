@@ -1,4 +1,4 @@
-package PostCreation;
+package Admin;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
