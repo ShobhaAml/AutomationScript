@@ -227,7 +227,11 @@ public class Adminproperty
                  
                     Actions action = new Actions(driver);
                     action.moveToElement( findElement(
-                            prop.getProperty(row) + "[" + cnt + "]" +"/a"+ prop.getProperty(Column))).perform();
+                            prop.getProperty(row) + "[" + cnt + "]" +"/a")).perform();
+                    
+                    findElement(
+                            prop.getProperty(row) + "[" + cnt + "]"
+                                    + prop.getProperty(Column)).click();
                     
                 }
                 

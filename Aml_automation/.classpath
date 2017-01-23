@@ -25,5 +25,6 @@
 	<classpathentry kind="lib" path="E:/Edata/testing/selenium-2.53.0/libs/cglib-nodep-2.1_3.jar"/>
 	<classpathentry kind="lib" path="E:/Edata/testing/selenium-2.53.0/libs/bsh-2.0b4.jar"/>
 	<classpathentry kind="lib" path="E:/Edata/testing/selenium-2.53.0/libs/apache-mime4j-0.6.jar"/>
+	<classpathentry kind="con" path="org.testng.TESTNG_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
