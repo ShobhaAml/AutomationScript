@@ -14,7 +14,7 @@ public class EditPublishedPost
     Adminproperty adminproperties = new Adminproperty();
     Properties prop = new Properties();
     WebDriver driver;
-    String Postname = "Slide show post testing:- Sumt";
+    String Postname = "Automated eCommerce Post without homepage Image/content";
     Boolean status = true;
 
     public void Adminlogin() throws Exception
@@ -43,10 +43,13 @@ public class EditPublishedPost
         }
 
         if (status == true) {
+            
+            String previous_text= adminproperties.findElement(prop.getProperty("post_content")).getText();
             adminproperties.implicitWait();
             adminproperties.findAndClick("post_content");
+            adminproperties.findElement(prop.getProperty("post_content")).clear();
             adminproperties.findAndWrite("post_content",
-                    "Added new Data by Shobha  to test Edit feature");
+                    "Added new Data by Shobha  to test Edit feature"+previous_text);
             adminproperties.findAndClick("post_title");
         } else {
             Assert.assertFalse(false, "No Post with same Post title exists");
