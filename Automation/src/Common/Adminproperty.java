@@ -19,6 +19,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -57,7 +58,6 @@ public class Adminproperty
         return driver;
     }
 
-   
     public void uploadPrimaryImage(String primaryimage) throws Exception
     {
         findAndWrite("primary_image_insert", System.getProperty("user.dir")
@@ -179,7 +179,7 @@ public class Adminproperty
         }
 
     }
-    
+
     public void Imagestatus(WebElement element) throws Exception
     {
         if (element.getAttribute("href") != null) {
@@ -188,34 +188,83 @@ public class Adminproperty
                     .getAttribute("href"))));
         }
     }
-    
+
     public void Conditionalwait(String xpath)
     {
         WebDriverWait wait = new WebDriverWait(driver, 50);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prop.getProperty(xpath))));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prop
+                .getProperty(xpath))));
     }
-    
-    public Boolean clickButton(String row, String Column, String Postname)
+
+    public Boolean clickButton(String row, String Column, String Postname, String listtype)
     {
         int cnt = 1;
-        Boolean status=false;
+        Boolean status = false;
+        List<WebElement> postlist= null;
+        if(listtype=="Dashboardlist")
+        {
+         postlist = findElementsByXpath(prop
+                .getProperty("Dashboardlist"));
+        }
+        else if(listtype=="Draft")
+        {
+            postlist = findElementsByXpath(prop
+                    .getProperty("Draftlist_dashboard")); 
+            
+        }
+        
+        for (WebElement list : postlist) {
+            System.out.println(list.getText());
+            if (list.getText().equalsIgnoreCase(Postname)) {
+                if(listtype=="Dashboardlist")
+                {
+                findElement(
+                        prop.getProperty(row) + "[" + cnt + "]"
+                                + prop.getProperty(Column)).click();
+                }
+                else if(listtype=="Draft")
+                {
+                 
+                    Actions action = new Actions(driver);
+                    action.moveToElement( findElement(
+                            prop.getProperty(row) + "[" + cnt + "]" +"/a"+ prop.getProperty(Column))).perform();
+                    
+                }
+                
+                status = true;
+                break;
+            }
+
+            cnt++;
+        }
+
+        return status;
+    }
+    
+    
+    public String getcatagoryname(String row, String Column, String Postname)
+    {
+        String catgoryname="";
+        int cnt = 1;
+        Boolean status = false;
         List<WebElement> postlist = findElementsByXpath(prop
                 .getProperty("Dashboardlist"));
         for (WebElement list : postlist) {
             System.out.println(list.getText());
             if (list.getText().equalsIgnoreCase(Postname)) {
 
-                findElement(
+                catgoryname=   findElement(
                         prop.getProperty(row) + "[" + cnt + "]"
-                                + prop.getProperty(Column)).click();
-                status=true;
+                                + prop.getProperty(Column)).getText();
                 break;
             }
-        
+
             cnt++;
         }
-        
-        return status;
-   }
+
+        return catgoryname;
+    }
     
+    
+   
 }
