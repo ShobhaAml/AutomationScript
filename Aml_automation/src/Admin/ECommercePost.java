@@ -164,6 +164,6 @@ public class ECommercePost
     @AfterMethod
     public void teardown()
     {
-        // driver.close();
+         driver.close();
     }
 }
