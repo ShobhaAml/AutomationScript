@@ -1,8 +1,6 @@
 package Admin;
 
-import java.io.IOException;
 import java.util.Properties;
-
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -15,8 +13,8 @@ public class EditPublishedPost
     Adminproperty adminproperties = new Adminproperty();
     Properties prop = new Properties();
     WebDriver driver;
-    String Postname = "Slide show post testing:- Sumt";
-    String posttype = "Slide";
+    String Postname = "En casa la consola-tablet se apalanca en un dock con salida a la televisión";
+    String posttype = "";  // Enter 'Slide' for slideshow post
     Boolean status = true;
 
     public void Adminlogin() throws Exception

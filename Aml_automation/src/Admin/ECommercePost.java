@@ -1,16 +1,9 @@
 package Admin;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
-
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -31,7 +24,7 @@ public class ECommercePost
     String postcatagory = "Ecommerce";
     String posttitle = "Automated eCommerce Post with homepage Image/content";
     String postcontent = "hey shobha testing ecommerce post.\n";
-    String primaryimage = "/primary.jpg";
+    String primaryimage = "\\primary.jpg";
     String tag = "Apple";
     String fbtext = "Hi testing for FB content";
 
@@ -73,8 +66,8 @@ public class ECommercePost
         for (String image : arr) {
             adminProperties.findAndWrite(
                     "Multiupload",
-                    System.getProperty("user.dir") + "//"
-                            + prop.getProperty("image_path") + "//" + image);
+                    System.getProperty("user.dir")
+                            + prop.getProperty("image_path") + "\\" + image);
             adminProperties.findAndClick("add_Allimage");
             adminProperties.implicitWait();
             driver.findElement(By.tagName("img"));
@@ -84,9 +77,9 @@ public class ECommercePost
                     + cnt
                     + "]"
                     + prop.getProperty("product_image_bulkupload1"));
-            
+
             adminProperties.Imagestatus(element);
-            
+
             cnt++;
         }
         adminProperties.findAndClick("insert_images");
@@ -138,18 +131,16 @@ public class ECommercePost
 
     }
 
-    @Test(groups = { "PostCreation", "CreateAndEdit", "EcommerceMovetoDraft" })
+    @Test
     public void With_HomepageImage() throws Exception
     {
         Writeboard();
         adminProperties.findAndWrite("homepage_content",
                 "Homepage content for ecommerce post");
         adminProperties.insertTagAndCategory(postcatagory, tag);
-        adminProperties.findAndWrite(
-                "ecommerce_homepage_image",
-                System.getProperty("user.dir") + "//"
-                        + prop.getProperty("image_path") + "//"
-                        + prop.getProperty("homepage_image"));
+        adminProperties.findAndWrite("ecommerce_homepage_image",
+                System.getProperty("user.dir") + prop.getProperty("image_path")
+                        + "\\" + prop.getProperty("homepage_image"));
         adminProperties.findAndClick("ecommerce_upload_homepage_image");
         List<WebElement> imagesList = driver.findElements(By.tagName("img"));
         for (WebElement imgElement : imagesList) {
@@ -161,8 +152,7 @@ public class ECommercePost
         adminProperties.addFbTwitterText(fbtext);
     }
 
-    @Test(groups = { "PostCreation", "CreateAndEditWithouthomapageImage",
-            "EcommercewithoutHomeMovetoDraft" })
+    @Test
     public void Without_HomepageImage() throws Exception
     {
         posttitle = "Automated eCommerce Post without homepage Image/content";

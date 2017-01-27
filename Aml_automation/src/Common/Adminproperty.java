@@ -60,8 +60,9 @@ public class Adminproperty
 
     public void uploadPrimaryImage(String primaryimage) throws Exception
     {
+       
         findAndWrite("primary_image_insert", System.getProperty("user.dir")
-                + "//" + prop.getProperty("image_path") + primaryimage);
+                + prop.getProperty("image_path") + primaryimage);
         findAndClick("primary_image_upload");
         WebElement element1 = findElement(prop
                 .getProperty("product_image_bulkupload")
