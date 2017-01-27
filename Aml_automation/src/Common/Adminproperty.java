@@ -1,4 +1,4 @@
-package Common;
+package slide_show;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -14,6 +14,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -58,11 +59,11 @@ public class Adminproperty
         return driver;
     }
 
+   
     public void uploadPrimaryImage(String primaryimage) throws Exception
     {
-       
         findAndWrite("primary_image_insert", System.getProperty("user.dir")
-                + prop.getProperty("image_path") + primaryimage);
+                + "//" + prop.getProperty("image_path") + primaryimage);
         findAndClick("primary_image_upload");
         WebElement element1 = findElement(prop
                 .getProperty("product_image_bulkupload")
@@ -94,11 +95,41 @@ public class Adminproperty
 
     public void adminLogin() throws Exception
     {
+        
         String username = prop.getProperty("admin_usename");
         String pwd = prop.getProperty("admin_pwd");
         findElement(prop.getProperty("login_username_txt")).sendKeys(username);
         findElement(prop.getProperty("login_pwd_txt")).sendKeys(pwd);
         findElement(prop.getProperty("login_submit_button")).click();
+    }
+    
+    public void adminRepostLogin() throws Exception
+    {
+        String username = prop.getProperty("re_admin_usename");
+        String pwd = prop.getProperty("re_admin_pwd");
+        findElement(prop.getProperty("re_login_username_txt")).sendKeys(username);
+        findElement(prop.getProperty("re_login_pwd_txt")).sendKeys(pwd);
+        findElement(prop.getProperty("re_login_submit_button")).click();
+    }
+    
+    public WebDriver re_callproperty(String re_url, String re_browser)
+            throws IOException
+    {
+        if (re_browser.equalsIgnoreCase("Chrome")) {
+            System.setProperty("webdriver.chrome.driver",
+                    System.getProperty("user.dir") + "//src//Driverfiles//"
+                            + "chromedriver.exe");
+            driver = new ChromeDriver();
+        } else {
+            System.setProperty("webdriver.gecko.driver",
+                    System.getProperty("user.dir") + "//src//Driverfiles//"
+                            + "geckodriver.exe");
+            driver = new FirefoxDriver();
+        }
+        driver.get(re_url);
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        return driver;
     }
 
     public WebElement findElement(String xpath)
@@ -107,6 +138,8 @@ public class Adminproperty
         return element;
     }
 
+    
+    
     public List<WebElement> findElementByClass(String className)
     {
         List<WebElement> element = driver.findElements(By.className(className));
@@ -118,7 +151,8 @@ public class Adminproperty
         List<WebElement> element = driver.findElements(By.xpath(xpath));
         return element;
     }
-
+    
+   
     public void implicitWait()
     {
         driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
@@ -180,7 +214,7 @@ public class Adminproperty
         }
 
     }
-
+    
     public void Imagestatus(WebElement element) throws Exception
     {
         if (element.getAttribute("href") != null) {
@@ -189,87 +223,83 @@ public class Adminproperty
                     .getAttribute("href"))));
         }
     }
-
+    
     public void Conditionalwait(String xpath)
     {
         WebDriverWait wait = new WebDriverWait(driver, 50);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prop
-                .getProperty(xpath))));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prop.getProperty(xpath))));
     }
-
-    public Boolean clickButton(String row, String Column, String Postname, String listtype)
+    
+    public void dialogBoxOk()
     {
-        int cnt = 1;
-        Boolean status = false;
-        List<WebElement> postlist= null;
-        if(listtype=="Dashboardlist")
-        {
-         postlist = findElementsByXpath(prop
-                .getProperty("Dashboardlist"));
-        }
-        else if(listtype=="Draft")
-        {
-            postlist = findElementsByXpath(prop
-                    .getProperty("Draftlist_dashboard")); 
-            
-        }
+        driver.switchTo().alert().accept();
         
-        for (WebElement list : postlist) {
-            System.out.println(list.getText());
-            if (list.getText().equalsIgnoreCase(Postname)) {
-                if(listtype=="Dashboardlist")
-                {
-                findElement(
-                        prop.getProperty(row) + "[" + cnt + "]"
-                                + prop.getProperty(Column)).click();
-                }
-                else if(listtype=="Draft")
-                {
-                 
-                    Actions action = new Actions(driver);
-                    action.moveToElement( findElement(
-                            prop.getProperty(row) + "[" + cnt + "]" +"/a")).perform();
-                    
-                    findElement(
-                            prop.getProperty(row) + "[" + cnt + "]"
-                                    + prop.getProperty(Column)).click();
-                    
-                }
-                
-                status = true;
-                break;
-            }
-
-            cnt++;
-        }
-
-        return status;
+        
     }
     
-    
-    public String getcatagoryname(String row, String Column, String Postname)
+    public Boolean clickButton(String row, String Column, String Postname)
     {
-        String catgoryname="";
         int cnt = 1;
-        Boolean status = false;
+        Boolean status=false;
         List<WebElement> postlist = findElementsByXpath(prop
                 .getProperty("Dashboardlist"));
         for (WebElement list : postlist) {
             System.out.println(list.getText());
             if (list.getText().equalsIgnoreCase(Postname)) {
 
-                catgoryname=   findElement(
+                findElement(
                         prop.getProperty(row) + "[" + cnt + "]"
-                                + prop.getProperty(Column)).getText();
+                                + prop.getProperty(Column)).click();
+                status=true;
                 break;
             }
-
+        
             cnt++;
         }
-
-        return catgoryname;
+        
+        return status;
+   }
+    public void clickNotificationButton(String tittle_data)
+    {
+        int cnt=1;
+        List<WebElement> postlist = findElementByClass(prop
+                .getProperty("notification_list_by_ClassName"));
+      for (WebElement list : postlist) {
+            
+            
+            String sender= driver.findElement(By.className(prop.getProperty("notify_sender"))).getText();
+            String text=list.getText().replace(sender,"");
+          
+            if(text.trim().equalsIgnoreCase(tittle_data))
+            {
+             System.out.println(cnt +"hi");
+             
+            
+             Actions act = new Actions(driver);
+             act.doubleClick(driver.findElement(By.className(prop.getProperty("notify_sender")))).build().perform();
+             
+             driver.findElement(By.className("actions-approve")).click(); 
+             
+             break;
+           }
+      cnt++;
+        
+           
+        }
+       
+   } 
+    public void repostCheckbox(String Selector1 , String Selector2)
+    {
+        WebElement CheckBox1 = driver.findElement(By.cssSelector(Selector1));
+        CheckBox1.click();
+               
+        WebElement CheckBox = driver.findElement(By.cssSelector(Selector2));
+        CheckBox.click();
+      
+    
+    
     }
     
+  
     
-   
 }
