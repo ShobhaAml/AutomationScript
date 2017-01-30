@@ -228,7 +228,6 @@ public class Adminproperty
                     findElement(
                             prop.getProperty(row) + "[" + cnt + "]"
                                     + prop.getProperty(Column)).click();
-
                 }
 
                 status = true;
