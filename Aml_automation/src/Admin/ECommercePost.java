@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -22,18 +23,23 @@ public class ECommercePost
     Adminproperty adminProperties = new Adminproperty();
     Properties prop = new Properties();
     String postcatagory = "Ecommerce";
-    String posttitle = "Automated eCommerce Post with homepage Image/content";
+    String posttitle = "Automated eCommerce Post";
     String postcontent = "hey shobha testing ecommerce post.\n";
     String primaryimage = "\\primary.jpg";
     String tag = "Apple";
+    String homecontent="Homepage content for ecommerce post";
     String fbtext = "Hi testing for FB content";
+    String allowHomepageImage = "Y";
+    String allowHomepageContent = "Y";
 
     @BeforeMethod(alwaysRun = true)
     public void Setup() throws IOException
-    {
+    { 
         prop = adminProperties.ReadProperties();
         driver = adminProperties.callproperty(prop.getProperty("url"),
                 prop.getProperty("browser"));
+        
+        System.out.println( prop.getProperty("browser"));
     }
 
     public void Writeboard() throws Exception
@@ -132,33 +138,35 @@ public class ECommercePost
     }
 
     @Test
-    public void With_HomepageImage() throws Exception
+    public void createEcommercePost() throws Exception
     {
         Writeboard();
-        adminProperties.findAndWrite("homepage_content",
-                "Homepage content for ecommerce post");
         adminProperties.insertTagAndCategory(postcatagory, tag);
-        adminProperties.findAndWrite("ecommerce_homepage_image",
-                System.getProperty("user.dir") + prop.getProperty("image_path")
-                        + "\\" + prop.getProperty("homepage_image"));
-        adminProperties.findAndClick("ecommerce_upload_homepage_image");
-        List<WebElement> imagesList = driver.findElements(By.tagName("img"));
-        for (WebElement imgElement : imagesList) {
-            if (imgElement != null) {
-                adminProperties.verifyImageActive(imgElement);
+        if (allowHomepageContent == "Y") {
+            adminProperties.findAndWrite("homepage_content",
+                    homecontent);
+        }
+
+        if (allowHomepageImage == "Y") {
+
+            adminProperties.findAndWrite(
+                    "ecommerce_homepage_image",
+                    System.getProperty("user.dir")
+                            + prop.getProperty("image_path") + "\\"
+                            + prop.getProperty("homepage_image"));
+            adminProperties.findAndClick("ecommerce_upload_homepage_image");
+            List<WebElement> imagesList = driver
+                    .findElements(By.tagName("img"));
+            for (WebElement imgElement : imagesList) {
+                if (imgElement != null) {
+                    adminProperties.verifyImageActive(imgElement);
+                }
             }
+
         }
 
         adminProperties.addFbTwitterText(fbtext);
-    }
 
-    @Test
-    public void Without_HomepageImage() throws Exception
-    {
-        posttitle = "Automated eCommerce Post without homepage Image/content";
-        Writeboard();
-        adminProperties.insertTagAndCategory(postcatagory, tag);
-        adminProperties.addFbTwitterText(fbtext);
     }
 
     @AfterMethod
