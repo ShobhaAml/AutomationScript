@@ -82,8 +82,8 @@ public class RepostDifundir
         adminProperties.findAndWrite("slide_video_url", slide_video_data);
         adminProperties.findAndWrite("Slideshow_subtitle", Slideshow_subtitle_data);
         adminProperties.findAndWrite("Slideshow_desc", Slideshow_desc_data);
-        Thread.sleep(5000);
         adminProperties.implicitWait();
+        Thread.sleep(5000);
         adminProperties.findAndClick("slide_button");
         adminProperties.implicitWait();
         adminProperties.findAndClick("slide_button_close");
@@ -112,6 +112,7 @@ public class RepostDifundir
         driver.navigate().to("https://testing.xatakafoto.com/admin");
         adminProperties.adminLogin();
         adminProperties.implicitWait();
+        Thread.sleep(5000);
         driver.navigate().refresh();
         driver.navigate().refresh();
         adminProperties.implicitWait();
