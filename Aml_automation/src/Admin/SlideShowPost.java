@@ -35,7 +35,8 @@ public class SlideShowPost
     public void Setup() throws IOException
     {
         prop = adminProperties.ReadProperties();
-        driver = adminProperties.callproperty(prop.getProperty("url"), prop.getProperty("browser"));
+        driver = adminProperties.callproperty(prop.getProperty("url"),
+                prop.getProperty("browser"));
     }
 
     public void login() throws Exception
@@ -65,10 +66,14 @@ public class SlideShowPost
         adminProperties.findAndClick("slideshow_addimage");
         adminProperties.findAndClick("slideshow_input_image");
         adminProperties.implicitWait();
-        Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\DriverFiles\\fileupload.exe" + " "
-                + System.getProperty("user.dir") + "\\src\\Images\\slide.jpg");
+        Runtime.getRuntime().exec(
+                System.getProperty("user.dir")
+                        + "\\src\\DriverFiles\\fileupload.exe" + " "
+                        + System.getProperty("user.dir")
+                        + "\\src\\Images\\slide.jpg");
         adminProperties.implicitWait();
-        adminProperties.findAndWrite("Slideshow_subtitle", Slideshow_subtitle_data);
+        adminProperties.findAndWrite("Slideshow_subtitle",
+                Slideshow_subtitle_data);
         adminProperties.findAndWrite("Slideshow_desc", Slideshow_desc_data);
         adminProperties.findAndClick("slide_button");
         adminProperties.findAndClick("slide_button_close");

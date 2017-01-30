@@ -60,7 +60,7 @@ public class Adminproperty
 
     public void uploadPrimaryImage(String primaryimage) throws Exception
     {
-       
+
         findAndWrite("primary_image_insert", System.getProperty("user.dir")
                 + prop.getProperty("image_path") + primaryimage);
         findAndClick("primary_image_upload");
@@ -197,45 +197,40 @@ public class Adminproperty
                 .getProperty(xpath))));
     }
 
-    public Boolean clickButton(String row, String Column, String Postname, String listtype)
+    public Boolean clickButton(String row, String Column, String Postname,
+            String listtype)
     {
         int cnt = 1;
         Boolean status = false;
-        List<WebElement> postlist= null;
-        if(listtype=="Dashboardlist")
-        {
-         postlist = findElementsByXpath(prop
-                .getProperty("Dashboardlist"));
-        }
-        else if(listtype=="Draft")
-        {
+        List<WebElement> postlist = null;
+        if (listtype == "Dashboardlist") {
+            postlist = findElementsByXpath(prop.getProperty("Dashboardlist"));
+        } else if (listtype == "Draft") {
             postlist = findElementsByXpath(prop
-                    .getProperty("Draftlist_dashboard")); 
-            
+                    .getProperty("Draftlist_dashboard"));
+
         }
-        
+
         for (WebElement list : postlist) {
             System.out.println(list.getText());
             if (list.getText().equalsIgnoreCase(Postname)) {
-                if(listtype=="Dashboardlist")
-                {
-                findElement(
-                        prop.getProperty(row) + "[" + cnt + "]"
-                                + prop.getProperty(Column)).click();
-                }
-                else if(listtype=="Draft")
-                {
-                 
-                    Actions action = new Actions(driver);
-                    action.moveToElement( findElement(
-                            prop.getProperty(row) + "[" + cnt + "]" +"/a")).perform();
-                    
+                if (listtype == "Dashboardlist") {
                     findElement(
                             prop.getProperty(row) + "[" + cnt + "]"
                                     + prop.getProperty(Column)).click();
-                    
+                } else if (listtype == "Draft") {
+
+                    Actions action = new Actions(driver);
+                    action.moveToElement(
+                            findElement(prop.getProperty(row) + "[" + cnt + "]"
+                                    + "/a")).perform();
+
+                    findElement(
+                            prop.getProperty(row) + "[" + cnt + "]"
+                                    + prop.getProperty(Column)).click();
+
                 }
-                
+
                 status = true;
                 break;
             }
@@ -245,11 +240,10 @@ public class Adminproperty
 
         return status;
     }
-    
-    
+
     public String getcatagoryname(String row, String Column, String Postname)
     {
-        String catgoryname="";
+        String catgoryname = "";
         int cnt = 1;
         Boolean status = false;
         List<WebElement> postlist = findElementsByXpath(prop
@@ -258,7 +252,7 @@ public class Adminproperty
             System.out.println(list.getText());
             if (list.getText().equalsIgnoreCase(Postname)) {
 
-                catgoryname=   findElement(
+                catgoryname = findElement(
                         prop.getProperty(row) + "[" + cnt + "]"
                                 + prop.getProperty(Column)).getText();
                 break;
@@ -269,7 +263,5 @@ public class Adminproperty
 
         return catgoryname;
     }
-    
-    
-   
+
 }
