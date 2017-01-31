@@ -398,6 +398,7 @@ public class Adminproperty
             findAndClick("Vine_button");
         }
     }
+
     public void insertBrandedClub(String BrandedClubName, String tag)
     {
         findAndClick("BrandedClub_Click");

@@ -13,8 +13,8 @@ public class EditPublishedPost
     Adminproperty adminproperties = new Adminproperty();
     Properties prop = new Properties();
     WebDriver driver;
-    String Postname = "En casa la consola-tablet se apalanca en un dock con salida a la televisión";
-    String posttype = "";  // Enter 'Slide' for slideshow post
+    String Postname = "Automate hello test repost slidepost testing no more sweat:- Sumt";
+    String posttype = ""; // Enter 'Slide' for slideshow post
     Boolean status = true;
 
     public void Adminlogin() throws Exception
@@ -29,6 +29,7 @@ public class EditPublishedPost
     public void editPublishedPost() throws Exception
     {
         Adminlogin();
+        Postname = Postname.trim();
 
         String catagory = adminproperties.getcatagoryname(
                 "DashboardEditbuttontr", "DashboardCatagoryname", Postname);
@@ -81,8 +82,7 @@ public class EditPublishedPost
         Runtime.getRuntime().exec(
                 System.getProperty("user.dir")
                         + "\\src\\DriverFiles\\fileupload.exe" + " "
-                        + System.getProperty("user.dir")
-                        + slide );
+                        + System.getProperty("user.dir") + slide);
         adminproperties.implicitWait();
         adminproperties.findAndWrite("Slideshow_subtitle", "Slide 1");
         adminproperties.findAndWrite("Slideshow_desc",
