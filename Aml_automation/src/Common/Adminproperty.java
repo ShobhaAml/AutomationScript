@@ -262,5 +262,65 @@ public class Adminproperty
 
         return catgoryname;
     }
+    public void repostCheckbox(String Selector1, String Selector2)
+    {
+        WebElement CheckBox1 = driver.findElement(By.cssSelector("input[value='" + Selector1 + "']"));
+        CheckBox1.click();
 
+        WebElement CheckBox = driver.findElement(By.cssSelector("input[value='" + Selector2 + "']"));
+        CheckBox.click();
+        
+    }  
+    public void summaryActuallization(String summary_data,String actuallization_data ,String summary_insert_button) throws Exception
+    {
+        findElement(prop.getProperty("toolbar_summary")).click();
+        findElement(prop.getProperty("summary_input_field")).sendKeys(summary_data);
+        Thread.sleep(3000);
+        implicitWait();
+        switch(summary_insert_button)
+        {
+        case "left":
+        implicitWait();
+        findElement(prop.getProperty("summary_insert_left")).click();
+        break;
+        case "right":
+        implicitWait();
+        findElement(prop.getProperty("summary_insert_right")).click();
+        break;
+        case "center":
+        implicitWait();
+        findElement(prop.getProperty("summary_insert_center")).click();
+        break;
+        }
+        implicitWait();
+        findElement(prop.getProperty("toolbar_Advance")).click();
+        findElement(prop.getProperty("toolbar_actuallization")).click();
+        findElement(prop.getProperty("actuallization_input_field")).sendKeys(actuallization_data);
+        implicitWait();
+        findElement(prop.getProperty("actuallization_insert_button")).click();
+        implicitWait();
+    }
+       
+   public void repost_By_Difundir(String Selector1,String Selector2,String tittle_data, String navigate_blog) throws Exception
+   {
+       findElement(prop.getProperty("difundir_Link")).click();
+       findElement(prop.getProperty("repost_list_button")).click();
+       implicitWait();
+        repostCheckbox(Selector1, Selector2);
+      implicitWait();
+       findElement(prop.getProperty("repost_post_button")).click();
+       Thread.sleep(3000);
+       driver.navigate().to(navigate_blog);
+       adminLogin();
+       implicitWait();
+       Thread.sleep(5000);
+       driver.navigate().refresh();
+       driver.navigate().refresh();
+       driver.navigate().refresh();
+       implicitWait();
+       findElement(prop.getProperty("notification_button")).click();
+       implicitWait();
+       clickNotificationButton("tittle_data");
+   }
+  
 }
