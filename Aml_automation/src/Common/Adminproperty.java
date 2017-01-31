@@ -32,24 +32,20 @@ public class Adminproperty
     public Properties ReadProperties() throws IOException
     {
         FileInputStream inStream = new FileInputStream(
-                System.getProperty("user.dir")
-                        + "\\src\\Common\\admin.properties");
+                System.getProperty("user.dir") + "\\src\\Common\\admin.properties");
         prop.load(inStream);
         return prop;
     }
 
-    public WebDriver callproperty(String url, String browser)
-            throws IOException
+    public WebDriver callproperty(String url, String browser) throws IOException
     {
         if (browser.trim().equalsIgnoreCase("Chrome")) {
             System.setProperty("webdriver.chrome.driver",
-                    System.getProperty("user.dir") + "//src//Driverfiles//"
-                            + "chromedriver.exe");
+                    System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedriver.exe");
             driver = new ChromeDriver();
         } else {
             System.setProperty("webdriver.gecko.driver",
-                    System.getProperty("user.dir") + "//src//Driverfiles//"
-                            + "geckodriver.exe");
+                    System.getProperty("user.dir") + "//src//Driverfiles//" + "geckodriver.exe");
             driver = new FirefoxDriver();
         }
         driver.get(url);
@@ -61,16 +57,14 @@ public class Adminproperty
     public void uploadPrimaryImage(String primaryimage) throws Exception
     {
 
-        findAndWrite("primary_image_insert", System.getProperty("user.dir")
-                + prop.getProperty("image_path") + "\\" + primaryimage);
+        findAndWrite("primary_image_insert",
+                System.getProperty("user.dir") + prop.getProperty("image_path") + "\\" + primaryimage);
         findAndClick("primary_image_upload");
-        WebElement element1 = findElement(prop
-                .getProperty("product_image_bulkupload")
-                + prop.getProperty("product_image_bulkupload1"));
+        WebElement element1 = findElement(
+                prop.getProperty("product_image_bulkupload") + prop.getProperty("product_image_bulkupload1"));
         if (element1.getAttribute("href") != null) {
             isLinkBroken(new URL(element1.getAttribute("href")));
-            System.out.println(isLinkBroken(new URL(element1
-                    .getAttribute("href"))));
+            System.out.println(isLinkBroken(new URL(element1.getAttribute("href"))));
         }
         implicitWait();
         findAndClick("primary_noraml_insert");
@@ -161,8 +155,7 @@ public class Adminproperty
     {
         findAndClick("Catagory_click");
         findAndWrite("catagory", postcatagory);
-        List<WebElement> optionlist = findElementByClass(prop
-                .getProperty("catagory_ecommerce_by_ClassName"));
+        List<WebElement> optionlist = findElementByClass(prop.getProperty("catagory_ecommerce_by_ClassName"));
         for (WebElement options : optionlist) {
             if (options.getText().equalsIgnoreCase(postcatagory)) {
                 options.click();
@@ -170,8 +163,7 @@ public class Adminproperty
             }
         }
         findAndWrite("tag_input", tag);
-        List<WebElement> Tagoptionlist = findElementByClass(prop
-                .getProperty("tag_list_Byclassname"));
+        List<WebElement> Tagoptionlist = findElementByClass(prop.getProperty("tag_list_Byclassname"));
         for (WebElement options : Tagoptionlist) {
             if (options.getText().equalsIgnoreCase(tag)) {
                 options.click();
@@ -185,20 +177,17 @@ public class Adminproperty
     {
         if (element.getAttribute("href") != null) {
             isLinkBroken(new URL(element.getAttribute("href")));
-            System.out.println(isLinkBroken(new URL(element
-                    .getAttribute("href"))));
+            System.out.println(isLinkBroken(new URL(element.getAttribute("href"))));
         }
     }
 
     public void Conditionalwait(String xpath)
     {
         WebDriverWait wait = new WebDriverWait(driver, 50);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prop
-                .getProperty(xpath))));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prop.getProperty(xpath))));
     }
 
-    public Boolean clickButton(String row, String Column, String Postname,
-            String listtype)
+    public Boolean clickButton(String row, String Column, String Postname, String listtype)
     {
         int cnt = 1;
         Boolean status = false;
@@ -206,8 +195,7 @@ public class Adminproperty
         if (listtype == "Dashboardlist") {
             postlist = findElementsByXpath(prop.getProperty("Dashboardlist"));
         } else if (listtype == "Draft") {
-            postlist = findElementsByXpath(prop
-                    .getProperty("Draftlist_dashboard"));
+            postlist = findElementsByXpath(prop.getProperty("Draftlist_dashboard"));
 
         }
 
@@ -215,19 +203,13 @@ public class Adminproperty
             System.out.println(list.getText());
             if (list.getText().equalsIgnoreCase(Postname)) {
                 if (listtype == "Dashboardlist") {
-                    findElement(
-                            prop.getProperty(row) + "[" + cnt + "]"
-                                    + prop.getProperty(Column)).click();
+                    findElement(prop.getProperty(row) + "[" + cnt + "]" + prop.getProperty(Column)).click();
                 } else if (listtype == "Draft") {
 
                     Actions action = new Actions(driver);
-                    action.moveToElement(
-                            findElement(prop.getProperty(row) + "[" + cnt + "]"
-                                    + "/a")).perform();
+                    action.moveToElement(findElement(prop.getProperty(row) + "[" + cnt + "]" + "/a")).perform();
 
-                    findElement(
-                            prop.getProperty(row) + "[" + cnt + "]"
-                                    + prop.getProperty(Column)).click();
+                    findElement(prop.getProperty(row) + "[" + cnt + "]" + prop.getProperty(Column)).click();
                 }
 
                 status = true;
@@ -245,15 +227,12 @@ public class Adminproperty
         String catgoryname = "";
         int cnt = 1;
         Boolean status = false;
-        List<WebElement> postlist = findElementsByXpath(prop
-                .getProperty("Dashboardlist"));
+        List<WebElement> postlist = findElementsByXpath(prop.getProperty("Dashboardlist"));
         for (WebElement list : postlist) {
             System.out.println(list.getText());
             if (list.getText().equalsIgnoreCase(Postname)) {
 
-                catgoryname = findElement(
-                        prop.getProperty(row) + "[" + cnt + "]"
-                                + prop.getProperty(Column)).getText();
+                catgoryname = findElement(prop.getProperty(row) + "[" + cnt + "]" + prop.getProperty(Column)).getText();
                 break;
             }
 
@@ -265,23 +244,19 @@ public class Adminproperty
 
     public void repostCheckbox(String Selector1, String Selector2)
     {
-        WebElement CheckBox1 = driver.findElement(By
-                .cssSelector("input[value='" + Selector1 + "']"));
+        WebElement CheckBox1 = driver.findElement(By.cssSelector("input[value='" + Selector1 + "']"));
         CheckBox1.click();
 
-        WebElement CheckBox = driver.findElement(By.cssSelector("input[value='"
-                + Selector2 + "']"));
+        WebElement CheckBox = driver.findElement(By.cssSelector("input[value='" + Selector2 + "']"));
         CheckBox.click();
 
     }
 
-    public void summaryActuallization(String summary_data,
-            String actuallization_data, String summary_insert_button)
+    public void summaryActuallization(String summary_data, String actuallization_data, String summary_insert_button)
             throws Exception
     {
         findElement(prop.getProperty("toolbar_summary")).click();
-        findElement(prop.getProperty("summary_input_field")).sendKeys(
-                summary_data);
+        findElement(prop.getProperty("summary_input_field")).sendKeys(summary_data);
         Thread.sleep(3000);
         implicitWait();
         switch (summary_insert_button) {
@@ -302,16 +277,15 @@ public class Adminproperty
         findElement(prop.getProperty("toolbar_Advance")).click();
         findElement(prop.getProperty("toolbar_actuallization")).click();
 
-        findElement(prop.getProperty("actuallization_input_field")).sendKeys(
-                actuallization_data);
+        findElement(prop.getProperty("actuallization_input_field")).sendKeys(actuallization_data);
 
         implicitWait();
         findElement(prop.getProperty("actuallization_insert_button")).click();
         implicitWait();
     }
 
-    public void repost_By_Difundir(String Selector1, String Selector2,
-            String tittle_data, String navigate_blog) throws Exception
+    public void repost_By_Difundir(String Selector1, String Selector2, String tittle_data, String navigate_blog)
+            throws Exception
     {
         findElement(prop.getProperty("difundir_Link")).click();
         findElement(prop.getProperty("repost_list_button")).click();
@@ -336,23 +310,93 @@ public class Adminproperty
     public void clickNotificationButton(String tittle_data)
     {
         int cnt = 1;
-        List<WebElement> postlist = findElementByClass(prop
-                .getProperty("notification_list_by_ClassName"));
+        List<WebElement> postlist = findElementByClass(prop.getProperty("notification_list_by_ClassName"));
         for (WebElement list : postlist) {
-            String sender = driver.findElement(
-                    By.className(prop.getProperty("notify_sender"))).getText();
+            String sender = driver.findElement(By.className(prop.getProperty("notify_sender"))).getText();
             String text = list.getText().replace(sender, "");
             if (text.trim().equalsIgnoreCase(tittle_data)) {
                 System.out.println(cnt + "hi");
                 Actions act = new Actions(driver);
-                act.doubleClick(
-                        driver.findElement(By.className(prop
-                                .getProperty("notify_sender")))).build()
-                        .perform();
+                act.doubleClick(driver.findElement(By.className(prop.getProperty("notify_sender")))).build().perform();
                 driver.findElement(By.className("actions-approve")).click();
                 break;
             }
             cnt++;
         }
     }
+
+    public void HomePageContent()
+    {
+        findAndWrite("Homepagecontent", "Homepagetext");
+    }
+
+    public void insertGIF(String Image) throws Exception
+    {
+        if (findElement(prop.getProperty("post_content")).getText().contains("<!--more-->")) {
+            findAndClick("toolbar_image");
+            uploadPrimaryImage(Image);
+        } else {
+            findAndSendkey("post_content", Keys.END);
+            findAndSendkey("post_content", Keys.ENTER);
+            findAndClick("toolbar_more");
+            findAndSendkey("post_content", Keys.END);
+            findAndSendkey("post_content", Keys.ENTER);
+            findAndClick("toolbar_image");
+            uploadPrimaryImage(Image);
+        }
+    }
+
+    public void imageType(String imageType, String Image) throws Exception
+    {
+        switch (imageType) {
+        case "normal":
+            implicitWait();
+            findAndClick("toolbar_image");
+            uploadPrimaryImage(Image);
+            break;
+        case "gif":
+            implicitWait();
+            insertGIF(Image);
+            break;
+        }
+    }
+
+    public void videoHandle(String videoURL, String layout)
+    {
+        findAndClick("toolbar_video");
+        findAndWrite("Video_URL", videoURL);
+        if (videoURL.contains("youtube.com")) {
+            System.out.println("hello");
+            switch (layout) {
+            case "normal":
+                findAndClick("Video_NormalLayout");
+                break;
+            case "big":
+                findAndClick("Video_Biglayout");
+                break;
+            }
+            findAndClick("Youtube_button");
+        } else if (videoURL.contains("vimeo.com")) {
+            switch (layout) {
+            case "normal":
+                findAndClick("Video_NormalLayout");
+                break;
+            case "big":
+                findAndClick("Video_Biglayout");
+                break;
+            }
+            findAndClick("Vimeo_button");
+        } else {
+            switch (layout) {
+            case "normal":
+                findAndClick("Video_NormalLayout");
+                break;
+            case "big":
+                findAndClick("Video_Biglayout");
+                break;
+            }
+            findAndClick("Vine_button");
+        }
+    }
+
 }
