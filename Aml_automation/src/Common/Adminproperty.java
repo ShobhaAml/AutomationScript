@@ -41,7 +41,7 @@ public class Adminproperty
     public WebDriver callproperty(String url, String browser)
             throws IOException
     {
-        if (browser.equalsIgnoreCase("Chrome")) {
+        if (browser.trim().equalsIgnoreCase("Chrome")) {
             System.setProperty("webdriver.chrome.driver",
                     System.getProperty("user.dir") + "//src//Driverfiles//"
                             + "chromedriver.exe");
@@ -62,7 +62,7 @@ public class Adminproperty
     {
 
         findAndWrite("primary_image_insert", System.getProperty("user.dir")
-                + prop.getProperty("image_path") + primaryimage);
+                + prop.getProperty("image_path") + "\\" + primaryimage);
         findAndClick("primary_image_upload");
         WebElement element1 = findElement(prop
                 .getProperty("product_image_bulkupload")
@@ -263,4 +263,94 @@ public class Adminproperty
         return catgoryname;
     }
 
+    public void repostCheckbox(String Selector1, String Selector2)
+    {
+        WebElement CheckBox1 = driver.findElement(By
+                .cssSelector("input[value='" + Selector1 + "']"));
+        CheckBox1.click();
+
+        WebElement CheckBox = driver.findElement(By.cssSelector("input[value='"
+                + Selector2 + "']"));
+        CheckBox.click();
+
+    }
+
+    public void summaryActuallization(String summary_data,
+            String actuallization_data, String summary_insert_button)
+            throws Exception
+    {
+        findElement(prop.getProperty("toolbar_summary")).click();
+        findElement(prop.getProperty("summary_input_field")).sendKeys(
+                summary_data);
+        Thread.sleep(3000);
+        implicitWait();
+        switch (summary_insert_button) {
+        case "left":
+            implicitWait();
+            findElement(prop.getProperty("summary_insert_left")).click();
+            break;
+        case "right":
+            implicitWait();
+            findElement(prop.getProperty("summary_insert_right")).click();
+            break;
+        case "center":
+            implicitWait();
+            findElement(prop.getProperty("summary_insert_center")).click();
+            break;
+        }
+        implicitWait();
+        findElement(prop.getProperty("toolbar_Advance")).click();
+        findElement(prop.getProperty("toolbar_actuallization")).click();
+        findElement(prop.getProperty("actuallization_input_field")).sendKeys(
+                actuallization_data);
+        implicitWait();
+        findElement(prop.getProperty("actuallization_insert_button")).click();
+        implicitWait();
+    }
+
+    public void repost_By_Difundir(String Selector1, String Selector2,
+            String tittle_data, String navigate_blog) throws Exception
+    {
+        findElement(prop.getProperty("difundir_Link")).click();
+        findElement(prop.getProperty("repost_list_button")).click();
+        implicitWait();
+        repostCheckbox(Selector1, Selector2);
+        implicitWait();
+        findElement(prop.getProperty("repost_post_button")).click();
+        Thread.sleep(3000);
+        driver.navigate().to(navigate_blog);
+        adminLogin();
+        implicitWait();
+        Thread.sleep(5000);
+        driver.navigate().refresh();
+        driver.navigate().refresh();
+        driver.navigate().refresh();
+        implicitWait();
+        findElement(prop.getProperty("notification_button")).click();
+        implicitWait();
+        clickNotificationButton("tittle_data");
+    }
+
+    public void clickNotificationButton(String tittle_data)
+    {
+        int cnt = 1;
+        List<WebElement> postlist = findElementByClass(prop
+                .getProperty("notification_list_by_ClassName"));
+        for (WebElement list : postlist) {
+            String sender = driver.findElement(
+                    By.className(prop.getProperty("notify_sender"))).getText();
+            String text = list.getText().replace(sender, "");
+            if (text.trim().equalsIgnoreCase(tittle_data)) {
+                System.out.println(cnt + "hi");
+                Actions act = new Actions(driver);
+                act.doubleClick(
+                        driver.findElement(By.className(prop
+                                .getProperty("notify_sender")))).build()
+                        .perform();
+                driver.findElement(By.className("actions-approve")).click();
+                break;
+            }
+            cnt++;
+        }
+    }
 }
