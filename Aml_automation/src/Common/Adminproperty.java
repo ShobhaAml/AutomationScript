@@ -399,4 +399,25 @@ public class Adminproperty
         }
     }
 
+    public void insertBrandedClub(String BrandedClubName, String tag)
+    {
+        findAndClick("BrandedClub_Click");
+        findAndWrite("BrandedClub_InputBox", BrandedClubName);
+        List<WebElement> optionlist = findElementByClass(prop.getProperty("BrandedClub_List_by_ClassName"));
+      
+        for (WebElement options : optionlist) {
+            if (options.getText().equalsIgnoreCase(BrandedClubName)) {
+               options.click();
+                break;
+            }
+        }
+        findAndWrite("tag_input", tag);
+        List<WebElement> Tagoptionlist = findElementByClass(prop.getProperty("tag_list_Byclassname"));
+        for (WebElement options : Tagoptionlist) {
+            if (options.getText().equalsIgnoreCase(tag)) {
+                options.click();
+                break;
+            }
+        }
+    }
 }
