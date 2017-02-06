@@ -64,7 +64,7 @@ public class Adminproperty
     public void uploadPrimaryImage(String primaryimage, String browser)
             throws Exception
     {
-       String primaryimagearr[] = primaryimage.split(",");
+        String primaryimagearr[] = primaryimage.split(",");
         for (int i = 0; i < primaryimagearr.length; i++) {
             if ((primaryimagearr[i].contains(".gif"))
                     || (primaryimagearr[i].contains(".GIF"))) {
@@ -396,36 +396,25 @@ public class Adminproperty
     {
         findAndClick("toolbar_video");
         findAndWrite("Video_URL", videoURL);
-        if (videoURL.contains("youtube")) {
-            switch (layout) {
-            case "normal":
-                findAndClick("Video_NormalLayout");
-                break;
-            case "big":
-                findAndClick("Video_Biglayout");
-                break;
-            }
-            findAndClick("Youtube_button");
-        } else if (videoURL.contains("vimeo")) {
-            switch (layout) {
-            case "normal":
-                findAndClick("Video_NormalLayout");
-                break;
-            case "big":
-                findAndClick("Video_Biglayout");
-                break;
-            }
-            findAndClick("Vimeo_button");
+        implicitWait();
+        if (layout.equalsIgnoreCase("normal")) {
+            findElement(prop.getProperty("Video_NormalLayout")).click();
         } else {
-            switch (layout) {
-            case "normal":
-                findAndClick("Video_NormalLayout");
-                break;
-            case "big":
-                findAndClick("Video_Biglayout");
-                break;
-            }
-            findAndClick("Vine_button");
+            findElement(prop.getProperty("Video_Biglayout")).click();
+        }
+
+        if (videoURL.contains("youtube")) {
+            WebElement element = findElement(prop.getProperty("Youtube_button"));
+            JavascriptExecutor executor = (JavascriptExecutor) driver;
+            executor.executeScript("arguments[0].click();", element);
+        } else if (videoURL.contains("vimeo")) {
+            WebElement element = findElement(prop.getProperty("Vimeo_button"));
+            JavascriptExecutor executor = (JavascriptExecutor) driver;
+            executor.executeScript("arguments[0].click();", element);
+        } else {
+            WebElement element = findElement(prop.getProperty("Vine_button"));
+            JavascriptExecutor executor = (JavascriptExecutor) driver;
+            executor.executeScript("arguments[0].click();", element);
         }
         implicitWait();
         addNewline();
@@ -629,5 +618,6 @@ public class Adminproperty
         findAndClick("republish_diffunder");
         implicitWait();
         findAndClick("republish_click");
-   }
+    }
+
 }
