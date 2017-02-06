@@ -39,20 +39,24 @@ public class Adminproperty
     public Properties ReadProperties() throws IOException
     {
         FileInputStream inStream = new FileInputStream(
-                System.getProperty("user.dir") + "\\src\\Common\\admin.properties");
+                System.getProperty("user.dir")
+                        + "\\src\\Common\\admin.properties");
         prop.load(inStream);
         return prop;
     }
 
-    public WebDriver callproperty(String url, String browser) throws IOException
+    public WebDriver callproperty(String url, String browser)
+            throws IOException
     {
         if (browser.trim().equalsIgnoreCase("Chrome")) {
             System.setProperty("webdriver.chrome.driver",
-                    System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedriver.exe");
+                    System.getProperty("user.dir") + "//src//Driverfiles//"
+                            + "chromedriver.exe");
             driver = new ChromeDriver();
         } else {
             System.setProperty("webdriver.gecko.driver",
-                    System.getProperty("user.dir") + "//src//Driverfiles//" + "geckodriver.exe");
+                    System.getProperty("user.dir") + "//src//Driverfiles//"
+                            + "geckodriver.exe");
             driver = new FirefoxDriver();
         }
         driver.get(url);
@@ -64,7 +68,7 @@ public class Adminproperty
     public void uploadPrimaryImage(String primaryimage, String browser)
             throws Exception
     {
-       String primaryimagearr[] = primaryimage.split(",");
+        String primaryimagearr[] = primaryimage.split(",");
         for (int i = 0; i < primaryimagearr.length; i++) {
             if ((primaryimagearr[i].contains(".gif"))
                     || (primaryimagearr[i].contains(".GIF"))) {
@@ -88,7 +92,8 @@ public class Adminproperty
 
         if (element1.getAttribute("href") != null) {
             isLinkBroken(new URL(element1.getAttribute("href")));
-            System.out.println(isLinkBroken(new URL(element1.getAttribute("href"))));
+            System.out.println(isLinkBroken(new URL(element1
+                    .getAttribute("href"))));
         }
         implicitWait();
         findAndClick("primary_noraml_insert");
@@ -220,17 +225,20 @@ public class Adminproperty
     {
         if (element.getAttribute("href") != null) {
             isLinkBroken(new URL(element.getAttribute("href")));
-            System.out.println(isLinkBroken(new URL(element.getAttribute("href"))));
+            System.out.println(isLinkBroken(new URL(element
+                    .getAttribute("href"))));
         }
     }
 
     public void Conditionalwait(String xpath)
     {
         WebDriverWait wait = new WebDriverWait(driver, 50);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prop.getProperty(xpath))));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prop
+                .getProperty(xpath))));
     }
 
-    public Boolean clickButton(String row, String Column, String Postname, String listtype)
+    public Boolean clickButton(String row, String Column, String Postname,
+            String listtype)
     {
         int cnt = 1;
         Boolean status = false;
@@ -238,7 +246,8 @@ public class Adminproperty
         if (listtype == "Dashboardlist") {
             postlist = findElementsByXpath(prop.getProperty("Dashboardlist"));
         } else if (listtype == "Draft") {
-            postlist = findElementsByXpath(prop.getProperty("Draftlist_dashboard"));
+            postlist = findElementsByXpath(prop
+                    .getProperty("Draftlist_dashboard"));
 
         }
 
@@ -246,13 +255,19 @@ public class Adminproperty
             System.out.println(list.getText());
             if (list.getText().equalsIgnoreCase(Postname)) {
                 if (listtype == "Dashboardlist") {
-                    findElement(prop.getProperty(row) + "[" + cnt + "]" + prop.getProperty(Column)).click();
+                    findElement(
+                            prop.getProperty(row) + "[" + cnt + "]"
+                                    + prop.getProperty(Column)).click();
                 } else if (listtype == "Draft") {
 
                     Actions action = new Actions(driver);
-                    action.moveToElement(findElement(prop.getProperty(row) + "[" + cnt + "]" + "/a")).perform();
+                    action.moveToElement(
+                            findElement(prop.getProperty(row) + "[" + cnt + "]"
+                                    + "/a")).perform();
 
-                    findElement(prop.getProperty(row) + "[" + cnt + "]" + prop.getProperty(Column)).click();
+                    findElement(
+                            prop.getProperty(row) + "[" + cnt + "]"
+                                    + prop.getProperty(Column)).click();
                 }
 
                 status = true;
@@ -270,12 +285,15 @@ public class Adminproperty
         String catgoryname = "";
         int cnt = 1;
         Boolean status = false;
-        List<WebElement> postlist = findElementsByXpath(prop.getProperty("Dashboardlist"));
+        List<WebElement> postlist = findElementsByXpath(prop
+                .getProperty("Dashboardlist"));
         for (WebElement list : postlist) {
             System.out.println(list.getText());
             if (list.getText().equalsIgnoreCase(Postname)) {
 
-                catgoryname = findElement(prop.getProperty(row) + "[" + cnt + "]" + prop.getProperty(Column)).getText();
+                catgoryname = findElement(
+                        prop.getProperty(row) + "[" + cnt + "]"
+                                + prop.getProperty(Column)).getText();
                 break;
             }
 
@@ -399,22 +417,22 @@ public class Adminproperty
         implicitWait();
         if (layout.equalsIgnoreCase("normal")) {
             findElement(prop.getProperty("Video_NormalLayout")).click();
-          }  else {
-              findElement(prop.getProperty("Video_Biglayout")).click();
-            }
-        
+        } else {
+            findElement(prop.getProperty("Video_Biglayout")).click();
+        }
+
         if (videoURL.contains("youtube")) {
-            WebElement element=findElement(prop.getProperty("Youtube_button"));
+            WebElement element = findElement(prop.getProperty("Youtube_button"));
             JavascriptExecutor executor = (JavascriptExecutor) driver;
             executor.executeScript("arguments[0].click();", element);
         } else if (videoURL.contains("vimeo")) {
-            WebElement element=findElement(prop.getProperty("Vimeo_button"));
+            WebElement element = findElement(prop.getProperty("Vimeo_button"));
             JavascriptExecutor executor = (JavascriptExecutor) driver;
-            executor.executeScript("arguments[0].click();", element);           
+            executor.executeScript("arguments[0].click();", element);
         } else {
-            WebElement element=findElement(prop.getProperty("Vine_button"));
+            WebElement element = findElement(prop.getProperty("Vine_button"));
             JavascriptExecutor executor = (JavascriptExecutor) driver;
-            executor.executeScript("arguments[0].click();", element);     
+            executor.executeScript("arguments[0].click();", element);
         }
         implicitWait();
         addNewline();
@@ -443,7 +461,6 @@ public class Adminproperty
             }
         }
     }
-
 
     public void addslides(String slides, String browser) throws IOException,
             Exception
@@ -618,5 +635,5 @@ public class Adminproperty
         findAndClick("republish_diffunder");
         implicitWait();
         findAndClick("republish_click");
-   }
+    }
 }
