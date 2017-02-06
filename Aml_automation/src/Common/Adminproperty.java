@@ -68,8 +68,7 @@ public class Adminproperty
     public void uploadPrimaryImage(String primaryimage, String browser)
             throws Exception
     {
-
-        String primaryimagearr[] = primaryimage.split(",");
+       String primaryimagearr[] = primaryimage.split(",");
         for (int i = 0; i < primaryimagearr.length; i++) {
             if ((primaryimagearr[i].contains(".gif"))
                     || (primaryimagearr[i].contains(".GIF"))) {
@@ -651,6 +650,5 @@ public class Adminproperty
         findAndClick("republish_diffunder");
         implicitWait();
         findAndClick("republish_click");
-
-    }
+   }
 }
