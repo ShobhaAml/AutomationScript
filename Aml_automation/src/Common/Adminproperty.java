@@ -39,24 +39,20 @@ public class Adminproperty
     public Properties ReadProperties() throws IOException
     {
         FileInputStream inStream = new FileInputStream(
-                System.getProperty("user.dir")
-                        + "\\src\\Common\\admin.properties");
+                System.getProperty("user.dir") + "\\src\\Common\\admin.properties");
         prop.load(inStream);
         return prop;
     }
 
-    public WebDriver callproperty(String url, String browser)
-            throws IOException
+    public WebDriver callproperty(String url, String browser) throws IOException
     {
         if (browser.trim().equalsIgnoreCase("Chrome")) {
             System.setProperty("webdriver.chrome.driver",
-                    System.getProperty("user.dir") + "//src//Driverfiles//"
-                            + "chromedriver.exe");
+                    System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedriver.exe");
             driver = new ChromeDriver();
         } else {
             System.setProperty("webdriver.gecko.driver",
-                    System.getProperty("user.dir") + "//src//Driverfiles//"
-                            + "geckodriver.exe");
+                    System.getProperty("user.dir") + "//src//Driverfiles//" + "geckodriver.exe");
             driver = new FirefoxDriver();
         }
         driver.get(url);
@@ -86,19 +82,17 @@ public class Adminproperty
                     + primaryimagearr[i]);
             findAndClick("primary_image_upload");
         }
-
         WebElement element1 = findElement(prop
                 .getProperty("product_image_bulkupload")
                 + prop.getProperty("product_image_bulkupload1"));
+
         if (element1.getAttribute("href") != null) {
             isLinkBroken(new URL(element1.getAttribute("href")));
-            System.out.println(isLinkBroken(new URL(element1
-                    .getAttribute("href"))));
+            System.out.println(isLinkBroken(new URL(element1.getAttribute("href"))));
         }
         implicitWait();
         findAndClick("primary_noraml_insert");
         implicitWait();
-
     }
 
     public void findAndClick(String element)
@@ -226,20 +220,17 @@ public class Adminproperty
     {
         if (element.getAttribute("href") != null) {
             isLinkBroken(new URL(element.getAttribute("href")));
-            System.out.println(isLinkBroken(new URL(element
-                    .getAttribute("href"))));
+            System.out.println(isLinkBroken(new URL(element.getAttribute("href"))));
         }
     }
 
     public void Conditionalwait(String xpath)
     {
         WebDriverWait wait = new WebDriverWait(driver, 50);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prop
-                .getProperty(xpath))));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prop.getProperty(xpath))));
     }
 
-    public Boolean clickButton(String row, String Column, String Postname,
-            String listtype)
+    public Boolean clickButton(String row, String Column, String Postname, String listtype)
     {
         int cnt = 1;
         Boolean status = false;
@@ -247,8 +238,7 @@ public class Adminproperty
         if (listtype == "Dashboardlist") {
             postlist = findElementsByXpath(prop.getProperty("Dashboardlist"));
         } else if (listtype == "Draft") {
-            postlist = findElementsByXpath(prop
-                    .getProperty("Draftlist_dashboard"));
+            postlist = findElementsByXpath(prop.getProperty("Draftlist_dashboard"));
 
         }
 
@@ -256,19 +246,13 @@ public class Adminproperty
             System.out.println(list.getText());
             if (list.getText().equalsIgnoreCase(Postname)) {
                 if (listtype == "Dashboardlist") {
-                    findElement(
-                            prop.getProperty(row) + "[" + cnt + "]"
-                                    + prop.getProperty(Column)).click();
+                    findElement(prop.getProperty(row) + "[" + cnt + "]" + prop.getProperty(Column)).click();
                 } else if (listtype == "Draft") {
 
                     Actions action = new Actions(driver);
-                    action.moveToElement(
-                            findElement(prop.getProperty(row) + "[" + cnt + "]"
-                                    + "/a")).perform();
+                    action.moveToElement(findElement(prop.getProperty(row) + "[" + cnt + "]" + "/a")).perform();
 
-                    findElement(
-                            prop.getProperty(row) + "[" + cnt + "]"
-                                    + prop.getProperty(Column)).click();
+                    findElement(prop.getProperty(row) + "[" + cnt + "]" + prop.getProperty(Column)).click();
                 }
 
                 status = true;
@@ -286,15 +270,12 @@ public class Adminproperty
         String catgoryname = "";
         int cnt = 1;
         Boolean status = false;
-        List<WebElement> postlist = findElementsByXpath(prop
-                .getProperty("Dashboardlist"));
+        List<WebElement> postlist = findElementsByXpath(prop.getProperty("Dashboardlist"));
         for (WebElement list : postlist) {
             System.out.println(list.getText());
             if (list.getText().equalsIgnoreCase(Postname)) {
 
-                catgoryname = findElement(
-                        prop.getProperty(row) + "[" + cnt + "]"
-                                + prop.getProperty(Column)).getText();
+                catgoryname = findElement(prop.getProperty(row) + "[" + cnt + "]" + prop.getProperty(Column)).getText();
                 break;
             }
 
@@ -425,7 +406,6 @@ public class Adminproperty
                 break;
             }
             findAndClick("Youtube_button");
-
         } else if (videoURL.contains("vimeo")) {
             switch (layout) {
             case "normal":
@@ -436,7 +416,6 @@ public class Adminproperty
                 break;
             }
             findAndClick("Vimeo_button");
-
         } else {
             switch (layout) {
             case "normal":
@@ -447,7 +426,6 @@ public class Adminproperty
                 break;
             }
             findAndClick("Vine_button");
-
         }
         implicitWait();
         addNewline();
@@ -476,6 +454,7 @@ public class Adminproperty
             }
         }
     }
+
 
     public void addslides(String slides, String browser) throws IOException,
             Exception
