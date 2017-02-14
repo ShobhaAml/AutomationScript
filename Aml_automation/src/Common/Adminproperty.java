@@ -362,17 +362,21 @@ public class Adminproperty {
 		}
 
 		if (videoURL.contains("youtube")) {
+			implicitWait();
 			WebElement element = findElement(prop.getProperty("Youtube_button"));
 			JavascriptExecutor executor = (JavascriptExecutor) driver;
 			executor.executeScript("arguments[0].click();", element);
 		} else if (videoURL.contains("vimeo")) {
+			implicitWait();
 			WebElement element = findElement(prop.getProperty("Vimeo_button"));
 			JavascriptExecutor executor = (JavascriptExecutor) driver;
 			executor.executeScript("arguments[0].click();", element);
 		} else {
+			implicitWait();
 			WebElement element = findElement(prop.getProperty("Vine_button"));
 			JavascriptExecutor executor = (JavascriptExecutor) driver;
 			executor.executeScript("arguments[0].click();", element);
+
 		}
 		implicitWait();
 		addNewline();
@@ -552,11 +556,8 @@ public class Adminproperty {
 		findAndClick("republish_click");
 	}
 
-	public void dialogBoxOk()
-
-	{
+	public void dialogBoxOk() {
 		Alert alert = driver.switchTo().alert();
 		alert.accept();
-
 	}
 }
