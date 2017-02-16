@@ -1,12 +1,13 @@
 package Common;
 
+import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeListener;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -19,6 +20,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -64,7 +66,7 @@ public class Adminproperty
     public void uploadPrimaryImage(String primaryimage, String browser)
             throws Exception
     {
-       String primaryimagearr[] = primaryimage.split(",");
+       String primaryimagearr[] = primaryimage.split("@#@");
         for (int i = 0; i < primaryimagearr.length; i++) {
             if ((primaryimagearr[i].contains(".gif"))
                     || (primaryimagearr[i].contains(".GIF"))) {
@@ -77,7 +79,37 @@ public class Adminproperty
             }
             addNewlines();
             implicitWait();
+            System.out.println(primaryimagearr[i]);
             findAndWrite("primary_image_insert", System.getProperty("user.dir")
+                    + prop.getProperty("image_path") + "\\"
+                    + primaryimagearr[i]);
+            findAndClick("primary_image_upload");
+        }
+        WebElement element1 = findElement(prop
+                .getProperty("product_image_bulkupload")
+                + prop.getProperty("product_image_bulkupload1"));
+
+        if (element1.getAttribute("href") != null) {
+            isLinkBroken(new URL(element1.getAttribute("href")));
+            System.out.println(isLinkBroken(new URL(element1.getAttribute("href"))));
+        }
+        implicitWait();
+        findAndClick("primary_noraml_insert");
+        implicitWait();
+    }
+    
+    public void uploadMultipleImage(String primaryimage, String browser)
+            throws Exception
+    {
+       findAndClick("toolbar_image");
+       if (browser.trim().equalsIgnoreCase("firefox")) {
+           findAndClick("post_content");
+       }
+       addNewlines();
+       implicitWait();
+       String primaryimagearr[] = primaryimage.split("@#@");
+        for (int i = 0; i < primaryimagearr.length; i++) {
+             findAndWrite("primary_image_insert", System.getProperty("user.dir")
                     + prop.getProperty("image_path") + "\\"
                     + primaryimagearr[i]);
             findAndClick("primary_image_upload");
@@ -323,10 +355,14 @@ public class Adminproperty
             }
             implicitWait();
             addNewlines();
+            addNewlines();
+            
+            
         }
 
         if (!actuallization_data.equalsIgnoreCase("null")) {
-
+            implicitWait();
+            addNewlines();          
             findElement(prop.getProperty("toolbar_Advance")).click();
             findElement(prop.getProperty("toolbar_actuallization")).click();
 
@@ -337,7 +373,11 @@ public class Adminproperty
             findElement(prop.getProperty("actuallization_insert_button"))
                     .click();
             implicitWait();
+            findAndSendkey("post_content", Keys.END);
+            findAndSendkey("post_content", Keys.ENTER);
             addNewlines();
+            
+           
         }
     }
 
@@ -392,9 +432,18 @@ public class Adminproperty
         findAndWrite("Homepagecontent", "Homepagetext");
     }
 
-    public void videoHandle(String videoURL, String layout)
+    public void videoHandle(String videoURL, String layout, String browser) throws InterruptedException
     {
+        WebElement element ;
+        findAndClick("post_content");
+        findAndSendkey("post_content", Keys.ENTER);
         findAndClick("toolbar_video");
+        if (browser.trim().equalsIgnoreCase("firefox")) {
+            findAndClick("post_content");
+            findAndSendkey("post_content", Keys.ENTER);
+        }
+        findAndClick("Video_URL");
+        implicitWait();
         findAndWrite("Video_URL", videoURL);
         implicitWait();
         if (layout.equalsIgnoreCase("normal")) {
@@ -402,22 +451,17 @@ public class Adminproperty
           }  else {
               findElement(prop.getProperty("Video_Biglayout")).click();
             }
-        
-        if (videoURL.contains("youtube")) {
-            WebElement element=findElement(prop.getProperty("Youtube_button"));
-            JavascriptExecutor executor = (JavascriptExecutor) driver;
-            executor.executeScript("arguments[0].click();", element);
-        } else if (videoURL.contains("vimeo")) {
-            WebElement element=findElement(prop.getProperty("Vimeo_button"));
-            JavascriptExecutor executor = (JavascriptExecutor) driver;
-            executor.executeScript("arguments[0].click();", element);           
-        } else {
-            WebElement element=findElement(prop.getProperty("Vine_button"));
-            JavascriptExecutor executor = (JavascriptExecutor) driver;
-            executor.executeScript("arguments[0].click();", element);     
-        }
         implicitWait();
-        addNewline();
+        if (videoURL.contains("youtube")) {
+           findAndClick("Youtube_button");
+         } else if (videoURL.contains("vimeo")) {
+            findAndClick("Vimeo_button");
+        } else {
+            findAndClick("Vine_button"); 
+        }
+        findAndClick("post_content");
+        implicitWait();
+        addNewlines();
     }
 
     public void insertBrandedClub(String BrandedClubName, String tag)
@@ -454,7 +498,10 @@ public class Adminproperty
 
         for (int i = 0; i < slidesarr.length; i++) {
             String slidedetails[] = slidesarr[i].split("@##@");
-            System.out.println(slidedetails[0]);
+            System.out.println(  System.getProperty("user.dir")
+                    + "\\src\\DriverFiles\\fileupload.exe"
+                    + " " + System.getProperty("user.dir")
+                    + "\\src\\Images\\" + slidedetails[0]);
             Conditionalwait("slide_button");
             implicitWait();
             if (slidedetails[0].contains("youtube")) {
@@ -524,6 +571,7 @@ public class Adminproperty
             implicitWait();
             action.click(driver.findElement(By.partialLinkText("Publicar")))
                     .perform();
+            implicitWait();
             findAndClick("publish_tab");
             implicitWait();
         } else {
@@ -537,8 +585,6 @@ public class Adminproperty
 
     public void fichaDeReview(String fichareview)
     {
-        addNewlines();
-        findAndClick("toolbar_Advance");
         implicitWait();
         findAndClick("toolbar_fichadereview");
 
@@ -578,8 +624,7 @@ public class Adminproperty
 
     public void wait(String path)
     {
-        WebDriverWait wait = new WebDriverWait(driver, 30); // this is explicit
-                                                            // wait
+        WebDriverWait wait = new WebDriverWait(driver, 30); 
         wait.until(ExpectedConditions.elementToBeClickable(findElement(path)));
     }
 
@@ -597,12 +642,17 @@ public class Adminproperty
         int rows = sheet.getLastRowNum() - sheet.getFirstRowNum();
         int cnt = 0;
 
+        System.out.println(rows +"==="+ columns);
         Object[][] postdata = new Object[rows][columns];
         for (int i = 1; i <= rows; i++) {
             Row row = sheet.getRow(i);
             for (int j = 0; j < row.getLastCellNum(); j++) {
+                if (sheet.getRow(i).getCell(j)
+                .getStringCellValue()!="")
+                {
                 postdata[cnt][j] = sheet.getRow(i).getCell(j)
                         .getStringCellValue();
+                }
             }
             cnt++;
         }
@@ -619,4 +669,9 @@ public class Adminproperty
         implicitWait();
         findAndClick("republish_click");
    }
+    
+    public void dialogBoxOk() {
+        Alert alert = driver.switchTo().alert();
+        alert.accept();
+    }
 }
