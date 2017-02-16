@@ -65,6 +65,8 @@ public class CreateEcommerceExcel
             adminProperties.findAndClick("navigation_header");
             adminProperties.findAndClick("create_post_link");
             adminProperties.findAndWrite("post_title", posttitle);
+            adminProperties.findAndClick("toolbar_more");
+            adminProperties.implicitWait();
             adminProperties.findAndWrite("post_content", postcontent);
             adminProperties.findAndClick("post_title");
             adminProperties.implicitWait();
