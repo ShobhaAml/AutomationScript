@@ -37,7 +37,7 @@ public class CreatePostExcel
     String browser = "";
     String toolbarstatus = "B";
 
-    @BeforeMethod
+   @BeforeMethod
     public void Setup() throws Exception
     {
         prop = adminProperties.ReadProperties();
@@ -134,7 +134,6 @@ public class CreatePostExcel
                         summary_layout);
                 if (!(actualizacion.equalsIgnoreCase("null"))) {
                     toolbarstatus = "A";
-
                 } else {
                     if (browser.trim().equalsIgnoreCase("Chrome")) {
                         Actions action = new Actions(driver);
@@ -162,7 +161,6 @@ public class CreatePostExcel
                     adminProperties.implicitWait();
                     adminProperties.findAndClick("toolbar_Advance");
                 }
-
                 adminProperties.implicitWait();
                 adminProperties.addNewlines();
                 adminProperties.fichaDeReview(ficha_review);
@@ -176,7 +174,7 @@ public class CreatePostExcel
             adminProperties.moveToPublishTab(browser);
 
             if (!Branded_club.equalsIgnoreCase("null")) {
-                adminProperties.insertBrandedClub(Branded_club, tag);
+              adminProperties.insertBrandedClub(Branded_club, tag);
 
             } else {
                 adminProperties.insertTagAndCategory(category, tag);
@@ -185,15 +183,16 @@ public class CreatePostExcel
             if ((!homecontent.equalsIgnoreCase("null"))) {
                 adminProperties.findAndWrite("homepage_content", homecontent);
             }
-
+          
             adminProperties.addFbTwitterText(fbtext, Twittertext);
             adminProperties.implicitWait();
-
-          if (Republish.equalsIgnoreCase("Y")) {
+          
+            if (Republish.equalsIgnoreCase("Y")) {
 
                 adminProperties.republish();
             }
       }
+
     }
 
 }
