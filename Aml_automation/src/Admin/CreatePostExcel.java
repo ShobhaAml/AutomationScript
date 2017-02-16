@@ -35,8 +35,9 @@ public class CreatePostExcel
     String author, Twittertext, fbtext, allowHomepageImage,
             allowHomepageContent = "";
     String browser = "";
+    String toolbarstatus = "B";
 
-    @BeforeMethod
+   @BeforeMethod
     public void Setup() throws Exception
     {
         prop = adminProperties.ReadProperties();
@@ -95,11 +96,17 @@ public class CreatePostExcel
             }
 
             if (!video.equalsIgnoreCase("null")) {
+                adminProperties.implicitWait();
                 adminProperties.addNewlines();
-                adminProperties.videoHandle(video, video_layout);
+                adminProperties.videoHandle(video, video_layout, browser);
+                adminProperties.implicitWait();
+                adminProperties.findAndClick("post_content");
+                adminProperties.addNewlines();
             }
 
             if (!postcontent_more.equalsIgnoreCase("null")) {
+                adminProperties.findAndClick("toolbar_more");
+                adminProperties.implicitWait();
                 adminProperties.addNewlines();
                 adminProperties.findAndWrite("post_content", postcontent_more);
                 adminProperties.addNewlines();
@@ -107,8 +114,7 @@ public class CreatePostExcel
 
             if (!(multiple_images.equalsIgnoreCase("null"))) {
                 adminProperties.implicitWait();
-                adminProperties.findAndClick("toolbar_image");
-                adminProperties.uploadPrimaryImage(multiple_images, browser);
+                adminProperties.uploadMultipleImage(multiple_images, browser);
                 adminProperties.addNewlines();
             }
 
@@ -116,32 +122,59 @@ public class CreatePostExcel
                 // adminProperties.findAndWrite("post_content", embeded_code);
             }
 
+            if (!slideshowimages.equalsIgnoreCase("null")) {
+                adminProperties.addslides(slideshowimages, browser);
+            }
+
             if ((!summary.equalsIgnoreCase("null"))
                     || (!actualizacion.equalsIgnoreCase("null"))) {
+                adminProperties.implicitWait();
                 adminProperties.addNewlines();
                 adminProperties.summaryActuallization(summary, actualizacion,
                         summary_layout);
-                adminProperties.addNewlines();
-
+                if (!(actualizacion.equalsIgnoreCase("null"))) {
+                    toolbarstatus = "A";
+                } else {
+                    if (browser.trim().equalsIgnoreCase("Chrome")) {
+                        Actions action = new Actions(driver);
+                        action.sendKeys(Keys.PAGE_DOWN);
+                        adminProperties.implicitWait();
+                        action.click(
+                                driver.findElement(By
+                                        .partialLinkText("Escribir")))
+                                .perform();
+                        adminProperties.implicitWait();
+                        adminProperties.findAndClick("post_title");
+                        adminProperties.implicitWait();
+                    } else {
+                        adminProperties.implicitWait();
+                        adminProperties.findAndClick("post_title");
+                        ((JavascriptExecutor) driver)
+                                .executeScript("window.scrollBy(0,0)");
+                        adminProperties.findAndClick("post_title");
+                    }
+                }
             }
 
             if (!(ficha_review).equalsIgnoreCase("null")) {
+                if (toolbarstatus.equalsIgnoreCase("B")) {
+                    adminProperties.implicitWait();
+                    adminProperties.findAndClick("toolbar_Advance");
+                }
+                adminProperties.implicitWait();
                 adminProperties.addNewlines();
                 adminProperties.fichaDeReview(ficha_review);
                 adminProperties.implicitWait();
                 adminProperties.addNewlines();
+            } else {
+                adminProperties.addNewlines();
             }
 
-            if (!slideshowimages.equalsIgnoreCase("null")) {
-                adminProperties.addslides(slideshowimages, browser);
-
-            }
-
+            adminProperties.implicitWait();
             adminProperties.moveToPublishTab(browser);
 
             if (!Branded_club.equalsIgnoreCase("null")) {
-
-                adminProperties.insertBrandedClub(Branded_club, tag);
+              adminProperties.insertBrandedClub(Branded_club, tag);
 
             } else {
                 adminProperties.insertTagAndCategory(category, tag);
@@ -150,16 +183,16 @@ public class CreatePostExcel
             if ((!homecontent.equalsIgnoreCase("null"))) {
                 adminProperties.findAndWrite("homepage_content", homecontent);
             }
-
+          
             adminProperties.addFbTwitterText(fbtext, Twittertext);
             adminProperties.implicitWait();
-
+          
             if (Republish.equalsIgnoreCase("Y")) {
 
                 adminProperties.republish();
             }
+      }
 
-        }
     }
 
 }
