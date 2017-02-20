@@ -120,7 +120,7 @@ public class CreatePostExcel
             }
 
             if (embeded_code.equalsIgnoreCase("null")) {
-                // adminProperties.findAndWrite("post_content", embeded_code);
+               // adminProperties.findAndWrite("post_content", embeded_code);
             }
 
             if (!slideshowimages.equalsIgnoreCase("null")) {
