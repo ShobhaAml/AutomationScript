@@ -37,7 +37,7 @@ public class CreatePostExcel
     String browser = "";
     String toolbarstatus = "B";
 
-   @BeforeMethod
+    @BeforeMethod
     public void Setup() throws Exception
     {
         prop = adminProperties.ReadProperties();
@@ -75,8 +75,9 @@ public class CreatePostExcel
             if (!slideshowimages.equalsIgnoreCase("null")) {
                 adminProperties.findAndClick("navigate_Slideshow");
             } else if (!Branded_club.equalsIgnoreCase("null")) {
-
                 adminProperties.findAndClick("navigate_brandClub");
+            } else if (category.equalsIgnoreCase("basics")) {
+                adminProperties.findAndClick("Basic_post");
             } else {
                 adminProperties.findAndClick("create_post_link");
             }
@@ -119,7 +120,7 @@ public class CreatePostExcel
             }
 
             if (embeded_code.equalsIgnoreCase("null")) {
-                // adminProperties.findAndWrite("post_content", embeded_code);
+               // adminProperties.findAndWrite("post_content", embeded_code);
             }
 
             if (!slideshowimages.equalsIgnoreCase("null")) {
@@ -174,7 +175,7 @@ public class CreatePostExcel
             adminProperties.moveToPublishTab(browser);
 
             if (!Branded_club.equalsIgnoreCase("null")) {
-              adminProperties.insertBrandedClub(Branded_club, tag);
+                adminProperties.insertBrandedClub(Branded_club, tag);
 
             } else {
                 adminProperties.insertTagAndCategory(category, tag);
@@ -183,16 +184,20 @@ public class CreatePostExcel
             if ((!homecontent.equalsIgnoreCase("null"))) {
                 adminProperties.findAndWrite("homepage_content", homecontent);
             }
-          
-            adminProperties.addFbTwitterText(fbtext, Twittertext);
+
+            if (category.equalsIgnoreCase("basics")) {
+                adminProperties.addFbTwitterText("null", "null");
+
+            } else {
+                adminProperties.addFbTwitterText(fbtext, Twittertext);
+            }
             adminProperties.implicitWait();
-          
+
             if (Republish.equalsIgnoreCase("Y")) {
 
                 adminProperties.republish();
             }
-      }
-
+        }
     }
 
 }
