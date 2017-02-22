@@ -1,13 +1,12 @@
 package Common;
 
-import java.awt.event.ActionEvent;
-import java.beans.PropertyChangeListener;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -20,7 +19,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -63,11 +61,13 @@ public class Adminproperty
         return driver;
     }
 
-    public void uploadPrimaryImage(String primaryimage, String browser) throws Exception
+    public void uploadPrimaryImage(String primaryimage, String browser)
+            throws Exception
     {
-        String primaryimagearr[] = primaryimage.split("@#@");
+       String primaryimagearr[] = primaryimage.split(",");
         for (int i = 0; i < primaryimagearr.length; i++) {
-            if ((primaryimagearr[i].contains(".gif")) || (primaryimagearr[i].contains(".GIF"))) {
+            if ((primaryimagearr[i].contains(".gif"))
+                    || (primaryimagearr[i].contains(".GIF"))) {
                 findAndClick("toolbar_more");
                 implicitWait();
             }
@@ -77,39 +77,14 @@ public class Adminproperty
             }
             addNewlines();
             implicitWait();
-            System.out.println(primaryimagearr[i]);
-            findAndWrite("primary_image_insert",
-                    System.getProperty("user.dir") + prop.getProperty("image_path") + "\\" + primaryimagearr[i]);
+            findAndWrite("primary_image_insert", System.getProperty("user.dir")
+                    + prop.getProperty("image_path") + "\\"
+                    + primaryimagearr[i]);
             findAndClick("primary_image_upload");
         }
-        WebElement element1 = findElement(
-                prop.getProperty("product_image_bulkupload") + prop.getProperty("product_image_bulkupload1"));
-
-        if (element1.getAttribute("href") != null) {
-            isLinkBroken(new URL(element1.getAttribute("href")));
-            System.out.println(isLinkBroken(new URL(element1.getAttribute("href"))));
-        }
-        implicitWait();
-        findAndClick("primary_noraml_insert");
-        implicitWait();
-    }
-
-    public void uploadMultipleImage(String primaryimage, String browser) throws Exception
-    {
-        findAndClick("toolbar_image");
-        if (browser.trim().equalsIgnoreCase("firefox")) {
-            findAndClick("post_content");
-        }
-        addNewlines();
-        implicitWait();
-        String primaryimagearr[] = primaryimage.split("@#@");
-        for (int i = 0; i < primaryimagearr.length; i++) {
-            findAndWrite("primary_image_insert",
-                    System.getProperty("user.dir") + prop.getProperty("image_path") + "\\" + primaryimagearr[i]);
-            findAndClick("primary_image_upload");
-        }
-        WebElement element1 = findElement(
-                prop.getProperty("product_image_bulkupload") + prop.getProperty("product_image_bulkupload1"));
+        WebElement element1 = findElement(prop
+                .getProperty("product_image_bulkupload")
+                + prop.getProperty("product_image_bulkupload1"));
 
         if (element1.getAttribute("href") != null) {
             isLinkBroken(new URL(element1.getAttribute("href")));
@@ -123,7 +98,8 @@ public class Adminproperty
     public void findAndClick(String element)
     {
         WebDriverWait wait = new WebDriverWait(driver, 20);
-        WebElement element1 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty(element))));
+        WebElement element1 = wait.until(ExpectedConditions
+                .elementToBeClickable(By.xpath(prop.getProperty(element))));
         implicitWait();
         findElement(prop.getProperty(element)).click();
     }
@@ -203,7 +179,8 @@ public class Adminproperty
 
         if (!(twitter_text).equalsIgnoreCase("null")) {
             findElement(prop.getProperty("twitter_text")).clear();
-            findElement(prop.getProperty("twitter_text")).sendKeys(twitter_text);
+            findElement(prop.getProperty("twitter_text"))
+                    .sendKeys(twitter_text);
         }
 
         findElement(prop.getProperty("publish_post")).click();
@@ -216,7 +193,8 @@ public class Adminproperty
         if (postcatagory != "") {
             findAndClick("Catagory_click");
             findAndWrite("catagory", postcatagory);
-            List<WebElement> optionlist = findElementByClass(prop.getProperty("catagory_ecommerce_by_ClassName"));
+            List<WebElement> optionlist = findElementByClass(prop
+                    .getProperty("catagory_ecommerce_by_ClassName"));
             for (WebElement options : optionlist) {
                 if (options.getText().equalsIgnoreCase(postcatagory)) {
                     options.click();
@@ -226,7 +204,8 @@ public class Adminproperty
         }
         if (tag != "") {
             findAndWrite("tag_input", tag);
-            List<WebElement> Tagoptionlist = findElementByClass(prop.getProperty("tag_list_Byclassname"));
+            List<WebElement> Tagoptionlist = findElementByClass(prop
+                    .getProperty("tag_list_Byclassname"));
             for (WebElement options : Tagoptionlist) {
                 if (options.getText().equalsIgnoreCase(tag)) {
                     options.click();
@@ -310,20 +289,22 @@ public class Adminproperty
     {
         String Selector[] = selectors.split(",");
         for (int i = 0; i < Selector.length; i++) {
-            WebElement CheckBox1 = driver.findElement(By.cssSelector("input[value='" + Selector[i] + "']"));
+            WebElement CheckBox1 = driver.findElement(By
+                    .cssSelector("input[value='" + Selector[i] + "']"));
             CheckBox1.click();
         }
 
     }
 
-    public void summaryActuallization(String summary_data, String actuallization_data, String summary_layout)
-            throws Exception
+    public void summaryActuallization(String summary_data,
+            String actuallization_data, String summary_layout) throws Exception
     {
 
         if (!summary_data.equalsIgnoreCase("null")) {
 
             findElement(prop.getProperty("toolbar_summary")).click();
-            findElement(prop.getProperty("summary_input_field")).sendKeys(summary_data);
+            findElement(prop.getProperty("summary_input_field")).sendKeys(
+                    summary_data);
             Thread.sleep(3000);
             implicitWait();
             switch (summary_layout) {
@@ -342,30 +323,26 @@ public class Adminproperty
             }
             implicitWait();
             addNewlines();
-            addNewlines();
-
         }
 
         if (!actuallization_data.equalsIgnoreCase("null")) {
-            implicitWait();
-            addNewlines();
+
             findElement(prop.getProperty("toolbar_Advance")).click();
             findElement(prop.getProperty("toolbar_actuallization")).click();
 
-            findElement(prop.getProperty("actuallization_input_field")).sendKeys(actuallization_data);
+            findElement(prop.getProperty("actuallization_input_field"))
+                    .sendKeys(actuallization_data);
 
             implicitWait();
-            findElement(prop.getProperty("actuallization_insert_button")).click();
+            findElement(prop.getProperty("actuallization_insert_button"))
+                    .click();
             implicitWait();
-            findAndSendkey("post_content", Keys.END);
-            findAndSendkey("post_content", Keys.ENTER);
             addNewlines();
-
         }
     }
 
-    public void repost_By_Difundir(String Selector1, String Selector2, String tittle_data, String navigate_blog)
-            throws Exception
+    public void repost_By_Difundir(String Selector1, String Selector2,
+            String tittle_data, String navigate_blog) throws Exception
     {
         findElement(prop.getProperty("difundir_Link")).click();
         findElement(prop.getProperty("repost_list_button")).click();
@@ -390,14 +367,19 @@ public class Adminproperty
     public void clickNotificationButton(String tittle_data)
     {
         int cnt = 1;
-        List<WebElement> postlist = findElementByClass(prop.getProperty("notification_list_by_ClassName"));
+        List<WebElement> postlist = findElementByClass(prop
+                .getProperty("notification_list_by_ClassName"));
         for (WebElement list : postlist) {
-            String sender = driver.findElement(By.className(prop.getProperty("notify_sender"))).getText();
+            String sender = driver.findElement(
+                    By.className(prop.getProperty("notify_sender"))).getText();
             String text = list.getText().replace(sender, "");
             if (text.trim().equalsIgnoreCase(tittle_data)) {
                 System.out.println(cnt + "hi");
                 Actions act = new Actions(driver);
-                act.doubleClick(driver.findElement(By.className(prop.getProperty("notify_sender")))).build().perform();
+                act.doubleClick(
+                        driver.findElement(By.className(prop
+                                .getProperty("notify_sender")))).build()
+                        .perform();
                 driver.findElement(By.className("actions-approve")).click();
                 break;
             }
@@ -410,43 +392,40 @@ public class Adminproperty
         findAndWrite("Homepagecontent", "Homepagetext");
     }
 
-    public void videoHandle(String videoURL, String layout, String browser) throws InterruptedException
+    public void videoHandle(String videoURL, String layout)
     {
-        WebElement element;
-        findAndClick("post_content");
-        findAndSendkey("post_content", Keys.ENTER);
         findAndClick("toolbar_video");
-        if (browser.trim().equalsIgnoreCase("firefox")) {
-            findAndClick("post_content");
-            findAndSendkey("post_content", Keys.ENTER);
-        }
-        findAndClick("Video_URL");
-        implicitWait();
         findAndWrite("Video_URL", videoURL);
         implicitWait();
         if (layout.equalsIgnoreCase("normal")) {
             findElement(prop.getProperty("Video_NormalLayout")).click();
-        } else {
-            findElement(prop.getProperty("Video_Biglayout")).click();
-        }
-        implicitWait();
+          }  else {
+              findElement(prop.getProperty("Video_Biglayout")).click();
+            }
+        
         if (videoURL.contains("youtube")) {
-            findAndClick("Youtube_button");
+            WebElement element=findElement(prop.getProperty("Youtube_button"));
+            JavascriptExecutor executor = (JavascriptExecutor) driver;
+            executor.executeScript("arguments[0].click();", element);
         } else if (videoURL.contains("vimeo")) {
-            findAndClick("Vimeo_button");
+            WebElement element=findElement(prop.getProperty("Vimeo_button"));
+            JavascriptExecutor executor = (JavascriptExecutor) driver;
+            executor.executeScript("arguments[0].click();", element);           
         } else {
-            findAndClick("Vine_button");
+            WebElement element=findElement(prop.getProperty("Vine_button"));
+            JavascriptExecutor executor = (JavascriptExecutor) driver;
+            executor.executeScript("arguments[0].click();", element);     
         }
-        findAndClick("post_content");
         implicitWait();
-        addNewlines();
+        addNewline();
     }
 
     public void insertBrandedClub(String BrandedClubName, String tag)
     {
         findAndClick("BrandedClub_Click");
         findAndWrite("BrandedClub_InputBox", BrandedClubName);
-        List<WebElement> optionlist = findElementByClass(prop.getProperty("BrandedClub_List_by_ClassName"));
+        List<WebElement> optionlist = findElementByClass(prop
+                .getProperty("BrandedClub_List_by_ClassName"));
 
         for (WebElement options : optionlist) {
             if (options.getText().equalsIgnoreCase(BrandedClubName)) {
@@ -455,7 +434,8 @@ public class Adminproperty
             }
         }
         findAndWrite("tag_input", tag);
-        List<WebElement> Tagoptionlist = findElementByClass(prop.getProperty("tag_list_Byclassname"));
+        List<WebElement> Tagoptionlist = findElementByClass(prop
+                .getProperty("tag_list_Byclassname"));
         for (WebElement options : Tagoptionlist) {
             if (options.getText().equalsIgnoreCase(tag)) {
                 options.click();
@@ -464,7 +444,9 @@ public class Adminproperty
         }
     }
 
-    public void addslides(String slides, String browser) throws IOException, Exception
+
+    public void addslides(String slides, String browser) throws IOException,
+            Exception
     {
         String slidesarr[] = slides.split("~");
         findAndClick("toolbar_slideshow");
@@ -472,8 +454,7 @@ public class Adminproperty
 
         for (int i = 0; i < slidesarr.length; i++) {
             String slidedetails[] = slidesarr[i].split("@##@");
-            System.out.println(System.getProperty("user.dir") + "\\src\\DriverFiles\\fileupload.exe" + " "
-                    + System.getProperty("user.dir") + "\\src\\Images\\" + slidedetails[0]);
+            System.out.println(slidedetails[0]);
             Conditionalwait("slide_button");
             implicitWait();
             if (slidedetails[0].contains("youtube")) {
@@ -485,12 +466,17 @@ public class Adminproperty
                 implicitWait();
 
                 if (browser.trim().equalsIgnoreCase("Chrome")) {
-                    Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\DriverFiles\\fileupload.exe"
-                            + " " + System.getProperty("user.dir") + "\\src\\Images\\" + slidedetails[0]);
+                    Runtime.getRuntime().exec(
+                            System.getProperty("user.dir")
+                                    + "\\src\\DriverFiles\\fileupload.exe"
+                                    + " " + System.getProperty("user.dir")
+                                    + "\\src\\Images\\" + slidedetails[0]);
                 } else {
                     Runtime.getRuntime()
-                            .exec(System.getProperty("user.dir") + "\\src\\DriverFiles\\firefoxfileupload.exe" + " "
-                                    + System.getProperty("user.dir") + "\\src\\Images\\" + slidedetails[0]);
+                            .exec(System.getProperty("user.dir")
+                                    + "\\src\\DriverFiles\\firefoxfileupload.exe"
+                                    + " " + System.getProperty("user.dir")
+                                    + "\\src\\Images\\" + slidedetails[0]);
                 }
 
             }
@@ -536,8 +522,8 @@ public class Adminproperty
             Actions action = new Actions(driver);
             action.sendKeys(Keys.PAGE_DOWN);
             implicitWait();
-            action.click(driver.findElement(By.partialLinkText("Publicar"))).perform();
-            implicitWait();
+            action.click(driver.findElement(By.partialLinkText("Publicar")))
+                    .perform();
             findAndClick("publish_tab");
             implicitWait();
         } else {
@@ -551,6 +537,8 @@ public class Adminproperty
 
     public void fichaDeReview(String fichareview)
     {
+        addNewlines();
+        findAndClick("toolbar_Advance");
         implicitWait();
         findAndClick("toolbar_fichadereview");
 
@@ -569,10 +557,14 @@ public class Adminproperty
             String fichreviewdatasheet[] = fichareviewdetails[3].split("@~#~@");
 
             for (int j = 0; j < fichreviewdatasheet.length; j++) {
-                String fichreviewdatasheetdetails[] = fichreviewdatasheet[j].split("@###@");
+                String fichreviewdatasheetdetails[] = fichreviewdatasheet[j]
+                        .split("@###@");
                 for (int z = 0; z < fichreviewdatasheetdetails.length; z++) {
-                    findElement(prop.getProperty("fichareview_datasheet_row") + "[" + (j + 1) + "]" + "/td[" + (z + 1)
-                            + "]/input").sendKeys(fichreviewdatasheetdetails[z]);
+                    findElement(
+                            prop.getProperty("fichareview_datasheet_row") + "["
+                                    + (j + 1) + "]" + "/td[" + (z + 1)
+                                    + "]/input").sendKeys(
+                            fichreviewdatasheetdetails[z]);
                 }
             }
 
@@ -586,15 +578,18 @@ public class Adminproperty
 
     public void wait(String path)
     {
-        WebDriverWait wait = new WebDriverWait(driver, 30);
+        WebDriverWait wait = new WebDriverWait(driver, 30); // this is explicit
+                                                            // wait
         wait.until(ExpectedConditions.elementToBeClickable(findElement(path)));
     }
 
-    public Object[][] readExcel(String excelsheetname, int columns) throws IOException
+    public Object[][] readExcel(String excelsheetname, int columns)
+            throws IOException
     {
         String filepath = System.getProperty("user.dir") + "\\src\\Common\\";
         String filename = "excel.xlsx";
-        FileInputStream instream = new FileInputStream(filepath + "\\" + filename);
+        FileInputStream instream = new FileInputStream(filepath + "\\"
+                + filename);
 
         System.out.println(filepath + "\\" + filename);
         Workbook wb = new XSSFWorkbook(instream);
@@ -602,14 +597,12 @@ public class Adminproperty
         int rows = sheet.getLastRowNum() - sheet.getFirstRowNum();
         int cnt = 0;
 
-        System.out.println(rows + "===" + columns);
         Object[][] postdata = new Object[rows][columns];
         for (int i = 1; i <= rows; i++) {
             Row row = sheet.getRow(i);
             for (int j = 0; j < row.getLastCellNum(); j++) {
-                if (sheet.getRow(i).getCell(j).getStringCellValue() != "") {
-                    postdata[cnt][j] = sheet.getRow(i).getCell(j).getStringCellValue();
-                }
+                postdata[cnt][j] = sheet.getRow(i).getCell(j)
+                        .getStringCellValue();
             }
             cnt++;
         }
@@ -625,14 +618,7 @@ public class Adminproperty
         findAndClick("republish_diffunder");
         implicitWait();
         findAndClick("republish_click");
-    }
-
-    public void dialogBoxOk()
-    {
-        Alert alert = driver.switchTo().alert();
-        alert.accept();
-    }
-
+   }
     public void fichaTechnica()
     {
         findAndClick("toolbar_Advance");
@@ -678,4 +664,47 @@ public class Adminproperty
             findAndClick("commentsCheckbox");
         }
     }
+    public void insertGIPHY(String URL, String layout, String caption)
+    {
+        findAndClick("toolbar_Advance");
+        findAndClick("toolbar_giphy");
+        findAndWrite("giphyURL", URL);
+        implicitWait();
+        WebElement element1 = findElement(prop.getProperty("smallLeft"));
+        WebElement element2 = findElement(prop.getProperty("smallCenter"));
+        WebElement element3 = findElement(prop.getProperty("smallRight"));
+        WebElement element4 = findElement(prop.getProperty("normal"));
+        WebElement element5 = findElement(prop.getProperty("large"));
+        if(layout.equalsIgnoreCase("smallLeft"))
+        {
+            JavascriptExecutor executor1 = (JavascriptExecutor)driver;
+            executor1.executeScript("arguments[0].click();", element1); 
+        }
+        else if (layout.equalsIgnoreCase("smallCenter"))
+        {
+            JavascriptExecutor executor2 = (JavascriptExecutor)driver;
+            executor2.executeScript("arguments[0].click();", element2);   
+        }
+        else if(layout.equalsIgnoreCase("smallRight"))
+        {
+            JavascriptExecutor executor3 = (JavascriptExecutor)driver;
+            executor3.executeScript("arguments[0].click();", element3);
+        }
+        else if(layout.equalsIgnoreCase("normal"))
+        {
+            JavascriptExecutor executor4 = (JavascriptExecutor)driver;
+            executor4.executeScript("arguments[0].click();", element4);
+        }
+        else 
+        {
+            JavascriptExecutor executor5 = (JavascriptExecutor)driver;
+            executor5.executeScript("arguments[0].click();", element5);
+        }
+        implicitWait();
+        findAndWrite("captionGIPHY", caption);
+        findAndClick("insertButtonGIPHY");
+        findAndClick("post_content");
+    }
+}
+
 }
