@@ -704,7 +704,7 @@ public class Adminproperty
         findAndWrite("captionGIPHY", caption);
         findAndClick("insertButtonGIPHY");
         findAndClick("post_content");
-    }
+ }
 }
 
 }
