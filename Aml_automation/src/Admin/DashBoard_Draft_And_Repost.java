@@ -1,4 +1,4 @@
-package slide_show;
+package Admin;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,8 +19,7 @@ public class DashBoard_Draft_And_Repost {
     Properties prop = new Properties();
     String Postname = "En infinidad de ocasiones hemos comentado cómo influyen las modas en los entrenamientos";
     String listtype ="Dashboardlist";
-    String Selector1 = "xatakandroid";
-    String Selector2 = "xatakamovil";
+    String Selectors = "xatakandroid,xatakamovil";
     String tittle_data = "En infinidad de ocasiones hemos comentado cómo influyen las modas en los entrenamientos";
     @BeforeMethod
     public void Setup() throws IOException
@@ -36,7 +35,7 @@ public class DashBoard_Draft_And_Repost {
 
     @Test
     public void editposts() throws Exception{
-    
+   
         login();
         //Draft
         adminProperties.clickButton("DashboardEditbuttontr","DashboardDrafttd",Postname,listtype);
@@ -46,7 +45,7 @@ public class DashBoard_Draft_And_Repost {
        adminProperties.clickButton("DashboardEditbuttontr","DashboardDraftReptd",Postname,listtype);
         adminProperties.implicitWait();
         Thread.sleep(3000);
-        adminProperties.repostCheckbox(Selector1, Selector2);
+        adminProperties.repostCheckbox(Selectors);
         adminProperties.implicitWait();
         adminProperties.findAndClick("repost_post_button");
         Thread.sleep(3000);
@@ -56,7 +55,7 @@ public class DashBoard_Draft_And_Repost {
         adminProperties.implicitWait();
         Thread.sleep(5000);
         driver.navigate().refresh();
-        driver.navigate().refresh();
+        driver.navigate().refresh();     
         adminProperties.implicitWait();
         adminProperties.findAndClick("notification_button");
         adminProperties.implicitWait();
