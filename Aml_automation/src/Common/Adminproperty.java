@@ -559,7 +559,6 @@ public class Adminproperty
             implicitWait();
             action.click(driver.findElement(By.partialLinkText("Publicar")))
                     .perform();
-
             implicitWait();
             findAndClick("publish_tab");
             implicitWait();
@@ -630,7 +629,6 @@ public class Adminproperty
         int rows = sheet.getLastRowNum() - sheet.getFirstRowNum();
         int cnt = 0;
        System.out.println(rows +"==="+ columns);
-
         Object[][] postdata = new Object[rows][columns];
         for (int i = 1; i <= rows; i++) {
             Row row = sheet.getRow(i);
@@ -700,7 +698,6 @@ public class Adminproperty
         if (status.equalsIgnoreCase(status)) {
             findAndClick("specialCheckbox");
         }
-
     }
 
     public void closeComments(String status)
@@ -710,4 +707,37 @@ public class Adminproperty
         }
     }
 
+
+    public void insertGIPHY(String URL, String layout, String caption)
+    {
+        findAndClick("toolbar_Advance");
+        findAndClick("toolbar_giphy");
+        findAndWrite("giphyURL", URL);
+        implicitWait();
+        WebElement element1 = findElement(prop.getProperty("smallLeft"));
+        WebElement element2 = findElement(prop.getProperty("smallCenter"));
+        WebElement element3 = findElement(prop.getProperty("smallRight"));
+        WebElement element4 = findElement(prop.getProperty("normal"));
+        WebElement element5 = findElement(prop.getProperty("large"));
+        if (layout.equalsIgnoreCase("smallLeft")) {
+            JavascriptExecutor executor1 = (JavascriptExecutor) driver;
+            executor1.executeScript("arguments[0].click();", element1);
+        } else if (layout.equalsIgnoreCase("smallCenter")) {
+            JavascriptExecutor executor2 = (JavascriptExecutor) driver;
+            executor2.executeScript("arguments[0].click();", element2);
+        } else if (layout.equalsIgnoreCase("smallRight")) {
+            JavascriptExecutor executor3 = (JavascriptExecutor) driver;
+            executor3.executeScript("arguments[0].click();", element3);
+        } else if (layout.equalsIgnoreCase("normal")) {
+            JavascriptExecutor executor4 = (JavascriptExecutor) driver;
+            executor4.executeScript("arguments[0].click();", element4);
+        } else {
+            JavascriptExecutor executor5 = (JavascriptExecutor) driver;
+            executor5.executeScript("arguments[0].click();", element5);
+        }
+        implicitWait();
+        findAndWrite("captionGIPHY", caption);
+        findAndClick("insertButtonGIPHY");
+        findAndClick("post_content");
+    }
 }
