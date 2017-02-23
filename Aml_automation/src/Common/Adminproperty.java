@@ -666,7 +666,6 @@ public class Adminproperty
         if (status.equalsIgnoreCase(status)) {
             findAndClick("specialCheckbox");
         }
-
     }
 
     public void closeComments(String status)
