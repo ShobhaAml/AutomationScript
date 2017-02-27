@@ -534,7 +534,6 @@ public class Adminproperty
             action.sendKeys(Keys.PAGE_DOWN);
             implicitWait();
             action.click(driver.findElement(By.partialLinkText("Publicar"))).perform();
-
             implicitWait();
             findAndClick("publish_tab");
             implicitWait();
@@ -599,7 +598,6 @@ public class Adminproperty
         int rows = sheet.getLastRowNum() - sheet.getFirstRowNum();
         int cnt = 0;
         System.out.println(rows + "===" + columns);
-
         Object[][] postdata = new Object[rows][columns];
         for (int i = 1; i <= rows; i++) {
             Row row = sheet.getRow(i);
@@ -678,7 +676,13 @@ public class Adminproperty
     public void insertGIPHY(String URL, String layout, String caption)
     {
         findAndClick("toolbar_Advance");
-        findAndClick("toolbar_giphy");
+        List<WebElement> items = findElementsByXpath(prop.getProperty("header"));
+        for (WebElement item : items) {
+            if (item.getText().equalsIgnoreCase("GIF")) {
+                item.click();
+                break;
+            }
+        }
         findAndWrite("giphyURL", URL);
         implicitWait();
         WebElement element1 = findElement(prop.getProperty("smallLeft"));
@@ -708,4 +712,72 @@ public class Adminproperty
         findAndClick("post_content");
     }
 
+    public void Author(String authorName)
+    {
+        if (authorName != "") {
+            findAndClick("authorBox_click");
+            implicitWait();
+            findAndWrite("author", authorName);
+            implicitWait();
+            List<WebElement> optionlist = findElementByClass(prop.getProperty("Author_by_ClassName"));
+            implicitWait();
+            for (WebElement options : optionlist) {
+                implicitWait();
+                if (options.getText().equalsIgnoreCase(authorName))
+                    implicitWait();
+                {
+                    implicitWait();
+                    options.click();
+                    implicitWait();
+                    break;
+                }
+
+            }
+        }
+    }
+
+    public void infograph(String infographURL, String infographLayout, String infographCaption, String browser)
+            throws Exception
+    {
+        implicitWait();
+        findAndClick("toolbar_Advance");
+        implicitWait();
+        findAndClick("toolbar_Infograph");
+        implicitWait();
+        if (browser.trim().equalsIgnoreCase("firefox")) {
+            findAndClick("post_content");
+            findAndSendkey("post_content", Keys.ENTER);
+
+        }
+        findAndClick("infographURLPath");
+        implicitWait();
+        findAndWrite("infographURLPath", infographURL);
+        implicitWait();
+        if (infographLayout.equalsIgnoreCase("small")) {
+            implicitWait();
+            WebElement element = findElement(prop.getProperty("graph_SmallLayout"));
+            JavascriptExecutor executor = (JavascriptExecutor) driver;
+            executor.executeScript("arguments[0].click();", element);
+            implicitWait();
+        } else if (infographLayout.equalsIgnoreCase("normal")) {
+            implicitWait();
+            WebElement element = findElement(prop.getProperty("graph_Normallayout"));
+            JavascriptExecutor executor = (JavascriptExecutor) driver;
+
+            executor.executeScript("arguments[0].click();", element);
+            implicitWait();
+        } else {
+            implicitWait();
+            WebElement element = findElement(prop.getProperty("graph_Largelayout"));
+            JavascriptExecutor executor = (JavascriptExecutor) driver;
+            executor.executeScript("arguments[0].click();", element);
+            implicitWait();
+        }
+        implicitWait();
+        findAndWrite("infographCaptionPath", infographCaption);
+        implicitWait();
+        findAndClick("Add_infograph");
+        implicitWait();
+        findAndClick("post_content");
+    }
 }
