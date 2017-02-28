@@ -4,6 +4,7 @@ import java.util.List;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Properties;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -48,7 +49,7 @@ public class CreatePostExcel
     @DataProvider(name = "testdata")
     public Object[][] TestDataFeed() throws Exception
     {
-        Object[][] postdata = adminProperties.readExcel("Normal", 43);
+        Object[][] postdata = adminProperties.readExcel("Normal", 35);
         return postdata;
     }
 
@@ -57,15 +58,9 @@ public class CreatePostExcel
             String postcontent, String primaryimage, String postcontent_more,
             String video, String video_layout, String gallery,
             String multiple_images, String embeded_code, String summary,
-            String summary_layout, String actualizacion, String ficha_technica,
-            String ficha_review, String giphy_url, String giphy_layout,
-            String giphy_caption, String Inforgram_datawrapper_URL,
-            String infographLayout, String infographCaption,
-            String slideshowimages, String tabledata,
-            String Checkbox_same_width,
-            String Checkbox_table_first_row_heading,
-            String Checkbox_table_first_column_heading,
-            String Checkbox_table_occupy_all_avaiable_width,
+            String summary_layout, String actualizacion, String table,
+            String ficha_technica, String ficha_review, String giphy,
+            String info_datawrapper, String slideshowimages,
             String homecontent, String homeimage, String Branded_club,
             String category, String catagory_other, String tag,
             String seotitle, String seodesc, String specialpost,
@@ -96,22 +91,22 @@ public class CreatePostExcel
             adminProperties.implicitWait();
 
             if (!(primaryimage.equalsIgnoreCase("null"))) {
+
                 adminProperties.uploadPrimaryImage(primaryimage, browser);
                 adminProperties.addNewlines();
             }
 
             if (!video.equalsIgnoreCase("null")) {
-                movecursorpostion(browser);
+                adminProperties.implicitWait();
+                adminProperties.addNewlines();
                 adminProperties.videoHandle(video, video_layout, browser);
                 adminProperties.implicitWait();
                 adminProperties.findAndClick("post_content");
                 adminProperties.addNewlines();
-                adminProperties.findAndClick("toolbar_more");
-                adminProperties.implicitWait();
-            } else {
-                adminProperties.findAndClick("toolbar_more");
-                adminProperties.implicitWait();
             }
+
+            adminProperties.findAndClick("toolbar_more");
+            adminProperties.implicitWait();
 
             if (!postcontent_more.equalsIgnoreCase("null")) {
                 adminProperties.addNewlines();
@@ -122,8 +117,11 @@ public class CreatePostExcel
             if (!(multiple_images.equalsIgnoreCase("null"))) {
                 adminProperties.implicitWait();
                 adminProperties.uploadMultipleImage(multiple_images, browser);
-                adminProperties.implicitWait();
                 adminProperties.addNewlines();
+            }
+
+            if (embeded_code.equalsIgnoreCase("null")) {
+                // adminProperties.findAndWrite("post_content", embeded_code);
             }
 
             if (!slideshowimages.equalsIgnoreCase("null")) {
@@ -132,27 +130,35 @@ public class CreatePostExcel
 
             if ((!summary.equalsIgnoreCase("null"))
                     || (!actualizacion.equalsIgnoreCase("null"))) {
-                movecursorpostion(browser);
+                adminProperties.implicitWait();
+                adminProperties.addNewlines();
                 adminProperties.summaryActuallization(summary, actualizacion,
                         summary_layout);
                 if (!(actualizacion.equalsIgnoreCase("null"))) {
                     toolbarstatus = "A";
                 } else {
-                    movecursorpostion(browser);
+                    if (browser.trim().equalsIgnoreCase("Chrome")) {
+                        Actions action = new Actions(driver);
+                        action.sendKeys(Keys.PAGE_DOWN);
+                        adminProperties.implicitWait();
+                        action.click(
+                                driver.findElement(By
+                                        .partialLinkText("Escribir")))
+                                .perform();
+                        adminProperties.implicitWait();
+                        adminProperties.findAndClick("post_title");
+                        adminProperties.implicitWait();
+                    } else {
+                        adminProperties.implicitWait();
+                        adminProperties.findAndClick("post_title");
+                        ((JavascriptExecutor) driver)
+                                .executeScript("window.scrollBy(0,0)");
+                        adminProperties.findAndClick("post_title");
+                    }
                 }
             }
 
-            if (!embeded_code.equalsIgnoreCase("null")) {
-                movecursorpostion(browser);
-                adminProperties.implicitWait();
-                adminProperties.addNewlines();
-                adminProperties.findAndWrite("post_content", embeded_code);
-                adminProperties.implicitWait();
-                adminProperties.addNewlines();
-            }
-
             if (!(ficha_review).equalsIgnoreCase("null")) {
-                movecursorpostion(browser);
                 if (toolbarstatus.equalsIgnoreCase("B")) {
                     adminProperties.implicitWait();
                     adminProperties.findAndClick("toolbar_Advance");
@@ -166,68 +172,6 @@ public class CreatePostExcel
                 adminProperties.addNewlines();
             }
 
-            if (!(tabledata.equalsIgnoreCase("null"))) {
-                movecursorpostion(browser);
-                if (toolbarstatus.equalsIgnoreCase("B")) {
-                    adminProperties.implicitWait();
-                    adminProperties.findAndClick("toolbar_Advance");
-                }
-                adminProperties.implicitWait();
-                adminProperties.addNewlines();
-                adminProperties.addTable(tabledata, Checkbox_same_width,
-                        Checkbox_table_first_row_heading,
-                        Checkbox_table_first_column_heading,
-                        Checkbox_table_occupy_all_avaiable_width);
-                adminProperties.implicitWait();
-                adminProperties.addNewlines();
-            }
-
-            if (!(giphy_url).equalsIgnoreCase("null")) {
-                movecursorpostion(browser);
-                if (toolbarstatus.equalsIgnoreCase("B")) {
-                    adminProperties.implicitWait();
-                    adminProperties.findAndClick("toolbar_Advance");
-                }
-                adminProperties.implicitWait();
-                adminProperties.addNewlines();
-                if (giphy_caption.equalsIgnoreCase("null")) {
-                    giphy_caption = "";
-                }
-                adminProperties.insertGIPHY(giphy_url, giphy_layout,
-                        giphy_caption, browser);
-                adminProperties.implicitWait();
-                adminProperties.addNewlines();
-            }
-
-            if (!Inforgram_datawrapper_URL.equalsIgnoreCase("null")) {
-                movecursorpostion(browser);
-                if (toolbarstatus.equalsIgnoreCase("B")) {
-                    adminProperties.implicitWait();
-                    adminProperties.findAndClick("toolbar_Advance");
-                }
-                adminProperties.implicitWait();
-                adminProperties.addNewlines();
-                if (giphy_caption.equalsIgnoreCase("null")) {
-                    giphy_caption = "";
-                }
-                adminProperties.infograph(Inforgram_datawrapper_URL,
-                        infographLayout, infographCaption, browser);
-                adminProperties.implicitWait();
-                adminProperties.addNewlines();
-            }
-
-            if (!(ficha_technica).equalsIgnoreCase("null")) {
-                movecursorpostion(browser);
-                if (toolbarstatus.equalsIgnoreCase("B")) {
-                    adminProperties.implicitWait();
-                    adminProperties.findAndClick("toolbar_Advance");
-                }
-                adminProperties.implicitWait();
-                adminProperties.addNewlines();
-                adminProperties.fichaTechnica(ficha_technica);
-
-            }
-
             adminProperties.implicitWait();
             adminProperties.moveToPublishTab(browser);
 
@@ -239,22 +183,7 @@ public class CreatePostExcel
             }
 
             if ((!homecontent.equalsIgnoreCase("null"))) {
-                if (driver.findElements(By.xpath("homepage_content")).size() != 0) {
-                    adminProperties.findAndWrite("homepage_content",
-                            homecontent);
-                }
-            }
-
-            if (specialpost.equalsIgnoreCase("Y")) {
-                adminProperties.specialPost(specialpost);
-            }
-
-            if (comment_closed.equalsIgnoreCase("Y")) {
-                adminProperties.closeComments(comment_closed);
-            }
-
-            if (!author.equalsIgnoreCase("null")) {
-                adminProperties.Author(author);
+                adminProperties.findAndWrite("homepage_content", homecontent);
             }
 
             if (category.equalsIgnoreCase("basics")) {
@@ -270,26 +199,6 @@ public class CreatePostExcel
                 adminProperties.republish();
             }
         }
-    }
-
-    public void movecursorpostion(String browser)
-    {
-        if (browser.trim().equalsIgnoreCase("Chrome")) {
-            Actions action = new Actions(driver);
-            action.sendKeys(Keys.PAGE_DOWN);
-            adminProperties.implicitWait();
-            action.click(driver.findElement(By.partialLinkText("Escribir")))
-                    .perform();
-            adminProperties.implicitWait();
-            adminProperties.findAndClick("post_title");
-            adminProperties.implicitWait();
-        } else {
-            adminProperties.implicitWait();
-            adminProperties.findAndClick("post_title");
-            ((JavascriptExecutor) driver).executeScript("window.scrollBy(0,0)");
-            adminProperties.findAndClick("post_title");
-        }
-
     }
 
 }
