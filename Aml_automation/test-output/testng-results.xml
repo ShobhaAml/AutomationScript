@@ -1,24 +1,185 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="1" total="1" passed="0">
+<testng-results skipped="1" failed="1" total="2" passed="0">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="49727" started-at="2017-01-23T07:02:27Z" finished-at="2017-01-23T07:03:16Z">
+  <suite name="Default suite" duration-ms="76570" started-at="2017-02-06T10:33:56Z" finished-at="2017-02-06T10:35:13Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="49727" started-at="2017-01-23T07:02:27Z" finished-at="2017-01-23T07:03:16Z">
-      <class name="Admin.EditPublishedPost">
-        <test-method status="FAIL" signature="editPublishedPost()[pri:0, instance:Admin.EditPublishedPost@dbe50f]" name="editPublishedPost" duration-ms="49666" started-at="2017-01-23T12:32:27Z" finished-at="2017-01-23T12:33:16Z">
-          <exception class="java.lang.IllegalArgumentException">
+    <test name="Default test" duration-ms="76570" started-at="2017-02-06T10:33:56Z" finished-at="2017-02-06T10:35:13Z">
+      <class name="Admin.CreateEcommerceExcel">
+        <test-method status="PASS" signature="Setup()[pri:0, instance:Admin.CreateEcommerceExcel@1be98f5]" name="Setup" is-config="true" duration-ms="33618" started-at="2017-02-06T16:03:57Z" finished-at="2017-02-06T16:04:31Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Setup -->
+        <test-method status="FAIL" signature="Ecommerce(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:Admin.CreateEcommerceExcel@1be98f5]" name="Ecommerce" duration-ms="26806" started-at="2017-02-06T16:04:31Z" data-provider="testdata" finished-at="2017-02-06T16:04:58Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Automate: Apple rompe la racha negativa del 2016 empujada por un tanque de oxigeno llamado iPhone 7]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[A principios de este mes de diciembre, la Comisión Europea aprobó una reforma para que los Estados miembro puedan aplicar un tipo de IVA reducido o superreducido a los libros digitales. Hasta ese momento no era posible y, de hecho, países como Francia o Luxemburgo, que decidieron bajar unilateralmente los impuestos a los libros digitales, tuvieron que rectificar tras una orden directa del Tribunal de Justicia de la Unión Europea. Ahora, desde Bruselas, creen que ya no es necesaria esa discriminación positiva y permitirán que cada país imponga el tipo de impuesto que desee a los libros digitales.]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[lounge.jpg]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[sofa.jpg@##@royal_oak.jpg@##@Nubia.jpg@##@samsung.jpg]]>
+              </value>
+            </param>
+            <param index="4">
+              <value>
+                <![CDATA[Forzza Westin Queen Size Bed (Walnut)@##@ Royal Oak Scout Double Size Bed (Maple)@##@Nubia Z11 Mini (Gold)@##@ Samsung Z2 SM-Z200F (Gold, 8GB)
+]]>
+              </value>
+            </param>
+            <param index="5">
+              <value>
+                <![CDATA[1@##@2@##@3@##@4]]>
+              </value>
+            </param>
+            <param index="6">
+              <value>
+                <![CDATA[Primary Material: Engineered wood
+Color: Walnut Contemporary
+@##@ Primary Material: Wood
+Color: Brown, Finish: Natural  Modern @##@Android v5.1.1 Lollipop operating system with 1.5GHz ARM Cortex A53 + 1.2GHz ARM Cortex A53 Qualcomm Snapdragon 617 64 bit MSM8952 octa core processor, Adreno 405 GPU, 3GB RAM, 32GB internal memory expandable up to 200GB and dual SIM (nano+nano) dual-standby (4G+3G)@##@1500 mAh Battery, Battery Run Time : Internet Usage Time(3G) : Up to 7 hours,Internet Usage Time(LTE) : Up to 8 hours,Internet Usage Time(Wi-Fi) : Up to 8 hours,Video Playback Time : Up to 7 hours,Audio Playback Time : Up to 30 hours
+
+
+]]>
+              </value>
+            </param>
+            <param index="7">
+              <value>
+                <![CDATA[http://www.amazon.in/Forzza-Westin-Queen-Size-Walnut/dp/B01IEZYJEA@##@http://www.amazon.in/Forzza-Daniel-Large-Finish-Wenge/dp/B01ELJQSS8@##@http://www.amazon.in/Nubia-Z11-Mini-Gold/dp/B01N6MTTV8@##@http://www.amazon.in/Samsung-Z2-SM-Z200F-Gold-8GB/dp/B01LW4PPFV]]>
+              </value>
+            </param>
+            <param index="8">
+              <value>
+                <![CDATA[Forzza Westin Queen Size Bed@##@Royal Oak Scout Double Size Bed@##@Nubia Z11 Mini@##@Samsung Z2 SM-Z200F 
+
+]]>
+              </value>
+            </param>
+            <param index="9">
+              <value>
+                <![CDATA[12480@##@34000@##@25000@##@16000]]>
+              </value>
+            </param>
+            <param index="10">
+              <value>
+                <![CDATA[Furniture@##@Furniture@##@Electronics@##@Electronics]]>
+              </value>
+            </param>
+            <param index="11">
+              <value>
+                <![CDATA[Homepage content for ecommerce post]]>
+              </value>
+            </param>
+            <param index="12">
+              <value>
+                <![CDATA[car.jpg]]>
+              </value>
+            </param>
+            <param index="13">
+              <value>
+                <![CDATA[Ecommerce]]>
+              </value>
+            </param>
+            <param index="14">
+              <value>
+                <![CDATA[null]]>
+              </value>
+            </param>
+            <param index="15">
+              <value>
+                <![CDATA[Apple]]>
+              </value>
+            </param>
+            <param index="16">
+              <value>
+                <![CDATA[null]]>
+              </value>
+            </param>
+            <param index="17">
+              <value>
+                <![CDATA[null]]>
+              </value>
+            </param>
+            <param index="18">
+              <value>
+                <![CDATA[null]]>
+              </value>
+            </param>
+            <param index="19">
+              <value>
+                <![CDATA[null]]>
+              </value>
+            </param>
+            <param index="20">
+              <value>
+                <![CDATA[null]]>
+              </value>
+            </param>
+            <param index="21">
+              <value>
+                <![CDATA[Hi testing for FB content]]>
+              </value>
+            </param>
+            <param index="22">
+              <value>
+                <![CDATA[xatakafoto]]>
+              </value>
+            </param>
+            <param index="23">
+              <value>
+                <![CDATA[Y]]>
+              </value>
+            </param>
+            <param index="24">
+              <value>
+                <![CDATA[Y]]>
+              </value>
+            </param>
+          </params>
+          <exception class="org.openqa.selenium.UnsupportedCommandException">
             <message>
-              <![CDATA[Cannot find elements when the XPath expression is null.]]>
+              <![CDATA[POST /session/fbcf4a04-4b74-4ca3-b30d-1b067be08c3b/moveto did not match a known command
+Build info: version: 'unknown', revision: '1969d75', time: '2016-10-18 09:43:45 -0700'
+System info: host: 'Shobha', ip: '192.168.2.156', os.name: 'Windows 7', os.arch: 'x86', os.version: '6.1', java.version: '1.8.0_77'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities [{rotatable=false, raisesAccessibilityExceptions=false, marionette=true, firefoxOptions={args=[], prefs={}}, appBuildId=20170125094131, version=, platform=XP, proxy={}, command_id=1, specificationLevel=0, acceptSslCerts=false, processId=8568, browserVersion=51.0.1, platformVersion=6.1, XULappId={ec8030f7-c20a-464f-9b0e-13a3a9e97384}, browserName=firefox, takesScreenshot=true, takesElementScreenshot=true, platformName=windows_nt}]
+Session ID: fbcf4a04-4b74-4ca3-b30d-1b067be08c3b]]>
             </message>
             <full-stacktrace>
-              <![CDATA[java.lang.IllegalArgumentException: Cannot find elements when the XPath expression is null.
-	at org.openqa.selenium.By.xpath(By.java:113)
-	at Common.Adminproperty.findElement(Adminproperty.java:105)
-	at Common.Adminproperty.findAndClick(Adminproperty.java:81)
-	at Admin.EditPublishedPost.addSlides(EditPublishedPost.java:93)
-	at Admin.EditPublishedPost.editPublishedPost(EditPublishedPost.java:53)
+              <![CDATA[org.openqa.selenium.UnsupportedCommandException: POST /session/fbcf4a04-4b74-4ca3-b30d-1b067be08c3b/moveto did not match a known command
+Build info: version: 'unknown', revision: '1969d75', time: '2016-10-18 09:43:45 -0700'
+System info: host: 'Shobha', ip: '192.168.2.156', os.name: 'Windows 7', os.arch: 'x86', os.version: '6.1', java.version: '1.8.0_77'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities [{rotatable=false, raisesAccessibilityExceptions=false, marionette=true, firefoxOptions={args=[], prefs={}}, appBuildId=20170125094131, version=, platform=XP, proxy={}, command_id=1, specificationLevel=0, acceptSslCerts=false, processId=8568, browserVersion=51.0.1, platformVersion=6.1, XULappId={ec8030f7-c20a-464f-9b0e-13a3a9e97384}, browserName=firefox, takesScreenshot=true, takesElementScreenshot=true, platformName=windows_nt}]
+Session ID: fbcf4a04-4b74-4ca3-b30d-1b067be08c3b
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:127)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:93)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:42)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:163)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:82)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:601)
+	at org.openqa.selenium.remote.RemoteExecuteMethod.execute(RemoteExecuteMethod.java:35)
+	at org.openqa.selenium.remote.RemoteMouse.mouseMove(RemoteMouse.java:89)
+	at org.openqa.selenium.interactions.MoveMouseAction.perform(MoveMouseAction.java:39)
+	at org.openqa.selenium.interactions.CompositeAction.perform(CompositeAction.java:50)
+	at org.openqa.selenium.interactions.Actions.perform(Actions.java:373)
+	at Admin.CreateEcommerceExcel.Ecommerce(CreateEcommerceExcel.java:79)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
@@ -27,29 +188,232 @@
 	at org.testng.internal.Invoker.invokeMethod(Invoker.java:639)
 	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:816)
 	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1124)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:124)
 	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:108)
-	at org.testng.TestRunner.privateRun(TestRunner.java:774)
-	at org.testng.TestRunner.run(TestRunner.java:624)
+	at org.testng.TestRunner.privateRun(TestRunner.java:773)
+	at org.testng.TestRunner.run(TestRunner.java:623)
 	at org.testng.SuiteRunner.runTest(SuiteRunner.java:359)
 	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:354)
 	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:312)
 	at org.testng.SuiteRunner.run(SuiteRunner.java:261)
 	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
 	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
-	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1215)
-	at org.testng.TestNG.runSuitesLocally(TestNG.java:1140)
-	at org.testng.TestNG.run(TestNG.java:1048)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1185)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1110)
+	at org.testng.TestNG.run(TestNG.java:1018)
 	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:112)
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:205)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:176)
 ]]>
             </full-stacktrace>
-          </exception> <!-- java.lang.IllegalArgumentException -->
+          </exception> <!-- org.openqa.selenium.UnsupportedCommandException -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- editPublishedPost -->
-      </class> <!-- Admin.EditPublishedPost -->
+        </test-method> <!-- Ecommerce -->
+        <test-method status="FAIL" signature="Setup()[pri:0, instance:Admin.CreateEcommerceExcel@1be98f5]" name="Setup" is-config="true" duration-ms="0" started-at="2017-02-06T16:04:58Z" finished-at="2017-02-06T16:04:58Z">
+          <exception class="org.openqa.selenium.WebDriverException">
+            <message>
+              <![CDATA[Failed to decode response from marionette
+Build info: version: 'unknown', revision: '1969d75', time: '2016-10-18 09:43:45 -0700'
+System info: host: 'Shobha', ip: '192.168.2.156', os.name: 'Windows 7', os.arch: 'x86', os.version: '6.1', java.version: '1.8.0_77'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities [{rotatable=false, raisesAccessibilityExceptions=false, marionette=true, firefoxOptions={args=[], prefs={}}, appBuildId=20170125094131, version=, platform=XP, proxy={}, command_id=1, specificationLevel=0, acceptSslCerts=false, processId=8264, browserVersion=51.0.1, platformVersion=6.1, XULappId={ec8030f7-c20a-464f-9b0e-13a3a9e97384}, browserName=firefox, takesScreenshot=true, takesElementScreenshot=true, platformName=windows_nt}]
+Session ID: 68863e5a-f29c-433c-9b25-35c928732780]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.WebDriverException: Failed to decode response from marionette
+Build info: version: 'unknown', revision: '1969d75', time: '2016-10-18 09:43:45 -0700'
+System info: host: 'Shobha', ip: '192.168.2.156', os.name: 'Windows 7', os.arch: 'x86', os.version: '6.1', java.version: '1.8.0_77'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities [{rotatable=false, raisesAccessibilityExceptions=false, marionette=true, firefoxOptions={args=[], prefs={}}, appBuildId=20170125094131, version=, platform=XP, proxy={}, command_id=1, specificationLevel=0, acceptSslCerts=false, processId=8264, browserVersion=51.0.1, platformVersion=6.1, XULappId={ec8030f7-c20a-464f-9b0e-13a3a9e97384}, browserName=firefox, takesScreenshot=true, takesElementScreenshot=true, platformName=windows_nt}]
+Session ID: 68863e5a-f29c-433c-9b25-35c928732780
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:127)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:93)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:42)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:163)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:82)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:601)
+	at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:322)
+	at Common.Adminproperty.callproperty(Adminproperty.java:62)
+	at Admin.CreateEcommerceExcel.Setup(CreateEcommerceExcel.java:39)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:85)
+	at org.testng.internal.Invoker.invokeConfigurationMethod(Invoker.java:510)
+	at org.testng.internal.Invoker.invokeConfigurations(Invoker.java:211)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:585)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:816)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1124)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:124)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:108)
+	at org.testng.TestRunner.privateRun(TestRunner.java:773)
+	at org.testng.TestRunner.run(TestRunner.java:623)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:359)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:354)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:312)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:261)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1185)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1110)
+	at org.testng.TestNG.run(TestNG.java:1018)
+	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:112)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:205)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:176)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.WebDriverException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Setup -->
+        <test-method status="SKIP" signature="Ecommerce(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:Admin.CreateEcommerceExcel@1be98f5]" name="Ecommerce" duration-ms="1" started-at="2017-02-06T16:05:13Z" data-provider="testdata" finished-at="2017-02-06T16:05:13Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Automate without Home Image:Este dron desechable del DARPA puede llevar medicinas allí donde más se necesitan]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Se acabó la diferencia de impuestos entre los libros digitales y los impresos en España. El ministro de Economía español, Luis de Guindos, ha confirmado que tanto libros como revistas y periódicos digitales pasarán a pagar un 4% de IVA, frente al 21% con el que se les gravaba hasta ahora. De esta manera, tendrán la misma tasa impositiva que los libros impresos.
+]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[primary.jpg]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[sofa.jpg@##@royal_oak.jpg@##@Nubia.jpg@##@samsung.jpg]]>
+              </value>
+            </param>
+            <param index="4">
+              <value>
+                <![CDATA[Forzza Westin Queen Size Bed (Walnut)@##@ Royal Oak Scout Double Size Bed (Maple)@##@Nubia Z11 Mini (Gold)@##@ Samsung Z2 SM-Z200F (Gold, 8GB)
+]]>
+              </value>
+            </param>
+            <param index="5">
+              <value>
+                <![CDATA[1@##@2@##@3@##@4]]>
+              </value>
+            </param>
+            <param index="6">
+              <value>
+                <![CDATA[Primary Material: Engineered wood
+Color: Walnut Contemporary
+@##@ Primary Material: Wood
+Color: Brown, Finish: Natural  Modern @##@Android v5.1.1 Lollipop operating system with 1.5GHz ARM Cortex A53 + 1.2GHz ARM Cortex A53 Qualcomm Snapdragon 617 64 bit MSM8952 octa core processor, Adreno 405 GPU, 3GB RAM, 32GB internal memory expandable up to 200GB and dual SIM (nano+nano) dual-standby (4G+3G)@##@1500 mAh Battery, Battery Run Time : Internet Usage Time(3G) : Up to 7 hours,Internet Usage Time(LTE) : Up to 8 hours,Internet Usage Time(Wi-Fi) : Up to 8 hours,Video Playback Time : Up to 7 hours,Audio Playback Time : Up to 30 hours
+
+
+]]>
+              </value>
+            </param>
+            <param index="7">
+              <value>
+                <![CDATA[http://www.amazon.in/Forzza-Westin-Queen-Size-Walnut/dp/B01IEZYJEA@##@http://www.amazon.in/Forzza-Daniel-Large-Finish-Wenge/dp/B01ELJQSS8@##@http://www.amazon.in/Nubia-Z11-Mini-Gold/dp/B01N6MTTV8@##@http://www.amazon.in/Samsung-Z2-SM-Z200F-Gold-8GB/dp/B01LW4PPFV]]>
+              </value>
+            </param>
+            <param index="8">
+              <value>
+                <![CDATA[Forzza Westin Queen Size Bed@##@Royal Oak Scout Double Size Bed@##@Nubia Z11 Mini@##@Samsung Z2 SM-Z200F 
+
+]]>
+              </value>
+            </param>
+            <param index="9">
+              <value>
+                <![CDATA[12480@##@34000@##@25000@##@16000]]>
+              </value>
+            </param>
+            <param index="10">
+              <value>
+                <![CDATA[Furniture@##@Furniture@##@Electronics@##@Electronics]]>
+              </value>
+            </param>
+            <param index="11">
+              <value>
+                <![CDATA[null]]>
+              </value>
+            </param>
+            <param index="12">
+              <value>
+                <![CDATA[null]]>
+              </value>
+            </param>
+            <param index="13">
+              <value>
+                <![CDATA[Ecommerce]]>
+              </value>
+            </param>
+            <param index="14">
+              <value>
+                <![CDATA[null]]>
+              </value>
+            </param>
+            <param index="15">
+              <value>
+                <![CDATA[Apple]]>
+              </value>
+            </param>
+            <param index="16">
+              <value>
+                <![CDATA[null]]>
+              </value>
+            </param>
+            <param index="17">
+              <value>
+                <![CDATA[null]]>
+              </value>
+            </param>
+            <param index="18">
+              <value>
+                <![CDATA[null]]>
+              </value>
+            </param>
+            <param index="19">
+              <value>
+                <![CDATA[null]]>
+              </value>
+            </param>
+            <param index="20">
+              <value>
+                <![CDATA[null]]>
+              </value>
+            </param>
+            <param index="21">
+              <value>
+                <![CDATA[Hi testing for FB content]]>
+              </value>
+            </param>
+            <param index="22">
+              <value>
+                <![CDATA[xatakafoto@##@vayatele]]>
+              </value>
+            </param>
+            <param index="23">
+              <value>
+                <![CDATA[Y]]>
+              </value>
+            </param>
+            <param index="24">
+              <value>
+                <![CDATA[Y]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Ecommerce -->
+      </class> <!-- Admin.CreateEcommerceExcel -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
