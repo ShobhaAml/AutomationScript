@@ -356,8 +356,11 @@ public class Adminproperty
             implicitWait();
             findElement(prop.getProperty("actuallization_insert_button")).click();
             implicitWait();
+
             findAndSendkey("post_content", Keys.END);
             findAndSendkey("post_content", Keys.ENTER);
+            findAndClick("post_content");
+            implicitWait();
             addNewlines();
         }
     }
@@ -432,6 +435,8 @@ public class Adminproperty
             findAndClick("Youtube_button");
         } else if (videoURL.contains("vimeo")) {
             findAndClick("Vimeo_button");
+        } else if (videoURL.contains("facebook")) {
+            findAndClick("Facebook_button");
         } else {
             findAndClick("Vine_button");
         }
@@ -534,6 +539,7 @@ public class Adminproperty
             action.sendKeys(Keys.PAGE_DOWN);
             implicitWait();
             action.click(driver.findElement(By.partialLinkText("Publicar"))).perform();
+
             implicitWait();
             findAndClick("publish_tab");
             implicitWait();
@@ -598,6 +604,7 @@ public class Adminproperty
         int rows = sheet.getLastRowNum() - sheet.getFirstRowNum();
         int cnt = 0;
         System.out.println(rows + "===" + columns);
+
         Object[][] postdata = new Object[rows][columns];
         for (int i = 1; i <= rows; i++) {
             Row row = sheet.getRow(i);
@@ -628,54 +635,65 @@ public class Adminproperty
         alert.accept();
     }
 
-    public void fichaTechnica()
+    public void fichaTechnica(String fichatechnica)
     {
-        findAndClick("toolbar_Advance");
         findAndClick("toolbar_fichatechnica");
-        findAndWrite("Ficha_name", Array[0]);
-        findAndWrite("Ficha_details", Array[1]);
-        findAndWrite("Ficha_mainImage", Array[2]);
-        findAndWrite("Ficha_optionalImage", Array[3]);
-        findAndWrite("Ficha_price", Array[4]);
-        findAndWrite("Ficha_text", Array[5]);
-        findAndWrite("Ficha_URL", Array[6]);
-        findAndWrite("Ficha_otherDetails", Array[7]);
-        int i = 8;
-        WebElement table = findElement(prop.getProperty("Ficha_List"));
-        List<WebElement> rows = table.findElements(By.tagName("tr"));
-        for (int row = 0; row < rows.size(); row++) {
-            List<WebElement> data = rows.get(row).findElements(By.tagName("td"));
-            int count = data.size() - 1;
-            int row_cell = row + 1;
-            for (int col = 0; col < count; col++) {
-                int col_cell = col + 1;
-                WebElement element = findElement(prop.getProperty("List_Row") + "[" + row_cell + "]" + "/" + "td" + "["
-                        + col_cell + "]" + "/input");
-                element.sendKeys(Array[i]);
-                i++;
+        String[] arrfichatechnica = fichatechnica.split("@##@");
+        findAndWrite("Ficha_name", arrfichatechnica[0]);
+        findAndWrite("Ficha_details", arrfichatechnica[1]);
+        findAndWrite("Ficha_mainImage", arrfichatechnica[2]);
+        findAndWrite("Ficha_optionalImage", arrfichatechnica[3]);
+        String[] arrfichapricebar = arrfichatechnica[4].split("~##~");
+        findAndWrite("Ficha_price", arrfichapricebar[0]);
+        findAndWrite("Ficha_text", arrfichapricebar[1]);
+        findAndWrite("Ficha_URL", arrfichapricebar[2]);
+
+        String[] arrDataSheet = arrfichatechnica[5].split("@~@");
+
+        if (arrDataSheet.length > 3) {
+            findAndWrite("Ficha_add_newrows", "" + arrDataSheet.length + "");
+            findAndClick("Ficha_add_newrows_button");
+        }
+
+        for (int y = 0; y < arrDataSheet.length; y++) {
+            String[] arritems = arrDataSheet[y].split("~##~");
+            for (int k = 0; k < arritems.length; k++) {
+                System.out.println(prop.getProperty("List_Row") + "[" + (y + 1) + "]" + "/td[" + (k + 1) + "]/input");
+                System.out.println(arritems[k]);
+
+                if (arritems[k].equalsIgnoreCase("null")) {
+                    findElement(prop.getProperty("List_Row") + "[" + (y + 1) + "]" + "/td[" + (k + 1) + "]/input")
+                            .sendKeys("");
+                } else {
+                    findElement(prop.getProperty("List_Row") + "[" + (y + 1) + "]" + "/td[" + (k + 1) + "]/input")
+                            .sendKeys(arritems[k]);
+                }
+
             }
         }
+        findAndWrite("Ficha_otherDetails", arrfichatechnica[6]);
         findAndClick("Ficha_insertButton");
-        findAndClick("post_title");
+        implicitWait();
+        findAndClick("post_content");
+        addNewlines();
     }
 
     public void specialPost(String status)
     {
-        if (status.equalsIgnoreCase(status)) {
+        if (status.equalsIgnoreCase("Y")) {
             findAndClick("specialCheckbox");
         }
     }
 
     public void closeComments(String status)
     {
-        if (status.equalsIgnoreCase(status)) {
+        if (status.equalsIgnoreCase("Y")) {
             findAndClick("commentsCheckbox");
         }
     }
 
-    public void insertGIPHY(String URL, String layout, String caption)
+    public void insertGIPHY(String URL, String layout, String caption, String browser)
     {
-        findAndClick("toolbar_Advance");
         List<WebElement> items = findElementsByXpath(prop.getProperty("header"));
         for (WebElement item : items) {
             if (item.getText().equalsIgnoreCase("GIF")) {
@@ -714,7 +732,9 @@ public class Adminproperty
 
     public void Author(String authorName)
     {
-        if (authorName != "") {
+        if (driver.findElements(By.xpath("author")).size() != 0) {
+            implicitWait();
+            implicitWait();
             findAndClick("authorBox_click");
             implicitWait();
             findAndWrite("author", authorName);
@@ -723,36 +743,29 @@ public class Adminproperty
             implicitWait();
             for (WebElement options : optionlist) {
                 implicitWait();
-                if (options.getText().equalsIgnoreCase(authorName))
-                    implicitWait();
-                {
+                if (options.getText().equalsIgnoreCase(authorName)) {
                     implicitWait();
                     options.click();
                     implicitWait();
                     break;
                 }
-
             }
         }
     }
 
     public void infograph(String infographURL, String infographLayout, String infographCaption, String browser)
-            throws Exception
     {
-        implicitWait();
-        findAndClick("toolbar_Advance");
-        implicitWait();
-        findAndClick("toolbar_Infograph");
-        implicitWait();
-        if (browser.trim().equalsIgnoreCase("firefox")) {
-            findAndClick("post_content");
-            findAndSendkey("post_content", Keys.ENTER);
-
+        System.out.println(infographURL + " " + infographLayout + " " + infographCaption);
+        List<WebElement> items = findElementsByXpath(prop.getProperty("header"));
+        for (WebElement item : items) {
+            if (item.getText().equalsIgnoreCase("Graphs")) {
+                item.click();
+                break;
+            }
         }
-        findAndClick("infographURLPath");
-        implicitWait();
         findAndWrite("infographURLPath", infographURL);
         implicitWait();
+
         if (infographLayout.equalsIgnoreCase("small")) {
             implicitWait();
             WebElement element = findElement(prop.getProperty("graph_SmallLayout"));
@@ -780,4 +793,59 @@ public class Adminproperty
         implicitWait();
         findAndClick("post_content");
     }
+
+    public void addTable(String tabledata, String Checkbox_same_width, String Checkbox_table_first_row_heading,
+            String Checkbox_table_first_column_heading, String Checkbox_table_occupy_all_avaiable_width)
+    {
+        String rows = "2", columns = "2";
+        implicitWait();
+        findAndClick("toolbar_table");
+        System.out.println("rows: " + rows);
+        String tablerow[] = tabledata.split("@##@");
+        rows = String.valueOf(tablerow.length);
+        for (int k = 0; k < tablerow.length; k++) {
+            String tablecolumn1[] = tablerow[k].split("~##~");
+            columns = String.valueOf(tablecolumn1.length);
+            System.out.println("columns: " + columns);
+        }
+        implicitWait();
+        implicitWait();
+        implicitWait();
+        findElement(prop.getProperty("table_row_filter")).click();
+        implicitWait();
+        findElement(prop.getProperty("table_row_filter")).clear();
+        implicitWait();
+        findAndWrite("table_row_filter", rows);
+        findElement(prop.getProperty("table_column_filter")).click();
+        findElement(prop.getProperty("table_column_filter")).clear();
+        implicitWait();
+        findAndWrite("table_column_filter", columns);
+        findAndClick("table_generate_table_button");
+        implicitWait();
+        for (int i = 0; i < tablerow.length; i++) {
+            String tablecolumn[] = tablerow[i].split("~##~");
+            System.out.println(tablerow[i]);
+            for (int j = 1; j <= tablecolumn.length; j++) {
+                findElement(prop.getProperty("table_tr") + "[" + (i + 1) + "]/td[" + (j + 1) + "]"
+                        + prop.getProperty("table_td")).sendKeys(tablecolumn[(j - 1)]);
+            }
+        }
+        implicitWait();
+        if (Checkbox_same_width.equalsIgnoreCase("Y")) {
+            findAndClick("table_checkbox_same_width");
+        }
+        if (Checkbox_table_first_row_heading.equalsIgnoreCase("Y")) {
+            findAndClick("table_first_row_heading");
+        }
+        if (Checkbox_table_first_column_heading.equalsIgnoreCase("Y")) {
+            findAndClick("table_first_column_heading");
+        }
+        if (Checkbox_table_occupy_all_avaiable_width.equalsIgnoreCase("Y")) {
+            findAndClick("table_occupy_all_avaiable_width");
+        }
+        implicitWait();
+        findAndClick("table_insert_button");
+        findAndClick("post_content");
+    }
+
 }
