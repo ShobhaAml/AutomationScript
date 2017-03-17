@@ -4,6 +4,7 @@ import java.util.List;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Properties;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -48,15 +49,15 @@ public class CreatePostExcel
     @DataProvider(name = "testdata")
     public Object[][] TestDataFeed() throws Exception
     {
-        Object[][] postdata = adminProperties.readExcel("Normal", 43);
+        Object[][] postdata = adminProperties.readExcel("Normal", 73);
         return postdata;
     }
 
     @Test(dataProvider = "testdata")
     public void createPost(String posttype, String posttitle,
             String postcontent, String primaryimage, String postcontent_more,
-            String video, String video_layout, String gallery,
-            String multiple_images, String embeded_code, String summary,
+            String Youtube_Video, String Youtube_layout ,String Vine, String Vine_layout,String Vimeo, String Vimeo_layout,
+            String gallery, String multiple_images, String embeded_code, String summary,
             String summary_layout, String actualizacion, String ficha_technica,
             String ficha_review, String giphy_url, String giphy_layout,
             String giphy_caption, String Inforgram_datawrapper_URL,
@@ -65,7 +66,14 @@ public class CreatePostExcel
             String Checkbox_same_width,
             String Checkbox_table_first_row_heading,
             String Checkbox_table_first_column_heading,
-            String Checkbox_table_occupy_all_avaiable_width,
+            String Checkbox_table_occupy_all_avaiable_width, String Recipe_name,
+            String Recipe_Person, String Recipe_level , String Recipe_ingredients, String Recipe_ingredients_Cantidad, String Recipe_ingredients_units,
+            String Recipe_ingredients_Detalles, String Preparation_time_hours, String Preparation_time_Mintues,String Cooking_time_hours, String Cooking_time_minutes,
+            String Rest_time_hours,String Rest_time_mintues, 
+            String Recipe_postcontent,
+            String Recipe_Image, String Recipe_More_postcontent,String Recipe_Youtube_Video, String Recipe_Youtube_Video_layout,
+            String Vine_Video, String Recipe_Vine_Video_layout, String Vimeo_Video, String Recipe_Vimeo_Video_layout,
+            String FB_Video, String Recipe_FB_Video_layout, String Recipe_summary, String Recipe_summary_layout,
             String homecontent, String homeimage, String Branded_club,
             String category, String catagory_other, String tag,
             String seotitle, String seodesc, String specialpost,
@@ -100,19 +108,37 @@ public class CreatePostExcel
                 adminProperties.addNewlines();
             }
 
-            if (!video.equalsIgnoreCase("null")) {
-                movecursorpostion(browser);
-                adminProperties.videoHandle(video, video_layout, browser);
-                adminProperties.implicitWait();
-                adminProperties.findAndClick("post_content");
-                adminProperties.addNewlines();
-                adminProperties.findAndClick("toolbar_more");
-                adminProperties.implicitWait();
-            } else {
-                adminProperties.findAndClick("toolbar_more");
-                adminProperties.implicitWait();
-            }
-
+                if (!Youtube_Video.equalsIgnoreCase("null")) {
+                    movecursorpostion(browser);
+                    adminProperties.videoHandle(Youtube_Video, Youtube_layout, browser);
+                    adminProperties.implicitWait();
+                    adminProperties.findAndClick("post_content");
+                    adminProperties.addNewlines();
+                    adminProperties.implicitWait();
+                } 
+                
+                if (!Vine.equalsIgnoreCase("null")) {
+                    movecursorpostion(browser);
+                    adminProperties.videoHandle(Vine, Vine_layout, browser);
+                    adminProperties.implicitWait();
+                    adminProperties.findAndClick("post_content");
+                    adminProperties.addNewlines();
+                    adminProperties.implicitWait();
+                } 
+                
+                if (!Vimeo.equalsIgnoreCase("null")) {
+                    movecursorpostion(browser);
+                    adminProperties.videoHandle(Vimeo, Vimeo_layout, browser);
+                    adminProperties.implicitWait();
+                    adminProperties.findAndClick("post_content");
+                    adminProperties.addNewlines();
+                    adminProperties.implicitWait();
+                } 
+                
+            adminProperties.addNewlines();
+            adminProperties.findAndClick("toolbar_more");
+            adminProperties.implicitWait();
+           
             if (!postcontent_more.equalsIgnoreCase("null")) {
                 adminProperties.addNewlines();
                 adminProperties.findAndWrite("post_content", postcontent_more);
@@ -149,7 +175,8 @@ public class CreatePostExcel
                 adminProperties.findAndWrite("post_content", embeded_code);
                 adminProperties.implicitWait();
                 adminProperties.addNewlines();
-            }
+                adminProperties.implicitWait();
+              }
 
             if (!(ficha_review).equalsIgnoreCase("null")) {
                 movecursorpostion(browser);
@@ -225,9 +252,18 @@ public class CreatePostExcel
                 adminProperties.implicitWait();
                 adminProperties.addNewlines();
                 adminProperties.fichaTechnica(ficha_technica);
-
+           }
+            
+            if(!Recipe_name.equalsIgnoreCase("null"))
+            {
+                adminProperties.addRecipe(Recipe_name,Recipe_Person,Recipe_level,Recipe_ingredients, Recipe_ingredients_Cantidad, Recipe_ingredients_units,
+                        Recipe_ingredients_Detalles, Preparation_time_hours,  Preparation_time_Mintues, Cooking_time_hours,  Cooking_time_minutes,
+                         Rest_time_hours, Rest_time_mintues, Recipe_postcontent,
+                          Recipe_Image,  Recipe_More_postcontent, Recipe_Youtube_Video, Recipe_Youtube_Video_layout,
+                          Vine_Video, Recipe_Vine_Video_layout, Vimeo_Video, Recipe_Vimeo_Video_layout,
+                          FB_Video, Recipe_FB_Video_layout,  Recipe_summary, Recipe_summary_layout, browser);
             }
-
+            
             adminProperties.implicitWait();
             adminProperties.moveToPublishTab(browser);
 

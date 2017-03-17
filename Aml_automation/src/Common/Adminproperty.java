@@ -1,5 +1,6 @@
 package Common;
 
+import java.awt.RenderingHints.Key;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeListener;
 import java.io.FileInputStream;
@@ -10,6 +11,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.http.HttpResponse;
@@ -664,6 +666,10 @@ public class Adminproperty
         for (int i = 1; i <= rows; i++) {
             Row row = sheet.getRow(i);
             for (int j = 0; j < row.getLastCellNum(); j++) {
+                sheet.getRow(i)
+                        .getCell(j)
+                        .setCellType(
+                                sheet.getRow(i).getCell(j).CELL_TYPE_STRING);
                 if (sheet.getRow(i).getCell(j).getStringCellValue() != "") {
                     postdata[cnt][j] = sheet.getRow(i).getCell(j)
                             .getStringCellValue();
@@ -693,48 +699,50 @@ public class Adminproperty
 
     public void fichaTechnica(String fichatechnica)
     {
-        findAndClick("toolbar_fichatechnica"); 
-        String[] arrfichatechnica= fichatechnica.split("@##@");
-        findAndWrite("Ficha_name", arrfichatechnica[0] );
-         findAndWrite("Ficha_details", arrfichatechnica[1]);
-         findAndWrite("Ficha_mainImage", arrfichatechnica[2]);
-         findAndWrite("Ficha_optionalImage", arrfichatechnica[3]);
-         String[] arrfichapricebar= arrfichatechnica[4].split("~##~");
-         findAndWrite("Ficha_price", arrfichapricebar[0]);
-         findAndWrite("Ficha_text", arrfichapricebar[1]); 
-         findAndWrite("Ficha_URL", arrfichapricebar[2]);
-         
-         String[] arrDataSheet= arrfichatechnica[5].split("@~@");
-         
-         if(arrDataSheet.length > 3)
-         {
-             findAndWrite("Ficha_add_newrows", ""+arrDataSheet.length+"");
-             findAndClick("Ficha_add_newrows_button");
-         }
-         
-         for(int y=0;y<arrDataSheet.length;y++)
-         {
-             String[] arritems=arrDataSheet[y].split("~##~");
-             for(int k=0;k<arritems.length;k++)
-             {
-                 System.out.println(prop.getProperty("List_Row") +"["+(y+1)+"]" +"/td["+(k+1)+"]/input");
-                 System.out.println(arritems[k]);
-                         
-                 if(arritems[k].equalsIgnoreCase("null"))
-                 {
-                     findElement(prop.getProperty("List_Row") +"["+(y+1)+"]" +"/td["+(k+1)+"]/input").sendKeys("");
-                 }
-                 else{
-                 findElement(prop.getProperty("List_Row") +"["+(y+1)+"]" +"/td["+(k+1)+"]/input").sendKeys(arritems[k]);
-                 }
-                 
-             }
-         }
-       findAndWrite("Ficha_otherDetails", arrfichatechnica[6]);
-       findAndClick("Ficha_insertButton"); 
-       implicitWait();
-       findAndClick("post_content"); 
-       addNewlines();
+        findAndClick("toolbar_fichatechnica");
+        String[] arrfichatechnica = fichatechnica.split("@##@");
+        findAndWrite("Ficha_name", arrfichatechnica[0]);
+        findAndWrite("Ficha_details", arrfichatechnica[1]);
+        findAndWrite("Ficha_mainImage", arrfichatechnica[2]);
+        findAndWrite("Ficha_optionalImage", arrfichatechnica[3]);
+        String[] arrfichapricebar = arrfichatechnica[4].split("~##~");
+        findAndWrite("Ficha_price", arrfichapricebar[0]);
+        findAndWrite("Ficha_text", arrfichapricebar[1]);
+        findAndWrite("Ficha_URL", arrfichapricebar[2]);
+
+        String[] arrDataSheet = arrfichatechnica[5].split("@~@");
+
+        if (arrDataSheet.length > 3) {
+            findAndWrite("Ficha_add_newrows", "" + arrDataSheet.length + "");
+            findAndClick("Ficha_add_newrows_button");
+        }
+
+        for (int y = 0; y < arrDataSheet.length; y++) {
+            String[] arritems = arrDataSheet[y].split("~##~");
+            for (int k = 0; k < arritems.length; k++) {
+                System.out.println(prop.getProperty("List_Row") + "[" + (y + 1)
+                        + "]" + "/td[" + (k + 1) + "]/input");
+                System.out.println(arritems[k]);
+
+                if (arritems[k].equalsIgnoreCase("null")) {
+                    findElement(
+                            prop.getProperty("List_Row") + "[" + (y + 1) + "]"
+                                    + "/td[" + (k + 1) + "]/input")
+                            .sendKeys("");
+                } else {
+                    findElement(
+                            prop.getProperty("List_Row") + "[" + (y + 1) + "]"
+                                    + "/td[" + (k + 1) + "]/input").sendKeys(
+                            arritems[k]);
+                }
+
+            }
+        }
+        findAndWrite("Ficha_otherDetails", arrfichatechnica[6]);
+        findAndClick("Ficha_insertButton");
+        implicitWait();
+        findAndClick("post_content");
+        addNewlines();
     }
 
     public void specialPost(String status)
@@ -742,7 +750,7 @@ public class Adminproperty
         if (status.equalsIgnoreCase("Y")) {
             findAndClick("specialCheckbox");
         }
-   }
+    }
 
     public void closeComments(String status)
     {
@@ -750,8 +758,9 @@ public class Adminproperty
             findAndClick("commentsCheckbox");
         }
     }
-    
-    public void insertGIPHY(String URL, String layout, String caption,String browser)
+
+    public void insertGIPHY(String URL, String layout, String caption,
+            String browser)
     {
         List<WebElement> items = findElementsByXpath(prop.getProperty("header"));
         for (WebElement item : items) {
@@ -788,79 +797,86 @@ public class Adminproperty
         findAndClick("insertButtonGIPHY");
         findAndClick("post_content");
     }
-    
-    public void Author(String authorName) {
-      if(driver.findElements(By.xpath("author")).size() != 0){
+
+    public void Author(String authorName)
+    {
+        if(!authorName.equalsIgnoreCase("null"))
+        {
         implicitWait();
         implicitWait();
         findAndClick("authorBox_click");
         implicitWait();
         findAndWrite("author", authorName);
         implicitWait();
-        List<WebElement> optionlist = findElementByClass(prop.getProperty("Author_by_ClassName"));
+        List<WebElement> optionlist = findElementByClass(prop
+                .getProperty("Author_by_ClassName"));
         implicitWait();
         for (WebElement options : optionlist) {
             implicitWait();
-             if (options.getText().equalsIgnoreCase(authorName))
-             {
-                 implicitWait();
-                 options.click();
-                 implicitWait();
-                 break;
-             }
-          }
-      }
- }
+            if (options.getText().equalsIgnoreCase(authorName)) {
+                System.out.println(options.getText());
+                implicitWait();
+                options.click();
+                implicitWait();
+                break;
+            }
+        }
+       }
+        
+    }
 
     public void infograph(String infographURL, String infographLayout,
             String infographCaption, String browser)
     {
-        System.out.println(infographURL +" " + infographLayout +" " + infographCaption);
+        System.out.println(infographURL + " " + infographLayout + " "
+                + infographCaption);
         List<WebElement> items = findElementsByXpath(prop.getProperty("header"));
-         for (WebElement item : items) {
-             if (item.getText().equalsIgnoreCase("Graphs")) {
-                 item.click();
-                 break;
-             }
-         }
-         findAndWrite("infographURLPath", infographURL);
-         implicitWait();
-         
-         if (infographLayout.equalsIgnoreCase("small")) {
-             implicitWait();
-             WebElement element = findElement(prop.getProperty("graph_SmallLayout"));
-             JavascriptExecutor executor = (JavascriptExecutor) driver;
-             executor.executeScript("arguments[0].click();", element);
-             implicitWait();
-         } else if (infographLayout.equalsIgnoreCase("normal")) {
-             implicitWait();
-             WebElement element = findElement(prop.getProperty("graph_Normallayout"));
-             JavascriptExecutor executor = (JavascriptExecutor) driver;
-    
-             executor.executeScript("arguments[0].click();", element);
-             implicitWait();
-         } else {
-             implicitWait();
-             WebElement element = findElement(prop.getProperty("graph_Largelayout"));
-             JavascriptExecutor executor = (JavascriptExecutor) driver;
-             executor.executeScript("arguments[0].click();", element);
-             implicitWait();
-         }
-         implicitWait();
-         findAndWrite("infographCaptionPath", infographCaption);
-         implicitWait();
-         findAndClick("Add_infograph");
-         implicitWait();
-         findAndClick("post_content");
-   }
+        for (WebElement item : items) {
+            if (item.getText().equalsIgnoreCase("Graphs")) {
+                item.click();
+                break;
+            }
+        }
+        findAndWrite("infographURLPath", infographURL);
+        implicitWait();
 
-    public void addTable(String tabledata,
-            String Checkbox_same_width,
+        if (infographLayout.equalsIgnoreCase("small")) {
+            implicitWait();
+            WebElement element = findElement(prop
+                    .getProperty("graph_SmallLayout"));
+            JavascriptExecutor executor = (JavascriptExecutor) driver;
+            executor.executeScript("arguments[0].click();", element);
+            implicitWait();
+        } else if (infographLayout.equalsIgnoreCase("normal")) {
+            implicitWait();
+            WebElement element = findElement(prop
+                    .getProperty("graph_Normallayout"));
+            JavascriptExecutor executor = (JavascriptExecutor) driver;
+
+            executor.executeScript("arguments[0].click();", element);
+            implicitWait();
+        } else {
+            implicitWait();
+            WebElement element = findElement(prop
+                    .getProperty("graph_Largelayout"));
+            JavascriptExecutor executor = (JavascriptExecutor) driver;
+            executor.executeScript("arguments[0].click();", element);
+            implicitWait();
+        }
+        implicitWait();
+        findAndWrite("infographCaptionPath", infographCaption);
+        implicitWait();
+        findAndClick("Add_infograph");
+        implicitWait();
+        findAndClick("post_content");
+    }
+
+    public void addTable(String tabledata, String Checkbox_same_width,
             String Checkbox_table_first_row_heading,
             String Checkbox_table_first_column_heading,
             String Checkbox_table_occupy_all_avaiable_width)
     {
-        String rows="2", columns="2";
+        String rows = "2", columns = "2";
         implicitWait();
         findAndClick("toolbar_table");
         System.out.println("rows: " + rows);
@@ -889,10 +905,19 @@ public class Adminproperty
             String tablecolumn[] = tablerow[i].split("~##~");
             System.out.println(tablerow[i]);
             for (int j = 1; j <= tablecolumn.length; j++) {
-                findElement(
-                        prop.getProperty("table_tr") + "[" + (i + 1) + "]/td["
-                                + (j + 1) + "]" + prop.getProperty("table_td"))
-                        .sendKeys(tablecolumn[(j - 1)]);
+                if (tablecolumn[(j - 1)].equalsIgnoreCase("null")) {
+                    findElement(
+                            prop.getProperty("table_tr") + "[" + (i + 1)
+                                    + "]/td[" + (j + 1) + "]"
+                                    + prop.getProperty("table_td"))
+                            .sendKeys("");
+                } else {
+                    findElement(
+                            prop.getProperty("table_tr") + "[" + (i + 1)
+                                    + "]/td[" + (j + 1) + "]"
+                                    + prop.getProperty("table_td")).sendKeys(
+                            tablecolumn[(j - 1)]);
+                }
             }
         }
         implicitWait();
@@ -913,4 +938,312 @@ public class Adminproperty
         findAndClick("post_content");
     }
 
- }
+    public void RecipeSummary(String summary_data, String summary_layout)
+            throws Exception
+    {
+        if (!summary_data.equalsIgnoreCase("null")) {
+
+            findElement(prop.getProperty("Recipe_summary")).click();
+            findElement(prop.getProperty("summary_input_field")).sendKeys(
+                    summary_data);
+            Thread.sleep(3000);
+            implicitWait();
+            switch (summary_layout) {
+            case "left":
+                implicitWait();
+                findElement(prop.getProperty("summary_insert_left")).click();
+                break;
+            case "right":
+                implicitWait();
+                findElement(prop.getProperty("summary_insert_right")).click();
+                break;
+            case "center":
+                implicitWait();
+                findElement(prop.getProperty("summary_insert_center")).click();
+                break;
+            }
+            implicitWait();
+            findAndSendkey("Recipe_Post_content", Keys.END);
+            findAndSendkey("Recipe_Post_content", Keys.ENTER);
+            findAndSendkey("Recipe_Post_content", Keys.END);
+            findAndSendkey("Recipe_Post_content", Keys.ENTER);
+        }
+
+    }
+
+    public void RecipeuploadImage(String primaryimage, String browser)
+            throws Exception
+    {
+        String primaryimagearr[] = primaryimage.split("@#@");
+        for (int i = 0; i < primaryimagearr.length; i++) {
+            if (browser.trim().equalsIgnoreCase("firefox")) {
+                findAndClick("Recipe_Post_content");
+            }
+            findAndSendkey("Recipe_Post_content", Keys.END);
+            findAndSendkey("Recipe_Post_content", Keys.ENTER);
+            findAndSendkey("Recipe_Post_content", Keys.END);
+            findAndSendkey("Recipe_Post_content", Keys.ENTER);
+            implicitWait();
+            System.out.println(primaryimagearr[i]);
+            System.out.println(System.getProperty("user.dir")
+                    + prop.getProperty("image_path") + "\\"
+                    + primaryimagearr[i]);
+            findAndWrite("primary_image_insert", System.getProperty("user.dir")
+                    + prop.getProperty("image_path") + "\\"
+                    + primaryimagearr[i]);
+            findAndClick("primary_image_upload");
+        }
+        WebElement element1 = findElement(prop
+                .getProperty("product_image_bulkupload")
+                + prop.getProperty("product_image_bulkupload1"));
+
+        if (element1.getAttribute("href") != null) {
+            isLinkBroken(new URL(element1.getAttribute("href")));
+            System.out.println(isLinkBroken(new URL(element1
+                    .getAttribute("href"))));
+        }
+        implicitWait();
+        findAndClick("Recipe_normal_insert");
+        implicitWait();
+    }
+
+    public void RecipeAddVideo(String videoURL, String layout, String browser)
+            throws InterruptedException
+    {
+        WebElement element;
+        findAndClick("Recipe_Post_content");
+        findAndSendkey("Recipe_Post_content", Keys.ENTER);
+        findAndClick("Recipe_video");
+        if (browser.trim().equalsIgnoreCase("firefox")) {
+            findAndClick("Recipe_Post_content");
+            findAndSendkey("Recipe_Post_content", Keys.ENTER);
+        }
+        findAndClick("Video_URL");
+        implicitWait();
+        findAndWrite("Video_URL", videoURL);
+        implicitWait();
+        if (layout.equalsIgnoreCase("normal")) {
+            findElement(prop.getProperty("Video_NormalLayout")).click();
+        } else {
+            findElement(prop.getProperty("Video_Biglayout")).click();
+        }
+        implicitWait();
+        if (videoURL.contains("youtube")) {
+            findAndClick("Youtube_button");
+        } else if (videoURL.contains("vimeo")) {
+            findAndClick("Vimeo_button");
+        } else {
+            findAndClick("Vine_button");
+        }
+        findAndClick("Recipe_Post_content");
+        implicitWait();
+        findAndSendkey("Recipe_Post_content", Keys.END);
+        findAndSendkey("Recipe_Post_content", Keys.ENTER);
+        findAndSendkey("Recipe_Post_content", Keys.END);
+        findAndSendkey("Recipe_Post_content", Keys.ENTER);
+
+    }
+
+    public void addRecipe(String name, String persons, String level,
+            String ingredients, String Recipe_ingredients_Cantidad,
+            String Recipe_ingredients_units,
+            String Recipe_ingredients_Detailes, String Preparation_time_hours,
+            String Preparation_time_Mintues, String Cooking_time_hours,
+            String Cooking_time_minutes, String Rest_time_hours,
+            String Rest_time_mintues, String Recipe_postcontent,
+            String RecipeImage, String Recipe_More_postcontent,
+            String Youtube_Video, String Recipe_Youtube_Video_layout,
+            String Vine_Video, String Recipe_Vine_Video_layout,
+            String Vimeo_Video, String Recipe_Vimeo_Video_layout,
+            String FB_Video, String Recipe_FB_Video_layout,
+            String Recipe_summary, String Recipe_summary_layout, String browser)
+            throws Exception
+    {
+        System.out.println("Recipe_name " + name);
+        findAndWrite("Recipe_name", name);
+        implicitWait();
+        String[] personarr = persons.split("@##@");
+        implicitWait();
+        if (level.equalsIgnoreCase("high")) {
+            findElement(prop.getProperty("Recipe_high")).click();
+        } else if (level.equalsIgnoreCase("Low")) {
+            findElement(prop.getProperty("Recipe_low")).click();
+        } else {
+            findElement(prop.getProperty("Recipe_medium")).click();
+        }
+        findAndWrite("Recipe_Person", personarr[0]);
+        findAndClick("Recipe_person_unit_dropdown");
+        implicitWait();
+        List<WebElement> lists3 = driver.findElements(By
+                .xpath("//*//*[text()='" + personarr[1] + "']"));
+        System.out.println(lists3.size());
+        for (WebElement test3 : lists3) {
+            if (test3.getText().equalsIgnoreCase(personarr[1].trim())) {
+                System.out.println("Matched: " + test3.getText());
+                test3.click();
+                implicitWait();
+                break;
+            }
+        }
+        implicitWait();
+        implicitWait();
+        findAndWrite("preparation_time_hours", Preparation_time_hours);
+        findAndWrite("preparation_time_mnts", Preparation_time_Mintues);
+        findAndWrite("cooking_time_hours", Cooking_time_hours);
+        findAndWrite("cooking_time_mnts", Cooking_time_minutes);
+        findAndWrite("rest_time_hours", Rest_time_hours);
+        findAndWrite("rest_time_mnts", Rest_time_mintues);
+        implicitWait();
+
+        String[] arringredients = ingredients.split("@##@");
+        String[] arrRecipe_ingredients_Cantidad = Recipe_ingredients_Cantidad
+                .split("@##@");
+        String[] arrRecipeingredientsdetails = Recipe_ingredients_Detailes
+                .split("@##@");
+        String[] arrRecipeingredientsunits = Recipe_ingredients_units
+                .split("@##@");
+        int cnt = 2;
+        for (int i = 0; i < arringredients.length; i++) {
+            if (i > 2) {
+                findAndClick("Recipe_more_row_button");
+            }
+            
+            implicitWait();
+            findElement(
+                    prop.getProperty("Recipe_ingredient_row_p1") + "[" + cnt
+                            + "]"
+                            + prop.getProperty("Recipe_ingredient_row_p2"))
+                    .sendKeys(arringredients[i]);
+            List<WebElement> lists1 = driver.findElements(By
+                    .xpath("//*[text()='" + arringredients[i] + "']"));
+            for (WebElement test : lists1) {
+                System.out.println(test.getText() + "==="
+                        + arringredients[i].trim());
+
+                if (test.getText().equalsIgnoreCase(arringredients[i].trim())) {
+                    System.out.println("Matched: " + test.getText());
+                    test.click();
+                    implicitWait();
+                    break;
+                }
+            }
+
+            System.out.println(arrRecipe_ingredients_Cantidad[i]);
+            implicitWait();
+            findElement(
+                    prop.getProperty("Recipe_ingredient_quantity_p1") + "["
+                            + cnt + "]"
+                            + prop.getProperty("Recipe_ingredient_quantity_p2"))
+                    .sendKeys(arrRecipe_ingredients_Cantidad[i]);
+            implicitWait();
+            findElement(
+                    prop.getProperty("Recipe-unit_p1") + "[" + cnt + "]"
+                            + prop.getProperty("Recipe-unit_p2")).click();
+            implicitWait();
+
+            List<WebElement> lists2 = driver.findElements(By
+                    .xpath("//*//*[last()][text()='"
+                            + arrRecipeingredientsunits[i] + "']"));
+            for (WebElement test1 : lists2) {
+                if (test1.getText().equalsIgnoreCase(
+                        arrRecipeingredientsunits[i].trim())) {
+                    System.out.println("Matched Unit: " + test1.getText());
+                    test1.click();
+                    implicitWait();
+                    break;
+                }
+            }
+            implicitWait();
+            System.out.println(arrRecipeingredientsdetails[i].toString() + "=="
+                    + Recipe_ingredients_Detailes);
+            findElement(
+                    prop.getProperty("Recipe_details_p1") + "[" + cnt + "]"
+                            + prop.getProperty("Recipe_details_p2")).sendKeys(
+                    Keys.SHIFT);
+            Thread.sleep(10000);
+            findElement(
+                    prop.getProperty("Recipe_details_p1") + "[" + cnt + "]"
+                            + prop.getProperty("Recipe_details_p2")).sendKeys(
+                    arrRecipeingredientsdetails[i]);
+
+            implicitWait();
+            implicitWait();
+
+            
+
+            cnt++;
+        }
+        findAndWrite("Recipe_Post_content", Recipe_postcontent);
+        implicitWait();
+        findAndSendkey("Recipe_Post_content", Keys.END);
+        findAndSendkey("Recipe_Post_content", Keys.ENTER);
+        findAndSendkey("Recipe_Post_content", Keys.END);
+        findAndSendkey("Recipe_Post_content", Keys.ENTER);
+
+        if (!RecipeImage.equalsIgnoreCase("null")) {
+            findAndClick("Recipe_image");
+            RecipeuploadImage(RecipeImage, browser);
+            implicitWait();
+            findAndSendkey("Recipe_Post_content", Keys.END);
+            findAndSendkey("Recipe_Post_content", Keys.ENTER);
+            findAndSendkey("Recipe_Post_content", Keys.END);
+            findAndSendkey("Recipe_Post_content", Keys.ENTER);
+        }
+
+        if (!Youtube_Video.equalsIgnoreCase("null")) {
+            recipemovecursorpostion(1);
+            RecipeAddVideo(Youtube_Video, Recipe_Youtube_Video_layout, browser);
+            recipemovecursorpostion(2);
+        }
+
+        if (!Recipe_More_postcontent.equalsIgnoreCase("null")) {
+            recipemovecursorpostion(1);
+            findAndWrite("Recipe_Post_content", Recipe_More_postcontent);
+            recipemovecursorpostion(2);
+        }
+
+        if (!Vine_Video.equalsIgnoreCase("null")) {
+            recipemovecursorpostion(1);
+            RecipeAddVideo(Vine_Video, Recipe_Vine_Video_layout, browser);
+            recipemovecursorpostion(2);
+            }
+
+        if (!Vimeo_Video.equalsIgnoreCase("null")) {
+            recipemovecursorpostion(1);
+            RecipeAddVideo(Vimeo_Video, Recipe_Vimeo_Video_layout, browser);
+            recipemovecursorpostion(2);
+        }
+        if (!FB_Video.equalsIgnoreCase("null")) {
+            recipemovecursorpostion(1);
+            RecipeAddVideo(FB_Video, Recipe_FB_Video_layout, browser);
+            recipemovecursorpostion(2);
+        }
+
+        if (!Recipe_summary.equalsIgnoreCase("null")) {
+            recipemovecursorpostion(1);
+            RecipeSummary(Recipe_summary, Recipe_summary_layout);
+            recipemovecursorpostion(2);
+        }
+
+        Thread.sleep(3000);
+        implicitWait();
+        findAndClick("Recipe_Save_button");
+        Thread.sleep(1000);
+
+    }
+
+    public void recipemovecursorpostion(int stats)
+    {
+        if (stats == 1) {
+            implicitWait();
+            implicitWait();
+            implicitWait();
+        } else {
+            implicitWait();
+            findAndSendkey("Recipe_Post_content", Keys.END);
+            findAndSendkey("Recipe_Post_content", Keys.ENTER);
+            findAndSendkey("Recipe_Post_content", Keys.END);
+            findAndSendkey("Recipe_Post_content", Keys.ENTER);
+        }
+    }
+}
