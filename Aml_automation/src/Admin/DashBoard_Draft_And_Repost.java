@@ -21,6 +21,10 @@ public class DashBoard_Draft_And_Repost {
     String listtype ="Dashboardlist";
     String Selectors = "xatakandroid,xatakamovil";
     String tittle_data = "En infinidad de ocasiones hemos comentado cómo influyen las modas en los entrenamientos";
+    String FurturePostname = "Tacos de pescado al chipotle. Receta mexicana fácil";
+    String listtype ="Dashboardlist";
+    String DateTime="27/12/2027 12:27";
+    String FuturePostDate ="12:30,21/12/2026";
     @BeforeMethod
     public void Setup() throws IOException
     {
@@ -34,33 +38,35 @@ public class DashBoard_Draft_And_Repost {
     }
 
     @Test
-    public void editposts() throws Exception{
-   
-        login();
-        //Draft
-        adminProperties.clickButton("DashboardEditbuttontr","DashboardDrafttd",Postname,listtype);
-        adminProperties.implicitWait();
-        adminProperties.dialogBoxOk();
-        //Repost
-       adminProperties.clickButton("DashboardEditbuttontr","DashboardDraftReptd",Postname,listtype);
-        adminProperties.implicitWait();
-        Thread.sleep(3000);
-        adminProperties.repostCheckbox(Selectors);
-        adminProperties.implicitWait();
-        adminProperties.findAndClick("repost_post_button");
-        Thread.sleep(3000);
-        //adminProperties.findAndClick("clear_repost_popup");
-        driver.navigate().to("https://testing.xatakafoto.com/admin");
-        adminProperties.adminLogin();
-        adminProperties.implicitWait();
-        Thread.sleep(5000);
-        driver.navigate().refresh();
-        driver.navigate().refresh();     
-        adminProperties.implicitWait();
-        adminProperties.findAndClick("notification_button");
-        adminProperties.implicitWait();
-        adminProperties.clickNotificationButton(tittle_data);
-  
+	public void editposts() throws Exception {
+
+		login();
+		// Draft
+		adminProperties.clickButton("DashboardEditbuttontr", "DashboardDrafttd", Postname, listtype);
+		adminProperties.implicitWait();
+		adminProperties.dialogBoxOk();
+		// Repost
+		adminProperties.clickButton("DashboardEditbuttontr", "DashboardDraftReptd", Postname, listtype);
+		adminProperties.implicitWait();
+		Thread.sleep(3000);
+		adminProperties.repostCheckbox(Selectors);
+		adminProperties.implicitWait();
+		adminProperties.findAndClick("repost_post_button");
+		Thread.sleep(3000);
+		// adminProperties.findAndClick("clear_repost_popup");
+		driver.navigate().to("https://testing.xatakafoto.com/admin");
+		adminProperties.adminLogin();
+		adminProperties.implicitWait();
+		Thread.sleep(5000);
+		driver.navigate().refresh();
+		driver.navigate().refresh();
+		adminProperties.implicitWait();
+		adminProperties.findAndClick("notification_button");
+		adminProperties.implicitWait();
+		adminProperties.clickNotificationButton(tittle_data);
+		adminProperties.clickButton("DashboardEditbuttontr", "Dashboard_future", FurturePostname, "Dashboardlist");
+		adminProperties.implicitWait();
+		adminProperties.futurePostDashborad(FuturePostDate);
 }
 
 }
