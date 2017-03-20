@@ -477,7 +477,10 @@ public class Adminproperty
             findAndClick("Youtube_button");
         } else if (videoURL.contains("vimeo")) {
             findAndClick("Vimeo_button");
-        } else {
+        } 
+        else if (videoURL.contains("facebook")) {
+            findAndClick("Facebook_button");
+            else {
             findAndClick("Vine_button");
         }
         findAndClick("post_content");
@@ -590,7 +593,6 @@ public class Adminproperty
             implicitWait();
             action.click(driver.findElement(By.partialLinkText("Publicar")))
                     .perform();
-
             implicitWait();
             findAndClick("publish_tab");
             implicitWait();
@@ -734,7 +736,7 @@ public class Adminproperty
                             prop.getProperty("List_Row") + "[" + (y + 1) + "]"
                                     + "/td[" + (k + 1) + "]/input").sendKeys(
                             arritems[k]);
-                }
+               }
 
             }
         }
@@ -870,11 +872,11 @@ public class Adminproperty
         implicitWait();
         findAndClick("post_content");
     }
-
     public void addTable(String tabledata, String Checkbox_same_width,
             String Checkbox_table_first_row_heading,
             String Checkbox_table_first_column_heading,
             String Checkbox_table_occupy_all_avaiable_width)
+
     {
         String rows = "2", columns = "2";
         implicitWait();
@@ -937,7 +939,6 @@ public class Adminproperty
         findAndClick("table_insert_button");
         findAndClick("post_content");
     }
-
     public void RecipeSummary(String summary_data, String summary_layout)
             throws Exception
     {
@@ -970,7 +971,6 @@ public class Adminproperty
         }
 
     }
-
     public void RecipeuploadImage(String primaryimage, String browser)
             throws Exception
     {
@@ -1006,8 +1006,7 @@ public class Adminproperty
         findAndClick("Recipe_normal_insert");
         implicitWait();
     }
-
-    public void RecipeAddVideo(String videoURL, String layout, String browser)
+   public void RecipeAddVideo(String videoURL, String layout, String browser)
             throws InterruptedException
     {
         WebElement element;
@@ -1043,7 +1042,6 @@ public class Adminproperty
         findAndSendkey("Recipe_Post_content", Keys.ENTER);
 
     }
-
     public void addRecipe(String name, String persons, String level,
             String ingredients, String Recipe_ingredients_Cantidad,
             String Recipe_ingredients_units,
@@ -1119,7 +1117,6 @@ public class Adminproperty
             for (WebElement test : lists1) {
                 System.out.println(test.getText() + "==="
                         + arringredients[i].trim());
-
                 if (test.getText().equalsIgnoreCase(arringredients[i].trim())) {
                     System.out.println("Matched: " + test.getText());
                     test.click();
@@ -1165,12 +1162,8 @@ public class Adminproperty
                     prop.getProperty("Recipe_details_p1") + "[" + cnt + "]"
                             + prop.getProperty("Recipe_details_p2")).sendKeys(
                     arrRecipeingredientsdetails[i]);
-
             implicitWait();
             implicitWait();
-
-            
-
             cnt++;
         }
         findAndWrite("Recipe_Post_content", Recipe_postcontent);
@@ -1206,6 +1199,7 @@ public class Adminproperty
             recipemovecursorpostion(1);
             RecipeAddVideo(Vine_Video, Recipe_Vine_Video_layout, browser);
             recipemovecursorpostion(2);
+
             }
 
         if (!Vimeo_Video.equalsIgnoreCase("null")) {
