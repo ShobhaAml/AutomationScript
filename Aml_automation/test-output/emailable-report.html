@@ -1,10 +1,80 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>TestNG Report</title><style type="text/css">table {margin-bottom:10px;border-collapse:collapse;empty-cells:show}th,td {border:1px solid #009;padding:.25em .5em}th {vertical-align:bottom}td {vertical-align:top}table a {font-weight:bold}.stripe td {background-color: #E6EBF9}.num {text-align:right}.passedodd td {background-color: #3F3}.passedeven td {background-color: #0A0}.skippedodd td {background-color: #DDD}.skippedeven td {background-color: #CCC}.failedodd td,.attn {background-color: #F33}.failedeven td,.stripe .attn {background-color: #D00}.stacktrace {white-space:pre;font-family:monospace}.totop {font-size:85%;text-align:center;border-bottom:2px solid #000}</style></head><body><table><tr><th>Test</th><th># Passed</th><th># Skipped</th><th># Failed</th><th>Time (ms)</th><th>Included Groups</th><th>Excluded Groups</th></tr><tr><th colspan="7">Default suite</th></tr><tr><td><a href="#t0">Default test</a></td><td class="num">0</td><td class="num">0</td><td class="num attn">1</td><td class="num">49,727</td><td></td><td></td></tr></table><table><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Default suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Default test &#8212; failed</th></tr><tr class="failedeven"><td rowspan="1">Admin.EditPublishedPost</td><td><a href="#m0">editPublishedPost</a></td><td rowspan="1">1485154947046</td><td rowspan="1">49666</td></tr></tbody></table><h2>Default test</h2><h3 id="m0">Admin.EditPublishedPost#editPublishedPost</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.IllegalArgumentException: Cannot find elements when the XPath expression is null.
-	at org.openqa.selenium.By.xpath(By.java:113)
-	at Common.Adminproperty.findElement(Adminproperty.java:105)
-	at Common.Adminproperty.findAndClick(Adminproperty.java:81)
-	at Admin.EditPublishedPost.addSlides(EditPublishedPost.java:93)
-	at Admin.EditPublishedPost.editPublishedPost(EditPublishedPost.java:53)
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>TestNG Report</title><style type="text/css">table {margin-bottom:10px;border-collapse:collapse;empty-cells:show}th,td {border:1px solid #009;padding:.25em .5em}th {vertical-align:bottom}td {vertical-align:top}table a {font-weight:bold}.stripe td {background-color: #E6EBF9}.num {text-align:right}.passedodd td {background-color: #3F3}.passedeven td {background-color: #0A0}.skippedodd td {background-color: #DDD}.skippedeven td {background-color: #CCC}.failedodd td,.attn {background-color: #F33}.failedeven td,.stripe .attn {background-color: #D00}.stacktrace {white-space:pre;font-family:monospace}.totop {font-size:85%;text-align:center;border-bottom:2px solid #000}</style></head><body><table><tr><th>Test</th><th># Passed</th><th># Skipped</th><th># Failed</th><th>Time (ms)</th><th>Included Groups</th><th>Excluded Groups</th></tr><tr><th colspan="7">Default suite</th></tr><tr><td><a href="#t0">Default test</a></td><td class="num">0</td><td class="num attn">1</td><td class="num attn">1</td><td class="num">76,570</td><td></td><td></td></tr></table><table><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Default suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Default test &#8212; failed (configuration methods)</th></tr><tr class="failedeven"><td rowspan="1">Admin.CreateEcommerceExcel</td><td><a href="#m0">Setup</a></td><td rowspan="1">1486377298292</td><td rowspan="1">0</td></tr><tr><th colspan="4">Default test &#8212; failed</th></tr><tr class="failedeven"><td rowspan="1">Admin.CreateEcommerceExcel</td><td><a href="#m1">Ecommerce</a></td><td rowspan="1">1486377271481</td><td rowspan="1">26806</td></tr><tr><th colspan="4">Default test &#8212; skipped</th></tr><tr class="skippedeven"><td rowspan="1">Admin.CreateEcommerceExcel</td><td><a href="#m2">Ecommerce</a></td><td rowspan="1">1486377313170</td><td rowspan="1">1</td></tr></tbody></table><h2>Default test</h2><h3 id="m0">Admin.CreateEcommerceExcel#Setup</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">org.openqa.selenium.WebDriverException: Failed to decode response from marionette
+Build info: version: &apos;unknown&apos;, revision: &apos;1969d75&apos;, time: &apos;2016-10-18 09:43:45 -0700&apos;
+System info: host: &apos;Shobha&apos;, ip: &apos;192.168.2.156&apos;, os.name: &apos;Windows 7&apos;, os.arch: &apos;x86&apos;, os.version: &apos;6.1&apos;, java.version: &apos;1.8.0_77&apos;
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities [{rotatable=false, raisesAccessibilityExceptions=false, marionette=true, firefoxOptions={args=[], prefs={}}, appBuildId=20170125094131, version=, platform=XP, proxy={}, command_id=1, specificationLevel=0, acceptSslCerts=false, processId=8264, browserVersion=51.0.1, platformVersion=6.1, XULappId={ec8030f7-c20a-464f-9b0e-13a3a9e97384}, browserName=firefox, takesScreenshot=true, takesElementScreenshot=true, platformName=windows_nt}]
+Session ID: 68863e5a-f29c-433c-9b25-35c928732780
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:127)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:93)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:42)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:163)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:82)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:601)
+	at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:322)
+	at Common.Adminproperty.callproperty(Adminproperty.java:62)
+	at Admin.CreateEcommerceExcel.Setup(CreateEcommerceExcel.java:39)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:85)
+	at org.testng.internal.Invoker.invokeConfigurationMethod(Invoker.java:510)
+	at org.testng.internal.Invoker.invokeConfigurations(Invoker.java:211)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:585)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:816)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1124)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:124)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:108)
+	at org.testng.TestRunner.privateRun(TestRunner.java:773)
+	at org.testng.TestRunner.run(TestRunner.java:623)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:359)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:354)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:312)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:261)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1185)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1110)
+	at org.testng.TestNG.run(TestNG.java:1018)
+	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:112)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:205)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:176)
+</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p><h3 id="m1">Admin.CreateEcommerceExcel#Ecommerce</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th><th>Parameter #3</th><th>Parameter #4</th><th>Parameter #5</th><th>Parameter #6</th><th>Parameter #7</th><th>Parameter #8</th><th>Parameter #9</th><th>Parameter #10</th><th>Parameter #11</th><th>Parameter #12</th><th>Parameter #13</th><th>Parameter #14</th><th>Parameter #15</th><th>Parameter #16</th><th>Parameter #17</th><th>Parameter #18</th><th>Parameter #19</th><th>Parameter #20</th><th>Parameter #21</th><th>Parameter #22</th><th>Parameter #23</th><th>Parameter #24</th><th>Parameter #25</th></tr><tr class="param stripe"><td>Automate: Apple rompe la racha negativa del 2016 empujada por un tanque de oxigeno llamado iPhone 7</td><td>A principios de este mes de diciembre, la Comisión Europea aprobó una reforma para que los Estados miembro puedan aplicar un tipo de IVA reducido o superreducido a los libros digitales. Hasta ese momento no era posible y, de hecho, países como Francia o Luxemburgo, que decidieron bajar unilateralmente los impuestos a los libros digitales, tuvieron que rectificar tras una orden directa del Tribunal de Justicia de la Unión Europea. Ahora, desde Bruselas, creen que ya no es necesaria esa discriminación positiva y permitirán que cada país imponga el tipo de impuesto que desee a los libros digitales.</td><td>lounge.jpg</td><td>sofa.jpg@##@royal_oak.jpg@##@Nubia.jpg@##@samsung.jpg</td><td>Forzza Westin Queen Size Bed (Walnut)@##@ Royal Oak Scout Double Size Bed (Maple)@##@Nubia Z11 Mini (Gold)@##@ Samsung Z2 SM-Z200F (Gold, 8GB)
+</td><td>1@##@2@##@3@##@4</td><td>Primary Material: Engineered wood
+Color: Walnut Contemporary
+@##@ Primary Material: Wood
+Color: Brown, Finish: Natural  Modern @##@Android v5.1.1 Lollipop operating system with 1.5GHz ARM Cortex A53 + 1.2GHz ARM Cortex A53 Qualcomm Snapdragon 617 64 bit MSM8952 octa core processor, Adreno 405 GPU, 3GB RAM, 32GB internal memory expandable up to 200GB and dual SIM (nano+nano) dual-standby (4G+3G)@##@1500 mAh Battery, Battery Run Time : Internet Usage Time(3G) : Up to 7 hours,Internet Usage Time(LTE) : Up to 8 hours,Internet Usage Time(Wi-Fi) : Up to 8 hours,Video Playback Time : Up to 7 hours,Audio Playback Time : Up to 30 hours
+
+
+</td><td>http://www.amazon.in/Forzza-Westin-Queen-Size-Walnut/dp/B01IEZYJEA@##@http://www.amazon.in/Forzza-Daniel-Large-Finish-Wenge/dp/B01ELJQSS8@##@http://www.amazon.in/Nubia-Z11-Mini-Gold/dp/B01N6MTTV8@##@http://www.amazon.in/Samsung-Z2-SM-Z200F-Gold-8GB/dp/B01LW4PPFV</td><td>Forzza Westin Queen Size Bed@##@Royal Oak Scout Double Size Bed@##@Nubia Z11 Mini@##@Samsung Z2 SM-Z200F 
+
+</td><td>12480@##@34000@##@25000@##@16000</td><td>Furniture@##@Furniture@##@Electronics@##@Electronics</td><td>Homepage content for ecommerce post</td><td>car.jpg</td><td>Ecommerce</td><td>null</td><td>Apple</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>Hi testing for FB content</td><td>xatakafoto</td><td>Y</td><td>Y</td></tr><tr><th colspan="25">Exception</th></tr><tr><td colspan="25"><div class="stacktrace">org.openqa.selenium.UnsupportedCommandException: POST /session/fbcf4a04-4b74-4ca3-b30d-1b067be08c3b/moveto did not match a known command
+Build info: version: &apos;unknown&apos;, revision: &apos;1969d75&apos;, time: &apos;2016-10-18 09:43:45 -0700&apos;
+System info: host: &apos;Shobha&apos;, ip: &apos;192.168.2.156&apos;, os.name: &apos;Windows 7&apos;, os.arch: &apos;x86&apos;, os.version: &apos;6.1&apos;, java.version: &apos;1.8.0_77&apos;
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities [{rotatable=false, raisesAccessibilityExceptions=false, marionette=true, firefoxOptions={args=[], prefs={}}, appBuildId=20170125094131, version=, platform=XP, proxy={}, command_id=1, specificationLevel=0, acceptSslCerts=false, processId=8568, browserVersion=51.0.1, platformVersion=6.1, XULappId={ec8030f7-c20a-464f-9b0e-13a3a9e97384}, browserName=firefox, takesScreenshot=true, takesElementScreenshot=true, platformName=windows_nt}]
+Session ID: fbcf4a04-4b74-4ca3-b30d-1b067be08c3b
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:127)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:93)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:42)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:163)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:82)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:601)
+	at org.openqa.selenium.remote.RemoteExecuteMethod.execute(RemoteExecuteMethod.java:35)
+	at org.openqa.selenium.remote.RemoteMouse.mouseMove(RemoteMouse.java:89)
+	at org.openqa.selenium.interactions.MoveMouseAction.perform(MoveMouseAction.java:39)
+	at org.openqa.selenium.interactions.CompositeAction.perform(CompositeAction.java:50)
+	at org.openqa.selenium.interactions.Actions.perform(Actions.java:373)
+	at Admin.CreateEcommerceExcel.Ecommerce(CreateEcommerceExcel.java:79)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
@@ -13,20 +83,30 @@
 	at org.testng.internal.Invoker.invokeMethod(Invoker.java:639)
 	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:816)
 	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1124)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:124)
 	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:108)
-	at org.testng.TestRunner.privateRun(TestRunner.java:774)
-	at org.testng.TestRunner.run(TestRunner.java:624)
+	at org.testng.TestRunner.privateRun(TestRunner.java:773)
+	at org.testng.TestRunner.run(TestRunner.java:623)
 	at org.testng.SuiteRunner.runTest(SuiteRunner.java:359)
 	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:354)
 	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:312)
 	at org.testng.SuiteRunner.run(SuiteRunner.java:261)
 	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
 	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
-	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1215)
-	at org.testng.TestNG.runSuitesLocally(TestNG.java:1140)
-	at org.testng.TestNG.run(TestNG.java:1048)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1185)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1110)
+	at org.testng.TestNG.run(TestNG.java:1018)
 	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:112)
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:205)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:176)
-</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p></body></html>
+</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p><h3 id="m2">Admin.CreateEcommerceExcel#Ecommerce</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th><th>Parameter #3</th><th>Parameter #4</th><th>Parameter #5</th><th>Parameter #6</th><th>Parameter #7</th><th>Parameter #8</th><th>Parameter #9</th><th>Parameter #10</th><th>Parameter #11</th><th>Parameter #12</th><th>Parameter #13</th><th>Parameter #14</th><th>Parameter #15</th><th>Parameter #16</th><th>Parameter #17</th><th>Parameter #18</th><th>Parameter #19</th><th>Parameter #20</th><th>Parameter #21</th><th>Parameter #22</th><th>Parameter #23</th><th>Parameter #24</th><th>Parameter #25</th></tr><tr class="param stripe"><td>Automate without Home Image:Este dron desechable del DARPA puede llevar medicinas allí donde más se necesitan</td><td>Se acabó la diferencia de impuestos entre los libros digitales y los impresos en España. El ministro de Economía español, Luis de Guindos, ha confirmado que tanto libros como revistas y periódicos digitales pasarán a pagar un 4% de IVA, frente al 21% con el que se les gravaba hasta ahora. De esta manera, tendrán la misma tasa impositiva que los libros impresos.
+</td><td>primary.jpg</td><td>sofa.jpg@##@royal_oak.jpg@##@Nubia.jpg@##@samsung.jpg</td><td>Forzza Westin Queen Size Bed (Walnut)@##@ Royal Oak Scout Double Size Bed (Maple)@##@Nubia Z11 Mini (Gold)@##@ Samsung Z2 SM-Z200F (Gold, 8GB)
+</td><td>1@##@2@##@3@##@4</td><td>Primary Material: Engineered wood
+Color: Walnut Contemporary
+@##@ Primary Material: Wood
+Color: Brown, Finish: Natural  Modern @##@Android v5.1.1 Lollipop operating system with 1.5GHz ARM Cortex A53 + 1.2GHz ARM Cortex A53 Qualcomm Snapdragon 617 64 bit MSM8952 octa core processor, Adreno 405 GPU, 3GB RAM, 32GB internal memory expandable up to 200GB and dual SIM (nano+nano) dual-standby (4G+3G)@##@1500 mAh Battery, Battery Run Time : Internet Usage Time(3G) : Up to 7 hours,Internet Usage Time(LTE) : Up to 8 hours,Internet Usage Time(Wi-Fi) : Up to 8 hours,Video Playback Time : Up to 7 hours,Audio Playback Time : Up to 30 hours
+
+
+</td><td>http://www.amazon.in/Forzza-Westin-Queen-Size-Walnut/dp/B01IEZYJEA@##@http://www.amazon.in/Forzza-Daniel-Large-Finish-Wenge/dp/B01ELJQSS8@##@http://www.amazon.in/Nubia-Z11-Mini-Gold/dp/B01N6MTTV8@##@http://www.amazon.in/Samsung-Z2-SM-Z200F-Gold-8GB/dp/B01LW4PPFV</td><td>Forzza Westin Queen Size Bed@##@Royal Oak Scout Double Size Bed@##@Nubia Z11 Mini@##@Samsung Z2 SM-Z200F 
+
+</td><td>12480@##@34000@##@25000@##@16000</td><td>Furniture@##@Furniture@##@Electronics@##@Electronics</td><td>null</td><td>null</td><td>Ecommerce</td><td>null</td><td>Apple</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>Hi testing for FB content</td><td>xatakafoto@##@vayatele</td><td>Y</td><td>Y</td></tr></table><p class="totop"><a href="#summary">back to summary</a></p></body></html>
