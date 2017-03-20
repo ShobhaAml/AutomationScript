@@ -438,10 +438,9 @@ public class Adminproperty
             findAndClick("Youtube_button");
         } else if (videoURL.contains("vimeo")) {
             findAndClick("Vimeo_button");
-        } 
-        else if (videoURL.contains("facebook")) {
+        } else if (videoURL.contains("facebook")) {
             findAndClick("Facebook_button");
-            else {
+           else {
             findAndClick("Vine_button");
         }
         findAndClick("post_content");
