@@ -50,12 +50,13 @@ public class Login
     @Test(dataProvider="testdata")
     public void StandardLogin(String username, String password)
     {
-        openloginform();
+        
+        frontendProperties.clickMenu("EntraORegistrate");
         frontendProperties.implicitWait();
-        frontendProperties.findAndWrite("standard_email", username);
+ /*       frontendProperties.findAndWrite("standard_email", username);
         frontendProperties.findAndWrite("standard_password", password);
         frontendProperties.findAndClick("standard_button");
-        String invalidmessage;
+        String invalidmessage="";
         
             try
             {
@@ -72,17 +73,9 @@ public class Login
             catch(Exception e)
             {
                 
-            }
+            }*/
         
  
     }
-    public void openloginform()
-    {
-        driver.findElement(By.xpath(".//*[@id='cookies-overlay']/div/a")).click();
-        driver.findElement(By.className("head-link ")).click();
-        frontendProperties.implicitWait();
-        frontendProperties.findAndClick("EntraORegistrate");    
-        frontendProperties.implicitWait();
-
-    }
+   
 }
