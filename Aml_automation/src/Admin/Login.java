@@ -13,6 +13,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import com.google.common.base.Verify;
+
 import Common.Adminproperty;
 import Common.Frontend;
 
@@ -53,28 +55,33 @@ public class Login
         
         frontendProperties.clickMenu("EntraORegistrate");
         frontendProperties.implicitWait();
- /*       frontendProperties.findAndWrite("standard_email", username);
+        frontendProperties.findAndWrite("standard_email", username);
         frontendProperties.findAndWrite("standard_password", password);
         frontendProperties.findAndClick("standard_button");
         String invalidmessage="";
-        
-            try
+        try
+        {
+            if(new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prop.getProperty("standard_invalid_validation"))))==null)
             {
-                if(new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prop.getProperty("standard_invalid_validation"))))==null)
-                {
-                    invalidmessage = new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prop.getProperty("standard_invalid_validation")))).getText();
-                }
-                else
-                {
-                    Assert.fail("Invalid Login credentials");
-                   
-                }
+              System.out.println(frontendProperties.checkifuserloggedin());
+             }
+            else
+            {
+                invalidmessage = new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prop.getProperty("standard_invalid_validation")))).getText();
+                System.out.println("Invalid Login credentials: " + invalidmessage);
+                 
             }
-            catch(Exception e)
-            {
-                
-            }*/
-        
+        } catch (Exception e) {
+
+        }
+
+        if(invalidmessage=="")
+        {
+            System.out.println(frontendProperties.checkifuserloggedin());
+            invalidmessage="";
+        }
+            
+           
  
     }
    

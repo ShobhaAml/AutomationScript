@@ -17,7 +17,7 @@ import Common.Adminproperty;
 
 public class Frontend extends Adminproperty
 {
-     
+
     public Properties ReadProperties() throws IOException
     {
         FileInputStream inStream = new FileInputStream(
@@ -26,7 +26,7 @@ public class Frontend extends Adminproperty
         prop.load(inStream);
         return prop;
     }
-    
+
     public WebDriver frontcallproperty(String url, String browser)
             throws IOException
     {
@@ -42,25 +42,39 @@ public class Frontend extends Adminproperty
             driver = new FirefoxDriver();
         }
         driver.get(url);
-        if (browser.trim().equalsIgnoreCase("firefox")) 
-        {
+        if (browser.trim().equalsIgnoreCase("firefox")) {
             driver.switchTo().alert().accept();
         }
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         return driver;
     }
-    
+
     public void clickMenu(String Linktext)
     {
         super.findAndClick("cookie");
         driver.findElement(By.className(prop.getProperty("Menu"))).click();
         super.implicitWait();
-        if(Linktext.equalsIgnoreCase("EntraORegistrate"))
-        {
+        if (Linktext.equalsIgnoreCase("EntraORegistrate")) {
             super.findAndClick("login");
         }
         super.implicitWait();
+    }
+
+    public String checkifuserloggedin()
+    {
+        String name = "";
+        driver.findElement(By.className(prop.getProperty("Menu"))).click();
+        super.implicitWait();
+        if (driver
+                .findElement(By.className(prop.getProperty("loggedusername"))) != null) {
+            name = driver.findElement(
+                    By.className(prop.getProperty("loggedusername"))).getText() +" Logged in successfully";
+        } else {
+            name = "User not logged";
+        }
+
+        return name;
     }
 
 }
