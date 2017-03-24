@@ -7,15 +7,17 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import Common.Adminproperty;
 
 public class Frontend extends Adminproperty
 {
-    WebDriver driver;
-    Properties prop = new Properties();
-
+     
     public Properties ReadProperties() throws IOException
     {
         FileInputStream inStream = new FileInputStream(
@@ -49,20 +51,16 @@ public class Frontend extends Adminproperty
         return driver;
     }
     
-
-    
     public void clickMenu(String Linktext)
-    {   
-        System.out.println("hi");
-        driver.findElement(By.xpath(".//*[@id='cookies-overlay']/div/a")).click();
-        driver.findElement(By.className("head-link")).click();
-        implicitWait();
+    {
+        super.findAndClick("cookie");
+        driver.findElement(By.className(prop.getProperty("Menu"))).click();
+        super.implicitWait();
         if(Linktext.equalsIgnoreCase("EntraORegistrate"))
         {
-            findAndClick("EntraORegistrate");
+            super.findAndClick("login");
         }
-        implicitWait();
-
+        super.implicitWait();
     }
 
 }
