@@ -13,6 +13,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import com.google.common.base.Verify;
+
 import Common.Adminproperty;
 import Common.Frontend;
 
@@ -50,32 +52,8 @@ public class Login
     @Test(dataProvider="testdata")
     public void StandardLogin(String username, String password)
     {
-        
-        frontendProperties.clickMenu("EntraORegistrate");
-        frontendProperties.implicitWait();
- /*       frontendProperties.findAndWrite("standard_email", username);
-        frontendProperties.findAndWrite("standard_password", password);
-        frontendProperties.findAndClick("standard_button");
-        String invalidmessage="";
-        
-            try
-            {
-                if(new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prop.getProperty("standard_invalid_validation"))))==null)
-                {
-                    invalidmessage = new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prop.getProperty("standard_invalid_validation")))).getText();
-                }
-                else
-                {
-                    Assert.fail("Invalid Login credentials");
-                   
-                }
-            }
-            catch(Exception e)
-            {
-                
-            }*/
-        
- 
+      String message=  frontendProperties.StandardLogin(username, password);
+      System.out.println(message);
     }
    
 }
