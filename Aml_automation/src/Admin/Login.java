@@ -52,37 +52,8 @@ public class Login
     @Test(dataProvider="testdata")
     public void StandardLogin(String username, String password)
     {
-        
-        frontendProperties.clickMenu("EntraORegistrate");
-        frontendProperties.implicitWait();
-        frontendProperties.findAndWrite("standard_email", username);
-        frontendProperties.findAndWrite("standard_password", password);
-        frontendProperties.findAndClick("standard_button");
-        String invalidmessage="";
-        try
-        {
-            if(new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prop.getProperty("standard_invalid_validation"))))==null)
-            {
-              System.out.println(frontendProperties.checkifuserloggedin());
-             }
-            else
-            {
-                invalidmessage = new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prop.getProperty("standard_invalid_validation")))).getText();
-                System.out.println("Invalid Login credentials: " + invalidmessage);
-                 
-            }
-        } catch (Exception e) {
-
-        }
-
-        if(invalidmessage=="")
-        {
-            System.out.println(frontendProperties.checkifuserloggedin());
-            invalidmessage="";
-        }
-            
-           
- 
+      String message=  frontendProperties.StandardLogin(username, password);
+      System.out.println(message);
     }
    
 }
