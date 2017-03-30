@@ -49,10 +49,26 @@ public class BrokenLinks
         for (WebElement anchorTagElement : anchorTagsList) {
             if (anchorTagElement != null) {
                 String url = anchorTagElement.getAttribute("href");
-                if (url != null
+                               if (url != null
                         && !url.contains("javascript")
                         && (!url.contains("utm_campaign=footer") && (!url
                                 .contains("#") && (!url.contains("youtu")) &&  (!url.contains("redirect?")) && ( !url.contains("mailto:?subject="))))) {
+                                   if(url.contains("testing.") || url.contains("test.") || (url.contains("mtest.")))
+                                   {
+                                       if( url.contains("test."))
+                                       {
+                                        url=url.replace("test.", "guest:guest@test.");
+                                       }
+                                       else if( url.contains("testing."))
+                                       {
+                                           url=url.replace("testing.", "guest:guest@testing.");
+                                       }
+                                       else if( url.contains("mtest."))
+                                       {
+                                           url=url.replace("mtest.", "guest:guest@mtest.");
+                                       }
+                                   }
+
                     if (url.contains("/autor/")) {
                         author = url;
                     }
@@ -87,10 +103,26 @@ public class BrokenLinks
         for (WebElement anchorTagElement : anchorTagsList) {
             if (anchorTagElement != null) {
                 String url1 = anchorTagElement.getAttribute("href");
+               
                 if (url1 != null
                         && !url1.contains("javascript")
                         && (!url1.contains("utm_campaign=footer") && (!url1
                                 .contains("#") && (!url1.contains("youtu"))))) {
+                    if(url1.contains("testing.") || url1.contains("test.") || (url1.contains("mtest.")))
+                    {
+                        if( url.contains("test."))
+                        {
+                         url1=url1.replace("test.", "guest:guest@test.");
+                        }
+                        else if( url1.contains("testing."))
+                        {
+                            url1=url1.replace("testing.", "guest:guest@testing.");
+                        }
+                        else if( url1.contains("mtest."))
+                        {
+                            url1=url1.replace("mtest.", "guest:guest@mtest.");
+                        }
+                    }
                     if (url.contains("/usuario/")) {
                         usuariolink = url;
                     }
