@@ -1357,6 +1357,5 @@ public class Adminproperty
                 }
             }
         }
-
     }
 }
