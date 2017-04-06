@@ -34,6 +34,6 @@ public class NormalPost
         property.findAndClick("Auto_save");
         property.findAndClick("publish_tab");
         property.insertTagAndCategory(catagoryText, tag);
-        property.addFbTwitterText("fb_text");
+        property.addFbTwitterText("fb_text",null);
     }
 }
