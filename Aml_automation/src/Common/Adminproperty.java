@@ -8,7 +8,10 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
@@ -29,9 +32,11 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Adminproperty
@@ -53,14 +58,15 @@ public class Adminproperty
         if (browser.trim().equalsIgnoreCase("Chrome")) {
             System.setProperty("webdriver.chrome.driver",
                     System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedriver.exe");
-            driver = new ChromeDriver();
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("start-maximized");
+            driver = new ChromeDriver(options);
         } else {
             System.setProperty("webdriver.gecko.driver",
                     System.getProperty("user.dir") + "//src//Driverfiles//" + "geckodriver.exe");
             driver = new FirefoxDriver();
         }
         driver.get(url);
-        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         return driver;
     }
@@ -413,8 +419,7 @@ public class Adminproperty
         findAndWrite("Homepagecontent", "Homepagetext");
     }
 
-    public void videoHandle(String videoURL, String layout, String browser)
-            throws InterruptedException
+    public void videoHandle(String videoURL, String layout, String browser) throws InterruptedException
     {
         WebElement element;
         findAndClick("post_content");
@@ -440,7 +445,7 @@ public class Adminproperty
             findAndClick("Vimeo_button");
         } else if (videoURL.contains("facebook")) {
             findAndClick("Facebook_button");
-           else {
+        } else {
             findAndClick("Vine_button");
         }
         findAndClick("post_content");
@@ -542,7 +547,6 @@ public class Adminproperty
             action.sendKeys(Keys.PAGE_DOWN);
             implicitWait();
             action.click(driver.findElement(By.partialLinkText("Publicar"))).perform();
-
             implicitWait();
             findAndClick("publish_tab");
             implicitWait();
@@ -802,6 +806,7 @@ public class Adminproperty
 
     public void addTable(String tabledata, String Checkbox_same_width, String Checkbox_table_first_row_heading,
             String Checkbox_table_first_column_heading, String Checkbox_table_occupy_all_avaiable_width)
+
     {
         String rows = "2", columns = "2";
         implicitWait();
@@ -1017,7 +1022,6 @@ public class Adminproperty
             List<WebElement> lists1 = driver.findElements(By.xpath("//*[text()='" + arringredients[i] + "']"));
             for (WebElement test : lists1) {
                 System.out.println(test.getText() + "===" + arringredients[i].trim());
-
                 if (test.getText().equalsIgnoreCase(arringredients[i].trim())) {
                     System.out.println("Matched: " + test.getText());
                     test.click();
@@ -1052,10 +1056,8 @@ public class Adminproperty
             Thread.sleep(10000);
             findElement(prop.getProperty("Recipe_details_p1") + "[" + cnt + "]" + prop.getProperty("Recipe_details_p2"))
                     .sendKeys(arrRecipeingredientsdetails[i]);
-
             implicitWait();
             implicitWait();
-
             cnt++;
         }
         findAndWrite("Recipe_Post_content", Recipe_postcontent);
@@ -1091,6 +1093,7 @@ public class Adminproperty
             recipemovecursorpostion(1);
             RecipeAddVideo(Vine_Video, Recipe_Vine_Video_layout, browser);
             recipemovecursorpostion(2);
+
         }
 
         if (!Vimeo_Video.equalsIgnoreCase("null")) {
@@ -1130,5 +1133,230 @@ public class Adminproperty
             findAndSendkey("Recipe_Post_content", Keys.END);
             findAndSendkey("Recipe_Post_content", Keys.ENTER);
         }
+    }
+
+    public void uploadImageInsertInArticle(String primaryimage, String browser, String layout,
+            String supertitle_caption_and_postion) throws Exception
+    {
+        String primaryimagearr[] = primaryimage.split(",");
+        for (int i = 0; i < primaryimagearr.length; i++) {
+            if ((primaryimagearr[i].contains(".gif")) || (primaryimagearr[i].contains(".GIF"))) {
+                findAndClick("toolbar_more");
+                implicitWait();
+            }
+            findAndClick("toolbar_image");
+            if (browser.trim().equalsIgnoreCase("firefox")) {
+                findAndClick("post_content");
+            }
+            addNewlines();
+            implicitWait();
+            findAndWrite("primary_image_insert",
+                    System.getProperty("user.dir") + prop.getProperty("image_path") + "\\" + primaryimagearr[i]);
+            findAndClick("primary_image_upload");
+        }
+        WebElement element1 = findElement(
+                prop.getProperty("product_image_bulkupload") + prop.getProperty("product_image_bulkupload1"));
+
+        if (element1.getAttribute("href") != null) {
+            isLinkBroken(new URL(element1.getAttribute("href")));
+            System.out.println(isLinkBroken(new URL(element1.getAttribute("href"))));
+        }
+        findAndClick("insert_in_article");
+        implicitWait();
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHH");
+        Date date = new Date();
+        String FinalDate = dateFormat.format(date);
+        System.out.print(FinalDate);
+        String TxtBoxContent = driver.findElement(By.xpath(prop.getProperty("text_img"))).getText();
+        System.out.println(TxtBoxContent);
+        String captionText[] = supertitle_caption_and_postion.split("@##@");
+        switch (layout) {
+        case "small":
+            if (TxtBoxContent != null) {
+                WebElement element = findElement(prop.getProperty("small"));
+                JavascriptExecutor executor = (JavascriptExecutor) driver;
+                executor.executeScript("arguments[0].click();", element);
+                implicitWait();
+            } else {
+                findAndWrite("text_img", FinalDate);
+                implicitWait();
+            }
+            break;
+        case "small_left":
+            if (TxtBoxContent != null) {
+                findAndWrite("text_img", FinalDate);
+                implicitWait();
+            }
+            WebElement element2 = findElement(prop.getProperty("small_left"));
+            JavascriptExecutor executor2 = (JavascriptExecutor) driver;
+            executor2.executeScript("arguments[0].click();", element2);
+            implicitWait();
+            break;
+        case "small_right":
+            if (TxtBoxContent != null) {
+                findAndWrite("text_img", FinalDate);
+                implicitWait();
+            }
+            WebElement element3 = findElement(prop.getProperty("small_right"));
+            JavascriptExecutor executor3 = (JavascriptExecutor) driver;
+            executor3.executeScript("arguments[0].click();", element3);
+            implicitWait();
+            break;
+        case "normal":
+            if (TxtBoxContent != null) {
+                implicitWait();
+                findAndWrite("text_img", FinalDate);
+                implicitWait();
+            }
+            WebElement element4 = findElement(prop.getProperty("normal"));
+            JavascriptExecutor executor4 = (JavascriptExecutor) driver;
+            executor4.executeScript("arguments[0].click();", element4);
+            findAndWrite("add_caption_img", captionText[0]);
+            implicitWait();
+            break;
+        case "big":
+            implicitWait();
+            if (TxtBoxContent != null) {
+                findAndWrite("text_img", FinalDate);
+                implicitWait();
+            }
+            WebElement element5 = findElement(prop.getProperty("big"));
+            JavascriptExecutor executor5 = (JavascriptExecutor) driver;
+            executor5.executeScript("arguments[0].click();", element5);
+            findAndWrite("add_caption_img", captionText[0]);
+            implicitWait();
+            if (captionText[1].equalsIgnoreCase("Y")) {
+                findAndClick("check_box_img");
+                implicitWait();
+            }
+            Select dropdown = new Select(driver.findElement(By.xpath(prop.getProperty("position"))));
+            dropdown.selectByVisibleText(captionText[2]);
+            Thread.sleep(3000);
+            Select dropdown1 = new Select(driver.findElement(By.xpath(prop.getProperty("color"))));
+            dropdown1.selectByVisibleText(captionText[3]);
+            implicitWait();
+        }
+        Thread.sleep(20000);
+        findAndClick("add_img");
+        implicitWait();
+        findAndClick("post_content");
+    }
+
+    public void create_ingrediente(String ingredienteName, String checkboxes) throws InterruptedException
+    {
+
+        findAndClick("create_ingrediente_button");
+        implicitWait();
+        findAndClick("ingrediente_name");
+        implicitWait();
+        findAndWrite("ingrediente_name", ingredienteName);
+        implicitWait();
+        String allCheckboxes[] = checkboxes.split(",");
+        for (int i = 0; i < allCheckboxes.length; i++) {
+            String CheckBox1 = driver.findElement(By.xpath(prop.getProperty("ml"))).getText();
+            System.out.println(CheckBox1);
+            String replaceString = CheckBox1.replace("ml/l (mililitros)", "ml");
+            System.out.println(replaceString);
+            if (replaceString.equalsIgnoreCase("ml")) {
+                driver.findElement(By.xpath(prop.getProperty(allCheckboxes[i]))).click();
+            }
+            String CheckBox2 = driver.findElement(By.xpath(prop.getProperty("kg"))).getText();
+            System.out.println(CheckBox2);
+            String replaceString2 = CheckBox2.replace("g/kg (gramos)", "kg");
+            System.out.println(replaceString2);
+            if (replaceString.equalsIgnoreCase("kg")) {
+                driver.findElement(By.xpath(prop.getProperty(allCheckboxes[i]))).click();
+            }
+            String CheckBox3 = driver.findElement(By.xpath(prop.getProperty("unit"))).getText();
+            System.out.println(CheckBox3);
+            String replaceString3 = CheckBox3.replace("unidades", "unit");
+            System.out.println(replaceString3);
+
+            if (replaceString.equalsIgnoreCase("unit")) {
+                driver.findElement(By.xpath(prop.getProperty(allCheckboxes[i]))).click();
+            }
+
+        }
+        findAndClick("save_ingrediente");
+    }
+
+    public void galleryPost(String gallery_Name_Desp_tag_check, String galleryimage, String browser)
+            throws MalformedURLException, Exception
+    {
+        String gallery_Content[] = gallery_Name_Desp_tag_check.split("@##@");
+        String galleryimagearr[] = galleryimage.split(",");
+        findAndWrite("gallery_name", gallery_Content[0]);
+        implicitWait();
+        findAndWrite("gallery_description", gallery_Content[1]);
+
+        findAndWrite("gallery_tag", gallery_Content[2]);
+        implicitWait();
+        if (gallery_Content[3].equalsIgnoreCase("Y")) {
+            findAndClick("gallery_check");
+            implicitWait();
+        }
+
+        for (int i = 0; i < galleryimagearr.length; i++) {
+            implicitWait();
+            findAndWrite("gallery_upload_button",
+                    System.getProperty("user.dir") + prop.getProperty("image_path") + "\\" + galleryimagearr[i]);
+
+        }
+        findAndClick("gallery_upload_bulk");
+
+        for (int i = 0; i < galleryimagearr.length; i++) {
+
+            WebElement element1 = findElement(
+                    prop.getProperty("gallery_upload_row") + prop.getProperty("gallery_image_bulkupload1"));
+
+            if (element1.getAttribute("href") != null) {
+                isLinkBroken(new URL(element1.getAttribute("href")));
+                System.out.println(isLinkBroken(new URL(element1.getAttribute("href"))));
+            }
+        }
+        Thread.sleep(10000);
+        findAndClick("attach_gallery_to_post");
+    }
+
+    public void futurePost(String dateTime, String fbtext) throws Exception
+
+    {
+        driver.findElement(By.xpath(prop.getProperty("future_publish_date"))).clear();
+        implicitWait();
+        findAndWrite("future_publish_date", dateTime);
+        findAndWrite("fb_text", fbtext);
+        JavascriptExecutor je = (JavascriptExecutor) driver;
+        je.executeScript("window.scrollBy(0,-600)", "");
+        findAndClick("future_post_button");
+    }
+
+    public void futurePostDashborad(String FuturePostDate)
+    {
+        driver.findElement(By.className(prop.getProperty("future_post_time"))).clear();
+        driver.findElement(By.className(prop.getProperty("future_post_date"))).clear();
+        String FuturePost[] = FuturePostDate.split(",");
+        driver.findElement(By.className(prop.getProperty("future_post_time"))).sendKeys(FuturePost[0]);
+
+        driver.findElement(By.className(prop.getProperty("future_post_date"))).sendKeys(FuturePost[1]);
+        driver.findElement(By.className(prop.getProperty("future_post_save"))).click();
+    }
+
+    public void publishCountry()
+    {
+        String countryArr[] = country.split(",");
+        List<WebElement> list1 = findElementsByXpath(
+                prop.getProperty("countryList") + prop.getProperty("countryCheckList"));
+        for (WebElement element1 : list1) {
+            element1.click();
+        }
+        List<WebElement> list2 = findElementsByXpath(prop.getProperty("countryList"));
+        for (WebElement element2 : list2) {
+            for (int i = 0; i < countryArr.length; i++) {
+                if (element2.getText().equalsIgnoreCase(countryArr[i])) {
+                    element2.click();
+                }
+            }
+        }
+
     }
 }
