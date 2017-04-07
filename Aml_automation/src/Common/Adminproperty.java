@@ -458,8 +458,7 @@ public class Adminproperty
         findAndWrite("Homepagecontent", "Homepagetext");
     }
 
-    public void videoHandle(String videoURL, String layout, String browser)
-            throws InterruptedException
+    public void videoHandle(String videoURL, String layout, String browser) throws InterruptedException
     {
         WebElement element;
         findAndClick("post_content");
@@ -876,12 +875,10 @@ public class Adminproperty
         implicitWait();
         findAndClick("post_content");
     }
-
     public void addTable(String tabledata, String Checkbox_same_width,
             String Checkbox_table_first_row_heading,
             String Checkbox_table_first_column_heading,
             String Checkbox_table_occupy_all_avaiable_width)
-
     {
         String rows = "2", columns = "2";
         implicitWait();
@@ -1350,7 +1347,7 @@ public class Adminproperty
                 findAndClick("check_box_img");
                 implicitWait();
             }
-            Select dropdown = new Select(driver.findElement(By.xpath(prop
+           Select dropdown = new Select(driver.findElement(By.xpath(prop
                     .getProperty("position"))));
             dropdown.selectByVisibleText(captionText[2]);
             Thread.sleep(3000);
@@ -1434,7 +1431,6 @@ public class Adminproperty
                     System.getProperty("user.dir")
                             + prop.getProperty("image_path") + "\\"
                             + galleryimagearr[i]);
-
         }
         findAndClick("gallery_upload_bulk");
 
