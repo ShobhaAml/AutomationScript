@@ -1,4 +1,4 @@
-package Admin;
+package Frontend;
 
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -24,13 +24,6 @@ public class Login
     WebDriver driver;
     Frontend frontendProperties = new Frontend();    
     Properties prop = new Properties();
-    String Postdata, posttitle, postcontent, primaryimage, postcontent_more,
-            images, productname, productOrder, productDesc, productLink,
-            productLinktext = "";
-    String productPrice, productCatagory, homecontent, homeImage, postcatagory,
-            postcatagoryOther, tag, seotitle, seodesc, specialpost = "";
-    String author, Twittertext, fbtext, allowHomepageImage,
-            allowHomepageContent = "";
     String browser = "";
 
     @BeforeMethod
@@ -41,7 +34,7 @@ public class Login
                 prop.getProperty("browser"));
         browser = prop.getProperty("browser");
     }
-
+    
     @DataProvider(name = "testdata")
     public Object[][] TestDataFeed() throws Exception
     {
@@ -52,7 +45,13 @@ public class Login
     @Test(dataProvider="testdata")
     public void StandardLogin(String username, String password)
     {
+      frontendProperties.clickMenu("EntraORegistrate");
       String message=  frontendProperties.StandardLogin(username, password);
+      if(message=="")
+      {
+          message=frontendProperties.checkifuserloggedin();
+      }     
+      
       System.out.println(message);
     }
    
