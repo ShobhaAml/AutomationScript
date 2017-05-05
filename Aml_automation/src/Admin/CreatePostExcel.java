@@ -49,7 +49,7 @@ public class CreatePostExcel
     @DataProvider(name = "testdata")
     public Object[][] TestDataFeed() throws Exception
     {
-        Object[][] postdata = adminProperties.readExcel("Normal", 73);
+        Object[][] postdata = adminProperties.readExcel("Normal", 77);
         return postdata;
     }
 
@@ -57,7 +57,8 @@ public class CreatePostExcel
     public void createPost(String posttype, String posttitle,
             String postcontent, String primaryimage, String postcontent_more,
             String Youtube_Video, String Youtube_layout ,String Vine, String Vine_layout,String Vimeo, String Vimeo_layout,
-            String gallery, String multiple_images, String embeded_code, String summary,
+            String Gallery_name, String Gallery_description, String Gallery_tag, String Gallery_ShowHeader,
+            String Gallery_photos, String multiple_images, String embeded_code, String summary,
             String summary_layout, String actualizacion, String ficha_technica,
             String ficha_review, String giphy_url, String giphy_layout,
             String giphy_caption, String Inforgram_datawrapper_URL,
@@ -81,6 +82,8 @@ public class CreatePostExcel
             String fbtext, String Repost, String Run, String Republish)
             throws Exception
     {
+        
+        
         if (Run.trim().equalsIgnoreCase("Y")) {
             adminProperties.adminLogin();
             adminProperties.findAndClick("navigation_header");
@@ -91,6 +94,8 @@ public class CreatePostExcel
                 adminProperties.findAndClick("navigate_brandClub");
             } else if (category.equalsIgnoreCase("basics")) {
                 adminProperties.findAndClick("Basic_post");
+            } else if (category.equalsIgnoreCase("Vídeos")) {
+                adminProperties.findAndClick("LeadVideo");
             } else {
                 adminProperties.findAndClick("create_post_link");
             }
@@ -112,7 +117,8 @@ public class CreatePostExcel
                     movecursorpostion(browser);
                     adminProperties.videoHandle(Youtube_Video, Youtube_layout, browser);
                     adminProperties.implicitWait();
-                    adminProperties.findAndClick("post_content");
+                    adminProperties.findAndClick("post_content");    
+                    movecursorpostion(browser);
                     adminProperties.addNewlines();
                     adminProperties.implicitWait();
                 } 
@@ -135,6 +141,7 @@ public class CreatePostExcel
                     adminProperties.implicitWait();
                 } 
                 
+                adminProperties.implicitWait();    
             adminProperties.addNewlines();
             adminProperties.findAndClick("toolbar_more");
             adminProperties.implicitWait();
@@ -183,6 +190,7 @@ public class CreatePostExcel
                 if (toolbarstatus.equalsIgnoreCase("B")) {
                     adminProperties.implicitWait();
                     adminProperties.findAndClick("toolbar_Advance");
+                    toolbarstatus = "A";
                 }
                 adminProperties.implicitWait();
                 adminProperties.addNewlines();
@@ -198,6 +206,7 @@ public class CreatePostExcel
                 if (toolbarstatus.equalsIgnoreCase("B")) {
                     adminProperties.implicitWait();
                     adminProperties.findAndClick("toolbar_Advance");
+                    toolbarstatus = "A";
                 }
                 adminProperties.implicitWait();
                 adminProperties.addNewlines();
@@ -214,6 +223,7 @@ public class CreatePostExcel
                 if (toolbarstatus.equalsIgnoreCase("B")) {
                     adminProperties.implicitWait();
                     adminProperties.findAndClick("toolbar_Advance");
+                    toolbarstatus = "A";
                 }
                 adminProperties.implicitWait();
                 adminProperties.addNewlines();
@@ -231,6 +241,7 @@ public class CreatePostExcel
                 if (toolbarstatus.equalsIgnoreCase("B")) {
                     adminProperties.implicitWait();
                     adminProperties.findAndClick("toolbar_Advance");
+                    toolbarstatus = "A";
                 }
                 adminProperties.implicitWait();
                 adminProperties.addNewlines();
@@ -248,6 +259,7 @@ public class CreatePostExcel
                 if (toolbarstatus.equalsIgnoreCase("B")) {
                     adminProperties.implicitWait();
                     adminProperties.findAndClick("toolbar_Advance");
+                    toolbarstatus = "A";
                 }
                 adminProperties.implicitWait();
                 adminProperties.addNewlines();
@@ -264,6 +276,16 @@ public class CreatePostExcel
                           FB_Video, Recipe_FB_Video_layout,  Recipe_summary, Recipe_summary_layout, browser);
             }
             
+            if(!Gallery_photos.equalsIgnoreCase("null"))
+            {
+                adminProperties.implicitWait();
+                adminProperties.addNewlines();
+                adminProperties.galleryPost( Gallery_name,  Gallery_description,  Gallery_tag,  Gallery_ShowHeader,
+                         Gallery_photos,  browser);
+            }
+            
+            
+            
             adminProperties.implicitWait();
             adminProperties.moveToPublishTab(browser);
 
@@ -275,10 +297,9 @@ public class CreatePostExcel
             }
 
             if ((!homecontent.equalsIgnoreCase("null"))) {
-                if (driver.findElements(By.xpath("homepage_content")).size() != 0) {
                     adminProperties.findAndWrite("homepage_content",
                             homecontent);
-                }
+               
             }
 
             if (specialpost.equalsIgnoreCase("Y")) {
