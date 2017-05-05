@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -35,6 +36,12 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.logging.LogEntries;
+import org.openqa.selenium.logging.LogEntry;
+import org.openqa.selenium.logging.LogType;
+import org.openqa.selenium.logging.LoggingPreferences;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -57,18 +64,28 @@ public class Adminproperty
     public WebDriver callproperty(String url, String browser)
             throws IOException
     {
+        LoggingPreferences loggingprefs = new LoggingPreferences();
+        loggingprefs.enable(LogType.BROWSER, Level.ALL);
         if (browser.trim().equalsIgnoreCase("Chrome")) {
             System.setProperty("webdriver.chrome.driver",
                     System.getProperty("user.dir") + "//src//Driverfiles//"
                             + "chromedriver.exe");
+           DesiredCapabilities capabilities = DesiredCapabilities.chrome();          
+           capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
            ChromeOptions options = new ChromeOptions();
            options.addArguments("start-maximized");
+           options.addArguments(""+capabilities+"");
            driver = new ChromeDriver(options);
+           
+           
+           
         } else {
             System.setProperty("webdriver.gecko.driver",
                     System.getProperty("user.dir") + "//src//Driverfiles//"
                             + "geckodriver.exe");
-            driver = new FirefoxDriver();
+            DesiredCapabilities capabilities = DesiredCapabilities.firefox();          
+            capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
+             driver = new FirefoxDriver(capabilities);
         }
         driver.get(url);
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
@@ -1410,19 +1427,19 @@ public class Adminproperty
         findAndClick("save_ingrediente");
     }
 
-    public void galleryPost(String gallery_Name_Desp_tag_check,
+    public void galleryPost(String gallery_Name, String Desp, String tag, String showinheader,
             String galleryimage, String browser) throws MalformedURLException,
             Exception
     {
-        String gallery_Content[] = gallery_Name_Desp_tag_check.split("@##@");
-        String galleryimagearr[] = galleryimage.split(",");
-        findAndWrite("gallery_name", gallery_Content[0]);
+     
+        String galleryimagearr[] = galleryimage.split("@##@");
+        findAndWrite("gallery_name", gallery_Name);
         implicitWait();
-        findAndWrite("gallery_description", gallery_Content[1]);
+        findAndWrite("gallery_description", Desp);
 
-        findAndWrite("gallery_tag", gallery_Content[2]);
+        findAndWrite("gallery_tag", tag);
         implicitWait();
-        if (gallery_Content[3].equalsIgnoreCase("Y")) {
+        if (showinheader.equalsIgnoreCase("Y")) {
             findAndClick("gallery_check");
             implicitWait();
         }
@@ -1481,5 +1498,22 @@ public class Adminproperty
                 .sendKeys(FuturePost[1]);
         driver.findElement(By.className(prop.getProperty("future_post_save")))
                 .click();
+    }
+    public void ExtractJSLogs(String URL) {
+      int cnt=0;
+        
+        LogEntries logEntries = driver.manage().logs().get(LogType.BROWSER);
+        for (LogEntry entry : logEntries) {
+            if(entry.getMessage()!=null)
+            {
+                if( cnt==0)
+                {
+                    System.out.println("Console Logs:  " + URL);
+                    cnt++;
+                }
+                
+                System.out.println( entry.getLevel() + " " + entry.getMessage());
+            }
+        }
     }
 }

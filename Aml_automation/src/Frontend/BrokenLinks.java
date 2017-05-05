@@ -1,4 +1,4 @@
-package Admin;
+package Frontend;
 
 import java.io.IOException;
 import java.util.List;
@@ -91,6 +91,8 @@ public class BrokenLinks
         if (usuariolink != "") {
             VerifyInternalPages(usuariolink);
         }
+        
+        
     }
 
     public void VerifyInternalPages(String url) throws IOException
@@ -128,6 +130,7 @@ public class BrokenLinks
                     }
                     // System.out.println(url1);
                     verifyURLStatus(url1);
+                    
                 }
             }
         }
@@ -135,7 +138,7 @@ public class BrokenLinks
 
     public void verifyURLStatus(String URL)
     {
-
+        
         HttpClient client = HttpClientBuilder.create().build();
         HttpGet request = new HttpGet(URL);
         try {
@@ -147,5 +150,7 @@ public class BrokenLinks
         } catch (Exception e) {
             // e.printStackTrace();
         }
+        
+        frontendProperties.ExtractJSLogs(URL);
     }
 }
