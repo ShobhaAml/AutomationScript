@@ -117,25 +117,26 @@ public class Frontend extends Adminproperty
         implicitWait();
         findAndClick("commentsubmit");
         try {
-            System.out.println(new WebDriverWait(driver, 10).until(ExpectedConditions
-                    .visibilityOfElementLocated(By.xpath(prop
-                            .getProperty("commenterror")))));
-            if (new WebDriverWait(driver, 10).until(ExpectedConditions
-                    .visibilityOfElementLocated(By.xpath(prop
-                            .getProperty("commenterror")))) != null) {
-                error = new WebDriverWait(driver, 10).until(
+          
+           /* WebDriverWait wait = new WebDriverWait(driver, 5); // The int here is the maximum time in seconds the element can wait.
+            error = wait.until(
                         ExpectedConditions.visibilityOfElementLocated(By.xpath(prop
                                 .getProperty("commenterror")))).getText();
-
+*/
+           if(findElement(prop.getProperty("commenterror"))!=null)
+           {
+                error=findElement(prop.getProperty("commenterror")).getText();
                 System.out.println("ERROR: " + error);
-            }
-            
+           }
+           
         } catch (Exception e) {
 
         }
+        System.out.println("ERROR: "+error);
         if(error=="") {
-            List<WebElement> lst = findElementByClass(prop
+            List<WebElement> lst = findElementsByXpath(prop
                     .getProperty("commentlist"));
+            System.out.println(lst.size());
             for (WebElement list : lst) {
                 if (list.findElement(By.className("comment-content")).getText()
                         .equalsIgnoreCase(comment)) {

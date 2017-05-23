@@ -8,6 +8,8 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import Common.Adminproperty;
+
 public class Branded_Club_Post {
 
 	WebDriver driver;
@@ -78,7 +80,7 @@ public class Branded_Club_Post {
 		adminProperties.findAndClick("toolbar_basic");
 		adminProperties.findAndSendkey("post_content", Keys.ENTER);
 		adminProperties.implicitWait();
-		adminProperties.videoHandle(videoURL, layout);
+		adminProperties.videoHandle(videoURL, layout,prop.getProperty("browser"));
 		adminProperties.findAndClick("publish_tab");
 		adminProperties.findAndSendkey("post_content", Keys.ENTER);
 		adminProperties.implicitWait();

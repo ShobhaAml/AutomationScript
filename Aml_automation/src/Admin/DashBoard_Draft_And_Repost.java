@@ -13,6 +13,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import Common.Adminproperty;
+
 public class DashBoard_Draft_And_Repost {
     WebDriver driver;
     Adminproperty adminProperties = new Adminproperty();
@@ -22,7 +24,7 @@ public class DashBoard_Draft_And_Repost {
     String Selectors = "xatakandroid,xatakamovil";
     String tittle_data = "En infinidad de ocasiones hemos comentado cómo influyen las modas en los entrenamientos";
     String FurturePostname = "Tacos de pescado al chipotle. Receta mexicana fácil";
-    String listtype ="Dashboardlist";
+  
     String DateTime="27/12/2027 12:27";
     String FuturePostDate ="12:30,21/12/2026";
     @BeforeMethod
