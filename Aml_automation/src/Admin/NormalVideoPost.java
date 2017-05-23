@@ -34,9 +34,9 @@ public class NormalVideoPost
         property.findAndWrite("post_content", postContent);
         property.findAndClick("post_title");
         if (postType == "Video")
-            property.videoHandle(videoURL, layout);
+            property.videoHandle(videoURL, layout,prop.getProperty("browser"));
         else {
-            property.imageType(imageType, gifImage);
+           // property.imageType(imageType, gifImage);
         }
         property.findAndClick("Auto_save");
         property.findAndClick("publish_tab");
@@ -48,10 +48,10 @@ public class NormalVideoPost
         if (insertHomePageContent == true) {
             property.HomePageContent();
             property.insertTagAndCategory(catagoryText, tag);
-            property.addFbTwitterText("fb_text");
+            property.addFbTwitterText("fb_text",null);
         } else {
             property.insertTagAndCategory(catagoryText, tag);
-            property.addFbTwitterText("fb_text");
+            property.addFbTwitterText("fb_text",null);
         }
     }
 }

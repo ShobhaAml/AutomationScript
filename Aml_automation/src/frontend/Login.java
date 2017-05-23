@@ -1,4 +1,4 @@
-package Admin;
+package Frontend;
 
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -18,35 +18,41 @@ import com.google.common.base.Verify;
 import Common.Adminproperty;
 import Common.Frontend;
 
-public class Login {
-	int invalidImageCount = 0;
-	WebDriver driver;
-	Frontend frontendProperties = new Frontend();
-	Properties prop = new Properties();
-	String Postdata, posttitle, postcontent, primaryimage, postcontent_more, images, productname, productOrder,
-			productDesc, productLink, productLinktext = "";
-	String productPrice, productCatagory, homecontent, homeImage, postcatagory, postcatagoryOther, tag, seotitle,
-			seodesc, specialpost = "";
-	String author, Twittertext, fbtext, allowHomepageImage, allowHomepageContent = "";
-	String browser = "";
+public class Login
+{
+    int invalidImageCount = 0;
+    WebDriver driver;
+    Frontend frontendProperties = new Frontend();    
+    Properties prop = new Properties();
+    String browser = "";
 
-	@BeforeMethod
-	public void Setup() throws Exception {
-		prop = frontendProperties.ReadProperties();
-		driver = frontendProperties.frontcallproperty(prop.getProperty("url"), prop.getProperty("browser"));
-		browser = prop.getProperty("browser");
-	}
-
-	@DataProvider(name = "testdata")
-	public Object[][] TestDataFeed() throws Exception {
-		Object[][] postdata = frontendProperties.readExcel("Login", 2);
-		return postdata;
-	}
-
-	@Test(dataProvider = "testdata")
-	public void StandardLogin(String username, String password) {
-		String message = frontendProperties.StandardLogin(username, password);
-		System.out.println(message);
-	}
-
+    @BeforeMethod
+    public void Setup() throws Exception
+    {
+        prop = frontendProperties.ReadProperties();
+        driver = frontendProperties.frontcallproperty(prop.getProperty("url"),
+                prop.getProperty("browser"));
+        browser = prop.getProperty("browser");
+    }
+    
+    @DataProvider(name = "testdata")
+    public Object[][] TestDataFeed() throws Exception
+    {
+        Object[][] postdata = frontendProperties.readExcel("Login", 2);
+        return postdata;
+    }
+    
+    @Test(dataProvider="testdata")
+    public void StandardLogin(String username, String password)
+    {
+      frontendProperties.clickMenu("EntraORegistrate");
+      String message=  frontendProperties.StandardLogin(username, password);
+      if(message=="")
+      {
+          message=frontendProperties.checkifuserloggedin();
+      }     
+      
+      System.out.println(message);
+    }
+   
 }

@@ -1,8 +1,6 @@
 package Common;
 
-import java.awt.RenderingHints.Key;
-import java.awt.event.ActionEvent;
-import java.beans.PropertyChangeListener;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -10,14 +8,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
+import javax.imageio.ImageIO;
+
+import org.apache.commons.io.FileUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -30,6 +29,8 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -45,8 +46,16 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.ITestResult;
+import org.testng.TestListenerAdapter;
 
-public class Adminproperty
+import ru.yandex.qatools.ashot.AShot;
+import ru.yandex.qatools.ashot.Screenshot;
+import ru.yandex.qatools.ashot.screentaker.ViewportPastingStrategy;
+
+
+
+public class Adminproperty extends TestListenerAdapter
 {
 
     WebDriver driver;
@@ -475,7 +484,8 @@ public class Adminproperty
         findAndWrite("Homepagecontent", "Homepagetext");
     }
 
-    public void videoHandle(String videoURL, String layout, String browser) throws InterruptedException
+    public void videoHandle(String videoURL, String layout, String browser)
+            throws InterruptedException
     {
         WebElement element;
         findAndClick("post_content");
@@ -892,10 +902,12 @@ public class Adminproperty
         implicitWait();
         findAndClick("post_content");
     }
+
     public void addTable(String tabledata, String Checkbox_same_width,
             String Checkbox_table_first_row_heading,
             String Checkbox_table_first_column_heading,
             String Checkbox_table_occupy_all_avaiable_width)
+
     {
         String rows = "2", columns = "2";
         implicitWait();
@@ -1364,7 +1376,7 @@ public class Adminproperty
                 findAndClick("check_box_img");
                 implicitWait();
             }
-           Select dropdown = new Select(driver.findElement(By.xpath(prop
+            Select dropdown = new Select(driver.findElement(By.xpath(prop
                     .getProperty("position"))));
             dropdown.selectByVisibleText(captionText[2]);
             Thread.sleep(3000);
@@ -1448,6 +1460,7 @@ public class Adminproperty
                     System.getProperty("user.dir")
                             + prop.getProperty("image_path") + "\\"
                             + galleryimagearr[i]);
+
         }
         findAndClick("gallery_upload_bulk");
 
@@ -1512,4 +1525,31 @@ public class Adminproperty
             }
         }
     }
+    
+    public  void FullScreenshot(String screenshotName) throws IOException
+    {
+    	Screenshot screenshot = new AShot().shootingStrategy(new ViewportPastingStrategy(1000)).takeScreenshot(driver);
+    	ImageIO.write(screenshot.getImage(), "PNG", new File( System.getProperty("user.dir")
+                + "\\src\\Screenshots\\"+screenshotName));
+    }
+    public static void captureScreenshot(WebDriver driver,String screenshotName)
+	{
+	
+		try 
+		{
+		TakesScreenshot ts=(TakesScreenshot)driver;
+		
+		File source=ts.getScreenshotAs(OutputType.FILE);
+		
+		FileUtils.copyFile(source, new File(System.getProperty("user.dir")+ "\\src\\Screenshots\\"+screenshotName+".png"));
+		
+		System.out.println("Screenshot taken");
+		} 
+		catch (Exception e)
+		{
+		
+		System.out.println("Exception while taking screenshot "+e.getMessage());
+		} 
+	}
+    	 
 }

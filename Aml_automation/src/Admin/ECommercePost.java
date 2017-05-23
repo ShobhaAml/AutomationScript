@@ -52,7 +52,7 @@ public class ECommercePost
         adminProperties.findAndClick("post_title");
         adminProperties.implicitWait();
         adminProperties.findAndClick("toolbar_image");
-        adminProperties.uploadPrimaryImage(primaryimage);
+        adminProperties.uploadPrimaryImage(primaryimage,prop.getProperty("browser"));
         adminProperties.findAndSendkey("post_content", Keys.END);
         adminProperties.findAndSendkey("post_content", Keys.ENTER);
         adminProperties.findAndSendkey("post_content", Keys.END);
@@ -165,7 +165,7 @@ public class ECommercePost
 
         }
 
-        adminProperties.addFbTwitterText(fbtext);
+        adminProperties.addFbTwitterText(fbtext,null);
 
     }
 

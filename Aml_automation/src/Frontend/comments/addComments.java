@@ -3,7 +3,10 @@ package Frontend.comments;
 import java.nio.file.InvalidPathException;
 import java.util.Properties;
 
+import javax.naming.spi.DirStateFactory.Result;
+
 import org.openqa.selenium.WebDriver;
+import org.testng.ITestResult;
 import org.testng.annotations.Test;
 
 import Common.Frontend;
@@ -14,7 +17,7 @@ public class addComments
     String username="shobha@agilemedialab.in";
     String password="shobha";    
     String usersession="2";   // 1-homepage, 2- login from post
-    String comment="automate A por el tercer intento de aterrizaje test testing for new";
+    String comment="automate A por el tercer intento de abc sdasd new test new 3434 ";
     
     
     Properties prop = new Properties();
@@ -31,7 +34,7 @@ public class addComments
         browser = prop.getProperty("browser");
         url=prop.getProperty("url");
     }
-    @Test (priority=2)
+    @Test (dependsOnMethods="openbrowser")
     public void calllogin(){
         
         if(usersession=="2")
@@ -44,14 +47,14 @@ public class addComments
         }
     }
     
-    @Test (priority=3)
+    @Test (dependsOnMethods="calllogin")
     public void MovetoPostcomment()
     {
         frontendProperties.implicitWait(); 
        //Click 1st post
        frontendProperties.findAndClick("postcommentlink");
        frontendProperties.implicitWait();                
-       if(usersession!="1")
+       if(usersession=="2")
        {
            //login
            frontendProperties.findAndClick("commentEntralogin");
@@ -62,13 +65,28 @@ public class addComments
        }
     }
     
-    @Test (priority=4)
+    @Test (dependsOnMethods="MovetoPostcomment")
     public void addcomments()
     {
         System.out.println("Let's add Comment");
         frontendProperties.addcomments(comment);
     }
     
-  
+   
+   public void teardown(ITestResult result)
+   {/*
+       try
+       {
+           System.out.println(result.getName());
+           frontendProperties.captureScreenshot(driver,"testing" );
+           
+       }
+       catch(Exception e)
+       {
+           System.out.println(e.getMessage());
+       }
+       */
+   }
+   
    
 }

@@ -1,19 +1,20 @@
 package Frontend.comments;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
-
-import javax.xml.bind.ParseConversionEvent;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.testng.ITestResult;
+import org.testng.TestListenerAdapter;
 import org.testng.annotations.Test;
 
 import Common.Frontend;
 
-public class Spam
+public class Spam  
 {
     String logintype="Std";  //Standard= Std , Fb=fb, twitter=twitter
     String username="shobha@agilemedialab.in";
@@ -121,4 +122,11 @@ public class Spam
         }
      }
 
+    @Test (priority=3)
+    public void teardown() throws IOException
+    {
+    	//frontendProperties.FullScreenshot("test.png");
+    	frontendProperties.captureScreenshot(driver, "testing.png");
+    }
+    
 }

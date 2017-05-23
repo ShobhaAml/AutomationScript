@@ -15,6 +15,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import Common.Adminproperty;
+
 public class SlideShowPost {
 	WebDriver driver;
 	String Text1 = "Apple";
