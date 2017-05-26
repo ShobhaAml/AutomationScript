@@ -1,0 +1,12 @@
+<suite name="CommentSuite">
+<test name="comments">
+	<classes>
+	<class name="Frontend.comments.addComments" />
+	<class name="Frontend.comments.Spam" />
+	<!-- <methods>
+	<include name="spam" />
+	</methods> -->
+	</classes>
+</test>
+
+</suite>
