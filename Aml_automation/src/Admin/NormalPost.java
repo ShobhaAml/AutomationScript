@@ -30,7 +30,7 @@ public class NormalPost
         property.findAndClick("post_title");
         property.implicitWait();
         property.findAndClick("toolbar_image");
-        property.uploadPrimaryImage(Image);
+        property.uploadPrimaryImage(Image,"chrome");
         property.findAndClick("Auto_save");
         property.findAndClick("publish_tab");
         property.insertTagAndCategory(catagoryText, tag);
