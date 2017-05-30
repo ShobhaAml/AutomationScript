@@ -49,6 +49,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 
+import com.google.common.base.Predicate;
+
 import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
 import ru.yandex.qatools.ashot.screentaker.ViewportPastingStrategy;
@@ -1526,30 +1528,242 @@ public class Adminproperty extends TestListenerAdapter
         }
     }
     
-    public  void FullScreenshot(String screenshotName) throws IOException
-    {
-    	Screenshot screenshot = new AShot().shootingStrategy(new ViewportPastingStrategy(1000)).takeScreenshot(driver);
-    	ImageIO.write(screenshot.getImage(), "PNG", new File( System.getProperty("user.dir")
-                + "\\src\\Screenshots\\"+screenshotName));
-    }
-    public static void captureScreenshot(WebDriver driver,String screenshotName)
-	{
-	
-		try 
-		{
-		TakesScreenshot ts=(TakesScreenshot)driver;
-		
-		File source=ts.getScreenshotAs(OutputType.FILE);
-		
-		FileUtils.copyFile(source, new File(System.getProperty("user.dir")+ "\\src\\Screenshots\\"+screenshotName+".png"));
-		
-		System.out.println("Screenshot taken");
-		} 
-		catch (Exception e)
-		{
-		
-		System.out.println("Exception while taking screenshot "+e.getMessage());
-		} 
+	public void FullScreenshot(String screenshotName) throws IOException {
+		Screenshot screenshot = new AShot().shootingStrategy(new ViewportPastingStrategy(1000)).takeScreenshot(driver);
+		ImageIO.write(screenshot.getImage(), "PNG",
+				new File(System.getProperty("user.dir") + "\\src\\Screenshots\\" + screenshotName));
 	}
-    	 
+
+	public static void captureScreenshot(WebDriver driver, String screenshotName) {
+
+		try {
+			TakesScreenshot ts = (TakesScreenshot) driver;
+
+			File source = ts.getScreenshotAs(OutputType.FILE);
+
+			FileUtils.copyFile(source,
+					new File(System.getProperty("user.dir") + "\\src\\Screenshots\\" + screenshotName + ".png"));
+
+			System.out.println("Screenshot taken");
+		} catch (Exception e) {
+
+			System.out.println("Exception while taking screenshot " + e.getMessage());
+		}
+	}
+
+	public void editEvent(String video_Data) {
+		int cnt = 1;
+		List<WebElement> list = findElementsByXpath(prop.getProperty("video_list") + "/td[1]");
+		for (WebElement element : list) {
+			if (element.getText().equalsIgnoreCase(video_Data)) {
+				findElement(prop.getProperty("video_list") + "[" + cnt + "]" + prop.getProperty("eventActions")
+						+ prop.getProperty("video_list")).click();
+				break;
+			}
+			cnt++;
+		}
+		implicitWait();
+
+		if (findElement(prop.getProperty("eventImage")).isDisplayed()) {
+
+			findAndClick("eventImageDel");
+			findAndWrite("editEventBrowse",
+					System.getProperty("user.dir") + prop.getProperty("image_path") + "\\headphone.jpg");
+			findAndClick("eventImageUpload");
+			implicitWait();
+		}
+
+		else {
+			findAndWrite("editEventBrowse",
+					System.getProperty("user.dir") + prop.getProperty("image_path") + "\\headphone.jpg");
+			findAndClick("eventImageUpload");
+		}
+
+	}
+
+	public void DeleteVideo(String Video_post_name) {
+		WebElement tableelement = driver.findElement(By.id("video-list"));
+		WebDriverWait wait = new WebDriverWait(driver, 50);
+		wait.until(new Predicate<WebDriver>() {
+			public boolean apply(WebDriver driver) {
+				return ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");
+			}
+		});
+		int cnt = 1;
+		List<WebElement> list = findElementsByXpath(".//*[@id='video-list']/table/tbody/tr/td[1]");
+		for (WebElement element : list) {
+			System.out.println(element.getText());
+
+			if (element.getText().equalsIgnoreCase(Video_post_name)) {
+				findElement(prop.getProperty("video_list") + "[" + cnt + "]" + prop.getProperty("del_td")).click();
+				implicitWait();
+				Alert alert = driver.switchTo().alert();
+				alert.accept();
+				break;
+			}
+			cnt++;
+
+		}
+	}
+
+	public void EditVideoGallery(String Video_post_name, String checkbox) throws Exception {
+		WebElement tableelement = driver.findElement(By.id("video-list"));
+		WebDriverWait wait = new WebDriverWait(driver, 50);
+		wait.until(new Predicate<WebDriver>() {
+			public boolean apply(WebDriver driver) {
+				return ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");
+			}
+		});
+		int cnt = 1;
+		List<WebElement> list = findElementsByXpath(".//*[@id='video-list']/table/tbody/tr/td[1]");
+		for (WebElement element : list) {
+			System.out.println(element.getText());
+
+			if (element.getText().equalsIgnoreCase(Video_post_name)) {
+				findElement(prop.getProperty("video_list") + "[" + cnt + "]" + prop.getProperty("edit")).click();
+				implicitWait();
+				Alert alert = driver.switchTo().alert();
+				alert.accept();
+
+				break;
+			}
+			cnt++;
+
+		}
+
+		implicitWait();
+		System.out.println("hello");
+		findElement(prop.getProperty("video_post_title")).clear();
+		findElement(prop.getProperty("video_post_url")).clear();
+		findElement(prop.getProperty("video_video_url")).clear();
+
+		if (checkbox.equalsIgnoreCase("Y")) {
+			findElement(prop.getProperty("video_is_special")).click();
+		} else {
+
+			findElement(prop.getProperty("video_is_sponsored")).clear();
+			findElement(prop.getProperty("video_sponsor_name")).clear();
+			findElement(prop.getProperty("video_sponsor_logo")).clear();
+
+		}
+
+	}
+
+	public void videoGallery(String post_title, String post_url, String video_url, String checkbox, String sponsor_logo,
+			String sponsor_name)
+
+	{
+
+		findAndClick("create_new_video");
+		findAndWrite("video_post_title", post_title);
+		findAndWrite("video_post_url", post_url);
+		findAndWrite("video_video_url", video_url);
+
+		if (checkbox.equalsIgnoreCase("Y")) {
+			findAndClick("video_is_special");
+		} else {
+
+			findAndClick("video_is_sponsored");
+			findAndWrite("video_sponsor_name", sponsor_name);
+			findAndWrite("video_sponsor_logo", sponsor_logo);
+		}
+		findAndClick("guardar_button");
+
+	}
+
+	public void amazonProduct(String value, String amazon_product_id, String amazon_product_name) {
+
+		// keywords,asin
+
+		Select oSelect = new Select(driver.findElement(By.id(prop.getProperty("checkList"))));
+
+		oSelect.selectByValue(value);
+
+		if (value == "asin") {
+
+			findAndWrite("amazon_search_field", amazon_product_id);
+			findAndClick("search_product_button");
+
+			driver.findElement(By.className(prop.getProperty("add_product_button"))).click();
+
+		}
+
+		else {
+
+			findAndWrite("amazon_search_field", amazon_product_name);
+			findAndClick("search_product_button");
+
+			driver.findElement(By.className(prop.getProperty("add_product_button"))).click();
+
+		}
+
+	}
+
+	public void users(String Username, String Fullname, String UserPassword, String UserEmail, String userDescription,
+			String value) {
+		findAndClick("Usuarios");
+		findAndClick("create_Usuarios_button");
+		findAndWrite("user_name", Username);
+		findAndWrite("full_name", Fullname);
+		Select oSelect = new Select(driver.findElement(By.id(prop.getProperty("roll"))));
+
+		oSelect.selectByValue(value);
+
+		findAndWrite("user_password", UserPassword);
+		findAndWrite("user_email", UserEmail);
+		findAndWrite("user_description", userDescription);
+		findAndClick("user_submit_button");
+
+	}
+
+	public void Edit_news(String news_title_name) {
+		WebElement tableelement = driver.findElement(By.id("BreakingNewsListing"));
+		WebDriverWait wait = new WebDriverWait(driver, 50);
+		wait.until(new Predicate<WebDriver>() {
+			public boolean apply(WebDriver driver) {
+				return ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");
+			}
+		});
+		int cnt = 1;
+		List<WebElement> list = findElementsByXpath(".//*[@id='BreakingNewsListing']/table/tbody/tr/td[1]");
+		for (WebElement element : list) {
+			System.out.println(element.getText());
+
+			if (element.getText().equalsIgnoreCase(news_title_name)) {
+				findElement(prop.getProperty("news_list_row") + "[" + cnt + "]" + prop.getProperty("edit")).click();
+				implicitWait();
+				Alert alert = driver.switchTo().alert();
+				alert.accept();
+				break;
+			}
+			cnt++;
+
+		}
+	}
+
+	public void delete_news(String news_title_name) {
+		WebElement tableelement = driver.findElement(By.id("BreakingNewsListing"));
+		WebDriverWait wait = new WebDriverWait(driver, 50);
+		wait.until(new Predicate<WebDriver>() {
+			public boolean apply(WebDriver driver) {
+				return ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");
+			}
+		});
+		int cnt = 1;
+		List<WebElement> list = findElementsByXpath(".//*[@id='BreakingNewsListing']/table/tbody/tr/td[1]");
+		for (WebElement element : list) {
+			System.out.println(element.getText());
+
+			if (element.getText().equalsIgnoreCase(news_title_name)) {
+				findElement(prop.getProperty("news_list_row") + "[" + cnt + "]" + prop.getProperty("del_td")).click();
+				implicitWait();
+				Alert alert = driver.switchTo().alert();
+				alert.accept();
+				break;
+			}
+			cnt++;
+
+		}
+	}
+
 }
