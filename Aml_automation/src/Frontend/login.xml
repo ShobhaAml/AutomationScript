@@ -1,0 +1,35 @@
+
+<suite name="Login Test Suite" verbose="1" >
+  <test name="Method Test Cases1" >
+    <classes>
+       <class name="frontend.Login">
+        <methods>
+         <include name="StandardLogin" />
+        
+      </methods>
+       </class>
+    </classes>
+  </test>
+  <!--  <test name="Method Test Cases2" >
+    <classes>
+       <class name="frontend.Login">
+        <methods>
+       
+        <include name="facebookLogin" />
+      
+      </methods>
+       </class>
+    </classes>
+  </test> -->
+   <test name="Method Test Cases3" >
+    <classes>
+       <class name="frontend.Login">
+        <methods>
+        
+        <exclude name="twitterLogin" />
+      </methods>
+       </class>
+    </classes>
+  </test>
+  
+</suite>

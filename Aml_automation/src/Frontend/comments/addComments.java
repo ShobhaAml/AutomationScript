@@ -5,7 +5,10 @@ import java.util.Properties;
 
 import javax.naming.spi.DirStateFactory.Result;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.ITestResult;
 import org.testng.annotations.Test;
 
@@ -14,8 +17,8 @@ import Common.Frontend;
 public class addComments
 {
     String logintype="Std";  //Standard= Std , Fb=fb, twitter=twitter
-    String username="shobha@agilemedialab.in";
-    String password="shobha";    
+    String username="sumit@agilemedialab.in";
+    String password="qwerty011";    
     String usersession="2";   // 1-homepage, 2- login from post
     String comment="automate A por el tercer intento de abc sdasd new test new 3434 ";
     
@@ -34,7 +37,7 @@ public class addComments
         browser = prop.getProperty("browser");
         url=prop.getProperty("url");
     }
-    @Test (dependsOnMethods="openbrowser")
+    @Test (priority=2,dependsOnMethods="openbrowser")
     public void calllogin(){
         
         if(usersession=="2")
@@ -47,7 +50,7 @@ public class addComments
         }
     }
     
-    @Test (dependsOnMethods="calllogin")
+    @Test (priority=3,dependsOnMethods="calllogin")
     public void MovetoPostcomment()
     {
         frontendProperties.implicitWait(); 
@@ -65,7 +68,7 @@ public class addComments
        }
     }
     
-    @Test (dependsOnMethods="MovetoPostcomment")
+    @Test (priority=4,dependsOnMethods="MovetoPostcomment")
     public void addcomments()
     {
         System.out.println("Let's add Comment");
@@ -73,8 +76,8 @@ public class addComments
     }
     
    
-   public void teardown(ITestResult result)
-   {/*
+  /* public void teardown(ITestResult result)
+   {
        try
        {
            System.out.println(result.getName());
@@ -85,8 +88,17 @@ public class addComments
        {
            System.out.println(e.getMessage());
        }
-       */
-   }
+       
+   }*/
    
-   
+   @Test(priority=5,dependsOnMethods="addcomments")
+   public void editcomments()  
+ {
+ 	
+ 	  System.out.println("Let's edit Comment");
+ 	 WebElement element = driver.findElement(By.className(prop.getProperty("edit_comment_button")));
+ 	JavascriptExecutor executor = (JavascriptExecutor)driver;
+ 	executor.executeScript("arguments[0].click();", element);
+ System.out.println("Comment has been edited");
 }
+   }
