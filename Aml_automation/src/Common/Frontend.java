@@ -3,9 +3,11 @@ package Common;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.InvalidPathException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Properties;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -227,5 +229,17 @@ public class Frontend extends Adminproperty
 
 		return message;
 
+	}
+	public static Set<String> findDuplicates(List<String> listContainingDuplicates) {
+		 
+		final Set<String> setToReturn = new HashSet<String>();
+		final Set<String> set1 = new HashSet<String>();
+ 
+		for (String yourInt : listContainingDuplicates) {
+			if (!set1.add(yourInt)) {
+				setToReturn.add(yourInt);
+			}
+		}
+		return setToReturn;
 	}
 }
