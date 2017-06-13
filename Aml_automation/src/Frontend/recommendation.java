@@ -18,7 +18,7 @@ public class recommendation {
 	    String browser="";
 	    WebDriver driver ;
 	    Properties prop=new Properties();
-	    String url="https://www.bebesymas.com/parto/ten-cuidado-con-lo-que-dices-cuando-veas-una-mariposa-lila-en-la-cuna-de-un-bebe";
+	    String url="https://www.bebesymas.com/parto/el-bonito-momento-en-que-una-madre-hace-una-pausa-en-su-trabajo-de-parto-para-amamantar-a-la-mayor";
 	    List<String> list = new LinkedList<String>();
     	
 	     @BeforeTest()
@@ -56,7 +56,8 @@ public class recommendation {
 	    	}
 	    }
 	    
-	    @Test void getDuplicateRecommendations() throws IOException
+	    @Test 
+	    public void getDuplicateRecommendations() throws IOException
 	    {
 	       
 	    	System.out.println("Duplicate Recommendations : " + frontendProperties.findDuplicates(list));
