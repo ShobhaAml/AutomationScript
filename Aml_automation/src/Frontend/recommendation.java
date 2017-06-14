@@ -18,7 +18,7 @@ public class recommendation {
 	    String browser="";
 	    WebDriver driver ;
 	    Properties prop=new Properties();
-	    String url="https://www.bebesymas.com/parto/el-bonito-momento-en-que-una-madre-hace-una-pausa-en-su-trabajo-de-parto-para-amamantar-a-la-mayor";
+	    String url="https://www.genbeta.com/actualidad/edx-la-prestigiosa-web-de-cursos-online-gratuitos-ahora-esta-disponible-en-espanol";
 	    List<String> list = new LinkedList<String>();
     	
 	     @BeforeTest()
@@ -30,11 +30,16 @@ public class recommendation {
 	        browser = prop.getProperty("browser");
 	       
 	    }
-	    
-	    @Test
+	    @Test (priority=1)
+	    public void getPostTitle()
+	    {
+	    	frontendProperties.findAndClick("cookie");	    	
+	    	list.add(frontendProperties.findElement(prop.getProperty("post_title")).getText());
+	    }
+	    @Test (priority=2)
 	    public void GetSideRecommendation()
 	    { 
-	    	frontendProperties.findAndClick("cookie");	    	
+	    	
 	    	List<WebElement> siderecom= frontendProperties.findElementsByXpath(prop.getProperty("side_recommendations"));
 	    	System.out.println(siderecom.size());
 	    	for(WebElement posttitle: siderecom)
@@ -44,7 +49,7 @@ public class recommendation {
 	    	}
 	     }
 		
-	    @Test
+	    @Test (priority=3)
 	    public void getBottomRecommendation()
 	    {
 	    	List<WebElement> bottomrecom= frontendProperties.findElementsByXpath(prop.getProperty("bottom_recommendations"));
@@ -56,14 +61,15 @@ public class recommendation {
 	    	}
 	    }
 	    
-	    @Test 
+	    @Test  (priority=4)
 	    public void getDuplicateRecommendations() throws IOException
 	    {
-	       
+	    	System.out.println(list);
+	    	
 	    	System.out.println("Duplicate Recommendations : " + frontendProperties.findDuplicates(list));
 	    	if(frontendProperties.findDuplicates(list).size()>0)
 	      	{
-	    		frontendProperties.FullScreenshot(driver,"r1.png");
+	    		//frontendProperties.FullScreenshot(driver,"r1.png");
 	    		
 	      	}
 	     }
