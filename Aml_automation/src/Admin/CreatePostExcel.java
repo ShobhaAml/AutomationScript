@@ -1,5 +1,6 @@
 package Admin;
 
+import java.sql.Connection;
 import java.util.List;
 import java.io.IOException;
 import java.util.HashMap;
@@ -85,22 +86,48 @@ public class CreatePostExcel
         
         
         if (Run.trim().equalsIgnoreCase("Y")) {
-            adminProperties.adminLogin();
+            String blogrole="";
+        	
+        	adminProperties.LoginAdmin(prop.getProperty("admin_usename"),prop.getProperty("admin_pwd"));
+          
+
+        	Connection conn = adminProperties.connectDb();
+            String arrlogin = adminProperties.checkuserlogintype(conn ,prop.getProperty("admin_usename"),prop.getProperty("admin_pwd"));
+            if(arrlogin!=null)
+            {
+    	        String[] logintypes=arrlogin.split("@##@");
+    	        blogrole= logintypes[1];
+    	       if(blogrole==null)
+    	        {
+    	        	blogrole="Admin";
+    	        }
+    	       System.out.println(blogrole+" account");
+    	     }
+            
+            
             adminProperties.findAndClick("navigation_header");
-
-            if (!slideshowimages.equalsIgnoreCase("null")) {
-                adminProperties.findAndClick("navigate_Slideshow");
-            } else if (!Branded_club.equalsIgnoreCase("null")) {
-                adminProperties.findAndClick("navigate_brandClub");
-            } else if (category.equalsIgnoreCase("basics")) {
-                adminProperties.findAndClick("Basic_post");
-            } else if (category.equalsIgnoreCase("Vídeos")) {
-                adminProperties.findAndClick("LeadVideo");
-            } else {
-                adminProperties.findAndClick("create_post_link");
-            }
-
-            adminProperties.findAndWrite("post_title", posttitle);
+            
+            
+          if(blogrole.contains("Branded")){
+        	  adminProperties.findAndClick("create_post_link");
+          }
+          else{
+        	  
+        	  if (!slideshowimages.equalsIgnoreCase("null")) {
+                  adminProperties.findAndClick("navigate_Slideshow");
+              } else if (!Branded_club.equalsIgnoreCase("null")) {
+                  adminProperties.findAndClick("navigate_brandClub");
+              } else if (category.equalsIgnoreCase("basics")) {
+                  adminProperties.findAndClick("Basic_post");
+              } else if (category.equalsIgnoreCase("Vídeos")) {
+                  adminProperties.findAndClick("LeadVideo");
+              } else {
+                  adminProperties.findAndClick("create_post_link");
+              }  
+          }
+            
+           
+          	adminProperties.findAndWrite("post_title", posttitle);
 
             if (!postcontent.equalsIgnoreCase("null")) {
                 adminProperties.findAndWrite("post_content", postcontent);
@@ -285,7 +312,11 @@ public class CreatePostExcel
             }
             
             
-            
+            if(blogrole.equalsIgnoreCase("Branded Collaborator"))
+            {
+            	System.out.println("Branded Collaborator don't have access to publish a post");
+            }
+            else{
             adminProperties.implicitWait();
             adminProperties.moveToPublishTab(browser);
 
@@ -326,7 +357,8 @@ public class CreatePostExcel
 
                 adminProperties.republish();
             }
-        }
+          }
+       }
     }
 
     public void movecursorpostion(String browser)
