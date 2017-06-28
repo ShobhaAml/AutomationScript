@@ -461,6 +461,10 @@ public class Adminproperty extends TestListenerAdapter
     public void clickNotificationButton(String tittle_data)
     {
         int cnt = 1;
+         
+        
+       
+        
         List<WebElement> postlist = findElementByClass(prop
                 .getProperty("notification_list_by_ClassName"));
         for (WebElement list : postlist) {
@@ -1716,54 +1720,39 @@ public class Adminproperty extends TestListenerAdapter
 
 	}
 
-	public void Edit_news(String news_title_name) {
-		WebElement tableelement = driver.findElement(By.id("BreakingNewsListing"));
-		WebDriverWait wait = new WebDriverWait(driver, 50);
-		wait.until(new Predicate<WebDriver>() {
-			public boolean apply(WebDriver driver) {
-				return ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");
-			}
-		});
-		int cnt = 1;
-		List<WebElement> list = findElementsByXpath(".//*[@id='BreakingNewsListing']/table/tbody/tr/td[1]");
-		for (WebElement element : list) {
-			System.out.println(element.getText());
+	public void createSectionModule(String title_1_data, String title_2_data, String type_1, String type_2,
+			String value, String tag_input_data_1, String tag_input_data_2) {
+		findAndClick("section_module");
+		findAndWrite("title_1", title_1_data);
 
-			if (element.getText().equalsIgnoreCase(news_title_name)) {
-				findElement(prop.getProperty("news_list_row") + "[" + cnt + "]" + prop.getProperty("edit")).click();
-				implicitWait();
-				Alert alert = driver.switchTo().alert();
-				alert.accept();
-				break;
-			}
-			cnt++;
+		if (type_1 == "cat_1") {
+
+			findAndClick("cat_1");
+			Select oSelect = new Select(driver.findElement(By.id(prop.getProperty("publish_main_category_1_chosen"))));
+			oSelect.selectByValue(value);
 
 		}
-	}
 
-	public void delete_news(String news_title_name) {
-		WebElement tableelement = driver.findElement(By.id("BreakingNewsListing"));
-		WebDriverWait wait = new WebDriverWait(driver, 50);
-		wait.until(new Predicate<WebDriver>() {
-			public boolean apply(WebDriver driver) {
-				return ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");
-			}
-		});
-		int cnt = 1;
-		List<WebElement> list = findElementsByXpath(".//*[@id='BreakingNewsListing']/table/tbody/tr/td[1]");
-		for (WebElement element : list) {
-			System.out.println(element.getText());
-
-			if (element.getText().equalsIgnoreCase(news_title_name)) {
-				findElement(prop.getProperty("news_list_row") + "[" + cnt + "]" + prop.getProperty("del_td")).click();
-				implicitWait();
-				Alert alert = driver.switchTo().alert();
-				alert.accept();
-				break;
-			}
-			cnt++;
+		else {
+			findAndClick("tag_1");
+			findAndWrite("tag_input-box", tag_input_data_1);
 
 		}
+
+		findAndWrite("title_2", title_2_data);
+
+		if (type_2 == "cat_2") {
+			findAndClick("cat_2");
+			Select oSelect = new Select(driver.findElement(By.id(prop.getProperty("publish_main_category_2_chosen"))));
+			oSelect.selectByValue(value);
+		}
+
+		else {
+			findAndClick("tag_2");
+			findAndWrite("tag_input-box_2", tag_input_data_2);
+		}
+		findAndClick("save_Section_Module");
+
 	}
 
 }
