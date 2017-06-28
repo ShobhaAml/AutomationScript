@@ -7,38 +7,40 @@ import java.util.List;
 import java.util.Properties;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.BeforeTest;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 import Common.Adminproperty;
 import Common.Frontend;
 
-public class DB_breakingTag {
+public class DB_postQueue {
 	Frontend frontendProperties = new Frontend();
 	Adminproperty adminProperties = new Adminproperty();
 	Properties prop = new Properties();
 	String browser = "";
 	WebDriver driver;
 	String url = "https://guest:guest@testing.xataka.com";
-	List<String> list = new LinkedList<String>();
 	String title;
+	List<String> list = new LinkedList<String>();
 	Connection conn;
 	Statement stmt;
+	List<String> DB_postList = new LinkedList<String>();
+	List<String> homeList = new LinkedList<String>();
 
-	@BeforeTest
+	@Test
 	public void openDB() throws Exception {
-		String query = "select * from breaking_news where active=1;";
+		String query = "select ID, post_title, post_date_gmt from wp_posts ORDER BY post_date_gmt desc limit 4";
 		conn = adminProperties.connectDb();
 		stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(query);
-		Statement stmt = conn.createStatement();
-		System.out.println("ID " + " Title " + "    Active " + " enddate ");
+		System.out.println("ID " + "  " + " Title " + "        " + "    post_date_gmt ");
 		while (rs.next()) {
 			String ID = rs.getString(1);
 			title = rs.getString(2);
-			String active = rs.getString(4);
-			String endDate = rs.getString(5);
-			System.out.println(ID + "  " + title + active + "  " + endDate);
+			String date = rs.getString(3);
+			System.out.println(ID + "" + title + "" + date);
+			DB_postList.add(title);
 		}
+		System.out.println("\n" + DB_postList);
 		conn.close();
 	}
 
@@ -48,9 +50,16 @@ public class DB_breakingTag {
 		driver = frontendProperties.frontcallproperty(url, prop.getProperty("browser"));
 		browser = prop.getProperty("browser");
 		frontendProperties.implicitWait();
-		if (driver.findElement(By.xpath(prop.getProperty("breakingTag"))).getText().equals(title)) {
-			System.out.println("Success");
+		java.util.List<WebElement> list = driver.findElements(By.xpath(prop.getProperty("postcommentlink")));
+		for (WebElement post : list) {
+			String postList = post.getText();
+			homeList.add(postList);
+		}
+		System.out.println("\n" + homeList + "\n");
+		if (DB_postList.equals(homeList)) {
+			System.out.println("success");
 		} else
 			System.out.println("failure");
 	}
+
 }
