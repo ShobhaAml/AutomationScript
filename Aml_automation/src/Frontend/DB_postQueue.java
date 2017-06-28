@@ -12,6 +12,7 @@ import org.testng.annotations.Test;
 import Common.Adminproperty;
 import Common.Frontend;
 
+
 public class DB_postQueue {
 	Frontend frontendProperties = new Frontend();
 	Adminproperty adminProperties = new Adminproperty();
