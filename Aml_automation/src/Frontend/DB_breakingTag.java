@@ -18,19 +18,18 @@ import Common.Frontend;
 
 public class DB_breakingTag {
 
-	Frontend frontendProperties = new Frontend();    
-    String browser="";
-    WebDriver driver ;
-    Properties prop=new Properties();
-    String url="https://guest:guest@testing.xataka.com";
-    String homePage, postPage;
-    List<String> list = new LinkedList<String>();
-    String title;	
- 		       
-	 @BeforeTest   
-	public void method_isha() throws ClassNotFoundException, SQLException
-	{
-		
+	Frontend frontendProperties = new Frontend();
+	String browser = "";
+	WebDriver driver;
+	Properties prop = new Properties();
+	String url = "https://guest:guest@testing.xataka.com";
+	String homePage, postPage;
+	List<String> list = new LinkedList<String>();
+	String title;
+
+	@BeforeTest
+	public void method_isha() throws ClassNotFoundException, SQLException {
+
 		// Connection URL Syntax: "jdbc:mysql://ipaddress:portnumber/db_name"
 		String dbUrl = "jdbc:mysql://localhost:3306/compradiccion";
 		// Database Username
@@ -52,30 +51,28 @@ public class DB_breakingTag {
 
 		// Execute the SQL Query. Store results in ResultSet
 		ResultSet rs = stmt.executeQuery(query);
-		System.out.println("ID "+" Title " + "    Active " + " enddate ");
-		 
+		System.out.println("ID " + " Title " + "    Active " + " enddate ");
+
 		// While Loop to iterate through all data and print results
 		while (rs.next()) {
 			String ID = rs.getString(1);
-			 title = rs.getString(2);
+			title = rs.getString(2);
 			String active = rs.getString(4);
-			String endDate = rs.getString(5);			
+			String endDate = rs.getString(5);
 			System.out.println(ID + "  " + title + active + "  " + endDate);
-		}	
+		}
 		// closing DB Connection
 		con.close();
 	}
-	 @Test
-	   	    public void openbrowser() throws Exception
-	    {
-	        prop = frontendProperties.ReadProperties();
-	        driver = frontendProperties.frontcallproperty(url,
-	                prop.getProperty("browser"));
-	        browser = prop.getProperty("browser");
-	        frontendProperties.implicitWait();
-	        if(driver.findElement(By.xpath(prop.getProperty("breakingTag"))).getText().equals(title))
-	        {
-	        	System.out.println("Success");
-	        }            
-	    }
+
+	@Test
+	public void openbrowser() throws Exception {
+		prop = frontendProperties.ReadProperties();
+		driver = frontendProperties.frontcallproperty(url, prop.getProperty("browser"));
+		browser = prop.getProperty("browser");
+		frontendProperties.implicitWait();
+		if (driver.findElement(By.xpath(prop.getProperty("breakingTag"))).getText().equals(title)) {
+			System.out.println("Success");
+		}
+	}
 }

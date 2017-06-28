@@ -28,6 +28,7 @@ public class editorialRecommendation {
 		driver = frontendProperties.frontcallproperty(url, prop.getProperty("browser"));
 		browser = prop.getProperty("browser");
 	}
+
 	@Test
 	public void getEditRec() throws InterruptedException
 
