@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding ='UTF-8' ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Draft Post Suite" verbose="1">
+	<parameter name="posttitle" value="Post for Territorio Lowi"></parameter>
+	<test name="Method TC1">
+		<classes>
+			<class name="Admin.CreatePostExcel">
+			</class>
+		</classes>
+	</test>
+
+	<test name="Method TC2">
+		<classes>
+			<class name="Admin.DashBoard_Draft_And_Repost">
+				<methods>
+					<include name="draft" />
+					<include name="futurePost" />
+
+				</methods>
+			</class>
+		</classes>
+	</test>
+
+</suite>
