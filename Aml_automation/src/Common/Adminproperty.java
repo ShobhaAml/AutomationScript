@@ -67,23 +67,27 @@ public class Adminproperty extends TestListenerAdapter {
 
 	public Properties ReadProperties() throws IOException {
 		FileInputStream inStream = new FileInputStream(
+
 				System.getProperty("user.dir")
 						+ "\\src\\Common\\admin.properties");
-		prop.load(inStream);
+	prop.load(inStream);
 		return prop;
 	}
 
 	public WebDriver callproperty(String url, String browser)
 			throws IOException {
+
 		LoggingPreferences loggingprefs = new LoggingPreferences();
 		loggingprefs.enable(LogType.BROWSER, Level.ALL);
 		if (browser.trim().equalsIgnoreCase("Chrome")) {
 			System.setProperty("webdriver.chrome.driver",
+
 					System.getProperty("user.dir") + "//src//Driverfiles//"
 							+ "chromedriver.exe");
 			DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 			capabilities.setCapability(CapabilityType.LOGGING_PREFS,
 					loggingprefs);
+
 			ChromeOptions options = new ChromeOptions();
 			options.addArguments("start-maximized");
 			options.addArguments("" + capabilities + "");
@@ -91,7 +95,7 @@ public class Adminproperty extends TestListenerAdapter {
 
 		} else {
 			System.setProperty("webdriver.gecko.driver",
-					System.getProperty("user.dir") + "//src//Driverfiles//"
+			System.getProperty("user.dir") + "//src//Driverfiles//"
 							+ "geckodriver.exe");
 			DesiredCapabilities capabilities = DesiredCapabilities.firefox();
 			capabilities.setCapability(CapabilityType.LOGGING_PREFS,
@@ -103,12 +107,14 @@ public class Adminproperty extends TestListenerAdapter {
 		return driver;
 	}
 
+
 	public void uploadPrimaryImage(String primaryimage, String browser)
 			throws Exception {
 		String primaryimagearr[] = primaryimage.split("@#@");
 		for (int i = 0; i < primaryimagearr.length; i++) {
 			if ((primaryimagearr[i].contains(".gif"))
 					|| (primaryimagearr[i].contains(".GIF"))) {
+
 				findAndClick("toolbar_more");
 				implicitWait();
 			}
@@ -138,9 +144,10 @@ public class Adminproperty extends TestListenerAdapter {
 		implicitWait();
 	}
 
+
 	public void uploadMultipleImage(String primaryimage, String browser)
 			throws Exception {
-		findAndClick("toolbar_image");
+	findAndClick("toolbar_image");
 		if (browser.trim().equalsIgnoreCase("firefox")) {
 			findAndClick("post_content");
 		}
@@ -298,9 +305,8 @@ public class Adminproperty extends TestListenerAdapter {
 		if (listtype == "Dashboardlist") {
 			postlist = findElementsByXpath(prop.getProperty("Dashboardlist"));
 		} else if (listtype == "Draft") {
-			postlist = findElementsByXpath(prop
+		postlist = findElementsByXpath(prop
 					.getProperty("Draftlist_dashboard"));
-
 		}
 
 		for (WebElement list : postlist) {
@@ -341,8 +347,7 @@ public class Adminproperty extends TestListenerAdapter {
 		for (WebElement list : postlist) {
 			System.out.println(list.getText());
 			if (list.getText().equalsIgnoreCase(Postname)) {
-
-				catgoryname = findElement(
+			catgoryname = findElement(
 						prop.getProperty(row) + "[" + cnt + "]"
 								+ prop.getProperty(Column)).getText();
 				break;
@@ -366,12 +371,12 @@ public class Adminproperty extends TestListenerAdapter {
 
 	public void summaryActuallization(String summary_data,
 			String actuallization_data, String summary_layout) throws Exception {
-
 		if (!summary_data.equalsIgnoreCase("null")) {
 
 			findElement(prop.getProperty("toolbar_summary")).click();
 			findElement(prop.getProperty("summary_input_field")).sendKeys(
 					summary_data);
+
 			Thread.sleep(3000);
 			implicitWait();
 			switch (summary_layout) {
@@ -399,12 +404,14 @@ public class Adminproperty extends TestListenerAdapter {
 			findElement(prop.getProperty("toolbar_Advance")).click();
 			findElement(prop.getProperty("toolbar_actuallization")).click();
 
+
 			findElement(prop.getProperty("actuallization_input_field"))
 					.sendKeys(actuallization_data);
 
 			implicitWait();
 			findElement(prop.getProperty("actuallization_insert_button"))
 					.click();
+
 			implicitWait();
 
 			findAndSendkey("post_content", Keys.END);
@@ -439,12 +446,12 @@ public class Adminproperty extends TestListenerAdapter {
 
 	public void clickNotificationButton(String tittle_data) {
 		int cnt = 1;
-
 		List<WebElement> postlist = findElementByClass(prop
 				.getProperty("notification_list_by_ClassName"));
 		for (WebElement list : postlist) {
 			String sender = driver.findElement(
 					By.className(prop.getProperty("notify_sender"))).getText();
+
 			String text = list.getText().replace(sender, "");
 			if (text.trim().equalsIgnoreCase(tittle_data)) {
 				System.out.println(cnt + "hi");
@@ -463,6 +470,7 @@ public class Adminproperty extends TestListenerAdapter {
 	public void HomePageContent() {
 		findAndWrite("Homepagecontent", "Homepagetext");
 	}
+
 
 	public void videoHandle(String videoURL, String layout, String browser)
 			throws InterruptedException {
@@ -519,6 +527,7 @@ public class Adminproperty extends TestListenerAdapter {
 			}
 		}
 	}
+
 
 	public void addslides(String slides, String browser) throws IOException,
 			Exception {
@@ -670,7 +679,7 @@ public class Adminproperty extends TestListenerAdapter {
 		for (int i = 1; i <= rows; i++) {
 			Row row = sheet.getRow(i);
 			for (int j = 0; j < row.getLastCellNum(); j++) {
-				sheet.getRow(i)
+			sheet.getRow(i)
 						.getCell(j)
 						.setCellType(
 								sheet.getRow(i).getCell(j).CELL_TYPE_STRING);
@@ -870,7 +879,6 @@ public class Adminproperty extends TestListenerAdapter {
 			String Checkbox_table_first_row_heading,
 			String Checkbox_table_first_column_heading,
 			String Checkbox_table_occupy_all_avaiable_width)
-
 	{
 		String rows = "2", columns = "2";
 		implicitWait();
@@ -1333,6 +1341,7 @@ public class Adminproperty extends TestListenerAdapter {
 				findAndClick("check_box_img");
 				implicitWait();
 			}
+
 			Select dropdown = new Select(driver.findElement(By.xpath(prop
 					.getProperty("position"))));
 			dropdown.selectByVisibleText(captionText[2]);
@@ -1348,9 +1357,9 @@ public class Adminproperty extends TestListenerAdapter {
 		findAndClick("post_content");
 	}
 
+
 	public void create_ingrediente(String ingredienteName, String checkboxes)
 			throws InterruptedException {
-
 		findAndClick("create_ingrediente_button");
 		implicitWait();
 		findAndClick("ingrediente_name");
@@ -1391,7 +1400,6 @@ public class Adminproperty extends TestListenerAdapter {
 		}
 		findAndClick("save_ingrediente");
 	}
-
 	public void galleryPost(String gallery_Name, String Desp, String tag,
 			String showinheader, String galleryimage, String browser)
 			throws MalformedURLException, Exception {
@@ -1420,8 +1428,7 @@ public class Adminproperty extends TestListenerAdapter {
 		findAndClick("gallery_upload_bulk");
 
 		for (int i = 0; i < galleryimagearr.length; i++) {
-
-			WebElement element1 = findElement(prop
+		WebElement element1 = findElement(prop
 					.getProperty("gallery_upload_row")
 					+ prop.getProperty("gallery_image_bulkupload1"));
 
@@ -1772,4 +1779,55 @@ public class Adminproperty extends TestListenerAdapter {
 		return (uname + "@##@" + blogrole);
 	}
 
+	public Connection connectDb() throws Exception {
+		Connection conn;
+		String databaseURL = "jdbc:mysql://localhost:3306/compradiccion";
+		String user = "root";
+		String password = "";
+		Class.forName("com.mysql.jdbc.Driver");
+		System.out.println("Connecting to Database...");
+		conn = DriverManager.getConnection(databaseURL, user, password);
+		if (conn != null) {
+			System.out.println("Connected to the Database...");
+		}
+
+		return conn;
+	}
+
+	public void LoginAdmin(String username, String pwd) throws Exception {
+
+		findElement(prop.getProperty("login_username_txt")).sendKeys(username);
+		findElement(prop.getProperty("login_pwd_txt")).sendKeys(pwd);
+		findElement(prop.getProperty("login_submit_button")).click();
+	}
+
+	public String checkuserlogintype(Connection conn, String username, String pwd) {
+		String blogrole = "", uname = "";
+		String query = "select  user_login, user_nicename,blog_role,roles from wp_users where user_login='" + username
+				+ "' and user_pass=md5('" + pwd + "')";
+		System.out.println(query);
+		try {
+			Statement stmt = conn.createStatement();
+			stmt.executeQuery(query);
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				uname = rs.getString("user_login");
+				blogrole = rs.getString("blog_role");
+				System.out.println(uname + "====" + blogrole);
+			}
+			conn.close();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+
+		return (uname + "@##@" + blogrole);
+	}
+
+	public void pickDraft(String name, String type, String Button, String index) {
+		Select dropdown = new Select(driver.findElement(By.id("postStatus")));
+		dropdown.selectByValue(index);
+		implicitWait();
+		clickButton("DashboardEditbuttontr", Button, name, type);
+		implicitWait();
+	}
 }
