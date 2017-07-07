@@ -65,7 +65,7 @@ public class Top_Story_database {
 		frontendProperties.implicitWait();
 		driver.findElement(By.xpath(prop.getProperty("top_story_text_homepage"))).getText();
 		FrontResult = driver.findElement(By.xpath(prop.getProperty("top_story_text_homepage"))).getText();
-		System.out.println(FrontResult);	
+		System.out.println(FrontResult);
 	}
 
 	@AfterClass
