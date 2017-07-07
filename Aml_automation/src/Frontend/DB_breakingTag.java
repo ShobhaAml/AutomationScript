@@ -1,4 +1,5 @@
 package Frontend;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -29,9 +30,8 @@ public class DB_breakingTag {
 		String query = "select * from breaking_news where active=1;";
 		conn = adminProperties.connectDb();
 		stmt = conn.createStatement();
-		ResultSet rs = stmt.executeQuery(query);
 		Statement stmt = conn.createStatement();
-		System.out.println("ID " + " Title " + "    Active " + " enddate ");
+		ResultSet rs = stmt.executeQuery(query);
 		while (rs.next()) {
 			String ID = rs.getString(1);
 			title = rs.getString(2);

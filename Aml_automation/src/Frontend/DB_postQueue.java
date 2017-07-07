@@ -1,14 +1,22 @@
 package Frontend;
+
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+
 import Common.Adminproperty;
 import Common.Frontend;
 
@@ -28,19 +36,16 @@ public class DB_postQueue {
 
 	@Test
 	public void openDB() throws Exception {
-		String query = "select ID, post_title, post_date_gmt from wp_posts ORDER BY post_date_gmt desc limit 4";
+		String query = "select p.post_title from wp_posts p, posts_queue q where p.id = q.post_id and q.rank < 17 and q.country = 'row' and p.post_status='publish' order by rank;";
 		conn = adminProperties.connectDb();
 		stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(query);
-		System.out.println("ID " + "  " + " Title " + "        " + "    post_date_gmt ");
 		while (rs.next()) {
-			String ID = rs.getString(1);
-			title = rs.getString(2);
-			String date = rs.getString(3);
-			System.out.println(ID + "" + title + "" + date);
-			DB_postList.add(title);
+			// String ID = rs.getString(1);
+			title = rs.getString(1);
+			DB_postList.add(title.trim());
 		}
-		System.out.println("\n" + DB_postList);
+		System.out.println("Post list from database-" + DB_postList);
 		conn.close();
 	}
 
@@ -55,11 +60,13 @@ public class DB_postQueue {
 			String postList = post.getText();
 			homeList.add(postList);
 		}
-		System.out.println("\n" + homeList + "\n");
-		if (DB_postList.equals(homeList)) {
-			System.out.println("success");
-		} else
-			System.out.println("failure");
-	}
+		System.out.println("Post list on home page-" + homeList);
+		for (int i = 0; i < homeList.size(); i++) {
+			if (homeList.get(i).equals(DB_postList.get(i))) {
+				System.out.println("success");
+			} else
+				System.out.println("failure");
+		}
 
+	}
 }
