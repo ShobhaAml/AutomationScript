@@ -10,6 +10,10 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -241,5 +245,36 @@ public class Frontend extends Adminproperty
 			}
 		}
 		return setToReturn;
+	}
+	public Object[][] readExcelPost(String excelsheetname, int columns)
+			throws IOException {
+		String filepath = System.getProperty("user.dir") + "\\src\\Common\\";
+		String filename = "PostListing.xlsx";
+		FileInputStream instream = new FileInputStream(filepath + "\\"
+				+ filename);
+		System.out.println(filepath + "\\" + filename);
+		Workbook wb = new XSSFWorkbook(instream);
+		Sheet sheet = wb.getSheet(excelsheetname);
+		int rows = sheet.getLastRowNum() - sheet.getFirstRowNum();
+		int cnt = 0;
+		System.out.println(rows + "===" + columns);
+
+		Object[][] postdata = new Object[rows][columns];
+		for (int i = 1; i <= rows; i++) {
+			Row row = sheet.getRow(i);
+			for (int j = 0; j < row.getLastCellNum(); j++) {
+				sheet.getRow(i)
+						.getCell(j)
+						.setCellType(
+								sheet.getRow(i).getCell(j).CELL_TYPE_STRING);
+				if (sheet.getRow(i).getCell(j).getStringCellValue() != "") {
+					postdata[cnt][j] = sheet.getRow(i).getCell(j)
+							.getStringCellValue();
+				}
+			}
+			cnt++;
+		}
+
+		return postdata;
 	}
 }

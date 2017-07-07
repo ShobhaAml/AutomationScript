@@ -1755,51 +1755,6 @@ public class Adminproperty extends TestListenerAdapter {
 		findElement(prop.getProperty("login_submit_button")).click();
 	}
 
-	public String checkuserlogintype(Connection conn, String username,
-			String pwd) {
-		String blogrole = "", uname = "";
-		String query = "select  user_login, user_nicename,blog_role,roles from wp_users where user_login='"
-				+ username + "' and user_pass=md5('" + pwd + "')";
-		System.out.println(query);
-		try {
-			Statement stmt = conn.createStatement();
-			stmt.executeQuery(query);
-			ResultSet rs = stmt.executeQuery(query);
-			while (rs.next()) {
-				uname = rs.getString("user_login");
-				blogrole = rs.getString("blog_role");
-				System.out.println(uname + "====" + blogrole);
-			}
-			conn.close();
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		}
-
-		return (uname + "@##@" + blogrole);
-	}
-
-	public Connection connectDb() throws Exception {
-		Connection conn;
-		String databaseURL = "jdbc:mysql://localhost:3306/compradiccion";
-		String user = "root";
-		String password = "";
-		Class.forName("com.mysql.jdbc.Driver");
-		System.out.println("Connecting to Database...");
-		conn = DriverManager.getConnection(databaseURL, user, password);
-		if (conn != null) {
-			System.out.println("Connected to the Database...");
-		}
-
-		return conn;
-	}
-
-	public void LoginAdmin(String username, String pwd) throws Exception {
-
-		findElement(prop.getProperty("login_username_txt")).sendKeys(username);
-		findElement(prop.getProperty("login_pwd_txt")).sendKeys(pwd);
-		findElement(prop.getProperty("login_submit_button")).click();
-	}
-
 	public String checkuserlogintype(Connection conn, String username, String pwd) {
 		String blogrole = "", uname = "";
 		String query = "select  user_login, user_nicename,blog_role,roles from wp_users where user_login='" + username
