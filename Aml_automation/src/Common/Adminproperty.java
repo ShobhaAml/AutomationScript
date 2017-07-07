@@ -1738,7 +1738,6 @@ public class Adminproperty extends TestListenerAdapter {
 		if (conn != null) {
 			System.out.println("Connected to the Database...");
 		}
-
 		return conn;
 	}
 
