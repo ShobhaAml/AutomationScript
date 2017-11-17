@@ -21,7 +21,7 @@ public class CheckUserRoles {
     Properties prop = new Properties();
     String browser = "";
     Connection conn;
-    String username="admin", pwd="tst4wslp2";
+    String username="shobhaeditor", pwd="shobhaeditor";
     
     @BeforeClass
     public void Setup() throws Exception
