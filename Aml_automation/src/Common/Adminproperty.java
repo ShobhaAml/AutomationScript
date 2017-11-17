@@ -13,10 +13,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 import java.util.logging.Level;
 
 import javax.imageio.ImageIO;
@@ -41,6 +43,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
@@ -48,13 +51,16 @@ import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.security.UserAndPassword;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 
 import com.google.common.base.Predicate;
+import com.mchange.v2.codegen.bean.Property;
 
 import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
@@ -601,7 +607,7 @@ public class Adminproperty extends TestListenerAdapter {
 	}
 
 	public void moveToPublishTab(String browser) {
-		if (browser.trim().equalsIgnoreCase("Chrome")) {
+		/*if (browser.trim().equalsIgnoreCase("Chrome")) {
 			Actions action = new Actions(driver);
 			action.sendKeys(Keys.PAGE_DOWN);
 			implicitWait();
@@ -610,12 +616,17 @@ public class Adminproperty extends TestListenerAdapter {
 			implicitWait();
 			findAndClick("publish_tab");
 			implicitWait();
-		} else {
+		} else {*/
 			implicitWait();
+			((JavascriptExecutor) driver).executeScript("window.scrollBy(0,-250)");
 			findAndClick("post_title");
-			((JavascriptExecutor) driver).executeScript("window.scrollBy(0,0)");
+			implicitWait();
 			findAndClick("publish_tab");
-		}
+		/*}*/
+			
+			WebDriverWait wait = new WebDriverWait(driver, 10);      
+			Alert alert = wait.until(ExpectedConditions.alertIsPresent());     
+			alert.authenticateUsing(new UserAndPassword("guest", "guest"));
 
 	}
 
@@ -1440,6 +1451,10 @@ public class Adminproperty extends TestListenerAdapter {
 		}
 		Thread.sleep(10000);
 		findAndClick("attach_gallery_to_post");
+		 implicitWait();
+         addNewlines();
+         addNewlines();
+         addNewlines();
 	}
 
 	public void futurePost(String dateTime, String fbtext) throws Exception
@@ -1549,8 +1564,8 @@ public class Adminproperty extends TestListenerAdapter {
 	public void DeleteVideo(String Video_post_name) {
 		WebElement tableelement = driver.findElement(By.id("video-list"));
 		WebDriverWait wait = new WebDriverWait(driver, 50);
-		wait.until(new Predicate<WebDriver>() {
-			public boolean apply(WebDriver driver) {
+		wait.until(new Function<WebDriver, Boolean>() {
+			public Boolean apply(WebDriver driver) {
 				return ((JavascriptExecutor) driver).executeScript(
 						"return document.readyState").equals("complete");
 			}
@@ -1578,12 +1593,14 @@ public class Adminproperty extends TestListenerAdapter {
 			throws Exception {
 		WebElement tableelement = driver.findElement(By.id("video-list"));
 		WebDriverWait wait = new WebDriverWait(driver, 50);
-		wait.until(new Predicate<WebDriver>() {
-			public boolean apply(WebDriver driver) {
+		wait.until(new Function<WebDriver, Boolean>() {
+			public Boolean apply(WebDriver driver) {
 				return ((JavascriptExecutor) driver).executeScript(
 						"return document.readyState").equals("complete");
 			}
 		});
+		
+		
 		int cnt = 1;
 		List<WebElement> list = findElementsByXpath(".//*[@id='video-list']/table/tbody/tr/td[1]");
 		for (WebElement element : list) {
@@ -1736,7 +1753,7 @@ public class Adminproperty extends TestListenerAdapter {
 
 	public Connection connectDb() throws Exception {
 		Connection conn;
-		String databaseURL = "jdbc:mysql://localhost:3306/compradiccion";
+		String databaseURL = "jdbc:mysql://localhost:3306/xataka";
 		String user = "root";
 		String password = "";
 		Class.forName("com.mysql.jdbc.Driver");
@@ -1755,26 +1772,25 @@ public class Adminproperty extends TestListenerAdapter {
 		findElement(prop.getProperty("login_submit_button")).click();
 	}
 
-	public String checkuserlogintype(Connection conn, String username, String pwd) {
-		String blogrole = "", uname = "";
+	public String checkuserlogintype(Connection conn, String username, String pwd) throws SQLException {
+		String blogrole = "", uname = "",usernicename="";
 		String query = "select  user_login, user_nicename,blog_role,roles from wp_users where user_login='" + username
 				+ "' and user_pass=md5('" + pwd + "')";
 		System.out.println(query);
-		try {
+		
 			Statement stmt = conn.createStatement();
 			stmt.executeQuery(query);
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
+				usernicename=rs.getString("user_nicename");
 				uname = rs.getString("user_login");
 				blogrole = rs.getString("blog_role");
 				System.out.println(uname + "====" + blogrole);
 			}
 			conn.close();
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		}
-
-		return (uname + "@##@" + blogrole);
+		
+		System.out.println(uname);
+		return (uname + "@##@" + blogrole+"@##@"+usernicename);
 	}
 
 	public void pickDraft(String name, String type, String Button, String index) {
@@ -1784,4 +1800,69 @@ public class Adminproperty extends TestListenerAdapter {
 		clickButton("DashboardEditbuttontr", Button, name, type);
 		implicitWait();
 	}
+	public void AddInstagram(String Instagram_embed) {
+		findAndClick("toolbar_instagram");
+		findAndWrite("instagram_url", Instagram_embed);
+		findAndClick("instagram_button");
+		addNewlines();
+	    addNewlines();
+
+	}
+	public  Object[][] readEditorialExcel(String excelsheetname, int columns)
+			throws IOException {
+		String filepath = System.getProperty("user.dir") + "\\src\\Common\\";
+		String filename = "excel.xlsx";
+		FileInputStream instream = new FileInputStream(filepath + "\\"
+				+ filename);
+		System.out.println(filepath + "\\" + filename);
+		Workbook wb = new XSSFWorkbook(instream);
+		Sheet sheet = wb.getSheet(excelsheetname);
+		int rows = sheet.getLastRowNum() - sheet.getFirstRowNum();
+		int cnt = 0;
+		System.out.println(rows + "===" + columns);
+
+		Object[][] postdata = new Object[rows][columns];
+		for (int i = 2; i <= rows; i++) {
+			Row row = sheet.getRow(i);
+			for (int j = 0; j < row.getLastCellNum(); j++) {
+			sheet.getRow(i)
+						.getCell(j)
+						.setCellType(
+								sheet.getRow(i).getCell(j).CELL_TYPE_STRING);
+				if (sheet.getRow(i).getCell(j).getStringCellValue() != "") {
+					postdata[cnt][j] = sheet.getRow(i).getCell(j)
+							.getStringCellValue();
+				}
+			}
+			cnt++;
+		}
+
+		return postdata;
+	}
+	
+	 public String getID(String ID) throws Exception
+	{
+			String  status = "";
+			String url = "https://testing.xataka.com/admin/newposts/";       
+			url = url + ID;
+			WebDriver driver= new HtmlUnitDriver();
+			driver.get(url);
+			//System.out.println(driver.getCurrentUrl());
+			String username = prop.getProperty("Uadmin");
+		  	String pwd = prop.getProperty("Padmin");
+		  	driver.findElement(By.xpath(prop.getProperty("login_username_txt"))).sendKeys(username);
+		  	driver.findElement(By.xpath(prop.getProperty("login_pwd_txt"))).sendKeys(pwd);
+		  	driver.findElement(By.xpath(prop.getProperty("login_submit_button"))).click();
+			driver.navigate().refresh();
+			//System.out.println("Current url" + driver.getCurrentUrl());
+		   if (driver.getCurrentUrl().contains("clubposts")) {status = "Club"; }
+		   else { status="normal";   }
+		   //System.out.println(driver.getCurrentUrl() +"==" + status);
+		   driver.close();
+		   
+		   return status;
+	    }
+	  
+	
+	
 }
