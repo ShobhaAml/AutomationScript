@@ -13,7 +13,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -54,13 +53,8 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.security.UserAndPassword;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
-
-import com.google.common.base.Predicate;
-import com.mchange.v2.codegen.bean.Property;
 
 import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
@@ -70,7 +64,8 @@ public class Adminproperty extends TestListenerAdapter {
 
 	WebDriver driver;
 	Properties prop = new Properties();
-
+	
+	
 	public Properties ReadProperties() throws IOException {
 		FileInputStream inStream = new FileInputStream(
 
@@ -1863,6 +1858,35 @@ public class Adminproperty extends TestListenerAdapter {
 		   return status;
 	    }
 	  
-	
+	public void checkThumbnails(String URL)
+	{
+		      HttpClient client = HttpClientBuilder.create().build();
+	        HttpGet request = new HttpGet(URL);
+	        try {
+	            HttpResponse response = client.execute(request);
+
+	            if (response.getStatusLine().getStatusCode() != 200)
+	                System.out.println(URL + ": "
+	                        + response.getStatusLine().getStatusCode()   +"=="+ response.getStatusLine().getReasonPhrase() );
+	        } catch (Exception e) {
+	            // e.printStackTrace();
+	        }
+	       
+	}
+	public void CheckImageCropperStatus(String url)
+	{
+		String url1="";
+		String thumbnails= "1366_1366,1024_1024,840_840,375_375,288_288,1024_682,840_560,1920_733,1440_550,1366_521,1024_391,500_190,375_142";
+		String[] arrthumbnails= thumbnails.split(","); 
+		
+		for(int i=0;i<arrthumbnails.length;i++)
+		{
+			url1=url.replace("original", arrthumbnails[i]).trim();
+			checkThumbnails(url1);
+			System.out.println(url1);
+			url1=url;
+		}
+		
+	}
 	
 }
