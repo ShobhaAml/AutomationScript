@@ -346,5 +346,5 @@ public class CreatePostExcel {
 			((JavascriptExecutor) driver).executeScript("window.scrollBy(0,0)");
 			adminProperties.findAndClick("post_title");
 		}
-	}
+	 }
 }
