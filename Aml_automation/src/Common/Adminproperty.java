@@ -64,30 +64,25 @@ public class Adminproperty extends TestListenerAdapter {
 
 	WebDriver driver;
 	Properties prop = new Properties();
-	
-	
+
 	public Properties ReadProperties() throws IOException {
 		FileInputStream inStream = new FileInputStream(
 
-				System.getProperty("user.dir")
-						+ "\\src\\Common\\admin.properties");
-	prop.load(inStream);
+				System.getProperty("user.dir") + "\\src\\Common\\admin.properties");
+		prop.load(inStream);
 		return prop;
 	}
 
-	public WebDriver callproperty(String url, String browser)
-			throws IOException {
+	public WebDriver callproperty(String url, String browser) throws IOException {
 
 		LoggingPreferences loggingprefs = new LoggingPreferences();
 		loggingprefs.enable(LogType.BROWSER, Level.ALL);
 		if (browser.trim().equalsIgnoreCase("Chrome")) {
 			System.setProperty("webdriver.chrome.driver",
 
-					System.getProperty("user.dir") + "//src//Driverfiles//"
-							+ "chromedriver.exe");
+					System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedriver.exe");
 			DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-			capabilities.setCapability(CapabilityType.LOGGING_PREFS,
-					loggingprefs);
+			capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
 
 			ChromeOptions options = new ChromeOptions();
 			options.addArguments("start-maximized");
@@ -96,11 +91,9 @@ public class Adminproperty extends TestListenerAdapter {
 
 		} else {
 			System.setProperty("webdriver.gecko.driver",
-			System.getProperty("user.dir") + "//src//Driverfiles//"
-							+ "geckodriver.exe");
+					System.getProperty("user.dir") + "//src//Driverfiles//" + "geckodriver.exe");
 			DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-			capabilities.setCapability(CapabilityType.LOGGING_PREFS,
-					loggingprefs);
+			capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
 			driver = new FirefoxDriver(capabilities);
 		}
 		driver.get(url);
@@ -108,13 +101,10 @@ public class Adminproperty extends TestListenerAdapter {
 		return driver;
 	}
 
-
-	public void uploadPrimaryImage(String primaryimage, String browser)
-			throws Exception {
+	public void uploadPrimaryImage(String primaryimage, String browser) throws Exception {
 		String primaryimagearr[] = primaryimage.split("@#@");
 		for (int i = 0; i < primaryimagearr.length; i++) {
-			if ((primaryimagearr[i].contains(".gif"))
-					|| (primaryimagearr[i].contains(".GIF"))) {
+			if ((primaryimagearr[i].contains(".gif")) || (primaryimagearr[i].contains(".GIF"))) {
 
 				findAndClick("toolbar_more");
 				implicitWait();
@@ -126,29 +116,24 @@ public class Adminproperty extends TestListenerAdapter {
 			addNewlines();
 			implicitWait();
 			System.out.println(primaryimagearr[i]);
-			findAndWrite("primary_image_insert", System.getProperty("user.dir")
-					+ prop.getProperty("image_path") + "\\"
-					+ primaryimagearr[i]);
+			findAndWrite("primary_image_insert",
+					System.getProperty("user.dir") + prop.getProperty("image_path") + "\\" + primaryimagearr[i]);
 			findAndClick("primary_image_upload");
 		}
-		WebElement element1 = findElement(prop
-				.getProperty("product_image_bulkupload")
-				+ prop.getProperty("product_image_bulkupload1"));
+		WebElement element1 = findElement(
+				prop.getProperty("product_image_bulkupload") + prop.getProperty("product_image_bulkupload1"));
 
 		if (element1.getAttribute("href") != null) {
 			isLinkBroken(new URL(element1.getAttribute("href")));
-			System.out.println(isLinkBroken(new URL(element1
-					.getAttribute("href"))));
+			System.out.println(isLinkBroken(new URL(element1.getAttribute("href"))));
 		}
 		implicitWait();
 		findAndClick("primary_noraml_insert");
 		implicitWait();
 	}
 
-
-	public void uploadMultipleImage(String primaryimage, String browser)
-			throws Exception {
-	findAndClick("toolbar_image");
+	public void uploadMultipleImage(String primaryimage, String browser) throws Exception {
+		findAndClick("toolbar_image");
 		if (browser.trim().equalsIgnoreCase("firefox")) {
 			findAndClick("post_content");
 		}
@@ -156,19 +141,16 @@ public class Adminproperty extends TestListenerAdapter {
 		implicitWait();
 		String primaryimagearr[] = primaryimage.split("@#@");
 		for (int i = 0; i < primaryimagearr.length; i++) {
-			findAndWrite("primary_image_insert", System.getProperty("user.dir")
-					+ prop.getProperty("image_path") + "\\"
-					+ primaryimagearr[i]);
+			findAndWrite("primary_image_insert",
+					System.getProperty("user.dir") + prop.getProperty("image_path") + "\\" + primaryimagearr[i]);
 			findAndClick("primary_image_upload");
 		}
-		WebElement element1 = findElement(prop
-				.getProperty("product_image_bulkupload")
-				+ prop.getProperty("product_image_bulkupload1"));
+		WebElement element1 = findElement(
+				prop.getProperty("product_image_bulkupload") + prop.getProperty("product_image_bulkupload1"));
 
 		if (element1.getAttribute("href") != null) {
 			isLinkBroken(new URL(element1.getAttribute("href")));
-			System.out.println(isLinkBroken(new URL(element1
-					.getAttribute("href"))));
+			System.out.println(isLinkBroken(new URL(element1.getAttribute("href"))));
 		}
 		implicitWait();
 		findAndClick("primary_noraml_insert");
@@ -177,8 +159,7 @@ public class Adminproperty extends TestListenerAdapter {
 
 	public void findAndClick(String element) {
 		WebDriverWait wait = new WebDriverWait(driver, 20);
-		WebElement element1 = wait.until(ExpectedConditions
-				.elementToBeClickable(By.xpath(prop.getProperty(element))));
+		WebElement element1 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty(element))));
 		implicitWait();
 		findElement(prop.getProperty(element)).click();
 	}
@@ -248,8 +229,7 @@ public class Adminproperty extends TestListenerAdapter {
 
 		if (!(twitter_text).equalsIgnoreCase("null")) {
 			findElement(prop.getProperty("twitter_text")).clear();
-			findElement(prop.getProperty("twitter_text"))
-					.sendKeys(twitter_text);
+			findElement(prop.getProperty("twitter_text")).sendKeys(twitter_text);
 		}
 
 		findElement(prop.getProperty("publish_post")).click();
@@ -261,8 +241,7 @@ public class Adminproperty extends TestListenerAdapter {
 		if (postcatagory != "") {
 			findAndClick("Catagory_click");
 			findAndWrite("catagory", postcatagory);
-			List<WebElement> optionlist = findElementByClass(prop
-					.getProperty("catagory_ecommerce_by_ClassName"));
+			List<WebElement> optionlist = findElementByClass(prop.getProperty("catagory_ecommerce_by_ClassName"));
 			for (WebElement options : optionlist) {
 				if (options.getText().equalsIgnoreCase(postcatagory)) {
 					options.click();
@@ -272,8 +251,7 @@ public class Adminproperty extends TestListenerAdapter {
 		}
 		if (tag != "") {
 			findAndWrite("tag_input", tag);
-			List<WebElement> Tagoptionlist = findElementByClass(prop
-					.getProperty("tag_list_Byclassname"));
+			List<WebElement> Tagoptionlist = findElementByClass(prop.getProperty("tag_list_Byclassname"));
 			for (WebElement options : Tagoptionlist) {
 				if (options.getText().equalsIgnoreCase(tag)) {
 					options.click();
@@ -287,46 +265,36 @@ public class Adminproperty extends TestListenerAdapter {
 	public void Imagestatus(WebElement element) throws Exception {
 		if (element.getAttribute("href") != null) {
 			isLinkBroken(new URL(element.getAttribute("href")));
-			System.out.println(isLinkBroken(new URL(element
-					.getAttribute("href"))));
+			System.out.println(isLinkBroken(new URL(element.getAttribute("href"))));
 		}
 	}
 
 	public void Conditionalwait(String xpath) {
 		WebDriverWait wait = new WebDriverWait(driver, 50);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prop
-				.getProperty(xpath))));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(prop.getProperty(xpath))));
 	}
 
-	public Boolean clickButton(String row, String Column, String Postname,
-			String listtype) {
+	public Boolean clickButton(String row, String Column, String Postname, String listtype) {
 		int cnt = 1;
 		Boolean status = false;
 		List<WebElement> postlist = null;
 		if (listtype == "Dashboardlist") {
 			postlist = findElementsByXpath(prop.getProperty("Dashboardlist"));
 		} else if (listtype == "Draft") {
-		postlist = findElementsByXpath(prop
-					.getProperty("Draftlist_dashboard"));
+			postlist = findElementsByXpath(prop.getProperty("Draftlist_dashboard"));
 		}
 
 		for (WebElement list : postlist) {
 			System.out.println(list.getText());
 			if (list.getText().equalsIgnoreCase(Postname)) {
 				if (listtype == "Dashboardlist") {
-					findElement(
-							prop.getProperty(row) + "[" + cnt + "]"
-									+ prop.getProperty(Column)).click();
+					findElement(prop.getProperty(row) + "[" + cnt + "]" + prop.getProperty(Column)).click();
 				} else if (listtype == "Draft") {
 
 					Actions action = new Actions(driver);
-					action.moveToElement(
-							findElement(prop.getProperty(row) + "[" + cnt + "]"
-									+ "/a")).perform();
+					action.moveToElement(findElement(prop.getProperty(row) + "[" + cnt + "]" + "/a")).perform();
 
-					findElement(
-							prop.getProperty(row) + "[" + cnt + "]"
-									+ prop.getProperty(Column)).click();
+					findElement(prop.getProperty(row) + "[" + cnt + "]" + prop.getProperty(Column)).click();
 				}
 
 				status = true;
@@ -343,14 +311,11 @@ public class Adminproperty extends TestListenerAdapter {
 		String catgoryname = "";
 		int cnt = 1;
 		Boolean status = false;
-		List<WebElement> postlist = findElementsByXpath(prop
-				.getProperty("Dashboardlist"));
+		List<WebElement> postlist = findElementsByXpath(prop.getProperty("Dashboardlist"));
 		for (WebElement list : postlist) {
 			System.out.println(list.getText());
 			if (list.getText().equalsIgnoreCase(Postname)) {
-			catgoryname = findElement(
-						prop.getProperty(row) + "[" + cnt + "]"
-								+ prop.getProperty(Column)).getText();
+				catgoryname = findElement(prop.getProperty(row) + "[" + cnt + "]" + prop.getProperty(Column)).getText();
 				break;
 			}
 
@@ -363,20 +328,18 @@ public class Adminproperty extends TestListenerAdapter {
 	public void repostCheckbox(String selectors) {
 		String Selector[] = selectors.split(",");
 		for (int i = 0; i < Selector.length; i++) {
-			WebElement CheckBox1 = driver.findElement(By
-					.cssSelector("input[value='" + Selector[i] + "']"));
+			WebElement CheckBox1 = driver.findElement(By.cssSelector("input[value='" + Selector[i] + "']"));
 			CheckBox1.click();
 		}
 
 	}
 
-	public void summaryActuallization(String summary_data,
-			String actuallization_data, String summary_layout) throws Exception {
+	public void summaryActuallization(String summary_data, String actuallization_data, String summary_layout)
+			throws Exception {
 		if (!summary_data.equalsIgnoreCase("null")) {
 
 			findElement(prop.getProperty("toolbar_summary")).click();
-			findElement(prop.getProperty("summary_input_field")).sendKeys(
-					summary_data);
+			findElement(prop.getProperty("summary_input_field")).sendKeys(summary_data);
 
 			Thread.sleep(3000);
 			implicitWait();
@@ -405,13 +368,10 @@ public class Adminproperty extends TestListenerAdapter {
 			findElement(prop.getProperty("toolbar_Advance")).click();
 			findElement(prop.getProperty("toolbar_actuallization")).click();
 
-
-			findElement(prop.getProperty("actuallization_input_field"))
-					.sendKeys(actuallization_data);
+			findElement(prop.getProperty("actuallization_input_field")).sendKeys(actuallization_data);
 
 			implicitWait();
-			findElement(prop.getProperty("actuallization_insert_button"))
-					.click();
+			findElement(prop.getProperty("actuallization_insert_button")).click();
 
 			implicitWait();
 
@@ -423,8 +383,8 @@ public class Adminproperty extends TestListenerAdapter {
 		}
 	}
 
-	public void repost_By_Difundir(String Selector1, String Selector2,
-			String tittle_data, String navigate_blog) throws Exception {
+	public void repost_By_Difundir(String Selector1, String Selector2, String tittle_data, String navigate_blog)
+			throws Exception {
 		findElement(prop.getProperty("difundir_Link")).click();
 		findElement(prop.getProperty("repost_list_button")).click();
 		implicitWait();
@@ -447,20 +407,15 @@ public class Adminproperty extends TestListenerAdapter {
 
 	public void clickNotificationButton(String tittle_data) {
 		int cnt = 1;
-		List<WebElement> postlist = findElementByClass(prop
-				.getProperty("notification_list_by_ClassName"));
+		List<WebElement> postlist = findElementByClass(prop.getProperty("notification_list_by_ClassName"));
 		for (WebElement list : postlist) {
-			String sender = driver.findElement(
-					By.className(prop.getProperty("notify_sender"))).getText();
+			String sender = driver.findElement(By.className(prop.getProperty("notify_sender"))).getText();
 
 			String text = list.getText().replace(sender, "");
 			if (text.trim().equalsIgnoreCase(tittle_data)) {
 				System.out.println(cnt + "hi");
 				Actions act = new Actions(driver);
-				act.doubleClick(
-						driver.findElement(By.className(prop
-								.getProperty("notify_sender")))).build()
-						.perform();
+				act.doubleClick(driver.findElement(By.className(prop.getProperty("notify_sender")))).build().perform();
 				driver.findElement(By.className("actions-approve")).click();
 				break;
 			}
@@ -472,9 +427,7 @@ public class Adminproperty extends TestListenerAdapter {
 		findAndWrite("Homepagecontent", "Homepagetext");
 	}
 
-
-	public void videoHandle(String videoURL, String layout, String browser)
-			throws InterruptedException {
+	public void videoHandle(String videoURL, String layout, String browser) throws InterruptedException {
 		WebElement element;
 		findAndClick("post_content");
 		findAndSendkey("post_content", Keys.ENTER);
@@ -510,8 +463,7 @@ public class Adminproperty extends TestListenerAdapter {
 	public void insertBrandedClub(String BrandedClubName, String tag) {
 		findAndClick("BrandedClub_Click");
 		findAndWrite("BrandedClub_InputBox", BrandedClubName);
-		List<WebElement> optionlist = findElementByClass(prop
-				.getProperty("BrandedClub_List_by_ClassName"));
+		List<WebElement> optionlist = findElementByClass(prop.getProperty("BrandedClub_List_by_ClassName"));
 		for (WebElement options : optionlist) {
 			if (options.getText().equalsIgnoreCase(BrandedClubName)) {
 				options.click();
@@ -519,8 +471,7 @@ public class Adminproperty extends TestListenerAdapter {
 			}
 		}
 		findAndWrite("tag_input", tag);
-		List<WebElement> Tagoptionlist = findElementByClass(prop
-				.getProperty("tag_list_Byclassname"));
+		List<WebElement> Tagoptionlist = findElementByClass(prop.getProperty("tag_list_Byclassname"));
 		for (WebElement options : Tagoptionlist) {
 			if (options.getText().equalsIgnoreCase(tag)) {
 				options.click();
@@ -529,19 +480,15 @@ public class Adminproperty extends TestListenerAdapter {
 		}
 	}
 
-
-	public void addslides(String slides, String browser) throws IOException,
-			Exception {
+	public void addslides(String slides, String browser) throws IOException, Exception {
 		String slidesarr[] = slides.split("~");
 		findAndClick("toolbar_slideshow");
 		implicitWait();
 
 		for (int i = 0; i < slidesarr.length; i++) {
 			String slidedetails[] = slidesarr[i].split("@##@");
-			System.out.println(System.getProperty("user.dir")
-					+ "\\src\\DriverFiles\\fileupload.exe" + " "
-					+ System.getProperty("user.dir") + "\\src\\Images\\"
-					+ slidedetails[0]);
+			System.out.println(System.getProperty("user.dir") + "\\src\\DriverFiles\\fileupload.exe" + " "
+					+ System.getProperty("user.dir") + "\\src\\Images\\" + slidedetails[0]);
 			Conditionalwait("slide_button");
 			implicitWait();
 			if (slidedetails[0].contains("youtube")) {
@@ -553,17 +500,12 @@ public class Adminproperty extends TestListenerAdapter {
 				implicitWait();
 
 				if (browser.trim().equalsIgnoreCase("Chrome")) {
-					Runtime.getRuntime().exec(
-							System.getProperty("user.dir")
-									+ "\\src\\DriverFiles\\fileupload.exe"
-									+ " " + System.getProperty("user.dir")
-									+ "\\src\\Images\\" + slidedetails[0]);
+					Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\DriverFiles\\fileupload.exe"
+							+ " " + System.getProperty("user.dir") + "\\src\\Images\\" + slidedetails[0]);
 				} else {
 					Runtime.getRuntime()
-							.exec(System.getProperty("user.dir")
-									+ "\\src\\DriverFiles\\firefoxfileupload.exe"
-									+ " " + System.getProperty("user.dir")
-									+ "\\src\\Images\\" + slidedetails[0]);
+							.exec(System.getProperty("user.dir") + "\\src\\DriverFiles\\firefoxfileupload.exe" + " "
+									+ System.getProperty("user.dir") + "\\src\\Images\\" + slidedetails[0]);
 				}
 
 			}
@@ -602,26 +544,23 @@ public class Adminproperty extends TestListenerAdapter {
 	}
 
 	public void moveToPublishTab(String browser) {
-		/*if (browser.trim().equalsIgnoreCase("Chrome")) {
-			Actions action = new Actions(driver);
-			action.sendKeys(Keys.PAGE_DOWN);
-			implicitWait();
-			action.click(driver.findElement(By.partialLinkText("Publicar")))
-					.perform();
-			implicitWait();
-			findAndClick("publish_tab");
-			implicitWait();
-		} else {*/
-			implicitWait();
-			((JavascriptExecutor) driver).executeScript("window.scrollBy(0,-250)");
-			findAndClick("post_title");
-			implicitWait();
-			findAndClick("publish_tab");
-		/*}*/
-			
-			WebDriverWait wait = new WebDriverWait(driver, 10);      
-			Alert alert = wait.until(ExpectedConditions.alertIsPresent());     
-			alert.authenticateUsing(new UserAndPassword("guest", "guest"));
+		/*
+		 * if (browser.trim().equalsIgnoreCase("Chrome")) { Actions action = new
+		 * Actions(driver); action.sendKeys(Keys.PAGE_DOWN); implicitWait();
+		 * action.click(driver.findElement(By.partialLinkText("Publicar")))
+		 * .perform(); implicitWait(); findAndClick("publish_tab");
+		 * implicitWait(); } else {
+		 */
+		implicitWait();
+		((JavascriptExecutor) driver).executeScript("window.scrollBy(0,-250)");
+		findAndClick("post_title");
+		implicitWait();
+		findAndClick("publish_tab");
+		/* } */
+
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+		alert.authenticateUsing(new UserAndPassword("guest", "guest"));
 
 	}
 
@@ -644,14 +583,10 @@ public class Adminproperty extends TestListenerAdapter {
 			String fichreviewdatasheet[] = fichareviewdetails[3].split("@~#~@");
 
 			for (int j = 0; j < fichreviewdatasheet.length; j++) {
-				String fichreviewdatasheetdetails[] = fichreviewdatasheet[j]
-						.split("@###@");
+				String fichreviewdatasheetdetails[] = fichreviewdatasheet[j].split("@###@");
 				for (int z = 0; z < fichreviewdatasheetdetails.length; z++) {
-					findElement(
-							prop.getProperty("fichareview_datasheet_row") + "["
-									+ (j + 1) + "]" + "/td[" + (z + 1)
-									+ "]/input").sendKeys(
-							fichreviewdatasheetdetails[z]);
+					findElement(prop.getProperty("fichareview_datasheet_row") + "[" + (j + 1) + "]" + "/td[" + (z + 1)
+							+ "]/input").sendKeys(fichreviewdatasheetdetails[z]);
 				}
 			}
 
@@ -668,12 +603,10 @@ public class Adminproperty extends TestListenerAdapter {
 		wait.until(ExpectedConditions.elementToBeClickable(findElement(path)));
 	}
 
-	public Object[][] readExcel(String excelsheetname, int columns)
-			throws IOException {
+	public Object[][] readExcel(String excelsheetname, int columns) throws IOException {
 		String filepath = System.getProperty("user.dir") + "\\src\\Common\\";
 		String filename = "excel.xlsx";
-		FileInputStream instream = new FileInputStream(filepath + "\\"
-				+ filename);
+		FileInputStream instream = new FileInputStream(filepath + "\\" + filename);
 		System.out.println(filepath + "\\" + filename);
 		Workbook wb = new XSSFWorkbook(instream);
 		Sheet sheet = wb.getSheet(excelsheetname);
@@ -685,13 +618,9 @@ public class Adminproperty extends TestListenerAdapter {
 		for (int i = 1; i <= rows; i++) {
 			Row row = sheet.getRow(i);
 			for (int j = 0; j < row.getLastCellNum(); j++) {
-			sheet.getRow(i)
-						.getCell(j)
-						.setCellType(
-								sheet.getRow(i).getCell(j).CELL_TYPE_STRING);
+				sheet.getRow(i).getCell(j).setCellType(sheet.getRow(i).getCell(j).CELL_TYPE_STRING);
 				if (sheet.getRow(i).getCell(j).getStringCellValue() != "") {
-					postdata[cnt][j] = sheet.getRow(i).getCell(j)
-							.getStringCellValue();
+					postdata[cnt][j] = sheet.getRow(i).getCell(j).getStringCellValue();
 				}
 			}
 			cnt++;
@@ -736,20 +665,15 @@ public class Adminproperty extends TestListenerAdapter {
 		for (int y = 0; y < arrDataSheet.length; y++) {
 			String[] arritems = arrDataSheet[y].split("~##~");
 			for (int k = 0; k < arritems.length; k++) {
-				System.out.println(prop.getProperty("List_Row") + "[" + (y + 1)
-						+ "]" + "/td[" + (k + 1) + "]/input");
+				System.out.println(prop.getProperty("List_Row") + "[" + (y + 1) + "]" + "/td[" + (k + 1) + "]/input");
 				System.out.println(arritems[k]);
 
 				if (arritems[k].equalsIgnoreCase("null")) {
-					findElement(
-							prop.getProperty("List_Row") + "[" + (y + 1) + "]"
-									+ "/td[" + (k + 1) + "]/input")
+					findElement(prop.getProperty("List_Row") + "[" + (y + 1) + "]" + "/td[" + (k + 1) + "]/input")
 							.sendKeys("");
 				} else {
-					findElement(
-							prop.getProperty("List_Row") + "[" + (y + 1) + "]"
-									+ "/td[" + (k + 1) + "]/input").sendKeys(
-							arritems[k]);
+					findElement(prop.getProperty("List_Row") + "[" + (y + 1) + "]" + "/td[" + (k + 1) + "]/input")
+							.sendKeys(arritems[k]);
 				}
 
 			}
@@ -773,44 +697,6 @@ public class Adminproperty extends TestListenerAdapter {
 		}
 	}
 
-	public void insertGIPHY(String URL, String layout, String caption,
-			String browser) {
-		List<WebElement> items = findElementsByXpath(prop.getProperty("header"));
-		for (WebElement item : items) {
-			if (item.getText().equalsIgnoreCase("GIF")) {
-				item.click();
-				break;
-			}
-		}
-		findAndWrite("giphyURL", URL);
-		implicitWait();
-		WebElement element1 = findElement(prop.getProperty("smallLeft"));
-		WebElement element2 = findElement(prop.getProperty("smallCenter"));
-		WebElement element3 = findElement(prop.getProperty("smallRight"));
-		WebElement element4 = findElement(prop.getProperty("normal"));
-		WebElement element5 = findElement(prop.getProperty("large"));
-		if (layout.equalsIgnoreCase("smallLeft")) {
-			JavascriptExecutor executor1 = (JavascriptExecutor) driver;
-			executor1.executeScript("arguments[0].click();", element1);
-		} else if (layout.equalsIgnoreCase("smallCenter")) {
-			JavascriptExecutor executor2 = (JavascriptExecutor) driver;
-			executor2.executeScript("arguments[0].click();", element2);
-		} else if (layout.equalsIgnoreCase("smallRight")) {
-			JavascriptExecutor executor3 = (JavascriptExecutor) driver;
-			executor3.executeScript("arguments[0].click();", element3);
-		} else if (layout.equalsIgnoreCase("normal")) {
-			JavascriptExecutor executor4 = (JavascriptExecutor) driver;
-			executor4.executeScript("arguments[0].click();", element4);
-		} else {
-			JavascriptExecutor executor5 = (JavascriptExecutor) driver;
-			executor5.executeScript("arguments[0].click();", element5);
-		}
-		implicitWait();
-		findAndWrite("captionGIPHY", caption);
-		findAndClick("insertButtonGIPHY");
-		findAndClick("post_content");
-	}
-
 	public void Author(String authorName) {
 		if (!authorName.equalsIgnoreCase("null")) {
 			implicitWait();
@@ -819,8 +705,7 @@ public class Adminproperty extends TestListenerAdapter {
 			implicitWait();
 			findAndWrite("author", authorName);
 			implicitWait();
-			List<WebElement> optionlist = findElementByClass(prop
-					.getProperty("Author_by_ClassName"));
+			List<WebElement> optionlist = findElementByClass(prop.getProperty("Author_by_ClassName"));
 			implicitWait();
 			for (WebElement options : optionlist) {
 				implicitWait();
@@ -836,10 +721,8 @@ public class Adminproperty extends TestListenerAdapter {
 
 	}
 
-	public void infograph(String infographURL, String infographLayout,
-			String infographCaption, String browser) {
-		System.out.println(infographURL + " " + infographLayout + " "
-				+ infographCaption);
+	public void infograph(String infographURL, String infographLayout, String infographCaption, String browser) {
+		System.out.println(infographURL + " " + infographLayout + " " + infographCaption);
 		List<WebElement> items = findElementsByXpath(prop.getProperty("header"));
 		for (WebElement item : items) {
 			if (item.getText().equalsIgnoreCase("Graphs")) {
@@ -852,23 +735,20 @@ public class Adminproperty extends TestListenerAdapter {
 
 		if (infographLayout.equalsIgnoreCase("small")) {
 			implicitWait();
-			WebElement element = findElement(prop
-					.getProperty("graph_SmallLayout"));
+			WebElement element = findElement(prop.getProperty("graph_SmallLayout"));
 			JavascriptExecutor executor = (JavascriptExecutor) driver;
 			executor.executeScript("arguments[0].click();", element);
 			implicitWait();
 		} else if (infographLayout.equalsIgnoreCase("normal")) {
 			implicitWait();
-			WebElement element = findElement(prop
-					.getProperty("graph_Normallayout"));
+			WebElement element = findElement(prop.getProperty("graph_Normallayout"));
 			JavascriptExecutor executor = (JavascriptExecutor) driver;
 
 			executor.executeScript("arguments[0].click();", element);
 			implicitWait();
 		} else {
 			implicitWait();
-			WebElement element = findElement(prop
-					.getProperty("graph_Largelayout"));
+			WebElement element = findElement(prop.getProperty("graph_Largelayout"));
 			JavascriptExecutor executor = (JavascriptExecutor) driver;
 			executor.executeScript("arguments[0].click();", element);
 			implicitWait();
@@ -881,11 +761,8 @@ public class Adminproperty extends TestListenerAdapter {
 		findAndClick("post_content");
 	}
 
-	public void addTable(String tabledata, String Checkbox_same_width,
-			String Checkbox_table_first_row_heading,
-			String Checkbox_table_first_column_heading,
-			String Checkbox_table_occupy_all_avaiable_width)
-	{
+	public void addTable(String tabledata, String Checkbox_same_width, String Checkbox_table_first_row_heading,
+			String Checkbox_table_first_column_heading, String Checkbox_table_occupy_all_avaiable_width) {
 		String rows = "2", columns = "2";
 		implicitWait();
 		findAndClick("toolbar_table");
@@ -916,17 +793,11 @@ public class Adminproperty extends TestListenerAdapter {
 			System.out.println(tablerow[i]);
 			for (int j = 1; j <= tablecolumn.length; j++) {
 				if (tablecolumn[(j - 1)].equalsIgnoreCase("null")) {
-					findElement(
-							prop.getProperty("table_tr") + "[" + (i + 1)
-									+ "]/td[" + (j + 1) + "]"
-									+ prop.getProperty("table_td"))
-							.sendKeys("");
+					findElement(prop.getProperty("table_tr") + "[" + (i + 1) + "]/td[" + (j + 1) + "]"
+							+ prop.getProperty("table_td")).sendKeys("");
 				} else {
-					findElement(
-							prop.getProperty("table_tr") + "[" + (i + 1)
-									+ "]/td[" + (j + 1) + "]"
-									+ prop.getProperty("table_td")).sendKeys(
-							tablecolumn[(j - 1)]);
+					findElement(prop.getProperty("table_tr") + "[" + (i + 1) + "]/td[" + (j + 1) + "]"
+							+ prop.getProperty("table_td")).sendKeys(tablecolumn[(j - 1)]);
 				}
 			}
 		}
@@ -948,13 +819,11 @@ public class Adminproperty extends TestListenerAdapter {
 		findAndClick("post_content");
 	}
 
-	public void RecipeSummary(String summary_data, String summary_layout)
-			throws Exception {
+	public void RecipeSummary(String summary_data, String summary_layout) throws Exception {
 		if (!summary_data.equalsIgnoreCase("null")) {
 
 			findElement(prop.getProperty("Recipe_summary")).click();
-			findElement(prop.getProperty("summary_input_field")).sendKeys(
-					summary_data);
+			findElement(prop.getProperty("summary_input_field")).sendKeys(summary_data);
 			Thread.sleep(3000);
 			implicitWait();
 			switch (summary_layout) {
@@ -980,8 +849,7 @@ public class Adminproperty extends TestListenerAdapter {
 
 	}
 
-	public void RecipeuploadImage(String primaryimage, String browser)
-			throws Exception {
+	public void RecipeuploadImage(String primaryimage, String browser) throws Exception {
 		String primaryimagearr[] = primaryimage.split("@#@");
 		for (int i = 0; i < primaryimagearr.length; i++) {
 			if (browser.trim().equalsIgnoreCase("firefox")) {
@@ -993,30 +861,25 @@ public class Adminproperty extends TestListenerAdapter {
 			findAndSendkey("Recipe_Post_content", Keys.ENTER);
 			implicitWait();
 			System.out.println(primaryimagearr[i]);
-			System.out.println(System.getProperty("user.dir")
-					+ prop.getProperty("image_path") + "\\"
-					+ primaryimagearr[i]);
-			findAndWrite("primary_image_insert", System.getProperty("user.dir")
-					+ prop.getProperty("image_path") + "\\"
-					+ primaryimagearr[i]);
+			System.out.println(
+					System.getProperty("user.dir") + prop.getProperty("image_path") + "\\" + primaryimagearr[i]);
+			findAndWrite("primary_image_insert",
+					System.getProperty("user.dir") + prop.getProperty("image_path") + "\\" + primaryimagearr[i]);
 			findAndClick("primary_image_upload");
 		}
-		WebElement element1 = findElement(prop
-				.getProperty("product_image_bulkupload")
-				+ prop.getProperty("product_image_bulkupload1"));
+		WebElement element1 = findElement(
+				prop.getProperty("product_image_bulkupload") + prop.getProperty("product_image_bulkupload1"));
 
 		if (element1.getAttribute("href") != null) {
 			isLinkBroken(new URL(element1.getAttribute("href")));
-			System.out.println(isLinkBroken(new URL(element1
-					.getAttribute("href"))));
+			System.out.println(isLinkBroken(new URL(element1.getAttribute("href"))));
 		}
 		implicitWait();
 		findAndClick("Recipe_normal_insert");
 		implicitWait();
 	}
 
-	public void RecipeAddVideo(String videoURL, String layout, String browser)
-			throws InterruptedException {
+	public void RecipeAddVideo(String videoURL, String layout, String browser) throws InterruptedException {
 		WebElement element;
 		findAndClick("Recipe_Post_content");
 		findAndSendkey("Recipe_Post_content", Keys.ENTER);
@@ -1051,189 +914,6 @@ public class Adminproperty extends TestListenerAdapter {
 
 	}
 
-	public void addRecipe(String name, String persons, String level,
-			String ingredients, String Recipe_ingredients_Cantidad,
-			String Recipe_ingredients_units,
-			String Recipe_ingredients_Detailes, String Preparation_time_hours,
-			String Preparation_time_Mintues, String Cooking_time_hours,
-			String Cooking_time_minutes, String Rest_time_hours,
-			String Rest_time_mintues, String Recipe_postcontent,
-			String RecipeImage, String Recipe_More_postcontent,
-			String Youtube_Video, String Recipe_Youtube_Video_layout,
-			String Vine_Video, String Recipe_Vine_Video_layout,
-			String Vimeo_Video, String Recipe_Vimeo_Video_layout,
-			String FB_Video, String Recipe_FB_Video_layout,
-			String Recipe_summary, String Recipe_summary_layout, String browser)
-			throws Exception {
-		System.out.println("Recipe_name " + name);
-		findAndWrite("Recipe_name", name);
-		implicitWait();
-		String[] personarr = persons.split("@##@");
-		implicitWait();
-		if (level.equalsIgnoreCase("high")) {
-			findElement(prop.getProperty("Recipe_high")).click();
-		} else if (level.equalsIgnoreCase("Low")) {
-			findElement(prop.getProperty("Recipe_low")).click();
-		} else {
-			findElement(prop.getProperty("Recipe_medium")).click();
-		}
-		findAndWrite("Recipe_Person", personarr[0]);
-		findAndClick("Recipe_person_unit_dropdown");
-		implicitWait();
-		List<WebElement> lists3 = driver.findElements(By
-				.xpath("//*//*[text()='" + personarr[1] + "']"));
-		System.out.println(lists3.size());
-		for (WebElement test3 : lists3) {
-			if (test3.getText().equalsIgnoreCase(personarr[1].trim())) {
-				System.out.println("Matched: " + test3.getText());
-				test3.click();
-				implicitWait();
-				break;
-			}
-		}
-		implicitWait();
-		implicitWait();
-		findAndWrite("preparation_time_hours", Preparation_time_hours);
-		findAndWrite("preparation_time_mnts", Preparation_time_Mintues);
-		findAndWrite("cooking_time_hours", Cooking_time_hours);
-		findAndWrite("cooking_time_mnts", Cooking_time_minutes);
-		findAndWrite("rest_time_hours", Rest_time_hours);
-		findAndWrite("rest_time_mnts", Rest_time_mintues);
-		implicitWait();
-
-		String[] arringredients = ingredients.split("@##@");
-		String[] arrRecipe_ingredients_Cantidad = Recipe_ingredients_Cantidad
-				.split("@##@");
-		String[] arrRecipeingredientsdetails = Recipe_ingredients_Detailes
-				.split("@##@");
-		String[] arrRecipeingredientsunits = Recipe_ingredients_units
-				.split("@##@");
-		int cnt = 2;
-		for (int i = 0; i < arringredients.length; i++) {
-			if (i > 2) {
-				findAndClick("Recipe_more_row_button");
-			}
-
-			implicitWait();
-			findElement(
-					prop.getProperty("Recipe_ingredient_row_p1") + "[" + cnt
-							+ "]"
-							+ prop.getProperty("Recipe_ingredient_row_p2"))
-					.sendKeys(arringredients[i]);
-			List<WebElement> lists1 = driver.findElements(By
-					.xpath("//*[text()='" + arringredients[i] + "']"));
-			for (WebElement test : lists1) {
-				System.out.println(test.getText() + "==="
-						+ arringredients[i].trim());
-				if (test.getText().equalsIgnoreCase(arringredients[i].trim())) {
-					System.out.println("Matched: " + test.getText());
-					test.click();
-					implicitWait();
-					break;
-				}
-			}
-
-			System.out.println(arrRecipe_ingredients_Cantidad[i]);
-			implicitWait();
-			findElement(
-					prop.getProperty("Recipe_ingredient_quantity_p1") + "["
-							+ cnt + "]"
-							+ prop.getProperty("Recipe_ingredient_quantity_p2"))
-					.sendKeys(arrRecipe_ingredients_Cantidad[i]);
-			implicitWait();
-			findElement(
-					prop.getProperty("Recipe-unit_p1") + "[" + cnt + "]"
-							+ prop.getProperty("Recipe-unit_p2")).click();
-			implicitWait();
-
-			List<WebElement> lists2 = driver.findElements(By
-					.xpath("//*//*[last()][text()='"
-							+ arrRecipeingredientsunits[i] + "']"));
-			for (WebElement test1 : lists2) {
-				if (test1.getText().equalsIgnoreCase(
-						arrRecipeingredientsunits[i].trim())) {
-					System.out.println("Matched Unit: " + test1.getText());
-					test1.click();
-					implicitWait();
-					break;
-				}
-			}
-			implicitWait();
-			System.out.println(arrRecipeingredientsdetails[i].toString() + "=="
-					+ Recipe_ingredients_Detailes);
-			findElement(
-					prop.getProperty("Recipe_details_p1") + "[" + cnt + "]"
-							+ prop.getProperty("Recipe_details_p2")).sendKeys(
-					Keys.SHIFT);
-			Thread.sleep(10000);
-			findElement(
-					prop.getProperty("Recipe_details_p1") + "[" + cnt + "]"
-							+ prop.getProperty("Recipe_details_p2")).sendKeys(
-					arrRecipeingredientsdetails[i]);
-			implicitWait();
-			implicitWait();
-			cnt++;
-		}
-		findAndWrite("Recipe_Post_content", Recipe_postcontent);
-		implicitWait();
-		findAndSendkey("Recipe_Post_content", Keys.END);
-		findAndSendkey("Recipe_Post_content", Keys.ENTER);
-		findAndSendkey("Recipe_Post_content", Keys.END);
-		findAndSendkey("Recipe_Post_content", Keys.ENTER);
-
-		if (!RecipeImage.equalsIgnoreCase("null")) {
-			findAndClick("Recipe_image");
-			RecipeuploadImage(RecipeImage, browser);
-			implicitWait();
-			findAndSendkey("Recipe_Post_content", Keys.END);
-			findAndSendkey("Recipe_Post_content", Keys.ENTER);
-			findAndSendkey("Recipe_Post_content", Keys.END);
-			findAndSendkey("Recipe_Post_content", Keys.ENTER);
-		}
-
-		if (!Youtube_Video.equalsIgnoreCase("null")) {
-			recipemovecursorpostion(1);
-			RecipeAddVideo(Youtube_Video, Recipe_Youtube_Video_layout, browser);
-			recipemovecursorpostion(2);
-		}
-
-		if (!Recipe_More_postcontent.equalsIgnoreCase("null")) {
-			recipemovecursorpostion(1);
-			findAndWrite("Recipe_Post_content", Recipe_More_postcontent);
-			recipemovecursorpostion(2);
-		}
-
-		if (!Vine_Video.equalsIgnoreCase("null")) {
-			recipemovecursorpostion(1);
-			RecipeAddVideo(Vine_Video, Recipe_Vine_Video_layout, browser);
-			recipemovecursorpostion(2);
-
-		}
-
-		if (!Vimeo_Video.equalsIgnoreCase("null")) {
-			recipemovecursorpostion(1);
-			RecipeAddVideo(Vimeo_Video, Recipe_Vimeo_Video_layout, browser);
-			recipemovecursorpostion(2);
-		}
-		if (!FB_Video.equalsIgnoreCase("null")) {
-			recipemovecursorpostion(1);
-			RecipeAddVideo(FB_Video, Recipe_FB_Video_layout, browser);
-			recipemovecursorpostion(2);
-		}
-
-		if (!Recipe_summary.equalsIgnoreCase("null")) {
-			recipemovecursorpostion(1);
-			RecipeSummary(Recipe_summary, Recipe_summary_layout);
-			recipemovecursorpostion(2);
-		}
-
-		Thread.sleep(3000);
-		implicitWait();
-		findAndClick("Recipe_Save_button");
-		Thread.sleep(1000);
-
-	}
-
 	public void recipemovecursorpostion(int stats) {
 		if (stats == 1) {
 			implicitWait();
@@ -1248,13 +928,11 @@ public class Adminproperty extends TestListenerAdapter {
 		}
 	}
 
-	public void uploadImageInsertInArticle(String primaryimage, String browser,
-			String layout, String supertitle_caption_and_postion)
-			throws Exception {
+	public void uploadImageInsertInArticle(String primaryimage, String browser, String layout,
+			String supertitle_caption_and_postion) throws Exception {
 		String primaryimagearr[] = primaryimage.split(",");
 		for (int i = 0; i < primaryimagearr.length; i++) {
-			if ((primaryimagearr[i].contains(".gif"))
-					|| (primaryimagearr[i].contains(".GIF"))) {
+			if ((primaryimagearr[i].contains(".gif")) || (primaryimagearr[i].contains(".GIF"))) {
 				findAndClick("toolbar_more");
 				implicitWait();
 			}
@@ -1264,19 +942,16 @@ public class Adminproperty extends TestListenerAdapter {
 			}
 			addNewlines();
 			implicitWait();
-			findAndWrite("primary_image_insert", System.getProperty("user.dir")
-					+ prop.getProperty("image_path") + "\\"
-					+ primaryimagearr[i]);
+			findAndWrite("primary_image_insert",
+					System.getProperty("user.dir") + prop.getProperty("image_path") + "\\" + primaryimagearr[i]);
 			findAndClick("primary_image_upload");
 		}
-		WebElement element1 = findElement(prop
-				.getProperty("product_image_bulkupload")
-				+ prop.getProperty("product_image_bulkupload1"));
+		WebElement element1 = findElement(
+				prop.getProperty("product_image_bulkupload") + prop.getProperty("product_image_bulkupload1"));
 
 		if (element1.getAttribute("href") != null) {
 			isLinkBroken(new URL(element1.getAttribute("href")));
-			System.out.println(isLinkBroken(new URL(element1
-					.getAttribute("href"))));
+			System.out.println(isLinkBroken(new URL(element1.getAttribute("href"))));
 		}
 		findAndClick("insert_in_article");
 		implicitWait();
@@ -1284,8 +959,7 @@ public class Adminproperty extends TestListenerAdapter {
 		Date date = new Date();
 		String FinalDate = dateFormat.format(date);
 		System.out.print(FinalDate);
-		String TxtBoxContent = driver.findElement(
-				By.xpath(prop.getProperty("text_img"))).getText();
+		String TxtBoxContent = driver.findElement(By.xpath(prop.getProperty("text_img"))).getText();
 		System.out.println(TxtBoxContent);
 		String captionText[] = supertitle_caption_and_postion.split("@##@");
 		switch (layout) {
@@ -1348,12 +1022,10 @@ public class Adminproperty extends TestListenerAdapter {
 				implicitWait();
 			}
 
-			Select dropdown = new Select(driver.findElement(By.xpath(prop
-					.getProperty("position"))));
+			Select dropdown = new Select(driver.findElement(By.xpath(prop.getProperty("position"))));
 			dropdown.selectByVisibleText(captionText[2]);
 			Thread.sleep(3000);
-			Select dropdown1 = new Select(driver.findElement(By.xpath(prop
-					.getProperty("color"))));
+			Select dropdown1 = new Select(driver.findElement(By.xpath(prop.getProperty("color"))));
 			dropdown1.selectByVisibleText(captionText[3]);
 			implicitWait();
 		}
@@ -1363,9 +1035,7 @@ public class Adminproperty extends TestListenerAdapter {
 		findAndClick("post_content");
 	}
 
-
-	public void create_ingrediente(String ingredienteName, String checkboxes)
-			throws InterruptedException {
+	public void create_ingrediente(String ingredienteName, String checkboxes) throws InterruptedException {
 		findAndClick("create_ingrediente_button");
 		implicitWait();
 		findAndClick("ingrediente_name");
@@ -1374,41 +1044,35 @@ public class Adminproperty extends TestListenerAdapter {
 		implicitWait();
 		String allCheckboxes[] = checkboxes.split(",");
 		for (int i = 0; i < allCheckboxes.length; i++) {
-			String CheckBox1 = driver.findElement(
-					By.xpath(prop.getProperty("ml"))).getText();
+			String CheckBox1 = driver.findElement(By.xpath(prop.getProperty("ml"))).getText();
 			System.out.println(CheckBox1);
 			String replaceString = CheckBox1.replace("ml/l (mililitros)", "ml");
 			System.out.println(replaceString);
 			if (replaceString.equalsIgnoreCase("ml")) {
-				driver.findElement(By.xpath(prop.getProperty(allCheckboxes[i])))
-						.click();
+				driver.findElement(By.xpath(prop.getProperty(allCheckboxes[i]))).click();
 			}
-			String CheckBox2 = driver.findElement(
-					By.xpath(prop.getProperty("kg"))).getText();
+			String CheckBox2 = driver.findElement(By.xpath(prop.getProperty("kg"))).getText();
 			System.out.println(CheckBox2);
 			String replaceString2 = CheckBox2.replace("g/kg (gramos)", "kg");
 			System.out.println(replaceString2);
 			if (replaceString.equalsIgnoreCase("kg")) {
-				driver.findElement(By.xpath(prop.getProperty(allCheckboxes[i])))
-						.click();
+				driver.findElement(By.xpath(prop.getProperty(allCheckboxes[i]))).click();
 			}
-			String CheckBox3 = driver.findElement(
-					By.xpath(prop.getProperty("unit"))).getText();
+			String CheckBox3 = driver.findElement(By.xpath(prop.getProperty("unit"))).getText();
 			System.out.println(CheckBox3);
 			String replaceString3 = CheckBox3.replace("unidades", "unit");
 			System.out.println(replaceString3);
 
 			if (replaceString.equalsIgnoreCase("unit")) {
-				driver.findElement(By.xpath(prop.getProperty(allCheckboxes[i])))
-						.click();
+				driver.findElement(By.xpath(prop.getProperty(allCheckboxes[i]))).click();
 			}
 
 		}
 		findAndClick("save_ingrediente");
 	}
-	public void galleryPost(String gallery_Name, String Desp, String tag,
-			String showinheader, String galleryimage, String browser)
-			throws MalformedURLException, Exception {
+
+	public void galleryPost(String gallery_Name, String Desp, String tag, String showinheader, String galleryimage,
+			String browser) throws MalformedURLException, Exception {
 
 		String galleryimagearr[] = galleryimage.split("@##@");
 		findAndWrite("gallery_name", gallery_Name);
@@ -1424,39 +1088,33 @@ public class Adminproperty extends TestListenerAdapter {
 
 		for (int i = 0; i < galleryimagearr.length; i++) {
 			implicitWait();
-			findAndWrite(
-					"gallery_upload_button",
-					System.getProperty("user.dir")
-							+ prop.getProperty("image_path") + "\\"
-							+ galleryimagearr[i]);
+			findAndWrite("gallery_upload_button",
+					System.getProperty("user.dir") + prop.getProperty("image_path") + "\\" + galleryimagearr[i]);
 
 		}
 		findAndClick("gallery_upload_bulk");
 
 		for (int i = 0; i < galleryimagearr.length; i++) {
-		WebElement element1 = findElement(prop
-					.getProperty("gallery_upload_row")
-					+ prop.getProperty("gallery_image_bulkupload1"));
+			WebElement element1 = findElement(
+					prop.getProperty("gallery_upload_row") + prop.getProperty("gallery_image_bulkupload1"));
 
 			if (element1.getAttribute("href") != null) {
 				isLinkBroken(new URL(element1.getAttribute("href")));
-				System.out.println(isLinkBroken(new URL(element1
-						.getAttribute("href"))));
+				System.out.println(isLinkBroken(new URL(element1.getAttribute("href"))));
 			}
 		}
 		Thread.sleep(10000);
 		findAndClick("attach_gallery_to_post");
-		 implicitWait();
-         addNewlines();
-         addNewlines();
-         addNewlines();
+		implicitWait();
+		addNewlines();
+		addNewlines();
+		addNewlines();
 	}
 
 	public void futurePost(String dateTime, String fbtext) throws Exception
 
 	{
-		driver.findElement(By.xpath(prop.getProperty("future_publish_date")))
-				.clear();
+		driver.findElement(By.xpath(prop.getProperty("future_publish_date"))).clear();
 		implicitWait();
 		findAndWrite("future_publish_date", dateTime);
 		findAndWrite("fb_text", fbtext);
@@ -1466,18 +1124,13 @@ public class Adminproperty extends TestListenerAdapter {
 	}
 
 	public void futurePostDashborad(String FuturePostDate) {
-		driver.findElement(By.className(prop.getProperty("future_post_time")))
-				.clear();
-		driver.findElement(By.className(prop.getProperty("future_post_date")))
-				.clear();
+		driver.findElement(By.className(prop.getProperty("future_post_time"))).clear();
+		driver.findElement(By.className(prop.getProperty("future_post_date"))).clear();
 		String FuturePost[] = FuturePostDate.split(",");
-		driver.findElement(By.className(prop.getProperty("future_post_time")))
-				.sendKeys(FuturePost[0]);
+		driver.findElement(By.className(prop.getProperty("future_post_time"))).sendKeys(FuturePost[0]);
 
-		driver.findElement(By.className(prop.getProperty("future_post_date")))
-				.sendKeys(FuturePost[1]);
-		driver.findElement(By.className(prop.getProperty("future_post_save")))
-				.click();
+		driver.findElement(By.className(prop.getProperty("future_post_date"))).sendKeys(FuturePost[1]);
+		driver.findElement(By.className(prop.getProperty("future_post_save"))).click();
 	}
 
 	public void ExtractJSLogs(String URL) {
@@ -1496,13 +1149,10 @@ public class Adminproperty extends TestListenerAdapter {
 		}
 	}
 
-	public void FullScreenshot(WebDriver driver, String screenshotName)
-			throws IOException {
-		Screenshot screenshot = new AShot().shootingStrategy(
-				new ViewportPastingStrategy(1000)).takeScreenshot(driver);
+	public void FullScreenshot(WebDriver driver, String screenshotName) throws IOException {
+		Screenshot screenshot = new AShot().shootingStrategy(new ViewportPastingStrategy(1000)).takeScreenshot(driver);
 		ImageIO.write(screenshot.getImage(), "PNG",
-				new File(System.getProperty("user.dir")
-						+ "\\src\\Screenshots\\" + screenshotName));
+				new File(System.getProperty("user.dir") + "\\src\\Screenshots\\" + screenshotName));
 	}
 
 	public static void captureScreenshot(WebDriver driver, String screenshotName) {
@@ -1512,27 +1162,23 @@ public class Adminproperty extends TestListenerAdapter {
 
 			File source = ts.getScreenshotAs(OutputType.FILE);
 
-			FileUtils.copyFile(source, new File(System.getProperty("user.dir")
-					+ "\\src\\Screenshots\\" + screenshotName + ".png"));
+			FileUtils.copyFile(source,
+					new File(System.getProperty("user.dir") + "\\src\\Screenshots\\" + screenshotName + ".png"));
 
 			System.out.println("Screenshot taken");
 		} catch (Exception e) {
 
-			System.out.println("Exception while taking screenshot "
-					+ e.getMessage());
+			System.out.println("Exception while taking screenshot " + e.getMessage());
 		}
 	}
 
 	public void editEvent(String video_Data) {
 		int cnt = 1;
-		List<WebElement> list = findElementsByXpath(prop
-				.getProperty("video_list") + "/td[1]");
+		List<WebElement> list = findElementsByXpath(prop.getProperty("video_list") + "/td[1]");
 		for (WebElement element : list) {
 			if (element.getText().equalsIgnoreCase(video_Data)) {
-				findElement(
-						prop.getProperty("video_list") + "[" + cnt + "]"
-								+ prop.getProperty("eventActions")
-								+ prop.getProperty("video_list")).click();
+				findElement(prop.getProperty("video_list") + "[" + cnt + "]" + prop.getProperty("eventActions")
+						+ prop.getProperty("video_list")).click();
 				break;
 			}
 			cnt++;
@@ -1542,15 +1188,15 @@ public class Adminproperty extends TestListenerAdapter {
 		if (findElement(prop.getProperty("eventImage")).isDisplayed()) {
 
 			findAndClick("eventImageDel");
-			findAndWrite("editEventBrowse", System.getProperty("user.dir")
-					+ prop.getProperty("image_path") + "\\headphone.jpg");
+			findAndWrite("editEventBrowse",
+					System.getProperty("user.dir") + prop.getProperty("image_path") + "\\headphone.jpg");
 			findAndClick("eventImageUpload");
 			implicitWait();
 		}
 
 		else {
-			findAndWrite("editEventBrowse", System.getProperty("user.dir")
-					+ prop.getProperty("image_path") + "\\headphone.jpg");
+			findAndWrite("editEventBrowse",
+					System.getProperty("user.dir") + prop.getProperty("image_path") + "\\headphone.jpg");
 			findAndClick("eventImageUpload");
 		}
 
@@ -1561,8 +1207,7 @@ public class Adminproperty extends TestListenerAdapter {
 		WebDriverWait wait = new WebDriverWait(driver, 50);
 		wait.until(new Function<WebDriver, Boolean>() {
 			public Boolean apply(WebDriver driver) {
-				return ((JavascriptExecutor) driver).executeScript(
-						"return document.readyState").equals("complete");
+				return ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");
 			}
 		});
 		int cnt = 1;
@@ -1571,9 +1216,7 @@ public class Adminproperty extends TestListenerAdapter {
 			System.out.println(element.getText());
 
 			if (element.getText().equalsIgnoreCase(Video_post_name)) {
-				findElement(
-						prop.getProperty("video_list") + "[" + cnt + "]"
-								+ prop.getProperty("del_td")).click();
+				findElement(prop.getProperty("video_list") + "[" + cnt + "]" + prop.getProperty("del_td")).click();
 				implicitWait();
 				Alert alert = driver.switchTo().alert();
 				alert.accept();
@@ -1584,27 +1227,22 @@ public class Adminproperty extends TestListenerAdapter {
 		}
 	}
 
-	public void EditVideoGallery(String Video_post_name, String checkbox)
-			throws Exception {
+	public void EditVideoGallery(String Video_post_name, String checkbox) throws Exception {
 		WebElement tableelement = driver.findElement(By.id("video-list"));
 		WebDriverWait wait = new WebDriverWait(driver, 50);
 		wait.until(new Function<WebDriver, Boolean>() {
 			public Boolean apply(WebDriver driver) {
-				return ((JavascriptExecutor) driver).executeScript(
-						"return document.readyState").equals("complete");
+				return ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");
 			}
 		});
-		
-		
+
 		int cnt = 1;
 		List<WebElement> list = findElementsByXpath(".//*[@id='video-list']/table/tbody/tr/td[1]");
 		for (WebElement element : list) {
 			System.out.println(element.getText());
 
 			if (element.getText().equalsIgnoreCase(Video_post_name)) {
-				findElement(
-						prop.getProperty("video_list") + "[" + cnt + "]"
-								+ prop.getProperty("edit")).click();
+				findElement(prop.getProperty("video_list") + "[" + cnt + "]" + prop.getProperty("edit")).click();
 				implicitWait();
 				Alert alert = driver.switchTo().alert();
 				alert.accept();
@@ -1633,8 +1271,7 @@ public class Adminproperty extends TestListenerAdapter {
 
 	}
 
-	public void videoGallery(String post_title, String post_url,
-			String video_url, String checkbox, String sponsor_logo,
+	public void videoGallery(String post_title, String post_url, String video_url, String checkbox, String sponsor_logo,
 			String sponsor_name)
 
 	{
@@ -1656,13 +1293,11 @@ public class Adminproperty extends TestListenerAdapter {
 
 	}
 
-	public void amazonProduct(String value, String amazon_product_id,
-			String amazon_product_name) {
+	public void amazonProduct(String value, String amazon_product_id, String amazon_product_name) {
 
 		// keywords,asin
 
-		Select oSelect = new Select(driver.findElement(By.id(prop
-				.getProperty("checkList"))));
+		Select oSelect = new Select(driver.findElement(By.id(prop.getProperty("checkList"))));
 
 		oSelect.selectByValue(value);
 
@@ -1671,9 +1306,7 @@ public class Adminproperty extends TestListenerAdapter {
 			findAndWrite("amazon_search_field", amazon_product_id);
 			findAndClick("search_product_button");
 
-			driver.findElement(
-					By.className(prop.getProperty("add_product_button")))
-					.click();
+			driver.findElement(By.className(prop.getProperty("add_product_button"))).click();
 
 		}
 
@@ -1682,22 +1315,19 @@ public class Adminproperty extends TestListenerAdapter {
 			findAndWrite("amazon_search_field", amazon_product_name);
 			findAndClick("search_product_button");
 
-			driver.findElement(
-					By.className(prop.getProperty("add_product_button")))
-					.click();
+			driver.findElement(By.className(prop.getProperty("add_product_button"))).click();
 
 		}
 
 	}
 
-	public void users(String Username, String Fullname, String UserPassword,
-			String UserEmail, String userDescription, String value) {
+	public void users(String Username, String Fullname, String UserPassword, String UserEmail, String userDescription,
+			String value) {
 		findAndClick("Usuarios");
 		findAndClick("create_Usuarios_button");
 		findAndWrite("user_name", Username);
 		findAndWrite("full_name", Fullname);
-		Select oSelect = new Select(driver.findElement(By.id(prop
-				.getProperty("roll"))));
+		Select oSelect = new Select(driver.findElement(By.id(prop.getProperty("roll"))));
 
 		oSelect.selectByValue(value);
 
@@ -1708,17 +1338,15 @@ public class Adminproperty extends TestListenerAdapter {
 
 	}
 
-	public void createSectionModule(String title_1_data, String title_2_data,
-			String type_1, String type_2, String value,
-			String tag_input_data_1, String tag_input_data_2) {
+	public void createSectionModule(String title_1_data, String title_2_data, String type_1, String type_2,
+			String value, String tag_input_data_1, String tag_input_data_2) {
 		findAndClick("section_module");
 		findAndWrite("title_1", title_1_data);
 
 		if (type_1 == "cat_1") {
 
 			findAndClick("cat_1");
-			Select oSelect = new Select(driver.findElement(By.id(prop
-					.getProperty("publish_main_category_1_chosen"))));
+			Select oSelect = new Select(driver.findElement(By.id(prop.getProperty("publish_main_category_1_chosen"))));
 			oSelect.selectByValue(value);
 
 		}
@@ -1733,8 +1361,7 @@ public class Adminproperty extends TestListenerAdapter {
 
 		if (type_2 == "cat_2") {
 			findAndClick("cat_2");
-			Select oSelect = new Select(driver.findElement(By.id(prop
-					.getProperty("publish_main_category_2_chosen"))));
+			Select oSelect = new Select(driver.findElement(By.id(prop.getProperty("publish_main_category_2_chosen"))));
 			oSelect.selectByValue(value);
 		}
 
@@ -1768,24 +1395,24 @@ public class Adminproperty extends TestListenerAdapter {
 	}
 
 	public String checkuserlogintype(Connection conn, String username, String pwd) throws SQLException {
-		String blogrole = "", uname = "",usernicename="";
+		String blogrole = "", uname = "", usernicename = "";
 		String query = "select  user_login, user_nicename,blog_role,roles from wp_users where user_login='" + username
 				+ "' and user_pass=md5('" + pwd + "')";
 		System.out.println(query);
-		
-			Statement stmt = conn.createStatement();
-			stmt.executeQuery(query);
-			ResultSet rs = stmt.executeQuery(query);
-			while (rs.next()) {
-				usernicename=rs.getString("user_nicename");
-				uname = rs.getString("user_login");
-				blogrole = rs.getString("blog_role");
-				System.out.println(uname + "====" + blogrole);
-			}
-			conn.close();
-		
+
+		Statement stmt = conn.createStatement();
+		stmt.executeQuery(query);
+		ResultSet rs = stmt.executeQuery(query);
+		while (rs.next()) {
+			usernicename = rs.getString("user_nicename");
+			uname = rs.getString("user_login");
+			blogrole = rs.getString("blog_role");
+			System.out.println(uname + "====" + blogrole);
+		}
+		conn.close();
+
 		System.out.println(uname);
-		return (uname + "@##@" + blogrole+"@##@"+usernicename);
+		return (uname + "@##@" + blogrole + "@##@" + usernicename);
 	}
 
 	public void pickDraft(String name, String type, String Button, String index) {
@@ -1795,20 +1422,20 @@ public class Adminproperty extends TestListenerAdapter {
 		clickButton("DashboardEditbuttontr", Button, name, type);
 		implicitWait();
 	}
+
 	public void AddInstagram(String Instagram_embed) {
 		findAndClick("toolbar_instagram");
 		findAndWrite("instagram_url", Instagram_embed);
 		findAndClick("instagram_button");
 		addNewlines();
-	    addNewlines();
+		addNewlines();
 
 	}
-	public  Object[][] readEditorialExcel(String excelsheetname, int columns)
-			throws IOException {
+
+	public Object[][] readEditorialExcel(String excelsheetname, int columns) throws IOException {
 		String filepath = System.getProperty("user.dir") + "\\src\\Common\\";
 		String filename = "excel.xlsx";
-		FileInputStream instream = new FileInputStream(filepath + "\\"
-				+ filename);
+		FileInputStream instream = new FileInputStream(filepath + "\\" + filename);
 		System.out.println(filepath + "\\" + filename);
 		Workbook wb = new XSSFWorkbook(instream);
 		Sheet sheet = wb.getSheet(excelsheetname);
@@ -1820,13 +1447,9 @@ public class Adminproperty extends TestListenerAdapter {
 		for (int i = 2; i <= rows; i++) {
 			Row row = sheet.getRow(i);
 			for (int j = 0; j < row.getLastCellNum(); j++) {
-			sheet.getRow(i)
-						.getCell(j)
-						.setCellType(
-								sheet.getRow(i).getCell(j).CELL_TYPE_STRING);
+				sheet.getRow(i).getCell(j).setCellType(sheet.getRow(i).getCell(j).CELL_TYPE_STRING);
 				if (sheet.getRow(i).getCell(j).getStringCellValue() != "") {
-					postdata[cnt][j] = sheet.getRow(i).getCell(j)
-							.getStringCellValue();
+					postdata[cnt][j] = sheet.getRow(i).getCell(j).getStringCellValue();
 				}
 			}
 			cnt++;
@@ -1834,59 +1457,279 @@ public class Adminproperty extends TestListenerAdapter {
 
 		return postdata;
 	}
-	
-	 public String getID(String ID) throws Exception
-	{
-			String  status = "";
-			String url = "https://testing.xataka.com/admin/newposts/";       
-			url = url + ID;
-			WebDriver driver= new HtmlUnitDriver();
-			driver.get(url);
-			//System.out.println(driver.getCurrentUrl());
-			String username = prop.getProperty("Uadmin");
-		  	String pwd = prop.getProperty("Padmin");
-		  	driver.findElement(By.xpath(prop.getProperty("login_username_txt"))).sendKeys(username);
-		  	driver.findElement(By.xpath(prop.getProperty("login_pwd_txt"))).sendKeys(pwd);
-		  	driver.findElement(By.xpath(prop.getProperty("login_submit_button"))).click();
-			driver.navigate().refresh();
-			//System.out.println("Current url" + driver.getCurrentUrl());
-		   if (driver.getCurrentUrl().contains("clubposts")) {status = "Club"; }
-		   else { status="normal";   }
-		   //System.out.println(driver.getCurrentUrl() +"==" + status);
-		   driver.close();
-		   
-		   return status;
-	    }
-	  
-	public void checkThumbnails(String URL)
-	{
-		      HttpClient client = HttpClientBuilder.create().build();
-	        HttpGet request = new HttpGet(URL);
-	        try {
-	            HttpResponse response = client.execute(request);
 
-	            if (response.getStatusLine().getStatusCode() != 200)
-	                System.out.println(URL + ": "
-	                        + response.getStatusLine().getStatusCode()   +"=="+ response.getStatusLine().getReasonPhrase() );
-	        } catch (Exception e) {
-	            // e.printStackTrace();
-	        }
-	       
+	public String getID(String ID) throws Exception {
+		String status = "";
+		String url = "https://testing.xataka.com/admin/newposts/";
+		url = url + ID;
+		WebDriver driver = new HtmlUnitDriver();
+		driver.get(url);
+		// System.out.println(driver.getCurrentUrl());
+		String username = prop.getProperty("Uadmin");
+		String pwd = prop.getProperty("Padmin");
+		driver.findElement(By.xpath(prop.getProperty("login_username_txt"))).sendKeys(username);
+		driver.findElement(By.xpath(prop.getProperty("login_pwd_txt"))).sendKeys(pwd);
+		driver.findElement(By.xpath(prop.getProperty("login_submit_button"))).click();
+		driver.navigate().refresh();
+		// System.out.println("Current url" + driver.getCurrentUrl());
+		if (driver.getCurrentUrl().contains("clubposts")) {
+			status = "Club";
+		} else {
+			status = "normal";
+		}
+		// System.out.println(driver.getCurrentUrl() +"==" + status);
+		driver.close();
+
+		return status;
 	}
-	public void CheckImageCropperStatus(String url)
-	{
-		String url1="";
-		String thumbnails= "1366_1366,1024_1024,840_840,375_375,288_288,1024_682,840_560,1920_733,1440_550,1366_521,1024_391,500_190,375_142";
-		String[] arrthumbnails= thumbnails.split(","); 
-		
-		for(int i=0;i<arrthumbnails.length;i++)
-		{
-			url1=url.replace("original", arrthumbnails[i]).trim();
+
+	public void checkThumbnails(String URL) {
+		HttpClient client = HttpClientBuilder.create().build();
+		HttpGet request = new HttpGet(URL);
+		try {
+			HttpResponse response = client.execute(request);
+
+			if (response.getStatusLine().getStatusCode() != 200)
+				System.out.println(URL + ": " + response.getStatusLine().getStatusCode() + "=="
+						+ response.getStatusLine().getReasonPhrase());
+		} catch (Exception e) {
+			// e.printStackTrace();
+		}
+
+	}
+
+	public void CheckImageCropperStatus(String url) {
+		String url1 = "";
+		String thumbnails = "1366_1366,1024_1024,840_840,375_375,288_288,1024_682,840_560,1920_733,1440_550,1366_521,1024_391,500_190,375_142";
+		String[] arrthumbnails = thumbnails.split(",");
+
+		for (int i = 0; i < arrthumbnails.length; i++) {
+			url1 = url.replace("original", arrthumbnails[i]).trim();
 			checkThumbnails(url1);
 			System.out.println(url1);
-			url1=url;
+			url1 = url;
 		}
-		
+
 	}
-	
+
+	public void insertGIPHY(String URL, String layout, String caption, String browser) {
+		List<WebElement> items = findElementsByXpath(prop.getProperty("header"));
+
+		for (WebElement item : items) {
+			if (item.getText().equalsIgnoreCase("GIF")) {
+				item.click();
+				break;
+			}
+		}
+
+		findAndWrite("giphyURL", URL);
+		implicitWait();
+
+		if (layout.equalsIgnoreCase("smallLeft")) {
+			WebElement element1 = findElement(prop.getProperty("smallLeft"));
+			JavascriptExecutor executor1 = (JavascriptExecutor) driver;
+			executor1.executeScript("arguments[0].click();", element1);
+		} else if (layout.equalsIgnoreCase("smallCenter")) {
+			WebElement element2 = findElement(prop.getProperty("smallCenter"));
+			JavascriptExecutor executor2 = (JavascriptExecutor) driver;
+			executor2.executeScript("arguments[0].click();", element2);
+		} else if (layout.equalsIgnoreCase("smallRight")) {
+			WebElement element3 = findElement(prop.getProperty("smallRight"));
+			JavascriptExecutor executor3 = (JavascriptExecutor) driver;
+			executor3.executeScript("arguments[0].click();", element3);
+		} else if (layout.equalsIgnoreCase("normalCenter")) {
+			WebElement element4 = findElement(prop.getProperty("normalCenter"));
+			JavascriptExecutor executor4 = (JavascriptExecutor) driver;
+			executor4.executeScript("arguments[0].click();", element4);
+		} else {
+			WebElement element5 = findElement(prop.getProperty("large"));
+			JavascriptExecutor executor5 = (JavascriptExecutor) driver;
+			executor5.executeScript("arguments[0].click();", element5);
+		}
+		implicitWait();
+		findAndWrite("captionGIPHY", caption);
+		findAndClick("insertButtonGIPHY");
+		findAndClick("post_content");
+	}
+
+	public void addRecipe(String name, String persons, String level, String ingredients,
+			String Recipe_ingredients_Cantidad, String Recipe_ingredients_units, String Recipe_ingredients_Detailes,
+			String Preparation_time_hours, String Preparation_time_Mintues, String Cooking_time_hours,
+			String Cooking_time_minutes, String Rest_time_hours, String Rest_time_mintues, String Recipe_postcontent,
+			String RecipeImage, String Recipe_More_postcontent, String Youtube_Video,
+			String Recipe_Youtube_Video_layout, String Vine_Video, String Recipe_Vine_Video_layout, String Vimeo_Video,
+			String Recipe_Vimeo_Video_layout, String FB_Video, String Recipe_FB_Video_layout, String Recipe_summary,
+			String Recipe_summary_layout, String browser) throws Exception {
+		System.out.println("Recipe_name " + name);
+		findAndWrite("Recipe_name", name);
+		implicitWait();
+		String[] personarr = persons.split("@##@");
+		implicitWait();
+		if (level.equalsIgnoreCase("high")) {
+			findElement(prop.getProperty("Recipe_high")).click();
+		} else if (level.equalsIgnoreCase("Low")) {
+			findElement(prop.getProperty("Recipe_low")).click();
+		} else {
+			findElement(prop.getProperty("Recipe_medium")).click();
+		}
+		findAndWrite("Recipe_Person", personarr[0]);
+		findAndClick("Recipe_person_unit_dropdown");
+		implicitWait();
+		List<WebElement> lists3 = driver.findElements(By.xpath("//*//*[text()='" + personarr[1] + "']"));
+		System.out.println(lists3.size());
+		for (WebElement test3 : lists3) {
+			if (test3.getText().equalsIgnoreCase(personarr[1].trim())) {
+				System.out.println("Matched: " + test3.getText());
+				test3.click();
+				implicitWait();
+				break;
+			}
+		}
+		implicitWait();
+		implicitWait();
+		findAndWrite("preparation_time_hours", Preparation_time_hours);
+		findAndWrite("preparation_time_mnts", Preparation_time_Mintues);
+		findAndWrite("cooking_time_hours", Cooking_time_hours);
+		findAndWrite("cooking_time_mnts", Cooking_time_minutes);
+		findAndWrite("rest_time_hours", Rest_time_hours);
+		findAndWrite("rest_time_mnts", Rest_time_mintues);
+		implicitWait();
+
+		String[] arringredients = ingredients.split("@##@");
+		String[] arrRecipe_ingredients_Cantidad = Recipe_ingredients_Cantidad.split("@##@");
+		String[] arrRecipeingredientsdetails = Recipe_ingredients_Detailes.split("@##@");
+		String[] arrRecipeingredientsunits = Recipe_ingredients_units.split("@##@");
+		int cnt = 2;
+		for (int i = 0; i < arringredients.length; i++) {
+			if (i > 2) {
+				findAndClick("Recipe_more_row_button");
+			}
+
+			implicitWait();
+			findElement(prop.getProperty("Recipe_ingredient_row_p1") + "[" + cnt + "]"
+					+ prop.getProperty("Recipe_ingredient_row_p2")).sendKeys(arringredients[i]);
+
+			List<WebElement> lists1 = findElementsByXpath(prop.getProperty("ingredientListRecipe"));
+			// List<WebElement> lists1 =
+			// driver.findElements(By.xpath("//*[text()='" + arringredients[i] +
+			// "']"));
+			for (WebElement test : lists1) {
+				System.out.println(test.getText() + "===" + arringredients[i].trim());
+				if (test.getText().equalsIgnoreCase(arringredients[i].trim())) {
+					System.out.println("Matched: " + test.getText());
+					test.click();
+					implicitWait();
+					break;
+				}
+			}
+
+			System.out.println(arrRecipe_ingredients_Cantidad[i]);
+			implicitWait();
+			findElement(prop.getProperty("Recipe_ingredient_quantity_p1") + "[" + cnt + "]"
+					+ prop.getProperty("Recipe_ingredient_quantity_p2")).sendKeys(arrRecipe_ingredients_Cantidad[i]);
+			implicitWait();
+			findElement(prop.getProperty("Recipe-unit_p1") + "[" + cnt + "]" + prop.getProperty("Recipe-unit_p2"))
+					.click();
+			implicitWait();
+
+			List<WebElement> lists2 = driver
+					.findElements(By.xpath("//*//*[last()][text()='" + arrRecipeingredientsunits[i] + "']"));
+			for (WebElement test1 : lists2) {
+				if (test1.getText().equalsIgnoreCase(arrRecipeingredientsunits[i].trim())) {
+					System.out.println("Matched Unit: " + test1.getText());
+					test1.click();
+					implicitWait();
+					break;
+				}
+			}
+			implicitWait();
+			System.out.println(arrRecipeingredientsdetails[i].toString() + "==" + Recipe_ingredients_Detailes);
+			findElement(prop.getProperty("Recipe_details_p1") + "[" + cnt + "]" + prop.getProperty("Recipe_details_p2"))
+					.sendKeys(Keys.SHIFT);
+			Thread.sleep(10000);
+			findElement(prop.getProperty("Recipe_details_p1") + "[" + cnt + "]" + prop.getProperty("Recipe_details_p2"))
+					.sendKeys(arrRecipeingredientsdetails[i]);
+			implicitWait();
+			implicitWait();
+			cnt++;
+		}
+		findAndWrite("Recipe_Post_content", Recipe_postcontent);
+		implicitWait();
+		findAndSendkey("Recipe_Post_content", Keys.END);
+		findAndSendkey("Recipe_Post_content", Keys.ENTER);
+		findAndSendkey("Recipe_Post_content", Keys.END);
+		findAndSendkey("Recipe_Post_content", Keys.ENTER);
+
+		if (!RecipeImage.equalsIgnoreCase("null")) {
+			findAndClick("Recipe_image");
+			RecipeuploadImage(RecipeImage, browser);
+			implicitWait();
+			findAndSendkey("Recipe_Post_content", Keys.END);
+			findAndSendkey("Recipe_Post_content", Keys.ENTER);
+			findAndSendkey("Recipe_Post_content", Keys.END);
+			findAndSendkey("Recipe_Post_content", Keys.ENTER);
+		}
+
+		if (!Youtube_Video.equalsIgnoreCase("null")) {
+			recipemovecursorpostion(1);
+			RecipeAddVideo(Youtube_Video, Recipe_Youtube_Video_layout, browser);
+			recipemovecursorpostion(2);
+		}
+
+		if (!Recipe_More_postcontent.equalsIgnoreCase("null")) {
+			recipemovecursorpostion(1);
+			findAndWrite("Recipe_Post_content", Recipe_More_postcontent);
+			recipemovecursorpostion(2);
+		}
+
+		if (!Vine_Video.equalsIgnoreCase("null")) {
+			recipemovecursorpostion(1);
+			RecipeAddVideo(Vine_Video, Recipe_Vine_Video_layout, browser);
+			recipemovecursorpostion(2);
+
+		}
+
+		if (!Vimeo_Video.equalsIgnoreCase("null")) {
+			recipemovecursorpostion(1);
+			RecipeAddVideo(Vimeo_Video, Recipe_Vimeo_Video_layout, browser);
+			recipemovecursorpostion(2);
+		}
+		if (!FB_Video.equalsIgnoreCase("null")) {
+			recipemovecursorpostion(1);
+			RecipeAddVideo(FB_Video, Recipe_FB_Video_layout, browser);
+			recipemovecursorpostion(2);
+		}
+
+		if (!Recipe_summary.equalsIgnoreCase("null")) {
+			recipemovecursorpostion(1);
+			RecipeSummary(Recipe_summary, Recipe_summary_layout);
+			recipemovecursorpostion(2);
+		}
+
+		Thread.sleep(3000);
+		implicitWait();
+		findAndClick("Recipe_Save_button");
+		Thread.sleep(1000);
+	}
+
+	public String imageCropper() throws InterruptedException {
+		Thread.sleep(7000);
+		findAndClick("Escribir");
+		findAndClick("publish_tab");
+		implicitWait();
+		((JavascriptExecutor) driver).executeScript("window.scrollBy(0,870)");
+		implicitWait();
+		List<WebElement> validarButtons = findElementsByXpath(prop.getProperty("validarButtons"));
+		for (WebElement validButton : validarButtons) {
+			if (validButton.getText().equalsIgnoreCase("validar")) {
+				validButton.click();
+				Thread.sleep(2000);
+			}
+		}
+		List<WebElement> editarButtons = findElementsByXpath(prop.getProperty("editarButtons"));
+		for (int i = 0; i < editarButtons.size(); i++) {
+			editarButtons.get(i).isDisplayed();
+		}
+		return "Images have been cropped sucessfully";
+	}
 }
