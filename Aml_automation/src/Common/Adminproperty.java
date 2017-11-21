@@ -1732,4 +1732,52 @@ public class Adminproperty extends TestListenerAdapter {
 		}
 		return "Images have been cropped sucessfully";
 	}
+	 public void searchAndEdit(String search_data) throws Exception {
+			driver.findElement(By.xpath(prop.getProperty("search_field_path"))).sendKeys(search_data);
+			driver.findElement(By.xpath(prop.getProperty("search_button"))).click();
+			Thread.sleep(2000);
+			List<WebElement> items = driver.findElements(By.xpath(prop.getProperty("Dashboardlist")));
+			System.out.println(items.size());
+			for (WebElement posttitle : items) {
+				if (posttitle.getText().equalsIgnoreCase(search_data)) {
+					System.out.println(posttitle.getText());
+					findAndClick("Editbutton");
+					break;
+				}
+			}
+			
+		}
+	 public void scheduleRepublish(String scheduleDate){	
+			findAndClick("post_title");
+			Conditionalwait("difundir_Link");
+			findAndClick("difundir_Link");
+			implicitWait();
+			findAndClick("portada_button");
+			implicitWait();
+			driver.findElement(By.xpath(prop.getProperty("repubDate"))).clear();
+			implicitWait();
+			findAndWrite("repubDate", scheduleDate);
+			findAndClick("checkBoxRepub");
+			findAndClick("scheduleRepubButton");
+
+		}
+		public String normalPostVarifyCropImage(String results) throws Exception {
+
+			findAndClick("publish_tab");
+
+			((JavascriptExecutor) driver).executeScript("window.scrollBy(0,1300)");
+			String result1="";
+
+			String Editar="";
+			if (!results.equalsIgnoreCase(Editar)) {
+				result1 = driver.findElement(By.xpath(prop.getProperty("Editar"))).getText();
+				System.out.println("Active button=  " + result1);
+				System.out.println("********* NOTE:- If Editar button present means your Image has validated *********");
+			} else {
+				
+				System.out.println("********* NOTE:- If Validar button present means you have to validate image first to publish post *********");
+			}
+			return result1;
+		}
+
 }
