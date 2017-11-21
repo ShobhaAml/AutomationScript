@@ -1731,5 +1731,5 @@ public class Adminproperty extends TestListenerAdapter {
 			editarButtons.get(i).isDisplayed();
 		}
 		return "Images have been cropped sucessfully";
-	     }
+	   }
 }

@@ -347,5 +347,4 @@ public class CreatePostExcel {
 			adminProperties.findAndClick("post_title");
 		}
 	}
-
 }
