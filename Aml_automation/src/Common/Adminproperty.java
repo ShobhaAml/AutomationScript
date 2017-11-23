@@ -1779,5 +1779,22 @@ public class Adminproperty extends TestListenerAdapter {
 			}
 			return result1;
 		}
+	
+		public void sunMedia(String sunVideoURL, String layout, String browser, String youtubeURL) {
+			
+			findAndClick("Video_URL");
+			implicitWait();
+			if (layout.equalsIgnoreCase("normal")) {
+				findElement(prop.getProperty("Video_NormalLayout")).click();
+			} else {
+				findElement(prop.getProperty("Video_Biglayout")).click();
+			}
+			implicitWait();
+			findAndWrite("Sun_Xpath", sunVideoURL);
+			findAndWrite("Sun_youtubeXpath", youtubeURL);
+			if (sunVideoURL.contains("api")) {
+				findAndClick("button_sunmedia");
+			
+				}
 
 }
