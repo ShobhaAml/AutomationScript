@@ -1779,7 +1779,7 @@ public class Adminproperty extends TestListenerAdapter {
 			}
 			return result1;
 		}
-		
+	
 		public void sunMedia(String sunVideoURL, String layout, String browser, String youtubeURL) {
 			
 			findAndClick("Video_URL");
@@ -1796,6 +1796,5 @@ public class Adminproperty extends TestListenerAdapter {
 				findAndClick("button_sunmedia");
 			
 				}
-			}
 
 }
