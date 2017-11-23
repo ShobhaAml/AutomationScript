@@ -15,13 +15,15 @@ import Common.Adminproperty;
 
 public class CheckUserRoles {
 
-	String blogrole="",uname="";
+	public String blogrole="";
+	String uname="";
 	WebDriver driver;
     Adminproperty adminProperties = new Adminproperty();
     Properties prop = new Properties();
     String browser = "";
     Connection conn;
-    String username="shobhaeditor", pwd="shobhaeditor";
+    String blogroleName="";
+	public String Authorname="";
     
     @BeforeClass
     public void Setup() throws Exception
@@ -34,27 +36,47 @@ public class CheckUserRoles {
     }
 
     @Test
-    public void openConnection() throws Exception 
-    {
-    	conn = adminProperties.connectDb();
+    public void openConnection(String username , String pwd) throws Exception 
+    {      
+        conn = adminProperties.connectDb();
         String arrlogin = adminProperties.checkuserlogintype(conn ,username,pwd);
         if(arrlogin!=null)
         {
-	        String[] logintypes=arrlogin.split("@##@");
-	        uname= logintypes[0];
-	        blogrole= logintypes[1];
-	        
-	        if(blogrole==null)
-	        {
-	        	blogrole="Admin";
-	        }
-	       System.out.println(blogrole+" account");
-	       
+            String[] logintypes=arrlogin.split("@##@");
+            uname= logintypes[0].trim();
+            blogrole= logintypes[1].trim();
+            Authorname=logintypes[2].trim();
+     
+               
+          System.out.println(blogrole+" account");
+           
+          if((blogrole.equalsIgnoreCase("Editor")) || (blogrole.equalsIgnoreCase("Lead Editor")) || (blogrole.equalsIgnoreCase("Editor Senior")))
+           { 
+               blogroleName="Editor";
+               
+           }else if(blogrole.equalsIgnoreCase("Coordinator"))
+           {
+               blogroleName="UBC";
+               
+           }else if(blogrole.equalsIgnoreCase("Collaborator"))
+           {
+               blogroleName="UbCol";
+           }else if(blogrole.equalsIgnoreCase("Branded Coordinator"))
+           {
+               blogroleName="BC";
+           }else if(blogrole.equalsIgnoreCase("Branded Collaborator"))
+           {
+               blogroleName="Bcol";
+           }
+           else
+           { blogroleName="admin";}
         }
+        
+        System.out.println("Welcome " + blogrole + " " + blogroleName);
+        adminProperties.adminLogin();
         
         
     }
-    
     
 
     
