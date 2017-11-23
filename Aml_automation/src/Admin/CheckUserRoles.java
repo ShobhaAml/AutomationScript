@@ -37,9 +37,7 @@ public class CheckUserRoles {
 
     @Test
     public void openConnection(String username , String pwd) throws Exception 
-    {
-        
-        
+    {      
         conn = adminProperties.connectDb();
         String arrlogin = adminProperties.checkuserlogintype(conn ,username,pwd);
         if(arrlogin!=null)
