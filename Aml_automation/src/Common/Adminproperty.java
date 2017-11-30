@@ -1806,5 +1806,5 @@ public void sunMedia(String sunVideoURL, String layout, String browser, String y
 				Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\DriverFiles\\authentication_firefox.exe");
 			}
 			System.out.println("Authentication Successful");
-		}
+		 }
 }
