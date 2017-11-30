@@ -231,7 +231,7 @@ public class Adminproperty extends TestListenerAdapter {
 			findElement(prop.getProperty("twitter_text")).clear();
 			findElement(prop.getProperty("twitter_text")).sendKeys(twitter_text);
 		}
-
+		((JavascriptExecutor) driver).executeScript("scroll(0, -800);");
 		findElement(prop.getProperty("publish_post")).click();
 		implicitWait();
 		System.out.println("Published post");
@@ -1780,7 +1780,7 @@ public class Adminproperty extends TestListenerAdapter {
 			return result1;
 		}
 	
-		public void sunMedia(String sunVideoURL, String layout, String browser, String youtubeURL) {
+public void sunMedia(String sunVideoURL, String layout, String browser, String youtubeURL) {
 			
 			findAndClick("Video_URL");
 			implicitWait();
@@ -1793,8 +1793,18 @@ public class Adminproperty extends TestListenerAdapter {
 			findAndWrite("Sun_Xpath", sunVideoURL);
 			findAndWrite("Sun_youtubeXpath", youtubeURL);
 			if (sunVideoURL.contains("api")) {
-				findAndClick("button_sunmedia");
-			
+				findAndClick("button_sunmedia");		
+			}
 				}
-
+		
+		public void handleAuthentication(String browser) throws IOException {
+			
+			  if (browser.trim().equalsIgnoreCase("Chrome")) {
+			  Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\DriverFiles\\authentication_chrome.exe"); 
+			  }
+			else {
+				Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\DriverFiles\\authentication_firefox.exe");
+			}
+			System.out.println("Authentication Successful");
+		}
 }
