@@ -365,7 +365,5 @@ public class CreatePostExcel_EditorRoles {
 			((JavascriptExecutor) driver).executeScript("window.scrollBy(0,0)");
 			adminProperties.findAndClick("post_title");
 		}
-
 	}
-
 }
