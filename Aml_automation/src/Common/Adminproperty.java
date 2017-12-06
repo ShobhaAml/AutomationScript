@@ -2,6 +2,7 @@ package Common;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -27,6 +28,8 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -1780,8 +1783,7 @@ public class Adminproperty extends TestListenerAdapter {
 			return result1;
 		}
 	
-public void sunMedia(String sunVideoURL, String layout, String browser, String youtubeURL) {
-			
+		public void sunMedia(String sunVideoURL, String layout, String browser, String youtubeURL) {
 			findAndClick("Video_URL");
 			implicitWait();
 			if (layout.equalsIgnoreCase("normal")) {
@@ -1807,4 +1809,32 @@ public void sunMedia(String sunVideoURL, String layout, String browser, String y
 			}
 			System.out.println("Authentication Successful");
 		 }
+		
+		 public void writeExcel(String fileName,String sheetName,String[] dataToWrite) throws IOException{
+			    //DashboardButton
+				    String filePath = System.getProperty("user.dir") + "\\src\\Common\\";
+				    File file =    new File(filePath+"\\"+fileName); 	//Create an object of File class to open xlsx file
+					FileInputStream inputStream = new FileInputStream(file); //Create an object of FileInputStream class to read excel file
+					Workbook workbook = null;
+					String fileExtensionName = fileName.substring(fileName.indexOf(".")); //Find the file extension by splitting  file name in substring and getting only extension name
+					if(fileExtensionName.equals(".xlsx")){		//Check condition if the file is xlsx file
+						workbook = new XSSFWorkbook(inputStream); //If it is xlsx file then create object of XSSFWorkbook class
+					}//Check condition if the file is xls file
+					else if(fileExtensionName.equals(".xls")){  
+						workbook = new HSSFWorkbook(inputStream); //If it is xls file then create object of XSSFWorkbook class
+			      }
+				   Sheet sheet = workbook.getSheet(sheetName); //Read excel sheet by sheet name  
+				   int rowCount = sheet.getLastRowNum()-sheet.getFirstRowNum(); //Get the current count of rows in excel file
+				   Row row = sheet.getRow(0);  //Get the first row from the sheet
+				   Row newRow = sheet.createRow(rowCount+1); //Create a new row and append it at last of sheet
+				   for(int j = 0; j < row.getLastCellNum(); j++){//Create a loop over the cell of newly created Row
+					 //Fill data in row
+					  Cell cell = newRow.createCell(j);
+					  cell.setCellValue(dataToWrite[j]);
+				   }
+				   inputStream.close(); //Close input stream
+				   FileOutputStream outputStream = new FileOutputStream(file); //Create an object of FileOutputStream class to create write data in excel file
+				   workbook.write(outputStream); //write data in the excel file
+				   outputStream.close(); //close output stream
+			 }
 }

@@ -1,23 +1,12 @@
-package Admin;
+package Admin_Dashboard_sanity;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.xmlbeans.impl.xb.ltgfmt.FileDesc.Role;
-import org.junit.BeforeClass;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -42,10 +31,11 @@ public class CheckButtonsForPosttype {
 	String 	SelfRepublishButton="",OtherRepublishButton="",selfBrandRepublishButton="",OthersbrandedRepublishButton="";
 	String SelfRepost="",OtherRepost="",selfBrandRepost="",OthersbrandedRepost="";
 	String  SelfNormal="",OtherNormal="",selfBrandNormal="",OthersbrandedNormal="";
-	
 	String posttypearr="";
-	 String Futurepostbutton="";
-	 
+	String Futurepostbutton="";
+	String programeCommbutton="Pasar a borrador,Editar,Destacar";
+	String eCommbutton="Rechazar,Editar,Destacar";
+				
 	
 	/* public void getPosttypes() throws Exception
 	 {
@@ -57,7 +47,6 @@ public class CheckButtonsForPosttype {
 	@Test
 	public void Setup() throws Exception {
 		//getPosttypes();
-		System.out.println("Method 2");
 		prop = adminProperties.ReadProperties();
 		driver = adminProperties.callproperty(prop.getProperty("url"),
 				prop.getProperty("browser"));
@@ -67,7 +56,7 @@ public class CheckButtonsForPosttype {
 
 	@DataProvider(name = "testdata")
 	 public Object[][] TestDataFeed() throws Exception { Object[][] postdata =
-		 adminProperties.readExcel("Editorial Roles", 28); 
+		 adminProperties.readExcel("Dashboard TODO Editorial Roles", 28); 
 		 return postdata; 
 	 }
 
@@ -528,9 +517,9 @@ public class CheckButtonsForPosttype {
 @Test
  public void getstatus() throws Exception
  {	
-	
-		List<WebElement> list = adminProperties.findElementsByXpath(".//*[@id='posts_list']/tr");
-		
+	String category="";
+	List<WebElement> list = adminProperties.findElementsByXpath(".//*[@id='posts_list']/tr");
+		//System.out.println(list.size());
 		if(list.size()>0)
 		{
 		for (int i =0; i < list.size(); i++) {
@@ -561,26 +550,34 @@ public class CheckButtonsForPosttype {
 			
 		    if(!list.get(i).getAttribute("class").equalsIgnoreCase("tr-repost-incoming")){
 			 postauthor=adminProperties.findElement(".//*[@id='posts_list']/tr[" + (i + 1) + "]//td[3]/a").getText();
-				 posttypeviaID=adminProperties.getID(postid);
+			 posttypeviaID=adminProperties.getID(postid);
+				 
 			 }
-	
-			System.out.println("postid=="+postid + "  posttypeviaID==" +posttypeviaID);
+		    category=adminProperties.findElement(".//*[@id='posts_list']/tr[" + (i + 1) + "]//td[4]/p/a[1]").getText();
+			
+			if(category.equalsIgnoreCase("Especial Branded"))
+			{
+				posttypeviaID="Club";
+			}
+			
+		    
+			System.out.println("postid=="+postid + "  posttypeviaID==" +posttypeviaID + "   category=="+category);
 			System.out.println(list.get(i).getAttribute("class"));
 			//For future Scheduled post
 			if((list.get(i).getAttribute("class").equalsIgnoreCase("scheduled"))   ||  (list.get(i).getAttribute("class").equalsIgnoreCase("scheduled tomorrow"))  ||  (list.get(i).getAttribute("class").equalsIgnoreCase("scheduled today")))
 			{
 				if((adminProperties.findElement(".//*[@id='posts_list']/tr[" + (i + 1) + "]//td[1]").getAttribute("class").contains("td-republished")==true))
 				{//Scheduled Republished Post
-				Getactualresult(Comparebutton,"scheduleRepublish",posttypeviaID );
+				Getactualresult(Comparebutton,"scheduleRepublish",posttypeviaID,category );
 				}
 				else 
-				{ Getactualresult(Comparebutton, "schedule" ,posttypeviaID);					
+				{ Getactualresult(Comparebutton, "schedule" ,posttypeviaID,category);					
 				}
 				
 			}
 			else if(list.get(i).getAttribute("class").equalsIgnoreCase("republished"))
 			{//Republished Post
-			 	Getactualresult(Comparebutton, "republish" ,posttypeviaID);					
+			 	Getactualresult(Comparebutton, "republish" ,posttypeviaID,category);					
 			}
 			else if(list.get(i).getAttribute("class").equalsIgnoreCase("tr-repost-incoming"))
 			{//Repost posts
@@ -588,11 +585,11 @@ public class CheckButtonsForPosttype {
 				OthersbrandedRepost="Editar,Borrar";
 				OtherRepost="Editar,Borrar";
 				}
-				Getactualresult(Comparebutton, "Repost",posttypeviaID );					
+				Getactualresult(Comparebutton, "Repost",posttypeviaID,category );					
 			}
 			else 
 			{   Comparebutton=Comparebutton.replace("Pasar a borrador", "Rechazar");
-				Getactualresult(Comparebutton, "normal",posttypeviaID );					
+				Getactualresult(Comparebutton, "normal",posttypeviaID,category );					
 			}
 			System.out.println(" ");
 		}
@@ -604,7 +601,7 @@ public class CheckButtonsForPosttype {
  } 
 
 
-public void Getactualresult(String Comparebutton, String posttype , String ptype )
+public void Getactualresult(String Comparebutton, String posttype , String ptype, String category )
 {
 	
 	System.out.println(Authorname +"==="+(postauthor));
@@ -634,27 +631,34 @@ public void Getactualresult(String Comparebutton, String posttype , String ptype
 			
 	   	}
 		else{
-			
-			if(posttype.equalsIgnoreCase("schedule"))
-			{
-				System.out.println(posttitle +"====<b>"+ selffuture+"</b>===="+ Comparebutton +"===="  +getbuttonstatus( posttitle,Comparebutton,selffuture,posttype));
-			}else if(posttype.equalsIgnoreCase("scheduleRepublish"))
-			{
-				System.out.println(posttitle +"====<b>" + SelfScheduleRepublish+"</b>====" + Comparebutton +"===="+getbuttonstatus( posttitle,Comparebutton,SelfScheduleRepublish,posttype));
-			}
-			else if(posttype.equalsIgnoreCase("republish"))
-			{System.out.println(posttitle +"====<b>" + SelfRepublishButton+"</b>====" + Comparebutton +"===="+getbuttonstatus( posttitle,Comparebutton,SelfRepublishButton,posttype));
+				if((category.equalsIgnoreCase("Ecommerce"))||(category.equalsIgnoreCase("default")))
+				{
+					if(posttype.equalsIgnoreCase("schedule"))
+					{System.out.println(posttitle +"====<b>"+ programeCommbutton+"</b>===="+ Comparebutton +"===="  +getbuttonstatus( posttitle,Comparebutton,programeCommbutton,posttype));}
+					else
+					{System.out.println(posttitle +"====<b>"+ eCommbutton+"</b>===="+ Comparebutton +"===="  +getbuttonstatus( posttitle,Comparebutton,eCommbutton,posttype));}
+					
+				}else{		
+				if(posttype.equalsIgnoreCase("schedule"))
+				{
+					System.out.println(posttitle +"====<b>"+ selffuture+"</b>===="+ Comparebutton +"===="  +getbuttonstatus( posttitle,Comparebutton,selffuture,posttype));
+				}else if(posttype.equalsIgnoreCase("scheduleRepublish"))
+				{
+					System.out.println(posttitle +"====<b>" + SelfScheduleRepublish+"</b>====" + Comparebutton +"===="+getbuttonstatus( posttitle,Comparebutton,SelfScheduleRepublish,posttype));
+				}
+				else if(posttype.equalsIgnoreCase("republish"))
+				{System.out.println(posttitle +"====<b>" + SelfRepublishButton+"</b>====" + Comparebutton +"===="+getbuttonstatus( posttitle,Comparebutton,SelfRepublishButton,posttype));
+					
+				}
+				else if(posttype.equalsIgnoreCase("Repost"))
+				{System.out.println(posttitle +"====<b>" + SelfRepost+"</b>====" + Comparebutton +"===="+getbuttonstatus( posttitle,Comparebutton,SelfRepost,posttype));
+					
+				}else if(posttype.equalsIgnoreCase("normal"))
+				{
+					System.out.println(posttitle +"====<b>"+ SelfNormal+"</b>====" + Comparebutton +"====" +getbuttonstatus( posttitle,Comparebutton,SelfNormal,posttype));
+				}
 				
-			}
-			else if(posttype.equalsIgnoreCase("Repost"))
-			{System.out.println(posttitle +"====<b>" + SelfRepost+"</b>====" + Comparebutton +"===="+getbuttonstatus( posttitle,Comparebutton,SelfRepost,posttype));
-				
-			}else if(posttype.equalsIgnoreCase("normal"))
-			{
-				System.out.println(posttitle +"====<b>"+ SelfNormal+"</b>====" + Comparebutton +"====" +getbuttonstatus( posttitle,Comparebutton,SelfNormal,posttype));
-			}
-			
-			
+				}
 			}
 	}
 	else
@@ -684,7 +688,14 @@ public void Getactualresult(String Comparebutton, String posttype , String ptype
 		}
 		else
 		{
+			if((category.equalsIgnoreCase("Ecommerce"))||(category.equalsIgnoreCase("default")))
+			{
+				if(posttype.equalsIgnoreCase("schedule"))
+				{System.out.println(posttitle +"====<b>"+ programeCommbutton+"</b>===="+ Comparebutton +"===="  +getbuttonstatus( posttitle,Comparebutton,programeCommbutton,posttype));}
+				else
+				{System.out.println(posttitle +"====<b>"+ eCommbutton+"</b>===="+ Comparebutton +"===="  +getbuttonstatus( posttitle,Comparebutton,eCommbutton,posttype));}
 				
+			}else{	
 			if(posttype.equalsIgnoreCase("schedule"))
 			{
 				System.out.println(posttitle +"====<b>" + Otherfuture+"</b>====" + Comparebutton +"===="+getbuttonstatus( posttitle,Comparebutton, Otherfuture,posttype));
@@ -703,7 +714,7 @@ public void Getactualresult(String Comparebutton, String posttype , String ptype
 			{
 				System.out.println(posttitle +"====<b>"+ OtherNormal+"</b>====" + Comparebutton +"====" +getbuttonstatus( posttitle,Comparebutton,OtherNormal,posttype));
 			}
-
+			}
 		}
 	}
 
