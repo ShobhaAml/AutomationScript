@@ -22,7 +22,7 @@ public class CheckUserRoles {
     Properties prop = new Properties();
     String browser = "";
     Connection conn;
-    String blogroleName="";
+    public String blogroleName="";
 	public String Authorname="";
     
     @BeforeClass
@@ -46,7 +46,10 @@ public class CheckUserRoles {
             uname= logintypes[0].trim();
             blogrole= logintypes[1].trim();
             Authorname=logintypes[2].trim();
-     
+            if(blogrole==null)
+	   		 {
+	   			 blogrole="admin";
+	   		 }
                
           System.out.println(blogrole+" account");
            
@@ -67,14 +70,20 @@ public class CheckUserRoles {
            }else if(blogrole.equalsIgnoreCase("Branded Collaborator"))
            {
                blogroleName="Bcol";
+           }else if(blogrole.equalsIgnoreCase("director"))
+           {
+               blogroleName="director";
            }
-           else
-           { blogroleName="admin";}
+            else
+           { blogroleName="admin";
+           	blogrole="admin";
+           }
         }
         
-        System.out.println("Welcome " + blogrole + " " + blogroleName);
-        adminProperties.adminLogin();
         
+        
+        System.out.println("Welcome " + blogrole + " " + blogroleName);
+
         
     }
     
