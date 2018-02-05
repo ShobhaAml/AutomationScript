@@ -54,12 +54,9 @@ public class DashboardProgramButtonSanity {
 	String UBCOL_programpostbuttons_Normal_Other="Pasar a borrador";
 	String UBCOL_republishprogrampostbuttons_Normal_Other="",UBCOL_republishprogrampostbuttons_Normal_Self="Borrar";//No button
 	
-	
 	String Editor_programpostbuttons_Normal="Repost,Editar,Pasar a borrador,Destacar";
 	String Editor_republishprogrampostbuttons_Normal="Borrar";
 	String Editor_programpostbuttons_Branded="",Editor_republishprogrampostbuttons_Branded="";
-
-	
 	
 	CheckUserRoles ck= new CheckUserRoles();
 	Properties prop = new Properties();

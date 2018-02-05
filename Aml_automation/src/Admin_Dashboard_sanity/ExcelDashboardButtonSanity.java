@@ -56,12 +56,6 @@ public class ExcelDashboardButtonSanity {
 	String programeCommbutton="Pasar a borrador,Editar,Destacar";
 	String eCommbutton="Rechazar,Editar,Destacar";
 	
-	/*
-	 * public void getPosttypes() throws Exception {
-	 * posttypearr=adminProperties.getPostType();
-	 * System.out.println("Get post type"); }
-	 */
-
 	@Test
 	public void Setup() throws Exception {
 		// getPosttypes();
