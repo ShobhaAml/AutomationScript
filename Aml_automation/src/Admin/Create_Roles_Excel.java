@@ -53,7 +53,6 @@ public class Create_Roles_Excel {
 				adminProperties.findAndClick("user_role");
 				Select select = new Select(driver.findElement(By.xpath("//*[@id=\"editor-blogrole\"]")));
 				select.selectByValue("Lead Editor");
-
 				enter_data(userpassword, useremail, usertwitter, usernormalpost, userspecialpost, userdescription);
 			}
 
