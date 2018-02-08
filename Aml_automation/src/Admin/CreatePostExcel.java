@@ -260,7 +260,7 @@ public class CreatePostExcel {
 			 * println("Branded Collaborator don't have access to publish a post" ); } else{
 			 */
 			adminProperties.findAndClick("publish_tab");
-			adminProperties.handleAuthentication(browser);
+			adminProperties.handleAuthenticationDialog(browser);
 			Thread.sleep(7000);
 			if (!Branded_club.equalsIgnoreCase("null")) {
 				adminProperties.insertBrandedClub(Branded_club, tag);

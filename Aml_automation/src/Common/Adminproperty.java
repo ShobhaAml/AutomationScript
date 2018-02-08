@@ -1799,17 +1799,6 @@ public class Adminproperty extends TestListenerAdapter {
 			}
 				}
 		
-		public void handleAuthentication(String browser) throws IOException {
-			
-			  if (browser.trim().equalsIgnoreCase("Chrome")) {
-			  Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\DriverFiles\\authentication_chrome.exe"); 
-			  }
-			else {
-				Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\DriverFiles\\authentication_firefox.exe");
-			}
-			System.out.println("Authentication Successful");
-		 }
-		
 		 public void writeExcel(String fileName,String sheetName,String[] dataToWrite) throws IOException{
 			    //DashboardButton
 				    String filePath = System.getProperty("user.dir") + "\\src\\Common\\";
@@ -1837,4 +1826,41 @@ public class Adminproperty extends TestListenerAdapter {
 				   workbook.write(outputStream); //write data in the excel file
 				   outputStream.close(); //close output stream
 			 }
+		 
+		 public void handleAuthenticationDialog(String browser) throws IOException {
+				
+			  if (browser.trim().equalsIgnoreCase("Chrome")) {
+			  Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\DriverFiles\\authentication_chrome.exe"); 
+			  }
+			else {
+				Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\DriverFiles\\authentication_firefox.exe");
+			}
+			System.out.println("Sucessfully Authenticated");
+		 }
+		
+		public Object[][] readExcel_roleCreation(String excelsheetname, int columns) throws IOException {
+			String filepath = System.getProperty("user.dir") + "\\src\\Common\\";
+			String filename = "Excel_roleCreation.xlsx";
+			FileInputStream instream = new FileInputStream(filepath + "\\" + filename);
+			System.out.println(filepath + "\\" + filename);
+			Workbook wb = new XSSFWorkbook(instream);
+			Sheet sheet = wb.getSheet(excelsheetname);
+			int rows = sheet.getLastRowNum() - sheet.getFirstRowNum();
+			int cnt = 0;
+			System.out.println(rows + "===" + columns);
+
+			Object[][] userdata = new Object[rows][columns];
+			for (int i = 1; i <= rows; i++) {
+				Row row = sheet.getRow(i);
+				for (int j = 0; j < row.getLastCellNum(); j++) {
+					sheet.getRow(i).getCell(j).setCellType(sheet.getRow(i).getCell(j).CELL_TYPE_STRING);
+					if (sheet.getRow(i).getCell(j).getStringCellValue() != "") {
+						userdata[cnt][j] = sheet.getRow(i).getCell(j).getStringCellValue();
+					}
+				}
+				cnt++;
+			}
+
+			return userdata;
+		}
 }
