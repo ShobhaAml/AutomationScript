@@ -305,7 +305,7 @@ public class CreatePostExcel_EditorRoles {
 				 * println("Branded Collaborator don't have access to publish a post" ); } else{
 				 */
 				adminProperties.findAndClick("publish_tab");
-				adminProperties.handleAuthentication(browser);
+				adminProperties.handleAuthenticationDialog(String browser);
 				Thread.sleep(4000);
 
 				if (!Branded_club.equalsIgnoreCase("null")) {
