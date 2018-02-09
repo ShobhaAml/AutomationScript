@@ -42,6 +42,7 @@ public class DraftFilter_Sanity {
 	}
 
 	public void buttonStatus(String role) throws Exception {
+		
 	List<WebElement> list = adminProperties.findElementsByXpath(prop.getProperty("postListXpath"));
 	if (list.size() > 0) {
 	for (int i = 0; i < list.size(); i++) {
@@ -93,8 +94,7 @@ public class DraftFilter_Sanity {
 					 status = "  ****  "+  array+" ****  <<-------Pass----->>";
 				else
 					status = "  ****  "+array+"  ****   <<-------Fail----->>";
-							return status;
-		
+							return status;		
 	}
 
 }

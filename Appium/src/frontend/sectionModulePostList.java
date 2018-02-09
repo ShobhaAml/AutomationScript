@@ -37,7 +37,7 @@ public class sectionModulePostList {
 		Thread.sleep(1000);
 		driver.get(baseurl1);
 		Thread.sleep(10000);
-	}
+			}
 
 	@Test
 	public void sectionModule() throws InterruptedException {
