@@ -1,4 +1,4 @@
-package Admin_Dashboard_Sanity;
+package Admin_Dashboard_sanity;
 
 import java.util.ArrayList;
 import java.util.List;

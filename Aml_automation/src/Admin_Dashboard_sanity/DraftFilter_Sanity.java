@@ -1,4 +1,4 @@
-package Admin_Dashboard_Sanity;
+package Admin_Dashboard_sanity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,29 +51,33 @@ public class DraftFilter_Sanity {
 	String postTypeStatus = adminProperties.getID(postID);				
 
 	if (role.equalsIgnoreCase("Unbranded collaboraor") && (postTypeStatus.equalsIgnoreCase("normal"))) {					
-    if (driver.findElement(By.xpath(".//*[@id='row-" + postID + "']/td[3]/a")).getText().equalsIgnoreCase(roleType.Authorname)) {						
-	List<WebElement> UColButtons = driver.findElements(By.xpath(".//*[@id='row-" + postID + "']" +prop.getProperty("buttonXpath")));
-	System.out.println("postID is-->>" + postID + "   postTitle is-->>" + postTitle	+ "   postStatus is-->>" + postTypeStatus +button(commonButtons, UColButtons));
-    } else {
-	if (driver.findElement(By.xpath(".//*[@id='row-" + postID + "']/td[6]")).getAttribute("class").contentEquals("") == false)
-	System.out.println("postID is-->>" + postID + "   postType is-->>" + postTypeStatus	+ "   postTitle is-->>" +postTitle + "    <<-----No action buttons---->>");
-	}}
+     if (driver.findElement(By.xpath(".//*[@id='row-" + postID + "']/td[3]/a")).getText().equalsIgnoreCase(roleType.Authorname)) {						
+	 List<WebElement> UColButtons = driver.findElements(By.xpath(".//*[@id='row-" + postID + "']" +prop.getProperty("buttonXpath")));
+	 System.out.println("postID is-->>" + postID + "   postTitle is-->>" + postTitle	+ "   postStatus is-->>" + postTypeStatus +button(commonButtons, UColButtons));
+     } else {
+	 if (driver.findElement(By.xpath(".//*[@id='row-" + postID + "']/td[6]")).getAttribute("class").contentEquals("") == false)
+	 System.out.println("postID is-->>" + postID + "   postType is-->>" + postTypeStatus	+ "   postTitle is-->>" +postTitle + "    <<-----No action buttons---->>");
+	 }}
+	
 	if (role.equalsIgnoreCase("Unbranded Coordinator")) {
-	if (postTypeStatus.equalsIgnoreCase("normal")) {
-	List<WebElement> UCorButtons = driver.findElements(By.xpath(".//*[@id='row-" + postID + "']" +prop.getProperty("buttonXpath")));
-	System.out.println("postID is-->>" + postID + "   postTitle is-->>" + postTitle	+ "   postStatus is-->>" + postTypeStatus +button(editorcorButtons, UCorButtons));			
-	}
-	if (postTypeStatus.equalsIgnoreCase("Club")) {
-	if (driver.findElement(By.xpath(".//*[@id='row-" + postID + "']/td[6]")).getAttribute("class").contentEquals(" ") == false)
-	System.out.println("postID is-->>" + postID + "   postType is-->>" + postTypeStatus	+ "   postTitle is-->>" +postTitle + "    <<-----No action buttons for club post---->>");
-	}}
+	 if (postTypeStatus.equalsIgnoreCase("normal")) {
+     List<WebElement> UCorButtons = driver.findElements(By.xpath(".//*[@id='row-" + postID + "']" +prop.getProperty("buttonXpath")));
+	 System.out.println("postID is-->>" + postID + "   postTitle is-->>" + postTitle	+ "   postStatus is-->>" + postTypeStatus +button(editorcorButtons, UCorButtons));			
+	 }
+	 if (postTypeStatus.equalsIgnoreCase("Club")) {
+	 if (driver.findElement(By.xpath(".//*[@id='row-" + postID + "']/td[6]")).getAttribute("class").contentEquals(" ") == false)
+	 System.out.println("postID is-->>" + postID + "   postType is-->>" + postTypeStatus	+ "   postTitle is-->>" +postTitle + "    <<-----No action buttons for club post---->>");
+	 }}
+	
     if (role.equalsIgnoreCase("Branded Collaborator") && (postTypeStatus.equalsIgnoreCase("Club"))&& (driver.findElement(By.xpath(".//*[@id='row-" + postID + "']/td[3]/a")).getText().equalsIgnoreCase(roleType.Authorname))) {List<WebElement> BColButtons = driver.findElements(By.xpath(".//*[@id='row-" + postID + "']" +prop.getProperty("buttonXpath")));
 	System.out.println("postID is-->>" + postID + "   postTitle is-->>" + postTitle	+ "   postStatus is-->>" + postTypeStatus +button(commonButtons, BColButtons));			
 	}
+    
 	if (role.equalsIgnoreCase("Branded Coordinator") && (postTypeStatus.equalsIgnoreCase("Club"))) {
 	List<WebElement> BCorButtons = driver.findElements(By.xpath(".//*[@id='row-"+postID+"']" +prop.getProperty("buttonXpath")));
 	System.out.println("postID is-->>" + postID + "   postTitle is-->>" + postTitle	+ "   postStatus is-->>" + postTypeStatus +button(commonButtons, BCorButtons));			
 	}
+	
 	if (role.equalsIgnoreCase("Editor")) {
 	if (postTypeStatus.equalsIgnoreCase("normal")) {
 	List<WebElement> UCorButtons = driver.findElements(By.xpath(".//*[@id='row-"+postID+"']" +prop.getProperty("buttonXpath")));

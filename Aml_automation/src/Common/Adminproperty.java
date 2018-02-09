@@ -561,9 +561,9 @@ public class Adminproperty extends TestListenerAdapter {
 		findAndClick("publish_tab");
 		/* } */
 
-		WebDriverWait wait = new WebDriverWait(driver, 10);
+		/*WebDriverWait wait = new WebDriverWait(driver, 10);
 		Alert alert = wait.until(ExpectedConditions.alertIsPresent());
-		alert.authenticateUsing(new UserAndPassword("guest", "guest"));
+		alert.authenticateUsing(new UserAndPassword("guest", "guest"));*/
 
 	}
 
