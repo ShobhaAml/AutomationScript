@@ -118,12 +118,18 @@ public class Dashboard_TODO_search {
 					posttypeviaID = adminProperties.getID(postid);
 					category = adminProperties.findElement(".//*[@id='posts_list']/tr[" + (i + 1) + "]//td[4]/p/a[1]")
 							.getText(); // Ecommerce
+					
+					System.out.println(category);
 					// System.out.println(category,titleMatch,postcontentMatch,status);
 				
 					System.out.println(adminProperties.findElement(".//*[@id='posts_list']/tr[" + (i + 1) + "]//td[1]").getAttribute("class"));	
 					if(adminProperties.findElement(".//*[@id='posts_list']/tr[" + (i + 1) + "]//td[1]").getAttribute("class").contains("td-respuesta"))
 					{
 						stype="respuesta";
+					}
+					else if(category.equalsIgnoreCase("Ecommerce"))
+					{
+						stype="ecom";
 					}
 					else
 					{

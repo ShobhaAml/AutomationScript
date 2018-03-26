@@ -1940,7 +1940,13 @@ public class Adminproperty extends TestListenerAdapter {
 			{
 				status = driver.findElement(By.xpath(".//*[@class='article-summary']")).getText();
 				
-			}else {
+			}
+			else if (posttype.equalsIgnoreCase("ecom"))
+			{
+				status = driver.findElement(By.xpath(".//*[@class='context']")).getText();
+				
+			}
+			else {
 			status = driver.findElement(By.xpath(".//*[@class='article-content']")).getText();
 			}
 			driver.close();
