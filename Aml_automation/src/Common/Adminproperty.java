@@ -14,12 +14,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.logging.Level;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 
@@ -78,25 +81,23 @@ public class Adminproperty extends TestListenerAdapter {
 
 	public WebDriver callproperty(String url, String browser) throws IOException {
 
-		LoggingPreferences loggingprefs = new LoggingPreferences();
-		loggingprefs.enable(LogType.BROWSER, Level.ALL);
+		/*LoggingPreferences loggingprefs = new LoggingPreferences();
+		loggingprefs.enable(LogType.BROWSER, Level.ALL);*/
 		if (browser.trim().equalsIgnoreCase("Chrome")) {
-			System.setProperty("webdriver.chrome.driver",
-
-					System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedriver.exe");
+			System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedriver.exe");
 			DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-			capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
+			/*capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);*/
 
 			ChromeOptions options = new ChromeOptions();
 			options.addArguments("start-maximized");
-			options.addArguments("" + capabilities + "");
+			//options.addArguments("" + capabilities + "");
 			driver = new ChromeDriver(options);
 
 		} else {
 			System.setProperty("webdriver.gecko.driver",
 					System.getProperty("user.dir") + "//src//Driverfiles//" + "geckodriver.exe");
 			DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-			capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
+			/*capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);*/
 			driver = new FirefoxDriver(capabilities);
 		}
 		driver.get(url);
@@ -1863,4 +1864,124 @@ public class Adminproperty extends TestListenerAdapter {
 
 			return userdata;
 		}
+	 /*public List<IndexWrapper> findIndexesForKeyword(String keyword,String searchString) {
+		 
+		 String result= findMatch( keyword, searchString);
+		
+		 System.out.println("Matching result======"+result);
+	        String regex = "\\b"+keyword+"\\b";
+	        Pattern pattern = Pattern.compile(regex);
+	        Matcher matcher = pattern.matcher(searchString);
+	 
+	        List<IndexWrapper> wrappers = new ArrayList<IndexWrapper>();
+	 
+	        while(matcher.find() == true){
+	            int end = matcher.end();
+	            int start = matcher.start();
+	            IndexWrapper wrapper = new IndexWrapper(start, end);
+	            wrappers.add(wrapper);
+		        System.out.println(wrapper);
+
+	        }
+	        
+	        
+		
+	        return wrappers;
+	    }
+	 */
+		
+		public String findMatch(String keyword,String searchString)
+		{
+			String arrmatch="";
+	
+			String[] tags=keyword.toLowerCase().split(" ");
+			int cnt=0;
+			int index =0;
+			
+			for(int j=0;j<tags.length;j++)
+			{
+				if(tags[j].length()>2) {
+				String tagsRegex = "\\w*(" + String.join("|", tags[j].substring(0, 3)) + ")\\w*";
+				Matcher matcher = Pattern.compile(tagsRegex,
+                     Pattern.UNICODE_CHARACTER_CLASS).matcher(searchString.toLowerCase());
+			 while (matcher.find() ) {
+			     // System.out.println("MATCH======="+matcher.group() );
+			     if(arrmatch!="")
+			     {
+			    	 arrmatch=arrmatch+","+ matcher.group();
+			     }
+			     else
+			     {
+			    	 arrmatch=matcher.group(); 
+			     }
+			    }
+				}
+			}
+			 //System.out.println(arrmatch);
+			 
+			/*String result=  String.valueOf(cnt) ;
+			result=result+"@"+arrmatch;
+			*/
+			return arrmatch;
+		}
+		
+		
+	 public String getPostcontent(String ID,String posttype,String sitename) {
+		 System.out.println("ID==="+ID);
+			String status = "";
+			String url = sitename.replace("https://testing", "https://guest:guest@testing");
+			//System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedriver.exe");
+			
+			WebDriver driver = new HtmlUnitDriver();
+			driver.get(url);
+			/*driver.navigate().refresh();
+			*/driver.manage().timeouts().implicitlyWait(1000,TimeUnit.SECONDS);
+			if(posttype.equalsIgnoreCase("respuesta"))
+			{
+				status = driver.findElement(By.xpath(".//*[@class='article-summary']")).getText();
+				
+			}else {
+			status = driver.findElement(By.xpath(".//*[@class='article-content']")).getText();
+			}
+			driver.close();
+			return status;
+		}
+	 
+	 public void CreateMVPpost() {
+		 	findAndClick("navigation_header");
+		 	findAndClick("create_MVPpost_link");
+	        ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+	        driver.switchTo().window(tabs.get(1));
+	        Conditionalwait("mvp_close_dialog");
+	        findAndClick("mvp_close_dialog");
+	        implicitWait();
+	    }
+
+
+	public void ClickImageICON(WebDriver driver) throws InterruptedException {
+		/*Thread.sleep(1000);
+		findAndClick("Clickplus");
+		implicitWait();
+		Thread.sleep(1000);
+		findAndClick("MVPImage");*/
+		 Thread.sleep(3000);
+	      Actions action = new Actions(driver);
+	      action.moveToElement(driver.findElement(By.xpath(prop.getProperty("content_section_path"))));
+	      action.click();
+          implicitWait();
+	       action.sendKeys(Keys.ENTER);
+	       action.build().perform();
+	        implicitWait();
+	        findAndClick("Clickplus");
+	        implicitWait();
+	        findAndClick("MVPImage");
+	        implicitWait();
+		}
+
+	public void AddMVPTitle(String title){
+	    
+	    findAndWrite("MVPtitle", title);    
+	    
+	}
+	
 }
