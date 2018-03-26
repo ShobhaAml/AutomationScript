@@ -171,6 +171,9 @@ public class Dashboard_Admin_All_search {
 					if(adminProperties.findElement(".//*[@id='posts_list']/tr[" + (i + 1) + "]//td[1]").getAttribute("class").contains("td-respuesta"))
 					{
 						stype="respuesta";
+					}else if(category.equalsIgnoreCase("Ecommerce"))
+					{
+						stype="ecom";
 					}
 					else
 					{
