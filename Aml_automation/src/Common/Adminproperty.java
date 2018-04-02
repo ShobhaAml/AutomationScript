@@ -2009,4 +2009,21 @@ public class Adminproperty extends TestListenerAdapter {
 		actions.build().perform();
 	}
 	
+	public void mvpUrlImage(String image_url, String image_url_decp) throws InterruptedException {
+		Actions action = new Actions(driver);
+		implicitWait();
+		action.moveToElement(driver.findElement(By.className(prop.getProperty("urlUploadClass"))));
+		action.click();
+		action.sendKeys(image_url);
+		action.build().perform();
+		findAndClick("mvp_image_url_button");
+		implicitWait();
+		Conditionalwait("image_select");
+		findAndClick("image_select");
+		action.moveToElement(driver.findElement(By.xpath(prop.getProperty("image_url_decp_path"))));
+		action.click();
+		action.sendKeys(image_url_decp);
+		action.build().perform();
+		findAndClick("mvp_submit_button");
+	}
 }
