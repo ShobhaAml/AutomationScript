@@ -1997,5 +1997,16 @@ public class Adminproperty extends TestListenerAdapter {
 				+ System.getProperty("user.dir") + "\\src\\Images\\" + prop.getProperty("MVPimage_locate"));
 		System.out.println("Image sucessfully uploaded");
     }
+
+	public void addMVP_SectionContent(String addContent) throws InterruptedException {
+		Actions actions = new Actions(driver);
+		List<WebElement> list = (findElementsByXpath(prop.getProperty("sectionListMVP")));
+		if (list.get(list.size() - 1).findElement(By.xpath("//*[@class='node-wrapper']")) != null)
+			actions.moveToElement(driver.findElement(By.xpath(".//*[@id='"
+					+ list.get(list.size() - 1).getAttribute("id") + "']" + prop.getProperty("newLineMVP")))).click();
+		actions.sendKeys(addContent);
+		actions.sendKeys(Keys.ENTER);
+		actions.build().perform();
+	}
 	
 }
