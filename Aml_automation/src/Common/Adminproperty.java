@@ -1990,4 +1990,12 @@ public class Adminproperty extends TestListenerAdapter {
 	    
 	}
 	
+	public void primary_image_mvp(String browser) throws IOException, InterruptedException {
+
+		findAndClick("MVP_upload_img_btn");
+		Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\DriverFiles\\mvpImage_chrome.exe" + " "
+				+ System.getProperty("user.dir") + "\\src\\Images\\" + prop.getProperty("MVPimage_locate"));
+		System.out.println("Image sucessfully uploaded");
+    }
+	
 }
