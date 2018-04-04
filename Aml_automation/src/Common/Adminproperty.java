@@ -2018,12 +2018,23 @@ public class Adminproperty extends TestListenerAdapter {
 		action.build().perform();
 		findAndClick("mvp_image_url_button");
 		implicitWait();
-		Conditionalwait("image_select");
+	/*	Conditionalwait("image_select");
 		findAndClick("image_select");
 		action.moveToElement(driver.findElement(By.xpath(prop.getProperty("image_url_decp_path"))));
 		action.click();
 		action.sendKeys(image_url_decp);
 		action.build().perform();
-		findAndClick("mvp_submit_button");
+		findAndClick("mvp_submit_button");*/
+		
+	}
+	public void Insertimage()
+	{
+		Conditionalwait("image_select");
+		findAndClick("MVPResourceImage1");
+		implicitWait();
+		implicitWait();
+		driver.switchTo().activeElement();
+		findAndWrite("MVPImageAlt","testing alternate text");
+		findAndClick("MVPInsertButton");
 	}
 }
