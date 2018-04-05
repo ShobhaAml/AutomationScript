@@ -1995,13 +1995,25 @@ public class Adminproperty extends TestListenerAdapter {
 
 	public void addMVP_SectionContent(String addContent) throws InterruptedException {
 		Actions actions = new Actions(driver);
-		List<WebElement> list = (findElementsByXpath(prop.getProperty("sectionListMVP")));
-		if (list.get(list.size() - 1).findElement(By.xpath("//*[@class='node-wrapper']")) != null)
-			actions.moveToElement(driver.findElement(By.xpath(".//*[@id='"
-					+ list.get(list.size() - 1).getAttribute("id") + "']" + prop.getProperty("newLineMVP")))).click();
-		actions.sendKeys(addContent);
-		actions.sendKeys(Keys.ENTER);
-		actions.build().perform();
+		if (adminProperties.findElement(prop.getProperty("typeSection")).getText()
+				.equalsIgnoreCase("Empieza a escribir aquí...")) {
+			Thread.sleep(1000);
+			actions.moveToElement(driver.findElement(By.xpath(prop.getProperty("addSection"))));
+			actions.click();
+			actions.sendKeys(addContent);
+			actions.build().perform();
+			adminProperties.implicitWait();
+		} else {
+			Thread.sleep(1000);
+			List<WebElement> list = (adminProperties.findElementsByXpath(prop.getProperty("sectionList")));
+			if (list.get(list.size() - 1).findElement(By.xpath("//*[@class='node-wrapper']")) != null)
+				actions.moveToElement(driver.findElement(By.xpath(".//*[@id='"
+						+ list.get(list.size() - 1).getAttribute("id") + "']" + prop.getProperty("newLineMVP"))))
+						.click();
+			actions.sendKeys(addContent);
+			//actions.sendKeys(Keys.ENTER);
+			actions.build().perform();
+		}
 	}
 
 	public void mvpUrlImage(String image_url) throws InterruptedException {
