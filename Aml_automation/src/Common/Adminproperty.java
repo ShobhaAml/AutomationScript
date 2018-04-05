@@ -1965,38 +1965,33 @@ public class Adminproperty extends TestListenerAdapter {
 
 
 	public void ClickImageICON(WebDriver driver) throws InterruptedException {
-		/*Thread.sleep(1000);
+		Thread.sleep(2000);
+		Actions action = new Actions(driver);
+		action.moveToElement(driver.findElement(By.xpath(prop.getProperty("content_section_path"))));
+		action.click();
+		implicitWait();
+		action.sendKeys(Keys.ENTER);
+		action.build().perform();
+		implicitWait();
 		findAndClick("Clickplus");
 		implicitWait();
-		Thread.sleep(1000);
-		findAndClick("MVPImage");*/
-		 Thread.sleep(3000);
-	      Actions action = new Actions(driver);
-	      action.moveToElement(driver.findElement(By.xpath(prop.getProperty("content_section_path"))));
-	      action.click();
-          implicitWait();
-	       action.sendKeys(Keys.ENTER);
-	       action.build().perform();
-	        implicitWait();
-	        findAndClick("Clickplus");
-	        implicitWait();
-	        findAndClick("MVPImage");
-	        implicitWait();
-		}
-
-	public void AddMVPTitle(String title){
-	    
-	    findAndWrite("MVPtitle", title);    
-	    
+		findAndClick("MVPImage");
+		implicitWait();
 	}
-	
+
+	public void AddMVPTitle(String title) {
+
+		findAndWrite("MVPtitle", title);
+
+	}
+
 	public void primary_image_mvp(String browser) throws IOException, InterruptedException {
 
 		findAndClick("MVP_upload_img_btn");
 		Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\DriverFiles\\mvpImage_chrome.exe" + " "
 				+ System.getProperty("user.dir") + "\\src\\Images\\" + prop.getProperty("MVPimage_locate"));
 		System.out.println("Image sucessfully uploaded");
-    }
+	}
 
 	public void addMVP_SectionContent(String addContent) throws InterruptedException {
 		Actions actions = new Actions(driver);
@@ -2008,8 +2003,8 @@ public class Adminproperty extends TestListenerAdapter {
 		actions.sendKeys(Keys.ENTER);
 		actions.build().perform();
 	}
-	
-	public void mvpUrlImage(String image_url, String image_url_decp) throws InterruptedException {
+
+	public void mvpUrlImage(String image_url) throws InterruptedException {
 		Actions action = new Actions(driver);
 		implicitWait();
 		action.moveToElement(driver.findElement(By.className(prop.getProperty("urlUploadClass"))));
@@ -2018,23 +2013,15 @@ public class Adminproperty extends TestListenerAdapter {
 		action.build().perform();
 		findAndClick("mvp_image_url_button");
 		implicitWait();
-	/*	Conditionalwait("image_select");
-		findAndClick("image_select");
-		action.moveToElement(driver.findElement(By.xpath(prop.getProperty("image_url_decp_path"))));
-		action.click();
-		action.sendKeys(image_url_decp);
-		action.build().perform();
-		findAndClick("mvp_submit_button");*/
-		
 	}
-	public void Insertimage()
-	{
+
+	public void Insertimage() {
 		Conditionalwait("image_select");
 		findAndClick("MVPResourceImage1");
 		implicitWait();
 		implicitWait();
 		driver.switchTo().activeElement();
-		findAndWrite("MVPImageAlt","testing alternate text");
+		findAndWrite("MVPImageAlt", "testing alternate text");
 		findAndClick("MVPInsertButton");
 	}
 }
