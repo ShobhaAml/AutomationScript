@@ -1994,7 +1994,7 @@ public class Adminproperty extends TestListenerAdapter {
 	}
 
 	public void addMVP_SectionContent(String addContent) throws InterruptedException {
-		Actions actions = new Actions(driver);
+				Actions actions = new Actions(driver);
 		if (adminProperties.findElement(prop.getProperty("typeSection")).getText()
 				.equalsIgnoreCase("Empieza a escribir aquí...")) {
 			Thread.sleep(1000);
