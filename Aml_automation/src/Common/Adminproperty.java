@@ -1995,17 +1995,17 @@ public class Adminproperty extends TestListenerAdapter {
 
 	public void addMVP_SectionContent(String addContent) throws InterruptedException {
 				Actions actions = new Actions(driver);
-		if (adminProperties.findElement(prop.getProperty("typeSection")).getText()
+		if (findElement(prop.getProperty("typeSection")).getText()
 				.equalsIgnoreCase("Empieza a escribir aquí...")) {
 			Thread.sleep(1000);
 			actions.moveToElement(driver.findElement(By.xpath(prop.getProperty("addSection"))));
 			actions.click();
 			actions.sendKeys(addContent);
 			actions.build().perform();
-			adminProperties.implicitWait();
+			implicitWait();
 		} else {
 			Thread.sleep(1000);
-			List<WebElement> list = (adminProperties.findElementsByXpath(prop.getProperty("sectionList")));
+			List<WebElement> list = (findElementsByXpath(prop.getProperty("sectionList")));
 			if (list.get(list.size() - 1).findElement(By.xpath("//*[@class='node-wrapper']")) != null)
 				actions.moveToElement(driver.findElement(By.xpath(".//*[@id='"
 						+ list.get(list.size() - 1).getAttribute("id") + "']" + prop.getProperty("newLineMVP"))))
@@ -2035,5 +2035,25 @@ public class Adminproperty extends TestListenerAdapter {
 		driver.switchTo().activeElement();
 		findAndWrite("MVPImageAlt", "testing alternate text");
 		findAndClick("MVPInsertButton");
+	}
+	
+	public void getHintImageToolbar() throws InterruptedException {
+		Actions actions = new Actions(driver);
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//*[@class='node-wrapper']")).click();
+		List<WebElement> toolBarList = findElementsByXpath(prop.getProperty("imageToolbarList"));
+		actions.moveToElement(findElement(prop.getProperty("activeImageToolbar"))).clickAndHold().build().perform();
+		Thread.sleep(1000);
+		System.out.println(
+				"Active_image layout is   -->>" + findElement(prop.getProperty("activeImageToolbar")).getText());
+		implicitWait();
+		for (int i = 0; i <= toolBarList.size(); i++) {
+			actions.moveToElement(toolBarList.get(i)).clickAndHold().build().perform();
+			Thread.sleep(1000);
+			System.out.println("Other toolbars are -->   " + toolBarList.get(i).getText());
+			if (i == toolBarList.size() - 1)
+				break;
+			actions.moveToElement(toolBarList.get(i + 1)).clickAndHold().build().perform();
+		}
 	}
 }
