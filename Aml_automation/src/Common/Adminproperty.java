@@ -2052,7 +2052,7 @@ public class Adminproperty extends TestListenerAdapter {
 			Thread.sleep(1000);
 			System.out.println("Other toolbars are -->   " + toolBarList.get(i).getText());
 			if (i == toolBarList.size() - 1)
-				break;
+			break;
 			actions.moveToElement(toolBarList.get(i + 1)).clickAndHold().build().perform();
 		}
 	}
