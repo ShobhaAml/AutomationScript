@@ -2122,4 +2122,27 @@ public class Adminproperty extends TestListenerAdapter {
 			}
 		}
 	}
+
+	public void deleteMVPImage() throws InterruptedException {
+		Thread.sleep(2000);
+		findAndClick("for_delete_image_click");
+		implicitWait();
+		findAndClick("delete_img_button");
+	}
+
+	public void warnningPopup() {
+		String warnning = "Editar Este Artículo en Alfa";
+		WebElement element = driver.findElement(By.xpath(prop.getProperty("matchTextMVP")));
+		element.getText();
+		System.out.println(element.getText());
+		if (element.getText().equalsIgnoreCase(warnning)) {
+			Conditionalwait("warnningPopup1");
+			findAndClick("warnningPopup1");
+			implicitWait();
+		} else {
+			Conditionalwait("warnningPopup2");
+			findAndClick("warnningPopup2");
+			implicitWait();
+		}
+	}
 }
