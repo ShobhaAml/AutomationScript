@@ -2145,4 +2145,35 @@ public class Adminproperty extends TestListenerAdapter {
 			implicitWait();
 		}
 	}
+	
+	public void addImageCaption() throws InterruptedException {
+		Thread.sleep(2000);
+		Actions action = new Actions(driver);
+		action.moveToElement(driver.findElement(By.xpath(prop.getProperty("imgCaption_path"))));
+		action.click();
+		action.sendKeys("image caption xyz");
+		action.sendKeys(Keys.TAB);
+		action.build().perform();
+		System.out.println("Caption successfully inserted");
+
+	}
+	
+	public void selectImageLayout(String layout) throws InterruptedException {
+
+		Thread.sleep(2000);
+		driver.findElement(By.xpath(prop.getProperty("imgToolbar_path"))).click();
+		if (layout.equalsIgnoreCase("smallLeft")) {
+			driver.findElement(By.xpath(prop.getProperty("img_smallLeft"))).click();
+		} else if (layout.equalsIgnoreCase("smallCenter")) {
+			driver.findElement(By.xpath(prop.getProperty("img_smallCenter"))).click();
+		} else if (layout.equalsIgnoreCase("smallRight")) {
+			driver.findElement(By.xpath(prop.getProperty("img_smallRight"))).click();
+		} else if (layout.equalsIgnoreCase("normalCenter")) {
+			driver.findElement(By.xpath(prop.getProperty("img_normalCenter"))).click();
+		} else {
+			driver.findElement(By.xpath(prop.getProperty("img_big"))).click();
+		}
+
+		System.out.println("Layout selected successfully");
+	}
 }
