@@ -2061,4 +2061,66 @@ public class Adminproperty extends TestListenerAdapter {
 			actions.moveToElement(toolBarList.get(i + 1)).clickAndHold().build().perform();
 		}
 	}
+
+	public void Insertimage(String layout) throws InterruptedException {
+		Conditionalwait("image_select");
+		Thread.sleep(3000);
+		findAndClick("MVPResourceImage1");
+		implicitWait();
+		Thread.sleep(3000);
+		implicitWait();
+		driver.switchTo().activeElement();
+		findAndWrite("MVPImageAlt", "testing alternate text");
+		if (layout.equalsIgnoreCase(""))
+			findAndClick("MVPInsertButton");
+		else
+			layoutResourcePanel(layout);
+		findAndClick("MVPInsertButton");
+	}
+
+	public void editImage(String image, String layout) throws InterruptedException {
+		Actions actions = new Actions(driver);
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//*[@class='node-wrapper']")).click();
+		List<WebElement> toolBarList = findElementsByXpath(prop.getProperty("imageToolbarList"));
+		for (int i = 0; i < toolBarList.size(); i++) {
+			actions.moveToElement(toolBarList.get(i)).clickAndHold().build().perform();
+			Thread.sleep(1000);
+			if (toolBarList.get(i).getText().equalsIgnoreCase("Editar")) {
+				toolBarList.get(i).click();
+				break;
+			}
+		}
+		if (image.equalsIgnoreCase("")) {
+			Thread.sleep(1000);
+			findAndClick("image_select");
+			actions.moveToElement(driver.findElement(By.xpath(prop.getProperty("image_url_decp_path"))));
+			actions.click();
+			findAndWrite("MVPImageAlt", "testing alternate text");
+			Thread.sleep(2000);
+			actions.moveToElement(driver.findElement(By.xpath(prop.getProperty("imgCaptionResourcePanel"))));
+			actions.click();
+			// actions.sendKeys("caption");//findAndWrite("imgCaptionResourcePanel",
+			// "testing caption text");
+			Thread.sleep(2000);
+			layoutResourcePanel(layout);
+			findAndClick("MVPInsertButton");
+		} else {
+			Thread.sleep(3000);
+			Insertimage(layout);
+		}
+	}
+
+	public void layoutResourcePanel(String layout) throws InterruptedException {
+		Actions actions = new Actions(driver);
+		List<WebElement> imagePanel = findElementsByXpath(prop.getProperty("imgLayoutResourcePanel"));
+		for (int j = 0; j < imagePanel.size(); j++) {
+			actions.moveToElement(imagePanel.get(j)).clickAndHold().build().perform();
+			Thread.sleep(1000);
+			if (imagePanel.get(j).getText().equalsIgnoreCase(layout)) {
+				imagePanel.get(j).click();
+				Thread.sleep(2000);
+			}
+		}
+	}
 }
