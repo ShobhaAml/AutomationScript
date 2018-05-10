@@ -2100,7 +2100,7 @@ public class Adminproperty extends TestListenerAdapter {
 			Thread.sleep(2000);
 			actions.moveToElement(driver.findElement(By.xpath(prop.getProperty("imgCaptionResourcePanel"))));
 			actions.click();
-			// actions.sendKeys("caption");//findAndWrite("imgCaptionResourcePanel","testing caption text");
+			// actions.sendKeys("caption");  //findAndWrite("imgCaptionResourcePanel","testing caption text");
 			Thread.sleep(2000);
 			layoutResourcePanel(layout);
 			findAndClick("MVPInsertButton");
