@@ -36,7 +36,7 @@ public class Spam
         url=prop.getProperty("url");
     }
     @Test (priority=2)
-    public void calllogin(){
+    public void calllogin() throws Exception{
         
         if(usersession=="2")
         {
@@ -44,12 +44,12 @@ public class Spam
         }
         else
         {
-            usersession= frontendProperties.login(username, password,  url,  usersession,  logintype);
+            usersession= frontendProperties.login(username, password,  url,    logintype);
         }
     }
     
     @Test (priority=3)
-    public void MovetoPostcomment()
+    public void MovetoPostcomment() throws Exception
     {
         frontendProperties.implicitWait(); 
        //Click 1st post
@@ -68,7 +68,7 @@ public class Spam
        {
            //login
            frontendProperties.findAndClick("commentEntralogin");
-           frontendProperties.login(username, password,  url,  usersession,  logintype);
+           frontendProperties.login(username, password,  url,  logintype);
            
            usersession=frontendProperties.findElement(prop.getProperty("commentloogeduser")).getText();
            System.out.println(usersession + " successfully logged in from post page");

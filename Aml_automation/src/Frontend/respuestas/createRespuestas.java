@@ -32,26 +32,26 @@ public class createRespuestas
         url=prop.getProperty("url");
     }
     @Test (priority=2)
-    public void calllogin(){
+    public void calllogin() throws Exception{
         if(usersession=="2")
         {
             frontendProperties.findAndClick("cookie");
         }
         else
         {
-            usersession= frontendProperties.login(username, password,  url,  usersession,  logintype);
+            usersession= frontendProperties.login(username, password,  url,    logintype);
         }
     }
     
     @Test (priority=3)
-    public void addRespuestas()
+    public void addRespuestas() throws Exception
     {
         frontendProperties.findAndWrite("respuestatextbox",respuestasquestion );
         frontendProperties.findAndClick("respuestasbutton");
     
         if(usersession!="1")
         {
-            frontendProperties.login(username, password,  url,  usersession,  logintype);            
+            frontendProperties.login(username, password,  url,    logintype);            
             usersession=frontendProperties.checkifuserloggedin();
             System.out.println(usersession + "from Respuestas page");
             frontendProperties.implicitWait();
