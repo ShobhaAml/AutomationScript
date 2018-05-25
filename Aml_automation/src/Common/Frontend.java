@@ -58,22 +58,29 @@ public class Frontend extends Adminproperty
 		return driver;
 	}
 
-	public void clickMenu(String Linktext) {
+	public void clickMenu(String Linktext, String Rtype) {
 		super.findAndClick("cookie");
-		driver.findElement(By.className(prop.getProperty("Menu"))).click();
+		driver.findElement(By.xpath(prop.getProperty("Menu"))).click();
 		super.implicitWait();
 		if (Linktext.equalsIgnoreCase("EntraORegistrate")) {
+			if(Rtype.equalsIgnoreCase("login"))
+			{
 			super.findAndClick("login");
+			}
+			else
+			{
+				
+			}
 		}
 		super.implicitWait();
 	}
 
 	public String checkifuserloggedin() {
 		String name = "";
-		driver.findElement(By.className(prop.getProperty("Menu"))).click();
+		driver.findElement(By.xpath(prop.getProperty("Menu"))).click();
 		super.implicitWait();
-		if (driver.findElement(By.className(prop.getProperty("loggedusername"))) != null) {
-			name = driver.findElement(By.className(prop.getProperty("loggedusername"))).getText()
+		if (driver.findElement(By.xpath(prop.getProperty("loggedusername"))) != null) {
+			name = driver.findElement(By.xpath(prop.getProperty("loggedusername"))).getText()
 					+ " Logged in successfully";
 		} else {
 			name = "User not logged";
@@ -87,8 +94,9 @@ public class Frontend extends Adminproperty
 		findAndWrite("standard_email", username);
 		findAndWrite("standard_password", password);
 		findAndClick("standard_button");
-		String invalidmessage = "";
+		String invalidmessage = "Success";
 		try {
+			
 			if (new WebDriverWait(driver, 10).until(ExpectedConditions
 					.visibilityOfElementLocated(By.xpath(prop.getProperty("standard_invalid_validation")))) != null) {
 				invalidmessage = new WebDriverWait(driver, 10)
@@ -97,13 +105,30 @@ public class Frontend extends Adminproperty
 						.getText();
 				invalidmessage = "Invalid Login credentials: " + invalidmessage;
 			}
+			
+			//System.out.println(prop.getProperty("deactivated_user"));
 		} catch (Exception e) {
 
 		}
-		System.out.println(invalidmessage);
+		
+			try {
+					
+				if(new WebDriverWait(driver, 10).until(ExpectedConditions
+						.visibilityOfElementLocated(By.xpath(prop.getProperty("deactivated_user")))) != null) {
+					invalidmessage = new WebDriverWait(driver, 10)
+					.until(ExpectedConditions
+							.visibilityOfElementLocated(By.xpath(prop.getProperty("deactivated_user"))))
+					.getText();
+					invalidmessage = "Deactivated User :  " + invalidmessage;
+				}
+				//System.out.println(prop.getProperty("deactivated_user"));
+			} catch (Exception e) {
+			
+			}
+			
+			System.out.println(invalidmessage);
 		return invalidmessage;
 	}
-
 	public void addcomments(String comment) {
 		String error = "";
 		findAndWrite("commentbox", comment);
@@ -149,32 +174,36 @@ public class Frontend extends Adminproperty
 
 	}
 
-	public String login(String username, String password, String url, String usersession, String logintype) {
+	public String login(String username, String password, String url,  String logintype) throws Exception {
 		String message = "";
-		if (url.contains("testing.") || url.contains("mtest.") || url.contains("test.")) {
-			if (usersession == "1") {
-				clickMenu("EntraORegistrate");
-			}
-
-			if (logintype == "twiiter") {
+			clickMenu("EntraORegistrate","login");
+			if (logintype == "twitter") {
+				message = twitterLogin(username, password);
+				if (message == "Success") {
+				message = checkifuserloggedin();
+				findAndClick("CloseMenu");
+				}
+		
+			System.out.println(message);
+				
 			} else if (logintype == "fb") {
+				message = facebookLogin(username, password);
+				 if (message.equalsIgnoreCase("Success")) {
+						message = checkifuserloggedin();
+					    findAndClick("CloseMenu");
+					}
+				 System.out.println(message);
+				
 			} else {
 				message = StandardLogin(username, password);
-				if (usersession == "1") {
-					if (message == "") {
+				if (message == "Success") {
 						message = checkifuserloggedin();
-					}
-					findAndClick("CloseMenu");
+						findAndClick("CloseMenu");
 				}
 				System.out.println(message);
 			}
-			usersession = message;
-		} else {
-			System.out.println("Production site restricted");
-			throw new InvalidPathException("Production site restricted", "Production site restricted");
-		}
-
-		return usersession;
+	
+		return message;
 	}
 
 	public void addRescomments(String comment) {
@@ -185,12 +214,12 @@ public class Frontend extends Adminproperty
 	}
 
 	public String twitterLogin(String username, String password) throws Exception {
-		String message = "";
+		String message = "Success";
 		String winHandleBefore = driver.getWindowHandle();
-
 		findAndClick("twitter_registor_button");
 		implicitWait();
 
+		if(driver.getWindowHandles().size()>1){
 		for (String winHandle : driver.getWindowHandles()) {
 			driver.switchTo().window(winHandle);
 		}
@@ -200,37 +229,77 @@ public class Frontend extends Adminproperty
 		findAndWrite("twitter_password", password);
 		findAndClick("twitter_button");
 		implicitWait();
-
-		boolean searchIconPresence = driver.findElement(By.className("message-text")).isDisplayed();
-		if (searchIconPresence == true) {
-			driver.findElement(By.className("message-text")).getText();
-			System.out.println(driver.findElement(By.className("message-text")).getText());
-			message = (driver.findElement(By.className("message-text")).getText());
-
+		try {
+		if(driver.getCurrentUrl().contains("https://twitter.com/login/error")){	
+			message="Invalid login credentials";
+			System.out.println("Invalid login credentials");}
+		} 
+		catch (Exception e) {
+			
 		}
-
-		else {
-			System.out.println("Logged in successfully");
-
-		}
-		implicitWait();
 		driver.switchTo().window(winHandleBefore);
+		
+		try {
+			
+			if(new WebDriverWait(driver, 10).until(ExpectedConditions
+					.visibilityOfElementLocated(By.xpath(prop.getProperty("deactivated_user")))) != null) {
+				message = new WebDriverWait(driver, 10)
+				.until(ExpectedConditions
+						.visibilityOfElementLocated(By.xpath(prop.getProperty("deactivated_user"))))
+				.getText();
+				message = "Deactivated User :  " + message;
+			}
+		} catch (Exception e) {
+		
+		}
+		
+		}
 		return message;
 	}
 
 	public String facebookLogin(String username, String password) throws Exception {
-		String message = "";
+		String message = "Success";
 		findAndClick("facebook_registor_button");
 		implicitWait();
 		findAndWrite("facebook_email", username);
 		findAndWrite("facebook_password", password);
+		implicitWait();
 		findAndClick("facebook_button");
 		implicitWait();
+		String currenturl= driver.getCurrentUrl();
 
-		if (driver.findElement(By.xpath(".//*[@id='globalContainer']/div[3]/div/div/div")).isEnabled() == true) {
-			System.out.println("Exit");
+	if(currenturl.contains("www.facebook.com/")){	
+			try {
+					
+				if(new WebDriverWait(driver, 10).until(ExpectedConditions
+						.visibilityOfElementLocated(By.xpath("*//div[@class='uiContextualLayer uiContextualLayerRight']"))) != null) {
+					message = new WebDriverWait(driver, 10)
+					.until(ExpectedConditions
+							.visibilityOfElementLocated(By.xpath("*//div[@class='uiContextualLayer uiContextualLayerRight']")))
+					.getText();
+					message = "Invalid User :  " + message;
+				}
+				
+			} catch (Exception e) {
+			
+			}
+	}
+	else{
+			implicitWait();
+			try {
+				
+				if(new WebDriverWait(driver, 10).until(ExpectedConditions
+						.visibilityOfElementLocated(By.xpath(prop.getProperty("deactivated_user")))) != null) {
+					message = new WebDriverWait(driver, 10)
+					.until(ExpectedConditions
+							.visibilityOfElementLocated(By.xpath(prop.getProperty("deactivated_user"))))
+					.getText();
+					message = "Deactivated User :  " + message;
+				}
+			} catch (Exception e) {
+			
+			}
 		}
-
 		return message;
 
 	}
