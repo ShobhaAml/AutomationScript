@@ -1,8 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
 <suite name="Login Test Suite" verbose="1" >
   <test name="Method Test Cases1" >
     <classes>
-       <class name="frontend.Login">
+       <class name="Frontend.Login">
         <methods>
          <include name="StandardLogin" />
         
@@ -10,9 +11,9 @@
        </class>
     </classes>
   </test>
-  <!--  <test name="Method Test Cases2" >
+ <test name="Method Test Cases2" >
     <classes>
-       <class name="frontend.Login">
+       <class name="Frontend.Login">
         <methods>
        
         <include name="facebookLogin" />
@@ -20,10 +21,10 @@
       </methods>
        </class>
     </classes>
-  </test> -->
+  </test>
    <test name="Method Test Cases3" >
     <classes>
-       <class name="frontend.Login">
+       <class name="Frontend.Login">
         <methods>
         
         <exclude name="twitterLogin" />
