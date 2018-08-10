@@ -31,7 +31,11 @@ public class CreateMVPPostExcel {
 			seodesc, specialpost = "";
 	String author, Twittertext, fbtext, allowHomepageImage, allowHomepageContent = "";
 	String browser = "";
-	String toolbarstatus = "B";
+
+	
+	String Instagram="https://www.instagram.com/p/BmRZvKjA8Mk/?utm_source=ig_web_copy_link";
+	
+	
 
 	@BeforeMethod
 	public void Setup() throws Exception {
@@ -70,26 +74,39 @@ public class CreateMVPPostExcel {
 		if (Run.trim().equalsIgnoreCase("Y")) {
 			String blogrole = "";
 			adminProperties.LoginAdmin(prop.getProperty("admin_usename"), prop.getProperty("admin_pwd"));
-			
 			adminProperties.CreateMVPpost();
-
-			adminProperties.implicitWait();
+			Thread.sleep(10000);
+			System.out.println("Let's add title to post");
 			adminProperties.AddMVPTitle("Testing title");
 			adminProperties.implicitWait();
 			List<WebElement> list = adminProperties.findElementsByXpath(prop.getProperty("MVPSectionList"));
 			System.out.println(list.size() +"list count");
 			System.out.println(list.get(list.size()-1).getAttribute("id"));
-
-			if (!postcontent.equalsIgnoreCase("null")) {
-				/*adminProperties.findAndWrite("post_content", postcontent);
-				adminProperties.addNewline();*/
-			}
 			adminProperties.implicitWait();
+				if (!(primaryimage.equalsIgnoreCase("null"))) {
+				adminProperties.ClickICON(driver,"image");
+				adminProperties.implicitWait();
+				adminProperties.mvpUrlImage("https://i.blogs.es/dee55e/tinoiv/1024_682.jpg");
+				adminProperties.Insertimage("");
+			}
 			
-			if (!(primaryimage.equalsIgnoreCase("null"))) {
-				adminProperties.ClickImageICON(driver);
+			if(!postcontent.equalsIgnoreCase("null"))
+			{
+				adminProperties.addMVP_SectionContent(postcontent);
 				adminProperties.implicitWait();
 
+				
+			}
+			
+			// Add Instagram
+			
+			if(!Instagram.equalsIgnoreCase("null"))
+			{
+				adminProperties.ClickICON(driver,"instagram");
+				adminProperties.implicitWait();
+				adminProperties.MVPaddInstagram(Instagram);
+				
+				
 			}
 			
 		}
@@ -111,5 +128,6 @@ public class CreateMVPPostExcel {
 			adminProperties.findAndClick("post_title");
 		}
 	}
+	
 
 }

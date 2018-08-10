@@ -1954,17 +1954,21 @@ public class Adminproperty extends TestListenerAdapter {
 		}
 	 
 	 public void CreateMVPpost() {
+		 System.out.println("Move to warning screen");
 		 	findAndClick("navigation_header");
 		 	findAndClick("create_MVPpost_link");
 	        ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
 	        driver.switchTo().window(tabs.get(1));
+	        implicitWait();
+	         System.out.println("mvp_close_dialog==="+prop.getProperty("mvp_close_dialog"));
 	        Conditionalwait("mvp_close_dialog");
 	        findAndClick("mvp_close_dialog");
+	        
 	        implicitWait();
 	    }
 
 
-	public void ClickImageICON(WebDriver driver) throws InterruptedException {
+	public void ClickICON(WebDriver driver, String icon ) throws InterruptedException {
 		Thread.sleep(2000);
 		Actions action = new Actions(driver);
 		action.moveToElement(driver.findElement(By.xpath(prop.getProperty("content_section_path"))));
@@ -1975,14 +1979,42 @@ public class Adminproperty extends TestListenerAdapter {
 		implicitWait();
 		findAndClick("Clickplus");
 		implicitWait();
-		findAndClick("MVPImage");
+		if(icon.equalsIgnoreCase("image")){
+			findAndClick("MVPImage");
+		}else if(icon.equalsIgnoreCase("instagram")) {
+			findAndClick("MVP_instagram");
+		}
 		implicitWait();
 	}
 
-	public void AddMVPTitle(String title) {
+	public void AddMVPTitle(String title)  {
 
-		findAndWrite("MVPtitle", title);
+		Actions action = new Actions(driver);
+		implicitWait();
+		action.moveToElement(driver.findElement(By.xpath(prop.getProperty("MVPtitle"))));
+		action.click();
+		action.build().perform();
+	
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
+		action.sendKeys(title);
+		action.build().perform();
+
+		
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		implicitWait();
+		System.out.println("Title added to post");
 	}
 
 	public void addImageToResourcePanel(String browser) throws IOException, InterruptedException {
@@ -1999,7 +2031,7 @@ public class Adminproperty extends TestListenerAdapter {
 	}
 
 	public void addMVP_SectionContent(String addContent) throws InterruptedException {
-				Actions actions = new Actions(driver);
+		Actions actions = new Actions(driver);
 		if (findElement(prop.getProperty("typeSection")).getText()
 				.equalsIgnoreCase("Empieza a escribir aquí...")) {
 			Thread.sleep(1000);
@@ -2010,7 +2042,7 @@ public class Adminproperty extends TestListenerAdapter {
 			implicitWait();
 		} else {
 			Thread.sleep(1000);
-			List<WebElement> list = (findElementsByXpath(prop.getProperty("sectionList")));
+			List<WebElement> list = (findElementsByXpath(prop.getProperty("MVPSectionList")));
 			if (list.get(list.size() - 1).findElement(By.xpath("//*[@class='node-wrapper']")) != null)
 				actions.moveToElement(driver.findElement(By.xpath(".//*[@id='"
 						+ list.get(list.size() - 1).getAttribute("id") + "']" + prop.getProperty("newLineMVP"))))
@@ -2065,17 +2097,19 @@ public class Adminproperty extends TestListenerAdapter {
 	public void Insertimage(String layout) throws InterruptedException {
 		Conditionalwait("image_select");
 		Thread.sleep(3000);
-		findAndClick("MVPResourceImage1");
+		findAndClick("image_select");
 		implicitWait();
 		Thread.sleep(3000);
 		implicitWait();
 		driver.switchTo().activeElement();
 		findAndWrite("MVPImageAlt", "testing alternate text");
-		if (layout.equalsIgnoreCase(""))
+		if (layout.equalsIgnoreCase("")) {
 			findAndClick("MVPInsertButton");
-		else
+			}
+		else{
 			layoutResourcePanel(layout);
-		findAndClick("MVPInsertButton");
+		findAndClick("MVPInsertButton");}
+		
 	}
 
 	public void editImage(String image, String layout) throws InterruptedException {
@@ -2176,4 +2210,22 @@ public class Adminproperty extends TestListenerAdapter {
 
 		System.out.println("Layout selected successfully");
 	}
+	
+	public void MVPaddInstagram(String instagramUrl)
+	{
+		  Actions action = new Actions(driver);
+			implicitWait();
+			action.moveToElement(driver.findElement(By.xpath(prop.getProperty("MVPinstagramtextbox"))));
+			action.click();
+			action.sendKeys(instagramUrl);
+			action.build().perform();
+			findAndClick("MVPInsertButton");	
+			WebElement element1 = driver.findElement(By.xpath(prop.getProperty("MVPinstagramtextbox")));
+			if (new WebDriverWait(driver, 10).until(ExpectedConditions
+					.visibilityOfElementLocated(By.xpath(prop.getProperty("MVPinstagramtextbox")))) != null) {
+				System.out.println(element1.getText());
+			}
+		implicitWait();
+	}
+	
 }
