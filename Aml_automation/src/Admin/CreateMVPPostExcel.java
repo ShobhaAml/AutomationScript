@@ -1,9 +1,6 @@
 package Admin;
 
-import java.sql.Connection;
 import java.util.List;
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.Properties;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -11,10 +8,6 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindAll;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -34,7 +27,7 @@ public class CreateMVPPostExcel {
 
 	
 	String Instagram="https://www.instagram.com/p/BmRZvKjA8Mk/?utm_source=ig_web_copy_link";
-	
+	String giphy="http://giphy.com/gifs/iheartradio-l1KVaFWZ5g2YzonC0";
 	
 
 	@BeforeMethod
@@ -83,7 +76,8 @@ public class CreateMVPPostExcel {
 			System.out.println(list.size() +"list count");
 			System.out.println(list.get(list.size()-1).getAttribute("id"));
 			adminProperties.implicitWait();
-				if (!(primaryimage.equalsIgnoreCase("null"))) {
+			
+			if (!(primaryimage.equalsIgnoreCase("null"))) {
 				adminProperties.ClickICON(driver,"image");
 				adminProperties.implicitWait();
 				adminProperties.mvpUrlImage("https://i.blogs.es/dee55e/tinoiv/1024_682.jpg");
@@ -98,16 +92,25 @@ public class CreateMVPPostExcel {
 				
 			}
 			
-			// Add Instagram
+			if(!giphy.equalsIgnoreCase("null"))
+			{
+				adminProperties.ClickICON(driver,"giphy");
+				adminProperties.implicitWait();
+				adminProperties.MVPmodules(giphy);
+			}
+			
+		
 			
 			if(!Instagram.equalsIgnoreCase("null"))
 			{
 				adminProperties.ClickICON(driver,"instagram");
 				adminProperties.implicitWait();
-				adminProperties.MVPaddInstagram(Instagram);
-				
-				
+				adminProperties.MVPmodules(Instagram);
 			}
+			
+			Actions action = new Actions(driver);
+			action.moveToElement(driver.findElement(By.xpath(prop.getProperty("content_section_path"))));
+			action.click();
 			
 		}
 	}

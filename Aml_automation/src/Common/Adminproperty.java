@@ -1983,6 +1983,8 @@ public class Adminproperty extends TestListenerAdapter {
 			findAndClick("MVPImage");
 		}else if(icon.equalsIgnoreCase("instagram")) {
 			findAndClick("MVP_instagram");
+		}else if(icon.equalsIgnoreCase("giphy")) {
+			findAndClick("MVPgiphy");
 		}
 		implicitWait();
 	}
@@ -2211,18 +2213,18 @@ public class Adminproperty extends TestListenerAdapter {
 		System.out.println("Layout selected successfully");
 	}
 	
-	public void MVPaddInstagram(String instagramUrl)
+	public void MVPmodules(String url)
 	{
 		  Actions action = new Actions(driver);
-			implicitWait();
-			action.moveToElement(driver.findElement(By.xpath(prop.getProperty("MVPinstagramtextbox"))));
+		  implicitWait();
+			action.moveToElement(driver.findElement(By.xpath(prop.getProperty("MVPmoduletextbox"))));
 			action.click();
-			action.sendKeys(instagramUrl);
+			action.sendKeys(url);
 			action.build().perform();
 			findAndClick("MVPInsertButton");	
-			WebElement element1 = driver.findElement(By.xpath(prop.getProperty("MVPinstagramtextbox")));
+			WebElement element1 = driver.findElement(By.xpath(prop.getProperty("MVPmoduletextbox")));
 			if (new WebDriverWait(driver, 10).until(ExpectedConditions
-					.visibilityOfElementLocated(By.xpath(prop.getProperty("MVPinstagramtextbox")))) != null) {
+					.visibilityOfElementLocated(By.xpath(prop.getProperty("MVPmoduletextbox")))) != null) {
 				System.out.println(element1.getText());
 			}
 		implicitWait();
