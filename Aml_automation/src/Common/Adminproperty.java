@@ -2035,7 +2035,7 @@ public class Adminproperty extends TestListenerAdapter {
 	public void addMVP_SectionContent(String addContent) throws InterruptedException {
 		Actions actions = new Actions(driver);
 		if (findElement(prop.getProperty("typeSection")).getText()
-				.equalsIgnoreCase("Empieza a escribir aquí...")) {
+				.equalsIgnoreCase("Empieza a escribir aquï¿½...")) {
 			Thread.sleep(1000);
 			actions.moveToElement(driver.findElement(By.xpath(prop.getProperty("addSection"))));
 			actions.click();
@@ -2167,7 +2167,7 @@ public class Adminproperty extends TestListenerAdapter {
 	}
 
 	public void warnningPopup() {
-		String warnning = "Editar Este Artículo en Alfa";
+		String warnning = "Editar Este Artï¿½culo en Alfa";
 		WebElement element = driver.findElement(By.xpath(prop.getProperty("matchTextMVP")));
 		element.getText();
 		System.out.println(element.getText());
@@ -2230,4 +2230,35 @@ public class Adminproperty extends TestListenerAdapter {
 		implicitWait();
 	}
 	
+	public void addTwitterMVP(String twURL) throws InterruptedException {
+		if (twURL.contains("twitter") == true) {
+			findAndWrite("mvp_tw_url", twURL);
+			implicitWait();
+			findAndClick("mvp_tw_insertar");
+		} else {
+			findAndWrite("mvp_tw_url", twURL);
+			findAndClick("mvp_tw_insertar");
+			implicitWait();
+			if (findElement(prop.getProperty("mvp_tw_validation")).isDisplayed() == true)
+				System.out.println("invalid twitter URL");
+		}
+	}
+
+	public void addSumarioMVP(String layout, String sumarioText) throws InterruptedException {
+		Actions action = new Actions(driver);
+		action.moveToElement(driver
+				.findElement(By.xpath(".//*[@class='summaryDialog']/div/div/div/div/div/div/div/div[1]/div/span")));
+		action.click();
+		action.sendKeys(sumarioText);
+		action.build().perform();
+		implicitWait();
+		if (layout.equalsIgnoreCase("PequeÃ±o, a la izquierda"))
+			findElement(prop.getProperty("mvp_sumario_layout") + "[1]").click();
+		else if (layout.equalsIgnoreCase("PequeÃ±o, a la derecha"))
+			findElement(prop.getProperty("mvp_sumario_layout") + "[2]").click();
+		else
+			findAndClick("mvp_sumario_layout" + "[3]");
+		findAndClick("mvp_sumario_insertar");
+	}
+
 }
