@@ -2260,5 +2260,35 @@ public class Adminproperty extends TestListenerAdapter {
 			findAndClick("mvp_sumario_layout" + "[3]");
 		findAndClick("mvp_sumario_insertar");
 	}
+	
+	public void MVPaddInfogram(String infogramUrl) {
+		findAndClick("MVP_infogramIcon");
+		Actions action = new Actions(driver);
+		implicitWait();
+		action.moveToElement(driver.findElement(By.xpath(prop.getProperty("MVPInfogramtextbox"))));
+		action.click();
+		action.sendKeys(infogramUrl);
+		action.build().perform();
+		findAndClick("MVPInsertButton");
+		System.out.println("Infogram successfully inserted"); 
+		implicitWait();
+	}
+	
+	public void MVPaddVideo(String layout , String videoUrl) {
+		findAndClick("MVP_videoIcon");
+		Actions action = new Actions(driver);
+		implicitWait();
+		action.moveToElement(driver.findElement(By.xpath(prop.getProperty("MVPVideotextbox"))));
+		action.click();
+		action.sendKeys(videoUrl);
+		action.build().perform();
+		if (layout.equalsIgnoreCase("Normal"))
+			findElement(prop.getProperty("MVP_VideoLayout") + "[1]").click();
+		else if (layout.equalsIgnoreCase("Grande"))
+			findElement(prop.getProperty("MVP_VideoLayout") + "[2]").click();
+		findAndClick("MVPInsertButton");
+		System.out.println("Video successfully inserted");
+		implicitWait();
+	}
 
 }
