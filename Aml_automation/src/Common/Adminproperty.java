@@ -2270,11 +2270,11 @@ public class Adminproperty extends TestListenerAdapter {
 		action.sendKeys(infogramUrl);
 		action.build().perform();
 		findAndClick("MVPInsertButton");
-		System.out.println("Infogram successfully inserted"); 
+		System.out.println("Infogram INSERTED successfully");
 		implicitWait();
 	}
-	
-	public void MVPaddVideo(String layout , String videoUrl) {
+
+	public void MVPaddVideo(String videoUrl) {
 		findAndClick("MVP_videoIcon");
 		Actions action = new Actions(driver);
 		implicitWait();
@@ -2282,12 +2282,74 @@ public class Adminproperty extends TestListenerAdapter {
 		action.click();
 		action.sendKeys(videoUrl);
 		action.build().perform();
-		if (layout.equalsIgnoreCase("Normal"))
-			findElement(prop.getProperty("MVP_VideoLayout") + "[1]").click();
-		else if (layout.equalsIgnoreCase("Grande"))
-			findElement(prop.getProperty("MVP_VideoLayout") + "[2]").click();
 		findAndClick("MVPInsertButton");
-		System.out.println("Video successfully inserted");
+		System.out.println("Video INSERTED successfully");
+		implicitWait();
+	}
+
+	public void MVP_editInfogram(String layout) throws InterruptedException {
+		Thread.sleep(5000);
+		Actions action = new Actions(driver);
+		implicitWait();
+		driver.findElement(By.xpath("//*[@class='node-wrapper']")).click();
+		implicitWait();
+		// action.moveToElement(driver.findElement(By.xpath(prop.getProperty("edit_toolbarIcon"))));
+		action.moveToElement(findElement(prop.getProperty("toolbar_icon") + "[4]"));
+		action.click().build().perform();
+		implicitWait();
+		if (layout.equalsIgnoreCase("Normal"))
+			findElement(prop.getProperty("MVP_Layout_ResourcePanel") + "[1]").click();
+		else if (layout.equalsIgnoreCase("Grande"))
+			findElement(prop.getProperty("MVP_Layout_ResourcePanel") + "[2]").click();
+		findAndClick("MVPInsertButton");
+		System.out.println("Inforgram EDITED successfully");
+		implicitWait();
+
+	}
+
+	public void MVP_deleteInfogram() throws InterruptedException {
+		Thread.sleep(2000);
+		Actions action = new Actions(driver);
+		implicitWait();
+		driver.findElement(By.xpath("//*[@class='node-wrapper']")).click();
+		implicitWait();
+		// action.moveToElement(driver.findElement(By.xpath(prop.getProperty("delete_toolbarIcon"))));
+		action.moveToElement(findElement(prop.getProperty("toolbar_icon") + "[5]"));
+		action.click().build().perform();
+		System.out.println("Inforgram DELETED successfully");
+		implicitWait();
+
+	}
+
+	public void MVP_editVideo(String layout) throws InterruptedException {
+		Thread.sleep(2000);
+		Actions action = new Actions(driver);
+		implicitWait();
+		driver.findElement(By.xpath("//*[@class='node-wrapper']")).click();
+		implicitWait();
+		// action.moveToElement(driver.findElement(By.xpath(prop.getProperty("edit_toolbarIcon"))));
+		action.moveToElement(findElement(prop.getProperty("toolbar_icon") + "[4]"));
+		action.click().build().perform();
+		implicitWait();
+		if (layout.equalsIgnoreCase("Normal"))
+			findElement(prop.getProperty("MVP_Layout_ResourcePanel") + "[1]").click();
+		else if (layout.equalsIgnoreCase("Grande"))
+			findElement(prop.getProperty("MVP_Layout_ResourcePanel") + "[2]").click();
+		findAndClick("MVPInsertButton");
+		System.out.println("Video EDITED successfully");
+		implicitWait();
+	}
+
+	public void MVP_DeleteVideo() throws InterruptedException {
+		Thread.sleep(2000);
+		Actions action = new Actions(driver);
+		implicitWait();
+		driver.findElement(By.xpath("//*[@class='node-wrapper']")).click();
+		implicitWait();
+		// action.moveToElement(driver.findElement(By.xpath(prop.getProperty("delete_toolbarIcon"))));
+		action.moveToElement(findElement(prop.getProperty("toolbar_icon") + "[5]"));
+		action.click().build().perform();
+		System.out.println("Video DELETED successfully");
 		implicitWait();
 	}
 

@@ -387,4 +387,30 @@ import Common.Adminproperty;
 		if (driver.findElement(By.xpath(".//*[@id = 'wsl_invalid_user_deactivated']")).isDisplayed() == true)
 			System.out.println("************You are successfully deactivated**************");
 }
+	
+	public void DeactivateUserFromNewsletter(String loginType, String username, String password, String Linktext, String Rtype) throws Exception {
+		clickMenu(Linktext, Rtype);
+		if (loginType.equalsIgnoreCase("standard"))
+			StandardLogin(username, password);
+		else if (loginType.equalsIgnoreCase("twitter"))
+			twitterLogin(username, password);
+		else {
+			facebookLogin(username, password);
+		}
+		driver.findElement(By.xpath(prop.getProperty("Menu"))).click();
+		Thread.sleep(5000);
+		driver.findElement(By.xpath(prop.getProperty("Configuration"))).click();
+		Thread.sleep(2000);
+		if (driver.findElement(By.xpath(prop.getProperty("NewsletterCheckbox"))).isSelected()) {
+			driver.findElement(By.xpath(prop.getProperty("NewsletterCheckbox"))).click();
+			driver.findElement(By.xpath(prop.getProperty("Guardar_btn"))).click();
+			System.out.println("**********User is successfully unsubscribed from newsletter subscription**********");
+			implicitWait();
+		} else if (!driver.findElement(By.xpath(prop.getProperty("NewsletterCheckbox"))).isSelected()) {
+			System.out.println("*****User is already unsubscribed*****");
+		}
+		implicitWait();
+
+	}
+
 }
