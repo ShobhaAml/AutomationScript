@@ -63,7 +63,17 @@ public class ExcelDashboardButtonSanity {
 		driver = adminProperties.callproperty(prop.getProperty("url"),
 				prop.getProperty("browser"));
 		browser = prop.getProperty("browser");
-		getuserloginRole();
+		
+		/*WITH DB*/
+		
+		//getuserloginRole();
+		
+
+		/*WITHOUT DB*/
+		adminProperties.LoginAdmin(prop.getProperty("admin_usename"), prop.getProperty("admin_pwd"));
+		blogroleName="UbCol";
+		Authorname=	"unbrandcol";
+		blogrole="UbCol";
 	}
 
 	@DataProvider(name = "testdata")

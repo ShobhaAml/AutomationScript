@@ -15,7 +15,7 @@ import Admin.CheckUserRoles;
 import Common.Adminproperty;
 
 public class Dashboard_TODO_search {
-	String search_keyword = "samsung";
+	String search_keyword = "";
 	int pageno=1;
 	
 	
@@ -36,13 +36,22 @@ public class Dashboard_TODO_search {
 		driver = adminProperties.callproperty(prop.getProperty("url"), prop.getProperty("browser"));
 		browser = prop.getProperty("browser");
 		adminProperties.implicitWait();
-		CheckUserRoles roleType = new CheckUserRoles();
+		
+		/*WITH DATABASE
+		 CheckUserRoles roleType = new CheckUserRoles();
 		roleType.openConnection(prop.getProperty("admin_usename"), prop.getProperty("admin_pwd"));
 		System.out.println("Welcome " + roleType.blogrole + " " + roleType.blogroleName);
 		adminProperties.adminLogin();
 		blogroleName = roleType.blogroleName;
 		Authorname = roleType.Authorname;
-		blogrole = roleType.blogrole;
+		blogrole = roleType.blogrole;*/
+		
+		
+		/*WITHOUT DB*/
+		adminProperties.LoginAdmin(prop.getProperty("admin_usename"), prop.getProperty("admin_pwd"));
+		blogroleName="admin";
+		Authorname=	"admin";
+		blogrole="";
 	}
 
 	@Test
@@ -115,6 +124,7 @@ public class Dashboard_TODO_search {
 				if (!list.get(i).getAttribute("class").equalsIgnoreCase("tr-repost-incoming")) {
 					postauthor = adminProperties.findElement(".//*[@id='posts_list']/tr[" + (i + 1) + "]//td[3]/a")
 							.getText();
+					System.out.println("hii====" +postid);
 					posttypeviaID = adminProperties.getID(postid);
 					category = adminProperties.findElement(".//*[@id='posts_list']/tr[" + (i + 1) + "]//td[4]/p/a[1]")
 							.getText(); // Ecommerce
@@ -197,7 +207,7 @@ public class Dashboard_TODO_search {
 
 					Getactualresult(Comparebutton, "Repost", posttypeviaID, category, titleMatch, postcontentMatch,tresult,presult);
 				} else {
-					//System.out.println("NORMAL" + Comparebutton);
+					//System.out.println("NORMAL" + Comparebutton + "====" + postcontentMatch);
 					Comparebutton = Comparebutton.replace("Pasar a borrador", "Rechazar");
 					Getactualresult(Comparebutton, "normal", posttypeviaID, category, titleMatch, postcontentMatch,tresult,presult);
 				}
