@@ -24,7 +24,7 @@ public class Dashboard_Admin_All_search {
 	String Authorfilter="Todos"; /*Autor: Todos/ Anna Martí/ Shobha*/
 	String countryfilter="ES" ; /* Value-ES/MX/US/PE/CO/ROW*/
 	
-	String search_keyword = "euros con envío gratis";
+	String search_keyword = "brand";
 
 	Connection conn;
 	WebDriver driver;
@@ -43,13 +43,20 @@ public class Dashboard_Admin_All_search {
 		driver = adminProperties.callproperty(prop.getProperty("url"), prop.getProperty("browser"));
 		browser = prop.getProperty("browser");
 		adminProperties.implicitWait();
-		CheckUserRoles roleType = new CheckUserRoles();
+		/*CheckUserRoles roleType = new CheckUserRoles();
 		roleType.openConnection(prop.getProperty("admin_usename"), prop.getProperty("admin_pwd"));
 		System.out.println("Welcome " + roleType.blogrole + " " + roleType.blogroleName);
 		adminProperties.adminLogin();
 		blogroleName = roleType.blogroleName;
 		Authorname = roleType.Authorname;
-		blogrole = roleType.blogrole;
+		blogrole = roleType.blogrole;*/
+		
+
+		/*WITHOUT DB*/
+		adminProperties.LoginAdmin(prop.getProperty("admin_usename"), prop.getProperty("admin_pwd"));
+		blogroleName="admin";
+		Authorname=	"admin";
+		blogrole="";
 		
 	}
 
