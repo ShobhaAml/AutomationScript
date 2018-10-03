@@ -72,38 +72,40 @@ public class Adminproperty extends TestListenerAdapter {
 	Properties prop = new Properties();
 
 	public Properties ReadProperties() throws IOException {
-		FileInputStream inStream = new FileInputStream(
+		
+		FileInputStream inStream = new FileInputStream("/Users/isha/git/Automation/Aml_automation/src/Common/admin.properties");	
+		System.out.print(System.getProperty("user.dir") + "\\src\\Common\\admin.properties");
+prop.load(inStream);
+return prop;
+}
 
-				System.getProperty("user.dir") + "\\src\\Common\\admin.properties");
-		prop.load(inStream);
-		return prop;
-	}
 
-	public WebDriver callproperty(String url, String browser) throws IOException {
 
-		/*LoggingPreferences loggingprefs = new LoggingPreferences();
-		loggingprefs.enable(LogType.BROWSER, Level.ALL);*/
-		if (browser.trim().equalsIgnoreCase("Chrome")) {
-			System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedriver.exe");
-			DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-			/*capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);*/
+public WebDriver callproperty(String url, String browser) throws IOException {
 
-			ChromeOptions options = new ChromeOptions();
-			options.addArguments("start-maximized");
-			//options.addArguments("" + capabilities + "");
-			driver = new ChromeDriver(options);
+/*LoggingPreferences loggingprefs = new LoggingPreferences();
+loggingprefs.enable(LogType.BROWSER, Level.ALL);*/
+if (browser.trim().equalsIgnoreCase("Chrome")) {
+	//System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedrivers.exe");
+	DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+	/*capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);*/
 
-		} else {
-			System.setProperty("webdriver.gecko.driver",
-					System.getProperty("user.dir") + "//src//Driverfiles//" + "geckodriver.exe");
-			DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-			/*capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);*/
-			driver = new FirefoxDriver(capabilities);
-		}
-		driver.get(url);
-		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-		return driver;
-	}
+	ChromeOptions options = new ChromeOptions();
+	options.addArguments("start-maximized");
+	//options.addArguments("" + capabilities + "");
+	driver = new ChromeDriver(options);
+
+} else {
+	System.setProperty("webdriver.gecko.driver",
+			System.getProperty("user.dir") + "//src//Driverfiles//" + "geckodriver.exe");
+	DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+	/*capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);*/
+	driver = new FirefoxDriver(capabilities);
+}
+driver.get(url);
+driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+return driver;
+}
 
 	public void uploadPrimaryImage(String primaryimage, String browser) throws Exception {
 		String primaryimagearr[] = primaryimage.split("@#@");
@@ -2109,7 +2111,8 @@ public class Adminproperty extends TestListenerAdapter {
 			findAndClick("MVPInsertButton");
 			}
 		else{
-			layoutResourcePanel(layout);
+			//layoutResourcePanel(layout);         //UPDATION
+			commonLayoutMVP("imgLayoutResourcePanel", layout);
 		findAndClick("MVPInsertButton");}
 		
 	}
@@ -2145,7 +2148,7 @@ public class Adminproperty extends TestListenerAdapter {
 			Insertimage(layout);
 		}
 	}
-
+// NOT WORKING
 	public void layoutResourcePanel(String layout) throws InterruptedException {
 		Actions actions = new Actions(driver);
 		List<WebElement> imagePanel = findElementsByXpath(prop.getProperty("imgLayoutResourcePanel"));
@@ -2231,13 +2234,16 @@ public class Adminproperty extends TestListenerAdapter {
 	}
 	
 	public void addTwitterMVP(String twURL) throws InterruptedException {
+        implicitWait();
+		findAndClick("mvp_twitter");
+		implicitWait();
 		if (twURL.contains("twitter") == true) {
 			findAndWrite("mvp_tw_url", twURL);
 			implicitWait();
-			findAndClick("mvp_tw_insertar");
+			findAndClick("mvp_insertar");
 		} else {
 			findAndWrite("mvp_tw_url", twURL);
-			findAndClick("mvp_tw_insertar");
+			findAndClick("mvp_insertar");
 			implicitWait();
 			if (findElement(prop.getProperty("mvp_tw_validation")).isDisplayed() == true)
 				System.out.println("invalid twitter URL");
@@ -2245,21 +2251,19 @@ public class Adminproperty extends TestListenerAdapter {
 	}
 
 	public void addSumarioMVP(String layout, String sumarioText) throws InterruptedException {
+        implicitWait();
+		findAndClick("mvp_sumario");
 		Actions action = new Actions(driver);
-		action.moveToElement(driver
-				.findElement(By.xpath(".//*[@class='summaryDialog']/div/div/div/div/div/div/div/div[1]/div/span")));
-		action.click();
-		action.sendKeys(sumarioText);
-		action.build().perform();
-		implicitWait();
-		if (layout.equalsIgnoreCase("Pequeño, a la izquierda"))
-			findElement(prop.getProperty("mvp_sumario_layout") + "[1]").click();
-		else if (layout.equalsIgnoreCase("Pequeño, a la derecha"))
-			findElement(prop.getProperty("mvp_sumario_layout") + "[2]").click();
-		else
-			findAndClick("mvp_sumario_layout" + "[3]");
-		findAndClick("mvp_sumario_insertar");
-	}
+        //action.moveToElement(driver.findElement(By.xpath("//*[@id=\"summarymodal\"]/div[1]/div/div/div/div/div")));
+        action.moveToElement(findElement(prop.getProperty("mvp_sumario_url")));
+        action.click();
+        action.sendKeys(sumarioText);
+        action.build().perform();
+        implicitWait();
+        common_layout_mvp("mvp_layout1", layout);
+		findAndClick("mvp_insertar");
+    }
+
 	
 	public void MVPaddInfogram(String infogramUrl) {
 		findAndClick("MVP_infogramIcon");
@@ -2352,5 +2356,80 @@ public class Adminproperty extends TestListenerAdapter {
 		System.out.println("Video DELETED successfully");
 		implicitWait();
 	}
+	
+	public void common_layout_mvp(String listXpath, String takeAction) throws InterruptedException {
+		Actions actions = new Actions(driver);
+		Thread.sleep(1000);
+		List<WebElement> toolList = findElementsByXpath(prop.getProperty(listXpath));
+		for (int i = 1; i <= toolList.size(); i++) {
+			WebElement element = findElement(prop.getProperty(listXpath) + "[" + i + "]");
+			actions.moveToElement(element).clickAndHold().build();
+			Thread.sleep(1000);
+			if (element.getAttribute("title").equalsIgnoreCase(takeAction)) {
+				element.click();
+				break;
+			}
+		}
+	}
 
+	public void edit_URL_mvp(String xPath, String URL) throws InterruptedException {
+		Thread.sleep(2000);
+		Actions action = new Actions(driver);
+		action.moveToElement(driver.findElement(By.xpath(prop.getProperty(xPath))));
+		action.click();
+		implicitWait();
+		driver.findElement(By.xpath(prop.getProperty(xPath))).clear();
+		action.moveToElement(driver.findElement(By.xpath(prop.getProperty(xPath)))).perform();
+		implicitWait();
+		action.moveToElement(driver.findElement(By.xpath(prop.getProperty(xPath)))).sendKeys(URL).perform();
+	}
+
+	public void edit_delete_mvp(String Module, String takeAction, String newURL, String layout)
+			throws InterruptedException {
+		switch (Module.toLowerCase()) {
+		case "image":
+		case "gif":
+		case "video":
+		case "infogram":
+			driver.findElement(By.xpath("//*[@class='node-wrapper']")).click();
+			break;
+		case "sumario":
+			findAndClick("mvp_sumario_click");
+			break;
+		case "twitter":
+			findAndClick("mvp_tw_click");
+			break;
+		case "instagram":
+			findAndClick("mvp_instagram_click");
+			break;
+		}
+		common_layout_mvp("toolbar_icon", takeAction);
+		implicitWait();
+		if (takeAction.equalsIgnoreCase("Editar")) {
+			switch (Module.toLowerCase()) {
+			case "gif":
+				edit_URL_mvp("MVPmoduletextbox", newURL);
+				common_layout_mvp("mvp_layout3", layout);
+				break;
+			case "infogram":
+			case "video":
+				edit_URL_mvp("MVPmoduletextbox", newURL);
+				common_layout_mvp("mvp_layout2", layout);
+				break;
+			case "image":
+				Insertimage(layout);
+				break;
+			case "sumario":
+				Thread.sleep(2000);
+				edit_URL_mvp("mvp_sumario_url", newURL);
+				common_layout_mvp("mvp_layout1", layout);
+				break;
+			case "twitter":
+			case "instagram":
+				edit_URL_mvp("MVPmoduletextbox", newURL);
+				break;
+			}
+			findAndClick("mvp_insertar");
+		}
+	}
 }
