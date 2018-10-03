@@ -2372,7 +2372,7 @@ return driver;
 		}
 	}
 
-	public void edit_URL_mvp(String xPath, String URL) throws InterruptedException {
+	public void edit_URL_mvp(String xPath, String URL) throws InterruptedException{
 		Thread.sleep(2000);
 		Actions action = new Actions(driver);
 		action.moveToElement(driver.findElement(By.xpath(prop.getProperty(xPath))));
