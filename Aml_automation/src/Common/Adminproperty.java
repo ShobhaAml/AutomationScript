@@ -2112,7 +2112,7 @@ return driver;
 			}
 		else{
 			//layoutResourcePanel(layout);         //UPDATION
-			commonLayoutMVP("imgLayoutResourcePanel", layout);
+			common_layout_mvp("imgLayoutResourcePanel", layout);
 		findAndClick("MVPInsertButton");}
 		
 	}
