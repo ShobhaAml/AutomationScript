@@ -73,7 +73,7 @@ public class Adminproperty extends TestListenerAdapter {
 
 	public Properties ReadProperties() throws IOException {
 		
-		FileInputStream inStream = new FileInputStream("/Users/isha/git/Automation/Aml_automation/src/Common/admin.properties");	
+		FileInputStream inStream = new FileInputStream(System.getProperty("user.dir") +"/src/Common/admin.properties");	
 		System.out.print(System.getProperty("user.dir") + "\\src\\Common\\admin.properties");
 prop.load(inStream);
 return prop;
@@ -2431,5 +2431,25 @@ return driver;
 			}
 			findAndClick("mvp_insertar");
 		}
+	}
+	
+	public void addpivotproduct(String product, String type)
+	{
+		findAndClick("pivoticon");
+		implicitWait();
+		findAndClick("pivotproducttab");
+		
+		if(!type.equalsIgnoreCase("asin"))
+		{
+		  Select drpCountry = new Select(driver.findElement(By.id("amazon-search-criteria")));
+		   drpCountry.selectByVisibleText("Nombre del producto");
+		}
+		
+		findAndWrite("pivotsearchinputtext", product);
+		findAndClick("pivotsearchbutton");
+		findAndClick("pivotselect1");
+		findAndClick("Addpivotproduct");
+		
+		
 	}
 }

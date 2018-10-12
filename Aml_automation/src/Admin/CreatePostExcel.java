@@ -272,9 +272,6 @@ public class CreatePostExcel {
 				adminProperties.addpivotproduct(Pivot_product_Nombre,"nombre");
 				
 			}
-			
-			
-			
 			adminProperties.implicitWait();
 			((JavascriptExecutor) driver).executeScript("scroll(0, -800);");
 			Thread.sleep(6000);
