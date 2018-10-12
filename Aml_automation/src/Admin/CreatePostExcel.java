@@ -42,7 +42,7 @@ public class CreatePostExcel {
 
 	@DataProvider(name = "testdata")
 	public Object[][] TestDataFeed() throws Exception {
-		Object[][] postdata = adminProperties.readExcel("Normal", 77);
+		Object[][] postdata = adminProperties.readExcel("Normal", 79);
 		return postdata;
 	}
 
@@ -63,7 +63,8 @@ public class CreatePostExcel {
 			String Recipe_Image, String Recipe_More_postcontent, String Recipe_Youtube_Video,
 			String Recipe_Youtube_Video_layout, String Vine_Video, String Recipe_Vine_Video_layout, String Vimeo_Video,
 			String Recipe_Vimeo_Video_layout, String FB_Video, String Recipe_FB_Video_layout, String Recipe_summary,
-			String Recipe_summary_layout, String homecontent, String homeimage, String Branded_club, String category,
+			String Recipe_summary_layout, String Pivot_product_ASIN, String Pivot_product_Nombre,
+			String homecontent, String homeimage, String Branded_club, String category,
 			String catagory_other, String tag, String seotitle, String seodesc, String specialpost,
 			String comment_closed, String author, String Twittertext, String fbtext, String Repost, String Run,
 			String Republish) throws Exception {
@@ -252,6 +253,28 @@ public class CreatePostExcel {
 				adminProperties.galleryPost(Gallery_name, Gallery_description, Gallery_tag, Gallery_ShowHeader,
 						Gallery_photos, browser);
 			}
+				
+			if(!Pivot_product_ASIN.equalsIgnoreCase("null"))
+			{
+				System.out.println("Pivot Asin =" +Pivot_product_ASIN );
+				
+				adminProperties.implicitWait();
+				adminProperties.addNewlines();
+				adminProperties.addpivotproduct(Pivot_product_ASIN,"asin");
+			}
+			
+			if(!Pivot_product_Nombre.equalsIgnoreCase("null"))
+			{
+				System.out.println("Pivot nombre= "+Pivot_product_Nombre );
+				
+				adminProperties.implicitWait();
+				adminProperties.addNewlines();
+				adminProperties.addpivotproduct(Pivot_product_Nombre,"nombre");
+				
+			}
+			
+			
+			
 			adminProperties.implicitWait();
 			((JavascriptExecutor) driver).executeScript("scroll(0, -800);");
 			Thread.sleep(6000);
