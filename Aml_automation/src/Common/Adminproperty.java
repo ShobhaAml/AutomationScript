@@ -2452,4 +2452,45 @@ return driver;
 		
 		
 	}
+	
+	public void mvp_addRichContent(String alternativo) throws InterruptedException, IOException {
+		findAndClick("mvp_richIcon");
+		Thread.sleep(2000);
+		findAndWrite("mvp_richText", "hello testing");
+		common_layout_mvp("mvp_layout1", "Grande");
+		Thread.sleep(2000);
+		mvp_add_AMPAlternativo(alternativo);
+	}
+
+	public void mvp_add_AMPAlternativo(String alternativo) throws InterruptedException {
+		Actions actions = new Actions(driver);
+		List<WebElement> buttons = findElementsByXpath(prop.getProperty("mvp_rich_buttons"));
+		for (int i = 1; i <= buttons.size(); i++) {
+			WebElement element = findElement(prop.getProperty("mvp_rich_buttons") + "[" + i + "]");
+			if (element.getText().equalsIgnoreCase(alternativo)) {
+				element.click();
+				break;
+			}
+		}
+		switch (alternativo.toLowerCase()) {
+		case "imagen alternativa":
+			Thread.sleep(2000);
+			mvpUrlImage("https://i1.blogs.es/w_375,h_375,c_fit,g_north/a0wamlynorur35gjmru7.jpg");
+			implicitWait();
+			Insertimage("");
+			break;
+		case "texto alternativo":
+			Thread.sleep(2000);
+			actions.moveToElement(findElement(prop.getProperty("mvp_text_insert"))).click();
+			actions.sendKeys("rich content via text alternative").perform();
+			implicitWait();
+			findAndClick("MVPInsertButton");
+			break;
+		case "vídeo alternativo":
+			implicitWait();
+			actions.sendKeys("https://www.youtube.com/watch?v=CpoB7xPS7wk").build().perform();
+			findAndClick("MVPInsertButton");
+			break;
+		}
+	}
 }
