@@ -71,10 +71,10 @@ public class Adminproperty extends TestListenerAdapter {
 	WebDriver driver;
 	Properties prop = new Properties();
 
-	public Properties ReadProperties() throws IOException {
-		
-		FileInputStream inStream = new FileInputStream(System.getProperty("user.dir") +"/src/Common/admin.properties");	
-		System.out.print(System.getProperty("user.dir") + "\\src\\Common\\admin.properties");
+public Properties ReadProperties() throws IOException {
+        
+        FileInputStream inStream = new FileInputStream(System.getProperty("user.dir") +"/src/Common/admin.properties");    
+        System.out.print(System.getProperty("user.dir") + "\\src\\Common\\admin.properties");
 prop.load(inStream);
 return prop;
 }
@@ -86,26 +86,27 @@ public WebDriver callproperty(String url, String browser) throws IOException {
 /*LoggingPreferences loggingprefs = new LoggingPreferences();
 loggingprefs.enable(LogType.BROWSER, Level.ALL);*/
 if (browser.trim().equalsIgnoreCase("Chrome")) {
-	//System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedrivers.exe");
-	DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-	/*capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);*/
+    System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedriver.exe");
+    DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+    /*capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);*/
 
-	ChromeOptions options = new ChromeOptions();
-	options.addArguments("start-maximized");
-	//options.addArguments("" + capabilities + "");
-	driver = new ChromeDriver(options);
+    ChromeOptions options = new ChromeOptions();
+    options.addArguments("start-maximized");
+    //options.addArguments("" + capabilities + "");
+    driver = new ChromeDriver(options);
 
 } else {
-	System.setProperty("webdriver.gecko.driver",
-			System.getProperty("user.dir") + "//src//Driverfiles//" + "geckodriver.exe");
-	DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-	/*capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);*/
-	driver = new FirefoxDriver(capabilities);
+    System.setProperty("webdriver.gecko.driver",
+            System.getProperty("user.dir") + "//src//Driverfiles//" + "geckodriver.exe");
+    DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+    /*capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);*/
+    driver = new FirefoxDriver(capabilities);
 }
 driver.get(url);
 driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 return driver;
 }
+
 
 	public void uploadPrimaryImage(String primaryimage, String browser) throws Exception {
 		String primaryimagearr[] = primaryimage.split("@#@");
@@ -1955,10 +1956,11 @@ return driver;
 			return status;
 		}
 	 
-	 public void CreateMVPpost() {
+	 public void CreateMVPpost() throws InterruptedException {
 		 System.out.println("Move to warning screen");
 		 	findAndClick("navigation_header");
 		 	findAndClick("create_MVPpost_link");
+		 	Thread.sleep(3000);
 	        ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
 	        driver.switchTo().window(tabs.get(1));
 	        implicitWait();
@@ -2453,44 +2455,79 @@ return driver;
 		
 	}
 	
-	public void mvp_addRichContent(String alternativo) throws InterruptedException, IOException {
+	public void mvp_addRichContent(String alternativo, String text, String url)
+			throws InterruptedException, IOException {
 		findAndClick("mvp_richIcon");
 		Thread.sleep(2000);
 		findAndWrite("mvp_richText", "hello testing");
 		common_layout_mvp("mvp_layout1", "Grande");
 		Thread.sleep(2000);
-		mvp_add_AMPAlternativo(alternativo);
+		mvp_add_AMPAlternativo(alternativo, text, url);
 	}
 
-	public void mvp_add_AMPAlternativo(String alternativo) throws InterruptedException {
+	public void mvp_add_AMPAlternativo(String alternativo, String text, String url) throws InterruptedException {// url
+																													// can
+																													// be
+																													// video/image
 		Actions actions = new Actions(driver);
 		List<WebElement> buttons = findElementsByXpath(prop.getProperty("mvp_rich_buttons"));
 		for (int i = 1; i <= buttons.size(); i++) {
 			WebElement element = findElement(prop.getProperty("mvp_rich_buttons") + "[" + i + "]");
-			if (element.getText().equalsIgnoreCase(alternativo)) {
+			if ((element.getText().equalsIgnoreCase(alternativo))
+					|| (element.getText().equalsIgnoreCase(alternativo + " (en uso)"))) {
 				element.click();
 				break;
 			}
 		}
 		switch (alternativo.toLowerCase()) {
 		case "imagen alternativa":
-			Thread.sleep(2000);
-			mvpUrlImage("https://i1.blogs.es/w_375,h_375,c_fit,g_north/a0wamlynorur35gjmru7.jpg");
+			Thread.sleep(1000);
+			mvpUrlImage(url);
 			implicitWait();
 			Insertimage("");
 			break;
 		case "texto alternativo":
-			Thread.sleep(2000);
-			actions.moveToElement(findElement(prop.getProperty("mvp_text_insert"))).click();
-			actions.sendKeys("rich content via text alternative").perform();
+			Thread.sleep(1000);
+			actions.moveToElement(findElement(prop.getProperty("mvp_text_insert"))).click().perform();
+			actions.sendKeys(text).perform();
 			implicitWait();
 			findAndClick("MVPInsertButton");
 			break;
 		case "vídeo alternativo":
 			implicitWait();
-			actions.sendKeys("https://www.youtube.com/watch?v=CpoB7xPS7wk").build().perform();
+			actions.sendKeys(url).build().perform();
 			findAndClick("MVPInsertButton");
 			break;
 		}
 	}
+
+	public void mvp_edit_richContent(String newAlternativo, String takeAction, String richContent, String layout,
+			String text, String url) throws InterruptedException {
+		driver.findElement(By.xpath("//*[@class='node-wrapper block-highlight']")).click();
+		common_layout_mvp("toolbar_icon", takeAction);
+		implicitWait();
+		if (richContent.isEmpty() == false) {
+			findElement(prop.getProperty("mvp_richText")).clear();
+			findAndWrite("mvp_richText", richContent);
+			common_layout_mvp("mvp_layout1", layout);
+			implicitWait();
+			if (findElement(prop.getProperty("mvp_amp_div")).getAttribute("class")
+					.equalsIgnoreCase("amp-img-container"))
+				System.out.println("Old AMP alternativo: IMAGE");
+			else if (findElement(prop.getProperty("mvp_amp_div")).getAttribute("class")
+					.equalsIgnoreCase("video-play-icon"))
+				System.out.println("Old AMP alternativo: "
+						+ driver.findElement(By.xpath(".//*[@class='amp-content']/img")).getAttribute("alt"));
+			else
+				System.out.println("Old AMP alternativo: TEXTO");
+			Thread.sleep(1000);
+			mvp_add_AMPAlternativo(newAlternativo, text, url);
+			implicitWait();
+			driver.findElement(By.xpath("//*[@class='node-wrapper block-highlight']")).click();
+			common_layout_mvp("toolbar_icon", takeAction);
+			Thread.sleep(1000);
+			System.out.println("Alternativo is successfully updated.");
+		}
+	}
+
 }
