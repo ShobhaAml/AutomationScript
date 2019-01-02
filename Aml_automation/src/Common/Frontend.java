@@ -31,7 +31,7 @@ import Common.Adminproperty;
 	 
     public Properties ReadProperties() throws IOException {
 		
-		FileInputStream inStream = new FileInputStream("/Users/isha/AML/Automation/Aml_automation/src/Common/frontend.properties");
+		FileInputStream inStream = new FileInputStream(System.getProperty("user.dir") +"/src/Common/frontend.properties");
 		prop.load(inStream);
 		return prop;
 }
