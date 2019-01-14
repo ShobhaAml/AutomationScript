@@ -42,7 +42,7 @@ public class CreatePostExcel {
 
 	@DataProvider(name = "testdata")
 	public Object[][] TestDataFeed() throws Exception {
-		Object[][] postdata = adminProperties.readExcel("Normal", 79);
+		Object[][] postdata = adminProperties.readExcel("Normal", 80);
 		return postdata;
 	}
 
@@ -67,7 +67,7 @@ public class CreatePostExcel {
 			String homecontent, String homeimage, String Branded_club, String category,
 			String catagory_other, String tag, String seotitle, String seodesc, String specialpost,
 			String comment_closed, String author, String Twittertext, String fbtext, String Repost, String Run,
-			String Republish) throws Exception {
+			String Republish,String Future_time) throws Exception {
 		if (Run.trim().equalsIgnoreCase("Y")) {
 			String blogrole = "";
 			adminProperties.LoginAdmin(prop.getProperty("admin_usename"), prop.getProperty("admin_pwd"));
@@ -290,6 +290,15 @@ public class CreatePostExcel {
 			if ((!homecontent.equalsIgnoreCase("null"))) {
 				adminProperties.findAndWrite("homepage_content", homecontent);
 			}
+			
+			if(!Future_time.equalsIgnoreCase("null")) {
+				adminProperties.findAndClick("futuretxt");
+				adminProperties.findElement(prop.getProperty("futuretxt")).clear();;
+				adminProperties.implicitWait();				
+				adminProperties.findAndWrite("futuretxt", Future_time);
+			}
+			
+			
 			if (specialpost.equalsIgnoreCase("Y")) {
 				adminProperties.specialPost(specialpost);
 			}
@@ -301,9 +310,9 @@ public class CreatePostExcel {
 			}
 			System.out.println(adminProperties.imageCropper());
 			if (category.equalsIgnoreCase("basics")) {
-				adminProperties.addFbTwitterText("null", "null");
+				adminProperties.addFbTwitterText("null", "null",Future_time);
 			} else {
-				adminProperties.addFbTwitterText(fbtext, Twittertext);
+				adminProperties.addFbTwitterText(fbtext, Twittertext,Future_time);
 			}
 			adminProperties.implicitWait();
 			if (Republish.equalsIgnoreCase("Y")) {
