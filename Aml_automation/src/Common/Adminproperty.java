@@ -228,7 +228,7 @@ return driver;
 		}
 	}
 
-	public void addFbTwitterText(String fbtext, String twitter_text) {
+	public void addFbTwitterText(String fbtext, String twitter_text,String futurepost) {
 		implicitWait();
 		if (!(fbtext).equalsIgnoreCase("null")) {
 			findElement(prop.getProperty("fb_text")).sendKeys(fbtext);
@@ -239,7 +239,14 @@ return driver;
 			findElement(prop.getProperty("twitter_text")).sendKeys(twitter_text);
 		}
 		((JavascriptExecutor) driver).executeScript("scroll(0, -800);");
-		findElement(prop.getProperty("publish_post")).click();
+		
+		if(!futurepost.equalsIgnoreCase("null")) {
+			findElement(prop.getProperty("future_post_button")).click();
+		
+		}else {
+			findElement(prop.getProperty("publish_post")).click();
+		}
+		
 		implicitWait();
 		System.out.println("Published post");
 	}
