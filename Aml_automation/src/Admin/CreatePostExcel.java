@@ -42,7 +42,7 @@ public class CreatePostExcel {
 
 	@DataProvider(name = "testdata")
 	public Object[][] TestDataFeed() throws Exception {
-		Object[][] postdata = adminProperties.readExcel("Normal", 80);
+		Object[][] postdata = adminProperties.readExcel("Normal", 84);
 		return postdata;
 	}
 
@@ -63,7 +63,8 @@ public class CreatePostExcel {
 			String Recipe_Image, String Recipe_More_postcontent, String Recipe_Youtube_Video,
 			String Recipe_Youtube_Video_layout, String Vine_Video, String Recipe_Vine_Video_layout, String Vimeo_Video,
 			String Recipe_Vimeo_Video_layout, String FB_Video, String Recipe_FB_Video_layout, String Recipe_summary,
-			String Recipe_summary_layout, String Pivot_product_ASIN, String Pivot_product_Nombre,
+			String Recipe_summary_layout, String Pivot_product_ASIN, String Pivot_product_Nombre,String Pivot_dropdown,
+			String Pivot_otherStoreProductTitle, String Pivot_otherStoreProductImage, String Pivot_otherStorevalues,
 			String homecontent, String homeimage, String Branded_club, String category,
 			String catagory_other, String tag, String seotitle, String seodesc, String specialpost,
 			String comment_closed, String author, String Twittertext, String fbtext, String Repost, String Run,
@@ -253,14 +254,20 @@ public class CreatePostExcel {
 				adminProperties.galleryPost(Gallery_name, Gallery_description, Gallery_tag, Gallery_ShowHeader,
 						Gallery_photos, browser);
 			}
+			
+			if(!Pivot_dropdown.equalsIgnoreCase("null"))
+			{
+				adminProperties.addpivot(Pivot_dropdown);
+				adminProperties.add_Otra_tienda(Pivot_otherStoreProductTitle, Pivot_otherStoreProductImage, Pivot_otherStorevalues);
+			}
 				
-			if(!Pivot_product_ASIN.equalsIgnoreCase("null"))
+		/*	if(!Pivot_product_ASIN.equalsIgnoreCase("null"))
 			{
 				System.out.println("Pivot Asin =" +Pivot_product_ASIN );
 				
 				adminProperties.implicitWait();
 				adminProperties.addNewlines();
-				adminProperties.addpivotproduct(Pivot_product_ASIN,"asin");
+				adminProperties.addpivot(Pivot_product_ASIN,"asin");
 			}
 			
 			if(!Pivot_product_Nombre.equalsIgnoreCase("null"))
@@ -271,7 +278,7 @@ public class CreatePostExcel {
 				adminProperties.addNewlines();
 				adminProperties.addpivotproduct(Pivot_product_Nombre,"nombre");
 				
-			}
+			}*/
 			adminProperties.implicitWait();
 			((JavascriptExecutor) driver).executeScript("scroll(0, -800);");
 			Thread.sleep(6000);

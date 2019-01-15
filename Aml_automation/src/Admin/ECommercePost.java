@@ -165,7 +165,7 @@ public class ECommercePost
 
         }
 
-        adminProperties.addFbTwitterText(fbtext,null);
+        adminProperties.addFbTwitterText(fbtext,null,"null");
 
     }
 
