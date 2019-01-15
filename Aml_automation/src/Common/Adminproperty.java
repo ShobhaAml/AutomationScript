@@ -2442,22 +2442,24 @@ return driver;
 		}
 	}
 	
-	public void addpivotproduct(String product, String type)
+	public void addpivot(String Pivot_dropdown)
 	{
 		findAndClick("pivoticon");
 		implicitWait();
 		findAndClick("pivotproducttab");
 		
-		if(!type.equalsIgnoreCase("asin"))
+		if(!Pivot_dropdown.equalsIgnoreCase("null"))
 		{
-		  Select drpCountry = new Select(driver.findElement(By.id("amazon-search-criteria")));
-		   drpCountry.selectByVisibleText("Nombre del producto");
+		  Select drpCountry = new Select(driver.findElement(By.xpath(prop.getProperty("pivot_dropdown"))));
+		   drpCountry.selectByValue(Pivot_dropdown);
+			System.out.println("Dropdown Value selected");
+			
 		}
 		
-		findAndWrite("pivotsearchinputtext", product);
+		/*findAndWrite("pivotsearchinputtext", product);
 		findAndClick("pivotsearchbutton");
 		findAndClick("pivotselect1");
-		findAndClick("Addpivotproduct");
+		findAndClick("Addpivotproduct");*/
 		
 		
 	}
@@ -2536,5 +2538,45 @@ return driver;
 			System.out.println("Alternativo is successfully updated.");
 		}
 	}
+	public void add_Otra_tienda(String Pivot_otherStoreProductTitle, String Pivot_otherStoreProductImage,String Pivot_otherStorevalues) throws IOException, InterruptedException
+	{
+		findAndClick("otherStoreProductTitle");
+		findAndWrite("otherStoreProductTitle", Pivot_otherStoreProductTitle);
+		findAndClick("otherStoreProductImage");
+		Thread.sleep(1000);
+		Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\DriverFiles\\fileupload.exe"
+			+ " " + System.getProperty("user.dir") + "\\src\\Images\\" + Pivot_otherStoreProductImage);
+	
+		implicitWait();		
+		
+		
+		implicitWait();
+		System.out.println("Image uploaded ");
+		String[] arrmultiplestore= Pivot_otherStorevalues.split("@###@");
+		
+		System.out.println("Total array " +arrmultiplestore.length);
+		for(int i=0;i<arrmultiplestore.length;i++)
+		{
+			String[] arrstores=arrmultiplestore[i].split("@#@");
+			System.out.println(arrstores[0]);
+			System.out.println(arrstores[1]);
+			System.out.println(arrstores[2]);
+		
+			driver.findElement(By.xpath(".//*[@id='url"+i+"']")).sendKeys(arrstores[0]);
+			driver.findElement(By.xpath(".//*[@id='store"+i+"']")).sendKeys(arrstores[1]);
+			driver.findElement(By.xpath(".//*[@id='price"+i+"']")).sendKeys(arrstores[2]);
+		 
+			if((arrmultiplestore.length>1) && ((i+1)<arrmultiplestore.length))
+			{
+			findAndClick("Addotherstorebutton");
+			}	
+
+		}
+		findAndClick("Pivot_addOtrabutton");
+		System.out.println("Otra Pivot added successfully");
+	}
+	
+	
+	
 
 }
