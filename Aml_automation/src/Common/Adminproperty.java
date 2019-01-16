@@ -2612,7 +2612,7 @@ return driver;
 			System.out.println("Amazon product not found....");
 		else {
 			if (findElement(prop.getProperty("pivot_section")) != null)
-				implicitWait();
+			implicitWait();
 			findAndClick("pivot_elegir");
 			implicitWait();
 			System.out.println("Amazon product added successfully....");
@@ -2620,7 +2620,7 @@ return driver;
 			jse.executeScript("arguments[0].scrollIntoView(true);", findElement(prop.getProperty("Pivot_addOtrabutton")));
 			implicitWait();
 			add_OtherStores(storeData):
-}
+            }
 	}
 
 	public void add_OtherStores(String storeData) throws InterruptedException {
