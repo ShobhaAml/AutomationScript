@@ -2576,7 +2576,72 @@ return driver;
 		System.out.println("Otra Pivot added successfully");
 	}
 	
+	public void add_pivot_newsletter(String site_name) throws InterruptedException
+	{
+		findAndClick("pivoticon");
+		implicitWait();
+		findAndClick("pivot_newsletter_tab");
+		implicitWait();
+		driver.switchTo().defaultContent();
+		List<WebElement> radioButton = driver.findElements(By.name("newsletter-radio"));
+		for(int i=0; i<radioButton.size();i++)
+		{
+		implicitWait();
+		if(radioButton.get(i).getAttribute("value").equalsIgnoreCase(site_name))
+		{
+	    JavascriptExecutor jse = (JavascriptExecutor) driver;
+		jse.executeScript("arguments[0].scrollIntoView(true);", radioButton.get(i));
+		radioButton.get(i).click();
+		break;
+		}
+		}
+		Thread.sleep(1000);
+	    JavascriptExecutor jse = (JavascriptExecutor) driver;
+		jse.executeScript("arguments[0].scrollIntoView(true);", findElement(prop.getProperty("pivot_anadirPivot")));
+		findAndClick("pivot_anadirPivot");
+	}
 	
-	
-
+	public void add_pivotAmazon(String URL, String storeData) throws InterruptedException {
+		findAndClick("pivoticon");
+		implicitWait();
+		findAndClick("pivot_product_tab");
+		findAndWrite("pivot_textarea", URL);
+		findAndClick("pivot_buscar");
+		if (findElement(prop.getProperty("pivot_amazon_available")).getText()
+				.equalsIgnoreCase("Error: producto no encontrado"))
+			System.out.println("Amazon product not found....");
+		else {
+			if (findElement(prop.getProperty("pivot_section")) != null)
+				implicitWait();
+			findAndClick("pivot_elegir");
+			implicitWait();
+			System.out.println("Amazon product added successfully....");
+			JavascriptExecutor jse = (JavascriptExecutor) driver;
+			jse.executeScript("arguments[0].scrollIntoView(true);", findElement(prop.getProperty("Pivot_addOtrabutton")));
+			implicitWait();
+			add_OtherStores(storeData):
 }
+	}	
+	public void add_OtherStores(String storeData) throws InterruptedException {
+		findAndClick("pivot_otherStoreAnadir");
+		implicitWait();
+		String row1[] = storeData.split("@##@");
+		for (int i = 0; i < row1.length; i++) {
+			String row2[] = row1[i].split("#");
+			driver.findElement(By.xpath(".//*[@id='url" + (i + 1) + "']")).sendKeys(row2[0]);
+			driver.findElement(By.xpath(".//*[@id ='store" + (i + 1) + "']")).sendKeys(row2[1]);
+			driver.findElement(By.xpath(".//*[@id ='price" + (i + 1) + "']")).sendKeys(row2[2]);
+			implicitWait();
+			Actions ob = new Actions(driver);
+			ob.click(driver.findElement(By.xpath(".//*[@class='article-section']/div"))).perform();
+			JavascriptExecutor jse = (JavascriptExecutor) driver;
+			jse.executeScript("arguments[0].scrollIntoView(true);",
+					findElement(prop.getProperty("Addotherstorebutton")));
+			Thread.sleep(1000);
+			if (i < row1.length - 1)
+				driver.findElement(By.xpath(prop.getProperty("Addotherstorebutton"))).click();
+		}
+		findAndClick("Pivot_addOtrabutton");
+	}
+}
+
