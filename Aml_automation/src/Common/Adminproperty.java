@@ -2621,7 +2621,8 @@ return driver;
 			implicitWait();
 			add_OtherStores(storeData):
 }
-	}	
+	}
+
 	public void add_OtherStores(String storeData) throws InterruptedException {
 		findAndClick("pivot_otherStoreAnadir");
 		implicitWait();
