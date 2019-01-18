@@ -12,6 +12,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -20,14 +21,16 @@ import Common.Frontend;
 
 public class BrokenLinks
 {
-    WebDriver driver;
+   
     String[] arrlinks;
     String sitelinks = "";
     Frontend frontendProperties = new Frontend();
     Properties prop = new Properties();
     String server, blogname, path, device, testserver, browser;
     String usuariolink = "", author = "";
-
+    WebDriver driver = new HtmlUnitDriver();
+	String url1="https://guest:guest@testing.xataka.com";
+    
     @BeforeMethod
     public void Setup() throws Exception
     {
@@ -42,8 +45,9 @@ public class BrokenLinks
     @Test
     public void verfiyLinks() throws IOException
     {
-        driver = frontendProperties.frontcallproperty(prop.getProperty("url"),  prop.getProperty("browser"));
-
+     //   driver = frontendProperties.frontcallproperty(prop.getProperty("url"),  prop.getProperty("browser"));
+    	
+    	driver.get(url1);
         List<WebElement> anchorTagsList = driver.findElements(By.tagName("a"));
         System.out.println("Total no. of links are " + anchorTagsList.size());
         for (WebElement anchorTagElement : anchorTagsList) {
@@ -80,6 +84,7 @@ public class BrokenLinks
         // check for Respuestas pages
         System.out.println("usuariolink=" + usuariolink
                 + " **********AUthor===" + author);
+        VerifyInternalPages(author);
         VerifyInternalPages(prop.getProperty("url") + "/respuestas");
         VerifyInternalPages(prop.getProperty("url") + "/respuestas/preguntar");
         // ** check for Archivos pages
@@ -99,7 +104,8 @@ public class BrokenLinks
     {
         System.out.println("********* Verifing Internal Pages  " + url
                 + "*******");
-        driver = frontendProperties.frontcallproperty(url, prop.getProperty("browser"));
+      //  driver = frontendProperties.frontcallproperty(url, prop.getProperty("browser"));
+     	driver.get(url1);
         List<WebElement> anchorTagsList = driver.findElements(By.tagName("a"));
         System.out.println("Total no. of links are " + anchorTagsList.size());
         for (WebElement anchorTagElement : anchorTagsList) {
@@ -151,6 +157,6 @@ public class BrokenLinks
             // e.printStackTrace();
         }
         
-        frontendProperties.ExtractJSLogs(URL);
+      //  frontendProperties.ExtractJSLogs(URL);
     }
 }

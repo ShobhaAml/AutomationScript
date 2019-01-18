@@ -22,14 +22,16 @@ import Common.Frontend;
 
 public class BrokenLinksMobile
 {
-    WebDriver driver = new HtmlUnitDriver();
+    
     String[] arrlinks;
     String sitelinks = "";
     Frontend frontendProperties = new Frontend();
     Properties prop = new Properties();
     String server, blogname, path, device, testserver, browser;
     String usuariolink = "", author = "";
-  	
+  	String url1="https://guest:guest@mtest.xataka.com";
+    WebDriver driver = new HtmlUnitDriver();
+    
     @BeforeMethod
     public void Setup() throws Exception
     {
@@ -44,7 +46,7 @@ public class BrokenLinksMobile
     @Test
     public void verfiyLinks() throws IOException
     {
-       driver.get("https://guest:guest@mtest.xataka.com");
+    	driver.get(url1);
 	   List<WebElement> anchorTagsList = driver.findElements(By.tagName("a"));
         System.out.println("Total no. of links are " + anchorTagsList.size());
         for (WebElement anchorTagElement : anchorTagsList) {
@@ -101,7 +103,7 @@ public class BrokenLinksMobile
         System.out.println("********* Verifing Internal Pages  " + url
                 + " *******");
        // driver = frontendProperties.frontcallproperty(url, prop.getProperty("browser"));
-    	driver.get(prop.getProperty("url"));
+    	driver.get(url1);
         List<WebElement> anchorTagsList = driver.findElements(By.tagName("a"));
         System.out.println("Total no. of links are " + anchorTagsList.size());
         for (WebElement anchorTagElement : anchorTagsList) {
