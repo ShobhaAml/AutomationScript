@@ -83,14 +83,14 @@ public class BrokenLinksMobile
         // check for Respuestas pages
         System.out.println("usuariolink=" + usuariolink
                 + " **********AUthor===" + author);
-        VerifyInternalPages(prop.getProperty("url") + "/respuestas");
-        VerifyInternalPages(prop.getProperty("url") + "/respuestas/preguntar");
+        VerifyInternalPages(url1 + "/respuestas");
+        VerifyInternalPages(url1 + "/respuestas/preguntar");
         // ** check for Archivos pages
-        // VerifyInternalPages(prop.getProperty("url")+"/archivos");
+        // VerifyInternalPages(url1+"/archivos");
         // Verify Editor Pages
-        VerifyInternalPages(prop.getProperty("url") + "/quienes-somos");
+        VerifyInternalPages(url1 + "/quienes-somos");
         // Verify Editor Pages
-        VerifyInternalPages(prop.getProperty("url") + "/contacto");
+        VerifyInternalPages(url1 + "/contacto");
         if (usuariolink != "") {
             VerifyInternalPages(usuariolink);
         }
