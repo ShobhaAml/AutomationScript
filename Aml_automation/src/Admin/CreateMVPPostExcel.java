@@ -39,7 +39,7 @@ public class CreateMVPPostExcel {
 
 	@DataProvider(name = "testdata")
 	public Object[][] TestDataFeed() throws Exception {
-		Object[][] postdata = adminProperties.readExcel("Normal", 77);
+		Object[][] postdata = adminProperties.readExcel("Normal", 84);
 		return postdata;
 	}
 
@@ -60,10 +60,12 @@ public class CreateMVPPostExcel {
 			String Recipe_Image, String Recipe_More_postcontent, String Recipe_Youtube_Video,
 			String Recipe_Youtube_Video_layout, String Vine_Video, String Recipe_Vine_Video_layout, String Vimeo_Video,
 			String Recipe_Vimeo_Video_layout, String FB_Video, String Recipe_FB_Video_layout, String Recipe_summary,
-			String Recipe_summary_layout, String homecontent, String homeimage, String Branded_club, String category,
+			String Recipe_summary_layout,  String Pivot_amazon_search,String Pivot_dropdown,
+			String Pivot_otherStoreProductTitle, String Pivot_otherStoreProductImage, String Pivot_otherStorevalues,
+			String Pivot_newsletter, String homecontent, String homeimage, String Branded_club, String category,
 			String catagory_other, String tag, String seotitle, String seodesc, String specialpost,
 			String comment_closed, String author, String Twittertext, String fbtext, String Repost, String Run,
-			String Republish) throws Exception {
+			String Republish,String Future_time) throws Exception {
 		if (Run.trim().equalsIgnoreCase("Y")) {
 			String blogrole = "";
 			adminProperties.LoginAdmin(prop.getProperty("admin_usename"), prop.getProperty("admin_pwd"));
@@ -92,7 +94,7 @@ public class CreateMVPPostExcel {
 				
 			}
 			
-			if(!giphy.equalsIgnoreCase("null"))
+			/*	if(!giphy.equalsIgnoreCase("null"))
 			{
 				adminProperties.ClickICON(driver,"giphy");
 				adminProperties.implicitWait();
@@ -101,16 +103,49 @@ public class CreateMVPPostExcel {
 			
 		
 			
-			if(!Instagram.equalsIgnoreCase("null"))
+		if(!Instagram.equalsIgnoreCase("null"))
 			{
 				adminProperties.ClickICON(driver,"instagram");
 				adminProperties.implicitWait();
 				adminProperties.MVPmodules(Instagram);
 			}
 			
-			Actions action = new Actions(driver);
+			*/
+			
+			System.out.println(Pivot_newsletter);
+			
+			
+			if(!Pivot_newsletter.equalsIgnoreCase("null"))
+			{
+				adminProperties.ClickICON(driver,"pivot");
+				adminProperties.findAndClick("MvP_pivot_newsletter");
+				//Select option  .//span[text()='Xataka']
+				adminProperties.MVP_pivot_newsletter(Pivot_newsletter.toLowerCase());			
+			}
+			
+			System.out.println(Pivot_dropdown);
+			if(!Pivot_dropdown.equalsIgnoreCase("null"))
+			{
+				Actions action = new Actions(driver);
+			action.sendKeys(Keys.ENTER);
+			action.build().perform();
 			action.moveToElement(driver.findElement(By.xpath(prop.getProperty("content_section_path"))));
 			action.click();
+				adminProperties.ClickICON(driver,"pivot");
+				
+				if(Pivot_dropdown.equalsIgnoreCase("amazon")) {
+				      adminProperties.findAndClick("MvP_pivot_Product");
+					//Select option  .//span[text()='Xataka']
+					adminProperties.MVP_pivot_amazon(Pivot_amazon_search.toLowerCase());	
+					}
+			}
+			
+		
+			
+	/*		
+			Actions action = new Actions(driver);
+			action.moveToElement(driver.findElement(By.xpath(prop.getProperty("content_section_path"))));
+			action.click();*/
 			
 		}
 	}

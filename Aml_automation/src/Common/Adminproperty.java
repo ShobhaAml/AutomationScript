@@ -1980,8 +1980,10 @@ return driver;
 
 
 	public void ClickICON(WebDriver driver, String icon ) throws InterruptedException {
-		Thread.sleep(2000);
+	//	Thread.sleep(2000);
 		Actions action = new Actions(driver);
+		action.sendKeys(Keys.ENTER);
+		action.build().perform();
 		action.moveToElement(driver.findElement(By.xpath(prop.getProperty("content_section_path"))));
 		action.click();
 		implicitWait();
@@ -1997,6 +1999,10 @@ return driver;
 		}else if(icon.equalsIgnoreCase("giphy")) {
 			findAndClick("MVPgiphy");
 		}
+		else if(icon.equalsIgnoreCase("pivot")) {
+			findAndClick("MVP_pivot_icon");
+		}
+		
 		implicitWait();
 	}
 
@@ -2643,6 +2649,24 @@ return driver;
 				driver.findElement(By.xpath(prop.getProperty("Addotherstorebutton"))).click();
 		}
 		findAndClick("Pivot_addOtrabutton");
+	}
+	
+	public void MVP_pivot_newsletter(String sitename)
+	{		
+	    //Select option  .//span[text()='Xataka']
+       driver.findElement(By.xpath(".//input[@value='genbeta']")).click();
+       findAndClick("Mvp_addPivotbutton");
+	}
+	
+	public void MVP_pivot_amazon(String Pivot_amazon_search)
+	{
+		findAndWrite("MvP_amazon_search", Pivot_amazon_search);
+		findAndClick("MvP_search_button");
+		implicitWait();
+		findAndClick("MVP_amazon_select_product");
+		
+		
+		
 	}
 }
 
