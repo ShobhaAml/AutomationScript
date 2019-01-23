@@ -63,9 +63,9 @@ public class CreatePostExcel {
 			String Recipe_Image, String Recipe_More_postcontent, String Recipe_Youtube_Video,
 			String Recipe_Youtube_Video_layout, String Vine_Video, String Recipe_Vine_Video_layout, String Vimeo_Video,
 			String Recipe_Vimeo_Video_layout, String FB_Video, String Recipe_FB_Video_layout, String Recipe_summary,
-			String Recipe_summary_layout, String Pivot_product_ASIN, String Pivot_product_Nombre,String Pivot_dropdown,
+			String Recipe_summary_layout, String Pivot_amazon_search,String Pivot_dropdown,
 			String Pivot_otherStoreProductTitle, String Pivot_otherStoreProductImage, String Pivot_otherStorevalues,
-			String homecontent, String homeimage, String Branded_club, String category,
+			String Pivot_newsletter, String homecontent, String homeimage, String Branded_club, String category,
 			String catagory_other, String tag, String seotitle, String seodesc, String specialpost,
 			String comment_closed, String author, String Twittertext, String fbtext, String Repost, String Run,
 			String Republish,String Future_time) throws Exception {
@@ -257,8 +257,10 @@ public class CreatePostExcel {
 			
 			if(!Pivot_dropdown.equalsIgnoreCase("null"))
 			{
-				adminProperties.addpivot(Pivot_dropdown);
-				adminProperties.add_Otra_tienda(Pivot_otherStoreProductTitle, Pivot_otherStoreProductImage, Pivot_otherStorevalues);
+				if(Pivot_dropdown.equalsIgnoreCase("otherStore")) {
+					adminProperties.addpivot(Pivot_dropdown);
+					adminProperties.add_Otra_tienda(Pivot_otherStoreProductTitle, Pivot_otherStoreProductImage, Pivot_otherStorevalues);
+				}
 			}
 				
 		/*	if(!Pivot_product_ASIN.equalsIgnoreCase("null"))
