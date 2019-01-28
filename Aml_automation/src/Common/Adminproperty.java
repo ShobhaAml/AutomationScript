@@ -2664,9 +2664,53 @@ return driver;
 		findAndClick("MvP_search_button");
 		implicitWait();
 		findAndClick("MVP_amazon_select_product");
-		
-		
-		
+		}
+	
+	public void addpivotarticle(String article, String Pivot_product_Article_posttype, String Pivot_product_Article)
+			throws InterruptedException {
+		findAndClick("pivoticon");
+		implicitWait();
+		findAndWrite("pivotsearchinputtext_article", article);
+		findAndClick("pivotsearchbutton_article");
+		Thread.sleep(1000);
+
+		if (Pivot_product_Article_posttype.contains("brand")) {
+
+			if (!Pivot_product_Article.contains("https://")) {
+
+				System.out.println(findElement(prop.getProperty("pivot_validation")).getText());
+				System.out.println("<<<<<Validation Alert message>>>>>");
+			} else {
+				System.out.println(findElement(prop.getProperty("pivot_post_warning")).getText());
+				System.out.println("Warning message>>>>>its a branded post");
+				findAndClick("Addpivotproduct");
+				System.out.println("Pivot article added successfully");
+			}
+		} else if (Pivot_product_Article_posttype.contains("repost")) {
+			if (!Pivot_product_Article.contains("https://")) {
+
+				System.out.println(findElement(prop.getProperty("pivot_validation")).getText());
+				System.out.println("<<<<<Validation Alert message>>>>>");
+
+			} else {
+				System.out.println(findElement(prop.getProperty("pivot_repost_icon")).getText());
+				System.out.println("Warning message>>>>>its a repost");
+				findAndClick("Addpivotproduct");
+				System.out.println("Pivot article added successfully");
+			}
+		} else if (Pivot_product_Article_posttype.contains("normal")) {
+
+			if (!Pivot_product_Article.contains("https://")) {
+
+				System.out.println(findElement(prop.getProperty("pivot_validation")).getText());
+				System.out.println("<<<<<Validation Alert message>>>>>");
+			} else {
+				System.out.println("Warning message>>>>>its a normal post");
+				findAndClick("Addpivotproduct");
+				System.out.println("Pivot article added successfully");
+			}
+		}
+
 	}
 }
 
