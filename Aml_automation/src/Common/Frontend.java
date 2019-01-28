@@ -21,6 +21,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -38,20 +39,28 @@ import Common.Adminproperty;
 
     public WebDriver frontcallproperty(String url, String browser) throws IOException {
 
-	if (browser.trim().equalsIgnoreCase("Chrome")) {
-		
-		ChromeOptions options = new ChromeOptions();
-		options.addArguments("start-maximized");
-		driver = new ChromeDriver(options);
+    	/*LoggingPreferences loggingprefs = new LoggingPreferences();
+    	loggingprefs.enable(LogType.BROWSER, Level.ALL);*/
+    	if (browser.trim().equalsIgnoreCase("Chrome")) {
+    		System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedriver.exe");
+    		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+    		/*capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);*/
 
-	} else {
-		System.setProperty("webdriver.gecko.driver",
-				System.getProperty("user.dir") + "//src//Driverfiles//" + "geckodriver.exe");
-		driver = new FirefoxDriver();
-	}
-	driver.get(url);
-	driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-	return driver;
+    		ChromeOptions options = new ChromeOptions();
+    		options.addArguments("start-maximized");
+    		//options.addArguments("" + capabilities + "");
+    		driver = new ChromeDriver(options);
+
+    	} else {
+    		System.setProperty("webdriver.gecko.driver",
+    				System.getProperty("user.dir") + "//src//Driverfiles//" + "geckodriver.exe");
+    		DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+    		/*capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);*/
+    		driver = new FirefoxDriver(capabilities);
+    	}
+    	driver.get(url);
+    	driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+    	return driver;
 }
 
 

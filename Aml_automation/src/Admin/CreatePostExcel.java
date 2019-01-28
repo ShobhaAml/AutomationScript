@@ -42,7 +42,7 @@ public class CreatePostExcel {
 
 	@DataProvider(name = "testdata")
 	public Object[][] TestDataFeed() throws Exception {
-		Object[][] postdata = adminProperties.readExcel("Normal", 84);
+		Object[][] postdata = adminProperties.readExcel("Normal", 86);
 		return postdata;
 	}
 
@@ -68,7 +68,7 @@ public class CreatePostExcel {
 			String Pivot_newsletter, String homecontent, String homeimage, String Branded_club, String category,
 			String catagory_other, String tag, String seotitle, String seodesc, String specialpost,
 			String comment_closed, String author, String Twittertext, String fbtext, String Repost, String Run,
-			String Republish,String Future_time) throws Exception {
+			String Republish,String Future_time, String Pivot_product_Article, String Pivot_product_Article_posttype) throws Exception {
 		if (Run.trim().equalsIgnoreCase("Y")) {
 			String blogrole = "";
 			adminProperties.LoginAdmin(prop.getProperty("admin_usename"), prop.getProperty("admin_pwd"));
@@ -281,6 +281,15 @@ public class CreatePostExcel {
 				adminProperties.addpivotproduct(Pivot_product_Nombre,"nombre");
 				
 			}*/
+			
+			if (!Pivot_product_Article.equalsIgnoreCase("null")) {
+				System.out.println("Pivot Article =" + Pivot_product_Article);
+
+				adminProperties.implicitWait();
+				adminProperties.addNewlines();
+				adminProperties.addpivotarticle(Pivot_product_Article, Pivot_product_Article_posttype, Pivot_product_Article);
+				adminProperties.addNewlines();
+			}
 			adminProperties.implicitWait();
 			((JavascriptExecutor) driver).executeScript("scroll(0, -800);");
 			Thread.sleep(6000);
