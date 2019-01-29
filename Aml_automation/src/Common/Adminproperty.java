@@ -2654,7 +2654,7 @@ return driver;
 	public void MVP_pivot_newsletter(String sitename)
 	{		
 	    //Select option  .//span[text()='Xataka']
-       driver.findElement(By.xpath(".//input[@value='genbeta']")).click();
+       driver.findElement(By.xpath(".//input[@value='"+sitename+"']")).click();
        findAndClick("Mvp_addPivotbutton");
 	}
 	
