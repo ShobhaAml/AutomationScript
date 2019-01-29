@@ -226,38 +226,47 @@ import Common.Adminproperty;
 		implicitWait();
 
 		if(driver.getWindowHandles().size()>1){
-		for (String winHandle : driver.getWindowHandles()) {
-			driver.switchTo().window(winHandle);
-		}
-
-		implicitWait();
-		findAndWrite("twitter_email", username);
-		findAndWrite("twitter_password", password);
-		findAndClick("twitter_button");
-		implicitWait();
-		try {
-		if(driver.getCurrentUrl().contains("https://twitter.com/login/error")){	
-			message="Invalid login credentials";
-			System.out.println("Invalid login credentials");}
-		} 
-		catch (Exception e) {
-			
-		}
-		driver.switchTo().window(winHandleBefore);
+			System.out.println("URL ==" +driver.getCurrentUrl());
+			if(driver.getCurrentUrl().contains("twitter.com"))
+			{
+				for (String winHandle : driver.getWindowHandles()) {
+					driver.switchTo().window(winHandle);
+				}
 		
-		try {
-			
-			if(new WebDriverWait(driver, 10).until(ExpectedConditions
-					.visibilityOfElementLocated(By.xpath(prop.getProperty("deactivated_user")))) != null) {
-				message = new WebDriverWait(driver, 10)
-				.until(ExpectedConditions
-						.visibilityOfElementLocated(By.xpath(prop.getProperty("deactivated_user"))))
-				.getText();
-				message = "Deactivated User :  " + message;
+				implicitWait();
+				findAndWrite("twitter_email", username);
+				findAndWrite("twitter_password", password);
+				findAndClick("twitter_button");
+				implicitWait();
+				try {
+				if(driver.getCurrentUrl().contains("https://twitter.com/login/error")){	
+					message="Invalid login credentials";
+					System.out.println("Invalid login credentials");}
+				} 
+				catch (Exception e) {
+					
+				}	driver.switchTo().window(winHandleBefore);
+				
+				try {
+						
+						if(new WebDriverWait(driver, 10).until(ExpectedConditions
+								.visibilityOfElementLocated(By.xpath(prop.getProperty("deactivated_user")))) != null) {
+							message = new WebDriverWait(driver, 10)
+							.until(ExpectedConditions
+									.visibilityOfElementLocated(By.xpath(prop.getProperty("deactivated_user"))))
+							.getText();
+							message = "Deactivated User :  " + message;
+						}
+					} catch (Exception e) {
+					
+					}
 			}
-		} catch (Exception e) {
+			else
+			{
+				message="TWITTER not working, Not navigating to correct URL";
+			}
 		
-		}
+		
 		
 		}
 		return message;

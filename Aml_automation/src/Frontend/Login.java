@@ -36,20 +36,25 @@ public class Login {
 			return postdata;
 		}
 
-	   @Test(dataProvider = "testdata")
+	   //@Test(dataProvider = "testdata")
 	   public void StandardLogin(String username, String password) throws Exception
 	   {
+		   System.out.println("****Sanity of STANDARD LOGIN******");
 		   frontendProperties.login(username, password,url,"std");
 		}
 	   
-	   @Test(dataProvider = "testdata")
+	  // @Test(dataProvider = "testdata")
 		public void facebookLogin(String username, String password) throws Exception
 		{
+		    System.out.println("****Sanity of FACEBOOK LOGIN******");
 			frontendProperties.login(username, password,url,"fb");
 		}
 		
 	    @Test(dataProvider = "testdata") public void twitterLogin(String username, String password) throws Exception
 		{
-			frontendProperties.login("agiletest111@gmail.com", "amita123",url,"twitter");
+	    	System.out.println("****Sanity of TWITTER LOGIN******");
+	   		//frontendProperties.login("agiletest111@gmail.com", "amita123",url,"twitter");
+	   		frontendProperties.login(username, password,url,"twitter");
+	   		
 		}
 }
