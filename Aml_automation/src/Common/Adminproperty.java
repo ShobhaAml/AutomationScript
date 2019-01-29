@@ -71,42 +71,42 @@ public class Adminproperty extends TestListenerAdapter {
 	WebDriver driver;
 	Properties prop = new Properties();
 
-public Properties ReadProperties() throws IOException {
-        
-        FileInputStream inStream = new FileInputStream(System.getProperty("user.dir") +"/src/Common/admin.properties");    
-        System.out.print(System.getProperty("user.dir") + "\\src\\Common\\admin.properties");
-prop.load(inStream);
-return prop;
-}
+	public Properties ReadProperties() throws IOException {
 
+		FileInputStream inStream = new FileInputStream(System.getProperty("user.dir") + "/src/Common/admin.properties");
+		System.out.print(System.getProperty("user.dir") + "\\src\\Common\\admin.properties");
+		prop.load(inStream);
+		return prop;
+	}
 
+	public WebDriver callproperty(String url, String browser) throws IOException {
 
-public WebDriver callproperty(String url, String browser) throws IOException {
+		/*
+		 * LoggingPreferences loggingprefs = new LoggingPreferences();
+		 * loggingprefs.enable(LogType.BROWSER, Level.ALL);
+		 */
+		if (browser.trim().equalsIgnoreCase("Chrome")) {
+			System.setProperty("webdriver.chrome.driver",
+					System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedriver.exe");
+			DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+			/* capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs); */
 
-/*LoggingPreferences loggingprefs = new LoggingPreferences();
-loggingprefs.enable(LogType.BROWSER, Level.ALL);*/
-if (browser.trim().equalsIgnoreCase("Chrome")) {
-    System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedriver.exe");
-    DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-    /*capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);*/
+			ChromeOptions options = new ChromeOptions();
+			options.addArguments("start-maximized");
+			// options.addArguments("" + capabilities + "");
+			driver = new ChromeDriver(options);
 
-    ChromeOptions options = new ChromeOptions();
-    options.addArguments("start-maximized");
-    //options.addArguments("" + capabilities + "");
-    driver = new ChromeDriver(options);
-
-} else {
-    System.setProperty("webdriver.gecko.driver",
-            System.getProperty("user.dir") + "//src//Driverfiles//" + "geckodriver.exe");
-    DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-    /*capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);*/
-    driver = new FirefoxDriver(capabilities);
-}
-driver.get(url);
-driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-return driver;
-}
-
+		} else {
+			System.setProperty("webdriver.gecko.driver",
+					System.getProperty("user.dir") + "//src//Driverfiles//" + "geckodriver.exe");
+			DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+			/* capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs); */
+			driver = new FirefoxDriver(capabilities);
+		}
+		driver.get(url);
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		return driver;
+	}
 
 	public void uploadPrimaryImage(String primaryimage, String browser) throws Exception {
 		String primaryimagearr[] = primaryimage.split("@#@");
@@ -228,7 +228,7 @@ return driver;
 		}
 	}
 
-	public void addFbTwitterText(String fbtext, String twitter_text,String futurepost) {
+	public void addFbTwitterText(String fbtext, String twitter_text, String futurepost) {
 		implicitWait();
 		if (!(fbtext).equalsIgnoreCase("null")) {
 			findElement(prop.getProperty("fb_text")).sendKeys(fbtext);
@@ -239,14 +239,14 @@ return driver;
 			findElement(prop.getProperty("twitter_text")).sendKeys(twitter_text);
 		}
 		((JavascriptExecutor) driver).executeScript("scroll(0, -800);");
-		
-		if(!futurepost.equalsIgnoreCase("null")) {
+
+		if (!futurepost.equalsIgnoreCase("null")) {
 			findElement(prop.getProperty("future_post_button")).click();
-		
-		}else {
+
+		} else {
 			findElement(prop.getProperty("publish_post")).click();
 		}
-		
+
 		implicitWait();
 		System.out.println("Published post");
 	}
@@ -561,9 +561,8 @@ return driver;
 		/*
 		 * if (browser.trim().equalsIgnoreCase("Chrome")) { Actions action = new
 		 * Actions(driver); action.sendKeys(Keys.PAGE_DOWN); implicitWait();
-		 * action.click(driver.findElement(By.partialLinkText("Publicar")))
-		 * .perform(); implicitWait(); findAndClick("publish_tab");
-		 * implicitWait(); } else {
+		 * action.click(driver.findElement(By.partialLinkText("Publicar"))) .perform();
+		 * implicitWait(); findAndClick("publish_tab"); implicitWait(); } else {
 		 */
 		implicitWait();
 		((JavascriptExecutor) driver).executeScript("window.scrollBy(0,-250)");
@@ -572,9 +571,11 @@ return driver;
 		findAndClick("publish_tab");
 		/* } */
 
-		/*WebDriverWait wait = new WebDriverWait(driver, 10);
-		Alert alert = wait.until(ExpectedConditions.alertIsPresent());
-		alert.authenticateUsing(new UserAndPassword("guest", "guest"));*/
+		/*
+		 * WebDriverWait wait = new WebDriverWait(driver, 10); Alert alert =
+		 * wait.until(ExpectedConditions.alertIsPresent()); alert.authenticateUsing(new
+		 * UserAndPassword("guest", "guest"));
+		 */
 
 	}
 
@@ -1746,241 +1747,237 @@ return driver;
 		}
 		return "Images have been cropped sucessfully";
 	}
-	 public void searchAndEdit(String search_data) throws Exception {
-			driver.findElement(By.xpath(prop.getProperty("search_field_path"))).sendKeys(search_data);
-			driver.findElement(By.xpath(prop.getProperty("search_button"))).click();
-			Thread.sleep(2000);
-			List<WebElement> items = driver.findElements(By.xpath(prop.getProperty("Dashboardlist")));
-			System.out.println(items.size());
-			for (WebElement posttitle : items) {
-				if (posttitle.getText().equalsIgnoreCase(search_data)) {
-					System.out.println(posttitle.getText());
-					findAndClick("Editbutton");
-					break;
+
+	public void searchAndEdit(String search_data) throws Exception {
+		driver.findElement(By.xpath(prop.getProperty("search_field_path"))).sendKeys(search_data);
+		driver.findElement(By.xpath(prop.getProperty("search_button"))).click();
+		Thread.sleep(2000);
+		List<WebElement> items = driver.findElements(By.xpath(prop.getProperty("Dashboardlist")));
+		System.out.println(items.size());
+		for (WebElement posttitle : items) {
+			if (posttitle.getText().equalsIgnoreCase(search_data)) {
+				System.out.println(posttitle.getText());
+				findAndClick("Editbutton");
+				break;
+			}
+		}
+
+	}
+
+	public void scheduleRepublish(String scheduleDate) {
+		findAndClick("post_title");
+		Conditionalwait("difundir_Link");
+		findAndClick("difundir_Link");
+		implicitWait();
+		findAndClick("portada_button");
+		implicitWait();
+		driver.findElement(By.xpath(prop.getProperty("repubDate"))).clear();
+		implicitWait();
+		findAndWrite("repubDate", scheduleDate);
+		findAndClick("checkBoxRepub");
+		findAndClick("scheduleRepubButton");
+
+	}
+
+	public String normalPostVarifyCropImage(String results) throws Exception {
+
+		findAndClick("publish_tab");
+
+		((JavascriptExecutor) driver).executeScript("window.scrollBy(0,1300)");
+		String result1 = "";
+
+		String Editar = "";
+		if (!results.equalsIgnoreCase(Editar)) {
+			result1 = driver.findElement(By.xpath(prop.getProperty("Editar"))).getText();
+			System.out.println("Active button=  " + result1);
+			System.out.println("********* NOTE:- If Editar button present means your Image has validated *********");
+		} else {
+
+			System.out.println(
+					"********* NOTE:- If Validar button present means you have to validate image first to publish post *********");
+		}
+		return result1;
+	}
+
+	public void sunMedia(String sunVideoURL, String layout, String browser, String youtubeURL) {
+		findAndClick("Video_URL");
+		implicitWait();
+		if (layout.equalsIgnoreCase("normal")) {
+			findElement(prop.getProperty("Video_NormalLayout")).click();
+		} else {
+			findElement(prop.getProperty("Video_Biglayout")).click();
+		}
+		implicitWait();
+		findAndWrite("Sun_Xpath", sunVideoURL);
+		findAndWrite("Sun_youtubeXpath", youtubeURL);
+		if (sunVideoURL.contains("api")) {
+			findAndClick("button_sunmedia");
+		}
+	}
+
+	public void writeExcel(String fileName, String sheetName, String[] dataToWrite) throws IOException {
+		// DashboardButton
+		String filePath = System.getProperty("user.dir") + "\\src\\Common\\";
+		File file = new File(filePath + "\\" + fileName); // Create an object of File class to open xlsx file
+		FileInputStream inputStream = new FileInputStream(file); // Create an object of FileInputStream class to read
+																	// excel file
+		Workbook workbook = null;
+		String fileExtensionName = fileName.substring(fileName.indexOf(".")); // Find the file extension by splitting
+																				// file name in substring and getting
+																				// only extension name
+		if (fileExtensionName.equals(".xlsx")) { // Check condition if the file is xlsx file
+			workbook = new XSSFWorkbook(inputStream); // If it is xlsx file then create object of XSSFWorkbook class
+		} // Check condition if the file is xls file
+		else if (fileExtensionName.equals(".xls")) {
+			workbook = new HSSFWorkbook(inputStream); // If it is xls file then create object of XSSFWorkbook class
+		}
+		Sheet sheet = workbook.getSheet(sheetName); // Read excel sheet by sheet name
+		int rowCount = sheet.getLastRowNum() - sheet.getFirstRowNum(); // Get the current count of rows in excel file
+		Row row = sheet.getRow(0); // Get the first row from the sheet
+		Row newRow = sheet.createRow(rowCount + 1); // Create a new row and append it at last of sheet
+		for (int j = 0; j < row.getLastCellNum(); j++) {// Create a loop over the cell of newly created Row
+			// Fill data in row
+			Cell cell = newRow.createCell(j);
+			cell.setCellValue(dataToWrite[j]);
+		}
+		inputStream.close(); // Close input stream
+		FileOutputStream outputStream = new FileOutputStream(file); // Create an object of FileOutputStream class to
+																	// create write data in excel file
+		workbook.write(outputStream); // write data in the excel file
+		outputStream.close(); // close output stream
+	}
+
+	public void handleAuthenticationDialog(String browser) throws IOException {
+
+		if (browser.trim().equalsIgnoreCase("Chrome")) {
+			Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\DriverFiles\\authentication_chrome.exe");
+		} else {
+			Runtime.getRuntime()
+					.exec(System.getProperty("user.dir") + "\\src\\DriverFiles\\authentication_firefox.exe");
+		}
+		System.out.println("Sucessfully Authenticated");
+	}
+
+	public Object[][] readExcel_roleCreation(String excelsheetname, int columns) throws IOException {
+		String filepath = System.getProperty("user.dir") + "\\src\\Common\\";
+		String filename = "Excel_roleCreation.xlsx";
+		FileInputStream instream = new FileInputStream(filepath + "\\" + filename);
+		System.out.println(filepath + "\\" + filename);
+		Workbook wb = new XSSFWorkbook(instream);
+		Sheet sheet = wb.getSheet(excelsheetname);
+		int rows = sheet.getLastRowNum() - sheet.getFirstRowNum();
+		int cnt = 0;
+		System.out.println(rows + "===" + columns);
+
+		Object[][] userdata = new Object[rows][columns];
+		for (int i = 1; i <= rows; i++) {
+			Row row = sheet.getRow(i);
+			for (int j = 0; j < row.getLastCellNum(); j++) {
+				sheet.getRow(i).getCell(j).setCellType(sheet.getRow(i).getCell(j).CELL_TYPE_STRING);
+				if (sheet.getRow(i).getCell(j).getStringCellValue() != "") {
+					userdata[cnt][j] = sheet.getRow(i).getCell(j).getStringCellValue();
 				}
 			}
-			
+			cnt++;
 		}
-	 public void scheduleRepublish(String scheduleDate){	
-			findAndClick("post_title");
-			Conditionalwait("difundir_Link");
-			findAndClick("difundir_Link");
-			implicitWait();
-			findAndClick("portada_button");
-			implicitWait();
-			driver.findElement(By.xpath(prop.getProperty("repubDate"))).clear();
-			implicitWait();
-			findAndWrite("repubDate", scheduleDate);
-			findAndClick("checkBoxRepub");
-			findAndClick("scheduleRepubButton");
 
-		}
-		public String normalPostVarifyCropImage(String results) throws Exception {
+		return userdata;
+	}
+	/*
+	 * public List<IndexWrapper> findIndexesForKeyword(String keyword,String
+	 * searchString) {
+	 * 
+	 * String result= findMatch( keyword, searchString);
+	 * 
+	 * System.out.println("Matching result======"+result); String regex =
+	 * "\\b"+keyword+"\\b"; Pattern pattern = Pattern.compile(regex); Matcher
+	 * matcher = pattern.matcher(searchString);
+	 * 
+	 * List<IndexWrapper> wrappers = new ArrayList<IndexWrapper>();
+	 * 
+	 * while(matcher.find() == true){ int end = matcher.end(); int start =
+	 * matcher.start(); IndexWrapper wrapper = new IndexWrapper(start, end);
+	 * wrappers.add(wrapper); System.out.println(wrapper);
+	 * 
+	 * }
+	 * 
+	 * 
+	 * 
+	 * return wrappers; }
+	 */
 
-			findAndClick("publish_tab");
+	public String findMatch(String keyword, String searchString) {
+		String arrmatch = "";
 
-			((JavascriptExecutor) driver).executeScript("window.scrollBy(0,1300)");
-			String result1="";
+		String[] tags = keyword.toLowerCase().split(" ");
+		int cnt = 0;
+		int index = 0;
 
-			String Editar="";
-			if (!results.equalsIgnoreCase(Editar)) {
-				result1 = driver.findElement(By.xpath(prop.getProperty("Editar"))).getText();
-				System.out.println("Active button=  " + result1);
-				System.out.println("********* NOTE:- If Editar button present means your Image has validated *********");
-			} else {
-				
-				System.out.println("********* NOTE:- If Validar button present means you have to validate image first to publish post *********");
-			}
-			return result1;
-		}
-	
-		public void sunMedia(String sunVideoURL, String layout, String browser, String youtubeURL) {
-			findAndClick("Video_URL");
-			implicitWait();
-			if (layout.equalsIgnoreCase("normal")) {
-				findElement(prop.getProperty("Video_NormalLayout")).click();
-			} else {
-				findElement(prop.getProperty("Video_Biglayout")).click();
-			}
-			implicitWait();
-			findAndWrite("Sun_Xpath", sunVideoURL);
-			findAndWrite("Sun_youtubeXpath", youtubeURL);
-			if (sunVideoURL.contains("api")) {
-				findAndClick("button_sunmedia");		
-			}
-				}
-		
-		 public void writeExcel(String fileName,String sheetName,String[] dataToWrite) throws IOException{
-			    //DashboardButton
-				    String filePath = System.getProperty("user.dir") + "\\src\\Common\\";
-				    File file =    new File(filePath+"\\"+fileName); 	//Create an object of File class to open xlsx file
-					FileInputStream inputStream = new FileInputStream(file); //Create an object of FileInputStream class to read excel file
-					Workbook workbook = null;
-					String fileExtensionName = fileName.substring(fileName.indexOf(".")); //Find the file extension by splitting  file name in substring and getting only extension name
-					if(fileExtensionName.equals(".xlsx")){		//Check condition if the file is xlsx file
-						workbook = new XSSFWorkbook(inputStream); //If it is xlsx file then create object of XSSFWorkbook class
-					}//Check condition if the file is xls file
-					else if(fileExtensionName.equals(".xls")){  
-						workbook = new HSSFWorkbook(inputStream); //If it is xls file then create object of XSSFWorkbook class
-			      }
-				   Sheet sheet = workbook.getSheet(sheetName); //Read excel sheet by sheet name  
-				   int rowCount = sheet.getLastRowNum()-sheet.getFirstRowNum(); //Get the current count of rows in excel file
-				   Row row = sheet.getRow(0);  //Get the first row from the sheet
-				   Row newRow = sheet.createRow(rowCount+1); //Create a new row and append it at last of sheet
-				   for(int j = 0; j < row.getLastCellNum(); j++){//Create a loop over the cell of newly created Row
-					 //Fill data in row
-					  Cell cell = newRow.createCell(j);
-					  cell.setCellValue(dataToWrite[j]);
-				   }
-				   inputStream.close(); //Close input stream
-				   FileOutputStream outputStream = new FileOutputStream(file); //Create an object of FileOutputStream class to create write data in excel file
-				   workbook.write(outputStream); //write data in the excel file
-				   outputStream.close(); //close output stream
-			 }
-		 
-		 public void handleAuthenticationDialog(String browser) throws IOException {
-				
-			  if (browser.trim().equalsIgnoreCase("Chrome")) {
-			  Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\DriverFiles\\authentication_chrome.exe"); 
-			  }
-			else {
-				Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\DriverFiles\\authentication_firefox.exe");
-			}
-			System.out.println("Sucessfully Authenticated");
-		 }
-		
-		public Object[][] readExcel_roleCreation(String excelsheetname, int columns) throws IOException {
-			String filepath = System.getProperty("user.dir") + "\\src\\Common\\";
-			String filename = "Excel_roleCreation.xlsx";
-			FileInputStream instream = new FileInputStream(filepath + "\\" + filename);
-			System.out.println(filepath + "\\" + filename);
-			Workbook wb = new XSSFWorkbook(instream);
-			Sheet sheet = wb.getSheet(excelsheetname);
-			int rows = sheet.getLastRowNum() - sheet.getFirstRowNum();
-			int cnt = 0;
-			System.out.println(rows + "===" + columns);
-
-			Object[][] userdata = new Object[rows][columns];
-			for (int i = 1; i <= rows; i++) {
-				Row row = sheet.getRow(i);
-				for (int j = 0; j < row.getLastCellNum(); j++) {
-					sheet.getRow(i).getCell(j).setCellType(sheet.getRow(i).getCell(j).CELL_TYPE_STRING);
-					if (sheet.getRow(i).getCell(j).getStringCellValue() != "") {
-						userdata[cnt][j] = sheet.getRow(i).getCell(j).getStringCellValue();
+		for (int j = 0; j < tags.length; j++) {
+			if (tags[j].length() > 2) {
+				String tagsRegex = "\\w*(" + String.join("|", tags[j].substring(0, 3)) + ")\\w*";
+				Matcher matcher = Pattern.compile(tagsRegex, Pattern.UNICODE_CHARACTER_CLASS)
+						.matcher(searchString.toLowerCase());
+				while (matcher.find()) {
+					// System.out.println("MATCH======="+matcher.group() );
+					if (arrmatch != "") {
+						arrmatch = arrmatch + "," + matcher.group();
+					} else {
+						arrmatch = matcher.group();
 					}
 				}
-				cnt++;
 			}
-
-			return userdata;
 		}
-	 /*public List<IndexWrapper> findIndexesForKeyword(String keyword,String searchString) {
-		 
-		 String result= findMatch( keyword, searchString);
-		
-		 System.out.println("Matching result======"+result);
-	        String regex = "\\b"+keyword+"\\b";
-	        Pattern pattern = Pattern.compile(regex);
-	        Matcher matcher = pattern.matcher(searchString);
-	 
-	        List<IndexWrapper> wrappers = new ArrayList<IndexWrapper>();
-	 
-	        while(matcher.find() == true){
-	            int end = matcher.end();
-	            int start = matcher.start();
-	            IndexWrapper wrapper = new IndexWrapper(start, end);
-	            wrappers.add(wrapper);
-		        System.out.println(wrapper);
+		// System.out.println(arrmatch);
 
-	        }
-	        
-	        
-		
-	        return wrappers;
-	    }
-	 */
-		
-		public String findMatch(String keyword,String searchString)
-		{
-			String arrmatch="";
-	
-			String[] tags=keyword.toLowerCase().split(" ");
-			int cnt=0;
-			int index =0;
-			
-			for(int j=0;j<tags.length;j++)
-			{
-				if(tags[j].length()>2) {
-				String tagsRegex = "\\w*(" + String.join("|", tags[j].substring(0, 3)) + ")\\w*";
-				Matcher matcher = Pattern.compile(tagsRegex,
-                     Pattern.UNICODE_CHARACTER_CLASS).matcher(searchString.toLowerCase());
-			 while (matcher.find() ) {
-			     // System.out.println("MATCH======="+matcher.group() );
-			     if(arrmatch!="")
-			     {
-			    	 arrmatch=arrmatch+","+ matcher.group();
-			     }
-			     else
-			     {
-			    	 arrmatch=matcher.group(); 
-			     }
-			    }
-				}
-			}
-			 //System.out.println(arrmatch);
-			 
-			/*String result=  String.valueOf(cnt) ;
-			result=result+"@"+arrmatch;
-			*/
-			return arrmatch;
-		}
-		
-		
-	 public String getPostcontent(String ID,String posttype,String sitename) {
-		 System.out.println("ID==="+ID);
-			String status = "";
-			String url = sitename.replace("https://testing", "https://guest:guest@testing");
-			//System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedriver.exe");
-			
-			WebDriver driver = new HtmlUnitDriver();
-			driver.get(url);
-			/*driver.navigate().refresh();
-			*/driver.manage().timeouts().implicitlyWait(1000,TimeUnit.SECONDS);
-			if(posttype.equalsIgnoreCase("respuesta"))
-			{
-				status = driver.findElement(By.xpath(".//*[@class='article-summary']")).getText();
-				
-			}
-			else if (posttype.equalsIgnoreCase("ecom"))
-			{
-				status = driver.findElement(By.xpath(".//*[@class='context']")).getText();
-				
-			}
-			else {
+		/*
+		 * String result= String.valueOf(cnt) ; result=result+"@"+arrmatch;
+		 */
+		return arrmatch;
+	}
+
+	public String getPostcontent(String ID, String posttype, String sitename) {
+		System.out.println("ID===" + ID);
+		String status = "";
+		String url = sitename.replace("https://testing", "https://guest:guest@testing");
+		// System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir") +
+		// "//src//Driverfiles//" + "chromedriver.exe");
+
+		WebDriver driver = new HtmlUnitDriver();
+		driver.get(url);
+		/*
+		 * driver.navigate().refresh();
+		 */driver.manage().timeouts().implicitlyWait(1000, TimeUnit.SECONDS);
+		if (posttype.equalsIgnoreCase("respuesta")) {
+			status = driver.findElement(By.xpath(".//*[@class='article-summary']")).getText();
+
+		} else if (posttype.equalsIgnoreCase("ecom")) {
+			status = driver.findElement(By.xpath(".//*[@class='context']")).getText();
+
+		} else {
 			status = driver.findElement(By.xpath(".//*[@class='article-content']")).getText();
-			}
-			driver.close();
-			return status;
 		}
-	 
-	 public void CreateMVPpost() throws InterruptedException {
-		 System.out.println("Move to warning screen");
-		 	findAndClick("navigation_header");
-		 	findAndClick("create_MVPpost_link");
-		 	Thread.sleep(3000);
-	        ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
-	        driver.switchTo().window(tabs.get(1));
-	        implicitWait();
-	         System.out.println("mvp_close_dialog==="+prop.getProperty("mvp_close_dialog"));
-	        Conditionalwait("mvp_close_dialog");
-	        findAndClick("mvp_close_dialog");
-	        
-	        implicitWait();
-	    }
+		driver.close();
+		return status;
+	}
 
+	public void CreateMVPpost() throws InterruptedException {
+		System.out.println("Move to warning screen");
+		findAndClick("navigation_header");
+		findAndClick("create_MVPpost_link");
+		Thread.sleep(3000);
+		ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+		driver.switchTo().window(tabs.get(1));
+		implicitWait();
+		System.out.println("mvp_close_dialog===" + prop.getProperty("mvp_close_dialog"));
+		Conditionalwait("mvp_close_dialog");
+		findAndClick("mvp_close_dialog");
 
-	public void ClickICON(WebDriver driver, String icon ) throws InterruptedException {
-	//	Thread.sleep(2000);
+		implicitWait();
+	}
+
+	public void ClickICON(WebDriver driver, String icon) throws InterruptedException {
+		// Thread.sleep(2000);
 		Actions action = new Actions(driver);
 		action.sendKeys(Keys.ENTER);
 		action.build().perform();
@@ -1992,28 +1989,27 @@ return driver;
 		implicitWait();
 		findAndClick("Clickplus");
 		implicitWait();
-		if(icon.equalsIgnoreCase("image")){
+		if (icon.equalsIgnoreCase("image")) {
 			findAndClick("MVPImage");
-		}else if(icon.equalsIgnoreCase("instagram")) {
+		} else if (icon.equalsIgnoreCase("instagram")) {
 			findAndClick("MVP_instagram");
-		}else if(icon.equalsIgnoreCase("giphy")) {
+		} else if (icon.equalsIgnoreCase("giphy")) {
 			findAndClick("MVPgiphy");
-		}
-		else if(icon.equalsIgnoreCase("pivot")) {
+		} else if (icon.equalsIgnoreCase("pivot")) {
 			findAndClick("MVP_pivot_icon");
 		}
-		
+
 		implicitWait();
 	}
 
-	public void AddMVPTitle(String title)  {
+	public void AddMVPTitle(String title) {
 
 		Actions action = new Actions(driver);
 		implicitWait();
 		action.moveToElement(driver.findElement(By.xpath(prop.getProperty("MVPtitle"))));
 		action.click();
 		action.build().perform();
-	
+
 		try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {
@@ -2024,14 +2020,13 @@ return driver;
 		action.sendKeys(title);
 		action.build().perform();
 
-		
 		try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		implicitWait();
 		System.out.println("Title added to post");
 	}
@@ -2051,8 +2046,7 @@ return driver;
 
 	public void addMVP_SectionContent(String addContent) throws InterruptedException {
 		Actions actions = new Actions(driver);
-		if (findElement(prop.getProperty("typeSection")).getText()
-				.equalsIgnoreCase("Empieza a escribir aqu�...")) {
+		if (findElement(prop.getProperty("typeSection")).getText().equalsIgnoreCase("Empieza a escribir aqu�...")) {
 			Thread.sleep(1000);
 			actions.moveToElement(driver.findElement(By.xpath(prop.getProperty("addSection"))));
 			actions.click();
@@ -2067,7 +2061,7 @@ return driver;
 						+ list.get(list.size() - 1).getAttribute("id") + "']" + prop.getProperty("newLineMVP"))))
 						.click();
 			actions.sendKeys(addContent);
-			//actions.sendKeys(Keys.ENTER);
+			// actions.sendKeys(Keys.ENTER);
 			actions.build().perform();
 		}
 	}
@@ -2092,7 +2086,7 @@ return driver;
 		findAndWrite("MVPImageAlt", "testing alternate text");
 		findAndClick("MVPInsertButton");
 	}
-	
+
 	public void getHintImageToolbar() throws InterruptedException {
 		Actions actions = new Actions(driver);
 		Thread.sleep(1000);
@@ -2108,7 +2102,7 @@ return driver;
 			Thread.sleep(1000);
 			System.out.println("Other toolbars are -->   " + toolBarList.get(i).getText());
 			if (i == toolBarList.size() - 1)
-			break;
+				break;
 			actions.moveToElement(toolBarList.get(i + 1)).clickAndHold().build().perform();
 		}
 	}
@@ -2124,12 +2118,12 @@ return driver;
 		findAndWrite("MVPImageAlt", "testing alternate text");
 		if (layout.equalsIgnoreCase("")) {
 			findAndClick("MVPInsertButton");
-			}
-		else{
-			//layoutResourcePanel(layout);         //UPDATION
+		} else {
+			// layoutResourcePanel(layout); //UPDATION
 			common_layout_mvp("imgLayoutResourcePanel", layout);
-		findAndClick("MVPInsertButton");}
-		
+			findAndClick("MVPInsertButton");
+		}
+
 	}
 
 	public void editImage(String image, String layout) throws InterruptedException {
@@ -2154,7 +2148,8 @@ return driver;
 			Thread.sleep(2000);
 			actions.moveToElement(driver.findElement(By.xpath(prop.getProperty("imgCaptionResourcePanel"))));
 			actions.click();
-			// actions.sendKeys("caption");  //findAndWrite("imgCaptionResourcePanel","testing caption text");
+			// actions.sendKeys("caption");
+			// //findAndWrite("imgCaptionResourcePanel","testing caption text");
 			Thread.sleep(2000);
 			layoutResourcePanel(layout);
 			findAndClick("MVPInsertButton");
@@ -2163,6 +2158,7 @@ return driver;
 			Insertimage(layout);
 		}
 	}
+
 // NOT WORKING
 	public void layoutResourcePanel(String layout) throws InterruptedException {
 		Actions actions = new Actions(driver);
@@ -2199,7 +2195,7 @@ return driver;
 			implicitWait();
 		}
 	}
-	
+
 	public void addImageCaption() throws InterruptedException {
 		Thread.sleep(2000);
 		Actions action = new Actions(driver);
@@ -2211,7 +2207,7 @@ return driver;
 		System.out.println("Caption successfully inserted");
 
 	}
-	
+
 	public void selectImageLayout(String layout) throws InterruptedException {
 
 		Thread.sleep(2000);
@@ -2230,26 +2226,25 @@ return driver;
 
 		System.out.println("Layout selected successfully");
 	}
-	
-	public void MVPmodules(String url)
-	{
-		  Actions action = new Actions(driver);
-		  implicitWait();
-			action.moveToElement(driver.findElement(By.xpath(prop.getProperty("MVPmoduletextbox"))));
-			action.click();
-			action.sendKeys(url);
-			action.build().perform();
-			findAndClick("MVPInsertButton");	
-			WebElement element1 = driver.findElement(By.xpath(prop.getProperty("MVPmoduletextbox")));
-			if (new WebDriverWait(driver, 10).until(ExpectedConditions
-					.visibilityOfElementLocated(By.xpath(prop.getProperty("MVPmoduletextbox")))) != null) {
-				System.out.println(element1.getText());
-			}
+
+	public void MVPmodules(String url) {
+		Actions action = new Actions(driver);
+		implicitWait();
+		action.moveToElement(driver.findElement(By.xpath(prop.getProperty("MVPmoduletextbox"))));
+		action.click();
+		action.sendKeys(url);
+		action.build().perform();
+		findAndClick("MVPInsertButton");
+		WebElement element1 = driver.findElement(By.xpath(prop.getProperty("MVPmoduletextbox")));
+		if (new WebDriverWait(driver, 10).until(ExpectedConditions
+				.visibilityOfElementLocated(By.xpath(prop.getProperty("MVPmoduletextbox")))) != null) {
+			System.out.println(element1.getText());
+		}
 		implicitWait();
 	}
-	
+
 	public void addTwitterMVP(String twURL) throws InterruptedException {
-        implicitWait();
+		implicitWait();
 		findAndClick("mvp_twitter");
 		implicitWait();
 		if (twURL.contains("twitter") == true) {
@@ -2266,20 +2261,19 @@ return driver;
 	}
 
 	public void addSumarioMVP(String layout, String sumarioText) throws InterruptedException {
-        implicitWait();
+		implicitWait();
 		findAndClick("mvp_sumario");
 		Actions action = new Actions(driver);
-        //action.moveToElement(driver.findElement(By.xpath("//*[@id=\"summarymodal\"]/div[1]/div/div/div/div/div")));
-        action.moveToElement(findElement(prop.getProperty("mvp_sumario_url")));
-        action.click();
-        action.sendKeys(sumarioText);
-        action.build().perform();
-        implicitWait();
-        common_layout_mvp("mvp_layout1", layout);
+		// action.moveToElement(driver.findElement(By.xpath("//*[@id=\"summarymodal\"]/div[1]/div/div/div/div/div")));
+		action.moveToElement(findElement(prop.getProperty("mvp_sumario_url")));
+		action.click();
+		action.sendKeys(sumarioText);
+		action.build().perform();
+		implicitWait();
+		common_layout_mvp("mvp_layout1", layout);
 		findAndClick("mvp_insertar");
-    }
+	}
 
-	
 	public void MVPaddInfogram(String infogramUrl) {
 		findAndClick("MVP_infogramIcon");
 		Actions action = new Actions(driver);
@@ -2371,7 +2365,7 @@ return driver;
 		System.out.println("Video DELETED successfully");
 		implicitWait();
 	}
-	
+
 	public void common_layout_mvp(String listXpath, String takeAction) throws InterruptedException {
 		Actions actions = new Actions(driver);
 		Thread.sleep(1000);
@@ -2387,7 +2381,7 @@ return driver;
 		}
 	}
 
-	public void edit_URL_mvp(String xPath, String URL) throws InterruptedException{
+	public void edit_URL_mvp(String xPath, String URL) throws InterruptedException {
 		Thread.sleep(2000);
 		Actions action = new Actions(driver);
 		action.moveToElement(driver.findElement(By.xpath(prop.getProperty(xPath))));
@@ -2447,29 +2441,27 @@ return driver;
 			findAndClick("mvp_insertar");
 		}
 	}
-	
-	public void addpivot(String Pivot_dropdown)
-	{
+
+	public void addpivot(String Pivot_dropdown) {
 		findAndClick("pivoticon");
 		implicitWait();
 		findAndClick("pivotproducttab");
-		
-		if(!Pivot_dropdown.equalsIgnoreCase("null"))
-		{
-		  Select drpCountry = new Select(driver.findElement(By.xpath(prop.getProperty("pivot_dropdown"))));
-		   drpCountry.selectByValue(Pivot_dropdown);
+
+		if (!Pivot_dropdown.equalsIgnoreCase("null")) {
+			Select drpCountry = new Select(driver.findElement(By.xpath(prop.getProperty("pivot_dropdown"))));
+			drpCountry.selectByValue(Pivot_dropdown);
 			System.out.println("Dropdown Value selected");
-			
+
 		}
-		
-		/*findAndWrite("pivotsearchinputtext", product);
-		findAndClick("pivotsearchbutton");
-		findAndClick("pivotselect1");
-		findAndClick("Addpivotproduct");*/
-		
-		
+
+		/*
+		 * findAndWrite("pivotsearchinputtext", product);
+		 * findAndClick("pivotsearchbutton"); findAndClick("pivotselect1");
+		 * findAndClick("Addpivotproduct");
+		 */
+
 	}
-	
+
 	public void mvp_addRichContent(String alternativo, String text, String url)
 			throws InterruptedException, IOException {
 		findAndClick("mvp_richIcon");
@@ -2544,69 +2536,64 @@ return driver;
 			System.out.println("Alternativo is successfully updated.");
 		}
 	}
-	public void add_Otra_tienda(String Pivot_otherStoreProductTitle, String Pivot_otherStoreProductImage,String Pivot_otherStorevalues) throws IOException, InterruptedException
-	{
+
+	public void add_Otra_tienda(String Pivot_otherStoreProductTitle, String Pivot_otherStoreProductImage,
+			String Pivot_otherStorevalues) throws IOException, InterruptedException {
 		findAndClick("otherStoreProductTitle");
 		findAndWrite("otherStoreProductTitle", Pivot_otherStoreProductTitle);
 		findAndClick("otherStoreProductImage");
 		Thread.sleep(1000);
-		Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\DriverFiles\\fileupload.exe"
-			+ " " + System.getProperty("user.dir") + "\\src\\Images\\" + Pivot_otherStoreProductImage);
-	
-		implicitWait();		
-		
-		
+		Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\DriverFiles\\fileupload.exe" + " "
+				+ System.getProperty("user.dir") + "\\src\\Images\\" + Pivot_otherStoreProductImage);
+
+		implicitWait();
+
 		implicitWait();
 		System.out.println("Image uploaded ");
-		String[] arrmultiplestore= Pivot_otherStorevalues.split("@###@");
-		
-		System.out.println("Total array " +arrmultiplestore.length);
-		for(int i=0;i<arrmultiplestore.length;i++)
-		{
-			String[] arrstores=arrmultiplestore[i].split("@#@");
+		String[] arrmultiplestore = Pivot_otherStorevalues.split("@###@");
+
+		System.out.println("Total array " + arrmultiplestore.length);
+		for (int i = 0; i < arrmultiplestore.length; i++) {
+			String[] arrstores = arrmultiplestore[i].split("@#@");
 			System.out.println(arrstores[0]);
 			System.out.println(arrstores[1]);
 			System.out.println(arrstores[2]);
-		
-			driver.findElement(By.xpath(".//*[@id='url"+i+"']")).sendKeys(arrstores[0]);
-			driver.findElement(By.xpath(".//*[@id='store"+i+"']")).sendKeys(arrstores[1]);
-			driver.findElement(By.xpath(".//*[@id='price"+i+"']")).sendKeys(arrstores[2]);
-		 
-			if((arrmultiplestore.length>1) && ((i+1)<arrmultiplestore.length))
-			{
-			findAndClick("Addotherstorebutton");
-			}	
+
+			driver.findElement(By.xpath(".//*[@id='url" + i + "']")).sendKeys(arrstores[0]);
+			driver.findElement(By.xpath(".//*[@id='store" + i + "']")).sendKeys(arrstores[1]);
+			driver.findElement(By.xpath(".//*[@id='price" + i + "']")).sendKeys(arrstores[2]);
+
+			if ((arrmultiplestore.length > 1) && ((i + 1) < arrmultiplestore.length)) {
+				findAndClick("Addotherstorebutton");
+			}
 
 		}
 		findAndClick("Pivot_addOtrabutton");
 		System.out.println("Otra Pivot added successfully");
 	}
-	
-	public void add_pivot_newsletter(String site_name) throws InterruptedException
-	{
+
+	public void add_pivot_newsletter(String site_name) throws InterruptedException {
 		findAndClick("pivoticon");
 		implicitWait();
 		findAndClick("pivot_newsletter_tab");
 		implicitWait();
 		driver.switchTo().defaultContent();
 		List<WebElement> radioButton = driver.findElements(By.name("newsletter-radio"));
-		for(int i=0; i<radioButton.size();i++)
-		{
-		implicitWait();
-		if(radioButton.get(i).getAttribute("value").equalsIgnoreCase(site_name))
-		{
-	    JavascriptExecutor jse = (JavascriptExecutor) driver;
-		jse.executeScript("arguments[0].scrollIntoView(true);", radioButton.get(i));
-		radioButton.get(i).click();
-		break;
-		}
+		for (int i = 0; i < radioButton.size(); i++) {
+			implicitWait();
+			if (radioButton.get(i).getAttribute("value").equalsIgnoreCase(site_name)) {
+				JavascriptExecutor jse = (JavascriptExecutor) driver;
+				jse.executeScript("arguments[0].scrollIntoView(true);", radioButton.get(i));
+				radioButton.get(i).click();
+				break;
+			}
 		}
 		Thread.sleep(1000);
-	    JavascriptExecutor jse = (JavascriptExecutor) driver;
+		JavascriptExecutor jse = (JavascriptExecutor) driver;
 		jse.executeScript("arguments[0].scrollIntoView(true);", findElement(prop.getProperty("pivot_anadirPivot")));
 		findAndClick("pivot_anadirPivot");
 	}
-	
+
 	public void add_pivotAmazon(String URL, String storeData) throws InterruptedException {
 		findAndClick("pivoticon");
 		implicitWait();
@@ -2623,10 +2610,11 @@ return driver;
 			implicitWait();
 			System.out.println("Amazon product added successfully....");
 			JavascriptExecutor jse = (JavascriptExecutor) driver;
-			jse.executeScript("arguments[0].scrollIntoView(true);", findElement(prop.getProperty("Pivot_addOtrabutton")));
+			jse.executeScript("arguments[0].scrollIntoView(true);",
+					findElement(prop.getProperty("Pivot_addOtrabutton")));
 			implicitWait();
 			add_OtherStores(storeData);
-            }
+		}
 	}
 
 	public void add_OtherStores(String storeData) throws InterruptedException {
@@ -2650,6 +2638,7 @@ return driver;
 		}
 		findAndClick("Pivot_addOtrabutton");
 	}
+
 	
 	public void MVP_pivot_newsletter(String sitename)
 	{		
@@ -2657,15 +2646,14 @@ return driver;
        driver.findElement(By.xpath(".//input[@value='"+sitename+"']")).click();
        findAndClick("Mvp_addPivotbutton");
 	}
-	
-	public void MVP_pivot_amazon(String Pivot_amazon_search)
-	{
+
+	public void MVP_pivot_amazon(String Pivot_amazon_search) {
 		findAndWrite("MvP_amazon_search", Pivot_amazon_search);
 		findAndClick("MvP_search_button");
 		implicitWait();
 		findAndClick("MVP_amazon_select_product");
-		}
-	
+	}
+
 	public void addpivotarticle(String article, String Pivot_product_Article_posttype, String Pivot_product_Article)
 			throws InterruptedException {
 		findAndClick("pivoticon");
@@ -2712,5 +2700,54 @@ return driver;
 		}
 
 	}
-}
 
+	public void add_MVP_pivotarticle(String Pivot_product_Article, String Pivot_product_Article_posttype)
+			throws InterruptedException {
+		//findAndClick("MVP_pivot_icon");
+		findAndClick("MvP_pivot_Article");
+		Actions action = new Actions(driver);
+		action.moveToElement(driver.findElement(By.xpath(prop.getProperty("MvP_article_search")))).build().perform();
+		action.sendKeys(Pivot_product_Article);
+		action.build().perform();
+		findAndClick("MvP_search_button");
+		Thread.sleep(1000);
+
+		if (Pivot_product_Article_posttype.contains("brand")) {
+
+			if (!Pivot_product_Article.contains("https://")) {
+
+				System.out.println(findElement(prop.getProperty("MvP_pivotarticle_validation")).getText());
+				System.out.println("<<<<<Validation Alert message>>>>>");
+			} else {
+				System.out.println(findElement(prop.getProperty("Mvp_pivotarticle_warning")).getText());
+				System.out.println("Warning message>>>>>its a branded post");
+				findAndClick("Mvp_addPivotbutton");
+				System.out.println("Pivot article added successfully");
+			}
+		} else if (Pivot_product_Article_posttype.contains("repost")) {
+			if (!Pivot_product_Article.contains("https://")) {
+
+				System.out.println(findElement(prop.getProperty("MvP_pivotarticle_validation")).getText());
+				System.out.println("<<<<<Validation Alert message>>>>>");
+
+			} else {
+				System.out.println(findElement(prop.getProperty("Mvp_pivotarticle_reposticon")).getText());
+				System.out.println("Warning message>>>>>its a repost");
+				findAndClick("Mvp_addPivotbutton");
+				System.out.println("Pivot article added successfully");
+			}
+		} else if (Pivot_product_Article_posttype.contains("normal")) {
+
+			if (!Pivot_product_Article.contains("https://")) {
+
+				System.out.println(findElement(prop.getProperty("MvP_pivotarticle_validation")).getText());
+				System.out.println("<<<<<Validation Alert message>>>>>");
+			} else {
+				System.out.println("Warning message>>>>>its a normal post");
+				findAndClick("Mvp_addPivotbutton");
+				System.out.println("Pivot article added successfully");
+			}
+		}
+
+	}
+}
