@@ -2594,11 +2594,11 @@ public class Adminproperty extends TestListenerAdapter {
 		findAndClick("pivot_anadirPivot");
 	}
 
-	public void add_pivotAmazon(String URL, String storeData) throws InterruptedException {
+	public void add_pivot_Amazon(String product, String Pivot_otherStorevalues) throws InterruptedException {
 		findAndClick("pivoticon");
 		implicitWait();
 		findAndClick("pivot_product_tab");
-		findAndWrite("pivot_textarea", URL);
+		findAndWrite("pivot_textarea", product);
 		findAndClick("pivot_buscar");
 		if (findElement(prop.getProperty("pivot_amazon_available")).getText()
 				.equalsIgnoreCase("Error: producto no encontrado"))
@@ -2613,31 +2613,36 @@ public class Adminproperty extends TestListenerAdapter {
 			jse.executeScript("arguments[0].scrollIntoView(true);",
 					findElement(prop.getProperty("Pivot_addOtrabutton")));
 			implicitWait();
-			add_OtherStores(storeData);
+			add_OtherStores(Pivot_otherStorevalues);
 		}
 	}
 
-	public void add_OtherStores(String storeData) throws InterruptedException {
-		findAndClick("Addotherstorebutton");
-		implicitWait();
-		String row1[] = storeData.split("@##@");
-		for (int i = 0; i < row1.length; i++) {
-			String row2[] = row1[i].split("#");
-			driver.findElement(By.xpath(".//*[@id='url" + (i + 1) + "']")).sendKeys(row2[0]);
-			driver.findElement(By.xpath(".//*[@id ='store" + (i + 1) + "']")).sendKeys(row2[1]);
-			driver.findElement(By.xpath(".//*[@id ='price" + (i + 1) + "']")).sendKeys(row2[2]);
-			implicitWait();
+	public void add_OtherStores(String Pivot_otherStorevalues) throws InterruptedException {
+		String row[] = Pivot_otherStorevalues.split("@###@");
+		for (int i = 0; i < row.length; i++) {
+			String col[] = row[i].split("@#@");
 			Actions ob = new Actions(driver);
 			ob.click(driver.findElement(By.xpath(".//*[@class='article-section']/div"))).perform();
 			JavascriptExecutor jse = (JavascriptExecutor) driver;
-			jse.executeScript("arguments[0].scrollIntoView(true);",
-					findElement(prop.getProperty("Addotherstorebutton")));
-			Thread.sleep(1000);
-			if (i < row1.length - 1)
-				driver.findElement(By.xpath(prop.getProperty("Addotherstorebutton"))).click();
-		}
+			jse.executeScript("arguments[0].scrollIntoView(true);",findElement(prop.getProperty("Addotherstorebutton")));
+			if (i < row.length) 
+				ob.click(driver.findElement(By.xpath(prop.getProperty("Addotherstorebutton")))).perform();
+			driver.findElement(By.xpath(".//*[@id='url" + (i + 1) + "']")).sendKeys(col[0]);
+			ob.click(driver.findElement(By.xpath(".//*[@class='article-section']/div"))).perform();
+			if (col[0].contains("//www.amazon.es/")) {
+				implicitWait();
+				if(driver.findElement(By.xpath(".//*[@id='ecommerceStore"+(i+1)+"']/div[2]/a")).getAttribute("href").equalsIgnoreCase(col[0]))
+					System.out.println("*****Fetching amazon URL*****");
+			} else {
+				driver.findElement(By.xpath(".//*[@id ='store" + (i + 1) + "']")).sendKeys(col[1]);
+				driver.findElement(By.xpath(".//*[@id ='price" + (i + 1) + "']")).sendKeys(col[2]);
+			}}
+		Thread.sleep(1000);
+		JavascriptExecutor jse = (JavascriptExecutor) driver;
+		jse.executeScript("arguments[0].scrollIntoView(true);",findElement(prop.getProperty("Pivot_addOtrabutton")));
 		findAndClick("Pivot_addOtrabutton");
 	}
+
 
 	
 	public void MVP_pivot_newsletter(String sitename)
@@ -2750,4 +2755,38 @@ public class Adminproperty extends TestListenerAdapter {
 		}
 
 	}
+	
+	public void MVP_add_ecommerce(String Pivot_otherStorevalues) throws InterruptedException {
+		implicitWait();
+		Actions action = new Actions(driver);
+		String row[] = Pivot_otherStorevalues.split("@###@");
+		for (int i = 0; i < row.length; i++) {
+		 String col[] = row[i].split("@#@");
+		if (i < row.length)
+		   findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div/div/button").click();
+		action.click(findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div[2]/div[" + (i + 2) + "]/div[1]")).sendKeys(col[0]).perform();
+		Thread.sleep(1000);
+		action.click(driver.findElement(By.xpath(".//*[@class='EditProductModal_preview-image__2mLY9']"))).perform();
+		implicitWait();
+		if(col[2].contains("&euro;"))
+		col[2] = col[2].replace("&euro;", "");
+		if (col[0].contains("//www.amazon.es/")) {
+		if (findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div[2]/div[" + (i + 2) + "]/div[2]/a").getAttribute("href").equalsIgnoreCase(col[0]))
+		System.out.println("*****Fetching amazon URL*****");
+		} 
+		else if (col[0].contains("http://") || (col[0].contains("https://"))) {
+		  action.click(findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div[2]/div[" + (i + 2) + "]/div[2]")).sendKeys(col[1]).perform();
+		  action.click(findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div[2]/div[" + (i + 2) + "]/div[3]")).sendKeys(col[2]).perform();
+		} 
+		else {
+		  action.click(driver.findElement(By.xpath(".//*[@class='EditProductModal_preview-image__2mLY9']"))).perform();
+		  implicitWait();
+		if (findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div[2]/div[" + (i + 2) + "]/div/div/p").getText().equalsIgnoreCase("Error: la url no es válida"))
+		  System.out.println("Add some valid url");
+		implicitWait();
+			}
+		}
+		findAndClick("MVP_pivot_anadir");
+	}
+
 }
