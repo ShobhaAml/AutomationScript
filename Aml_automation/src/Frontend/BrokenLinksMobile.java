@@ -29,7 +29,7 @@ public class BrokenLinksMobile
     Properties prop = new Properties();
     String server, blogname, path, device, testserver, browser;
     String usuariolink = "", author = "";
-  	String url1="https://guest:guest@mtest.xataka.com";
+  	String Mobileurl="https://guest:guest@mtest.xataka.com";
     WebDriver driver = new HtmlUnitDriver();
     
     @BeforeMethod
@@ -46,12 +46,19 @@ public class BrokenLinksMobile
     @Test
     public void verfiyLinks() throws IOException
     {
-    	driver.get(url1);
+
+	driver.get(Mobileurl);
+    	// driver = frontendProperties.frontcallproperty(url1,  prop.getProperty("browser"));
+     	
+    	System.out.println(Mobileurl);
 	   List<WebElement> anchorTagsList = driver.findElements(By.tagName("a"));
         System.out.println("Total no. of links are " + anchorTagsList.size());
         for (WebElement anchorTagElement : anchorTagsList) {
             if (anchorTagElement != null) {
                 String url = anchorTagElement.getAttribute("href");
+                
+               // System.out.println(url+"<bR>");
+                
                                if (url != null
                         && !url.contains("javascript")
                         && (!url.contains("utm_campaign=footer") && (!url
@@ -64,7 +71,7 @@ public class BrokenLinksMobile
                                        }
                                        else if( url.contains("testing."))
                                        {
-                                           url=url.replace("testing.", "guest:guest@testing.");
+                                           url=url.replace("testing.", "guest:guest@mtest.");
                                        }
                                        else if( url.contains("mtest."))
                                        {
@@ -83,14 +90,14 @@ public class BrokenLinksMobile
         // check for Respuestas pages
         System.out.println("usuariolink=" + usuariolink
                 + " **********AUthor===" + author);
-        VerifyInternalPages(url1 + "/respuestas");
-        VerifyInternalPages(url1 + "/respuestas/preguntar");
+        VerifyInternalPages(Mobileurl + "/respuestas");
+        VerifyInternalPages(Mobileurl + "/respuestas/preguntar");
         // ** check for Archivos pages
         // VerifyInternalPages(url1+"/archivos");
         // Verify Editor Pages
-        VerifyInternalPages(url1 + "/quienes-somos");
+        VerifyInternalPages(Mobileurl + "/quienes-somos");
         // Verify Editor Pages
-        VerifyInternalPages(url1 + "/contacto");
+        VerifyInternalPages(Mobileurl + "/contacto");
         if (usuariolink != "") {
             VerifyInternalPages(usuariolink);
         }
@@ -102,14 +109,14 @@ public class BrokenLinksMobile
     {
         System.out.println("********* Verifing Internal Pages  " + url
                 + " *******");
-       // driver = frontendProperties.frontcallproperty(url, prop.getProperty("browser"));
-    	driver.get(url1);
+       //   driver = frontendProperties.frontcallproperty(url, prop.getProperty("browser"));
+  	driver.get(url);
         List<WebElement> anchorTagsList = driver.findElements(By.tagName("a"));
         System.out.println("Total no. of links are " + anchorTagsList.size());
         for (WebElement anchorTagElement : anchorTagsList) {
             if (anchorTagElement != null) {
                 String url1 = anchorTagElement.getAttribute("href");
-               
+              //  System.out.println(url1);
                 if (url1 != null
                         && !url1.contains("javascript")
                         && (!url1.contains("utm_campaign=footer") && (!url1
@@ -122,7 +129,7 @@ public class BrokenLinksMobile
                         }
                         else if( url1.contains("testing."))
                         {
-                            url1=url1.replace("testing.", "guest:guest@testing.");
+                            url1=url1.replace("testing.", "guest:guest@mtest.");
                         }
                         else if( url1.contains("mtest."))
                         {
@@ -132,7 +139,7 @@ public class BrokenLinksMobile
                     if (url.contains("/usuario/")) {
                         usuariolink = url;
                     }
-                    // System.out.println(url1);
+                
                     verifyURLStatus(url1);
                     
                 }

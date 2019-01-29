@@ -29,7 +29,7 @@ public class BrokenLinks
     String server, blogname, path, device, testserver, browser;
     String usuariolink = "", author = "";
     WebDriver driver = new HtmlUnitDriver();
-	String url1="https://guest:guest@testing.xataka.com";
+	String desktopurl="https://guest:guest@testing.xataka.com";
     
     @BeforeMethod
     public void Setup() throws Exception
@@ -47,29 +47,31 @@ public class BrokenLinks
     {
      //   driver = frontendProperties.frontcallproperty(prop.getProperty("url"),  prop.getProperty("browser"));
     	
-    	driver.get(url1);
+    	driver.get(desktopurl);
+    	System.out.println("Main URL----------"+ desktopurl);
         List<WebElement> anchorTagsList = driver.findElements(By.tagName("a"));
-        System.out.println("Total no. of links are " + anchorTagsList.size());
+        System.out.println( desktopurl +" ---Total no. of links are " + anchorTagsList.size());
         for (WebElement anchorTagElement : anchorTagsList) {
             if (anchorTagElement != null) {
                 String url = anchorTagElement.getAttribute("href");
+               // System.out.println(url+"-------------------------------");
                                if (url != null
                         && !url.contains("javascript")
                         && (!url.contains("utm_campaign=footer") && (!url
                                 .contains("#") && (!url.contains("youtu")) &&  (!url.contains("redirect?")) && ( !url.contains("mailto:?subject="))))) {
-                                   if(url.contains("testing.") || url.contains("test.") || (url.contains("mtest.")))
+                                   if(url.contains("https://testing.") || url.contains("https://test.") || (url.contains("https://mtest.")))
                                    {
-                                       if( url.contains("test."))
+                                       if( url.contains("https://test."))
                                        {
-                                        url=url.replace("test.", "guest:guest@test.");
+                                        url=url.replace("https://test.", "https://guest:guest@test.");
                                        }
-                                       else if( url.contains("testing."))
+                                       else if( url.contains("https://testing."))
                                        {
-                                           url=url.replace("testing.", "guest:guest@testing.");
+                                           url=url.replace("https://testing.", "https://guest:guest@testing.");
                                        }
                                        else if( url.contains("mtest."))
                                        {
-                                           url=url.replace("mtest.", "guest:guest@mtest.");
+                                           url=url.replace("https://mtest.", "https://guest:guest@mtest.");
                                        }
                                    }
 
@@ -85,18 +87,18 @@ public class BrokenLinks
         System.out.println("usuariolink=" + usuariolink
                 + " **********AUthor===" + author);
         VerifyInternalPages(author);
-        VerifyInternalPages(prop.getProperty("url") + "/respuestas");
-        VerifyInternalPages(prop.getProperty("url") + "/respuestas/preguntar");
+        VerifyInternalPages(desktopurl + "/respuestas");
+        VerifyInternalPages(desktopurl + "/respuestas/preguntar");
         // ** check for Archivos pages
-        // VerifyInternalPages(prop.getProperty("url")+"/archivos");
+        VerifyInternalPages(desktopurl+"/archivos");
         // Verify Editor Pages
-        VerifyInternalPages(prop.getProperty("url") + "/quienes-somos");
+        VerifyInternalPages(desktopurl + "/quienes-somos");
         // Verify Editor Pages
-        VerifyInternalPages(prop.getProperty("url") + "/contacto");
+        VerifyInternalPages(desktopurl + "/contacto");
         if (usuariolink != "") {
             VerifyInternalPages(usuariolink);
         }
-        
+       
         
     }
 
@@ -105,30 +107,32 @@ public class BrokenLinks
         System.out.println("********* Verifing Internal Pages  " + url
                 + "*******");
       //  driver = frontendProperties.frontcallproperty(url, prop.getProperty("browser"));
-     	driver.get(url1);
+     	driver.get(url);
         List<WebElement> anchorTagsList = driver.findElements(By.tagName("a"));
         System.out.println("Total no. of links are " + anchorTagsList.size());
         for (WebElement anchorTagElement : anchorTagsList) {
             if (anchorTagElement != null) {
                 String url1 = anchorTagElement.getAttribute("href");
                
+             //   System.out.println(url1+"--------------------------------<bR>");                
+                
                 if (url1 != null
-                        && !url1.contains("javascript")
+                        && !url1.contains("javascript")   && !url1.contains("javascript")   && !url1.contains("javascript")
                         && (!url1.contains("utm_campaign=footer") && (!url1
                                 .contains("#") && (!url1.contains("youtu"))))) {
-                    if(url1.contains("testing.") || url1.contains("test.") || (url1.contains("mtest.")))
+                    if(url1.contains("https://testing.") || url1.contains("https://test.") || (url1.contains("https://mtest.")))
                     {
-                        if( url.contains("test."))
+                        if( url.contains("https://test."))
                         {
-                         url1=url1.replace("test.", "guest:guest@test.");
+                         url1=url1.replace("https://test.", "https://guest:guest@test.");
                         }
-                        else if( url1.contains("testing."))
+                        else if( url1.contains("https://testing."))
                         {
-                            url1=url1.replace("testing.", "guest:guest@testing.");
+                            url1=url1.replace("https://testing.", "https://guest:guest@testing.");
                         }
-                        else if( url1.contains("mtest."))
+                        else if( url1.contains("https://mtest."))
                         {
-                            url1=url1.replace("mtest.", "guest:guest@mtest.");
+                            url1=url1.replace("https://mtest.", "https://guest:guest@mtest.");
                         }
                     }
                     if (url.contains("/usuario/")) {
