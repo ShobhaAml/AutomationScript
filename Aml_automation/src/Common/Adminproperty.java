@@ -2639,10 +2639,12 @@ public class Adminproperty extends TestListenerAdapter {
 		findAndClick("Pivot_addOtrabutton");
 	}
 
-	public void MVP_pivot_newsletter(String sitename) {
-		// Select option .//span[text()='Xataka']
-		driver.findElement(By.xpath(".//input[@value='genbeta']")).click();
-		findAndClick("Mvp_addPivotbutton");
+	
+	public void MVP_pivot_newsletter(String sitename)
+	{		
+	    //Select option  .//span[text()='Xataka']
+       driver.findElement(By.xpath(".//input[@value='"+sitename+"']")).click();
+       findAndClick("Mvp_addPivotbutton");
 	}
 
 	public void MVP_pivot_amazon(String Pivot_amazon_search) {
