@@ -39,7 +39,7 @@ public class CreateMVPPostExcel {
 
 	@DataProvider(name = "testdata")
 	public Object[][] TestDataFeed() throws Exception {
-		Object[][] postdata = adminProperties.readExcel("Normal", 84);
+		Object[][] postdata = adminProperties.readExcel("Normal", 86);
 		return postdata;
 	}
 
@@ -65,7 +65,7 @@ public class CreateMVPPostExcel {
 			String Pivot_newsletter, String homecontent, String homeimage, String Branded_club, String category,
 			String catagory_other, String tag, String seotitle, String seodesc, String specialpost,
 			String comment_closed, String author, String Twittertext, String fbtext, String Repost, String Run,
-			String Republish,String Future_time) throws Exception {
+			String Republish,String Future_time, String Pivot_product_Article, String Pivot_product_Article_posttype) throws Exception {
 		if (Run.trim().equalsIgnoreCase("Y")) {
 			String blogrole = "";
 			adminProperties.LoginAdmin(prop.getProperty("admin_usename"), prop.getProperty("admin_pwd"));
@@ -138,6 +138,18 @@ public class CreateMVPPostExcel {
 					//Select option  .//span[text()='Xataka']
 					adminProperties.MVP_pivot_amazon(Pivot_amazon_search.toLowerCase());	
 					}
+			}
+			
+			if (!Pivot_product_Article.equalsIgnoreCase("null")) {
+				Actions action = new Actions(driver);
+				action.sendKeys(Keys.ENTER);
+				action.build().perform();
+				action.moveToElement(driver.findElement(By.xpath(prop.getProperty("content_section_path"))));
+				action.click();
+				adminProperties.ClickICON(driver,"pivot");
+				System.out.println("Pivot Article =" + Pivot_product_Article);
+				adminProperties.add_MVP_pivotarticle(Pivot_product_Article, Pivot_product_Article_posttype);
+				adminProperties.implicitWait();
 			}
 			
 		
