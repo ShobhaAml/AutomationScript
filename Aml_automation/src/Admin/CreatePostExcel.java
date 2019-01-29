@@ -90,7 +90,7 @@ public class CreatePostExcel {
 					adminProperties.findAndClick("navigate_brandClub");
 				} else if (category.equalsIgnoreCase("basics")) {
 					adminProperties.findAndClick("Basic_post");
-				} else if (category.equalsIgnoreCase("Vídeos")) {
+				} else if (category.equalsIgnoreCase("Vï¿½deos")) {
 					adminProperties.findAndClick("LeadVideo");
 				} else {
 					adminProperties.findAndClick("create_post_link");
@@ -261,8 +261,14 @@ public class CreatePostExcel {
 					adminProperties.addpivot(Pivot_dropdown);
 					adminProperties.add_Otra_tienda(Pivot_otherStoreProductTitle, Pivot_otherStoreProductImage, Pivot_otherStorevalues);
 				}
+				else if(Pivot_dropdown.equalsIgnoreCase("amazon")) {
+					adminProperties.implicitWait();
+					adminProperties.add_pivot_Amazon(Pivot_amazon_search, Pivot_otherStorevalues);
+				}
 			}
-				
+			if(!Pivot_newsletter.equalsIgnoreCase("null"))
+				adminProperties.add_pivot_newsletter(Pivot_newsletter);
+	
 		/*	if(!Pivot_product_ASIN.equalsIgnoreCase("null"))
 			{
 				System.out.println("Pivot Asin =" +Pivot_product_ASIN );

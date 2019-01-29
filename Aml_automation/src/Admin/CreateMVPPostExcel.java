@@ -137,6 +137,8 @@ public class CreateMVPPostExcel {
 				      adminProperties.findAndClick("MvP_pivot_Product");
 					//Select option  .//span[text()='Xataka']
 					adminProperties.MVP_pivot_amazon(Pivot_amazon_search.toLowerCase());	
+					adminProperties.implicitWait();
+					adminProperties.MVP_add_ecommerce(Pivot_otherStorevalues);
 					}
 			}
 			
