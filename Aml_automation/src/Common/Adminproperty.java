@@ -80,21 +80,29 @@ public class Adminproperty extends TestListenerAdapter {
 	}
 
 	public WebDriver callproperty(String url, String browser) throws IOException {
-		if (browser.trim().equalsIgnoreCase("Chrome")) {
-			ChromeOptions options = new ChromeOptions();
-			driver = new ChromeDriver(options);
-
-			options.addArguments("start-maximized");
-
-		} else {
-			System.setProperty("webdriver.gecko.driver",
-					System.getProperty("user.dir") + "//src//Driverfiles//" + "geckodriver.exe");
-			DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-			driver = new FirefoxDriver(capabilities);
-		}
-		driver.get(url);
-		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-		return driver;
+		/*
+         * LoggingPreferences loggingprefs = new LoggingPreferences();
+         * loggingprefs.enable(LogType.BROWSER, Level.ALL);
+         */
+        if (browser.trim().equalsIgnoreCase("Chrome")) {
+            System.setProperty("webdriver.chrome.driver",
+                    System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedriver.exe");
+            DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+            /* capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs); */
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("start-maximized");
+            // options.addArguments("" + capabilities + "");
+            driver = new ChromeDriver(options);
+        } else {
+            System.setProperty("webdriver.gecko.driver",
+                    System.getProperty("user.dir") + "//src//Driverfiles//" + "geckodriver.exe");
+            DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+            /* capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs); */
+            driver = new FirefoxDriver(capabilities);
+        }
+        driver.get(url);
+        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        return driver;
 	}
 
 	public void uploadPrimaryImage(String primaryimage, String browser) throws Exception {
@@ -608,10 +616,10 @@ public class Adminproperty extends TestListenerAdapter {
 	}
 
 	public Object[][] readExcel(String excelsheetname, int columns) throws IOException {
-		String filepath = System.getProperty("user.dir") + "/src/Common/";
+		String filepath = System.getProperty("user.dir") + "\\src\\Common\\";
 		String filename = "excel.xlsx";
-		FileInputStream instream = new FileInputStream(filepath + "/" + filename);
-		System.out.println(filepath + "/" + filename);
+		FileInputStream instream = new FileInputStream(filepath + "\\" + filename);
+		System.out.println(filepath + "\\" + filename);
 		Workbook wb = new XSSFWorkbook(instream);
 		Sheet sheet = wb.getSheet(excelsheetname);
 		int rows = sheet.getLastRowNum() - sheet.getFirstRowNum();
