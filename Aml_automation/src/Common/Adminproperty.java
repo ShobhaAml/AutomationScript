@@ -2784,7 +2784,7 @@ public class Adminproperty extends TestListenerAdapter {
 		for (int i = 0; i < row.length; i++) {
 		 String col[] = row[i].split("@#@");
 		if (i < row.length)
-		   findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div/div/button").click();
+		  findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div/div/button").click();
 		action.click(findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div[2]/div[" + (i + 2) + "]/div[1]")).sendKeys(col[0]).perform();
 		Thread.sleep(1000);
 		action.click(driver.findElement(By.xpath(".//*[@class='ProductInfo_preview-image__1hOqm']"))).perform();
