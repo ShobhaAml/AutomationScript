@@ -2543,7 +2543,6 @@ public class Adminproperty extends TestListenerAdapter {
         Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\DriverFiles\\fileupload.exe" + " "
                 + System.getProperty("user.dir") + "\\src\\Images\\" + Pivot_otherStoreProductImage);
         implicitWait();
-        implicitWait();
         System.out.println("Image uploaded ");
         String[] arrmultiplestore = Pivot_otherStorevalues.split("@###@");
         System.out.println("Total array " + arrmultiplestore.length);
@@ -2552,14 +2551,39 @@ public class Adminproperty extends TestListenerAdapter {
             System.out.println(arrstores[0]);
             System.out.println(arrstores[1]);
             System.out.println(arrstores[2]);
+
             driver.findElement(By.xpath(".//*[@id='url" + i + "']")).sendKeys(arrstores[0]);
+            
+            if ((arrstores[0].contains("//www.amazon.es/")) ||  (arrstores[0].contains("//www.ebay.es/"))){
+                System.out.println("Fetching url");
+             //.//div[@id='ecommerceStore0']/div[@class='pivot-store-price']/a[1]
+
+                driver.findElement(By.xpath(".//div[@id='ecommerceStore0']")).click();
+                Boolean presentApiprice=driver.findElement(By.xpath(".//div[@id='ecommerceStore"+(i)+"']/div[@class='pivot-store-price']/a[1]")).isDisplayed();
+                if(presentApiprice==true)
+                {
+                    System.out.println("Price fetched by API");
+                }
+                else
+                {
+                    implicitWait();
+                }
+            
+            }
+            else {
             driver.findElement(By.xpath(".//*[@id='store" + i + "']")).sendKeys(arrstores[1]);
             driver.findElement(By.xpath(".//*[@id='price" + i + "']")).sendKeys(arrstores[2]);
-            if ((arrmultiplestore.length > 1) && ((i + 1) < arrmultiplestore.length)) {
+            }
+           if ((arrmultiplestore.length > 1) && ((i + 1) < arrmultiplestore.length)) {
                 findAndClick("Addotherstorebutton");
             }
-        }
+}
         findAndClick("Pivot_addOtrabutton");
+        if(findElement(prop.getProperty("pivot_duplicateProd_error")).isDisplayed()==true)
+            System.out.println("****** Duplicate product from Amazon or Ebay******");
+        else if(driver.findElement(By.xpath(".//*[@id='invalidEcommerceStore']")).isDisplayed()==true)
+            System.out.println("**** some field is missing *****");
+        else
         System.out.println("Otra Pivot added successfully");
 	}
 	
@@ -2586,60 +2610,61 @@ public class Adminproperty extends TestListenerAdapter {
 	}
 
 	public void add_pivot_Amazon(String product, String Pivot_otherStorevalues) throws InterruptedException {
-		findAndClick("pivoticon");
-		implicitWait();
-		findAndClick("pivot_product_tab");
-		findAndWrite("pivot_textarea", product);
-		findAndClick("pivot_buscar");
-		if (findElement(prop.getProperty("pivot_amazon_available")).getText()
-				.equalsIgnoreCase("Error: producto no encontrado"))
-			System.out.println("Amazon product not found....");
-		else {
-			if (findElement(prop.getProperty("pivot_section")) != null)
+			findAndClick("pivoticon");
 			implicitWait();
-			findAndClick("pivot_elegir");
-			implicitWait();
-			System.out.println("Amazon product added successfully....");
-			/*JavascriptExecutor jse = (JavascriptExecutor) driver;
-			jse.executeScript("arguments[0].scrollIntoView(true);",
-					findElement(prop.getProperty("Pivot_addOtrabutton")));*/
-			add_pivot_OtherStores(Pivot_otherStorevalues);
-		}
-	}
-
-	public void add_pivot_OtherStores(String Pivot_otherStorevalues) throws InterruptedException {
-		String row[] = Pivot_otherStorevalues.split("@###@");
-		for (int i = 0; i < row.length; i++) {
-			String col[] = row[i].split("@#@");
-			Actions ob = new Actions(driver);
-			ob.click(driver.findElement(By.xpath(".//*[@class='article-section']/div"))).perform();
-			JavascriptExecutor jse = (JavascriptExecutor) driver;
-			jse.executeScript("arguments[0].scrollIntoView(true);",findElement(prop.getProperty("Addotherstorebutton")));
-			if (i < row.length) 
-				ob.click(driver.findElement(By.xpath(prop.getProperty("Addotherstorebutton")))).perform();
-			driver.findElement(By.xpath(".//*[@id='url" + (i + 1) + "']")).sendKeys(col[0]);
-			ob.click(driver.findElement(By.xpath(".//*[@class='article-section']/div"))).perform();
-			if (col[0].contains("//www.amazon.es/")||(col[0].contains("//www.ebay.es/"))) {
+			findAndClick("pivot_product_tab");
+			findAndWrite("pivot_textarea", product);
+			findAndClick("pivot_buscar");
+			if (findElement(prop.getProperty("pivot_amazon_available")).getText()
+					.equalsIgnoreCase("Error: producto no encontrado"))
+				System.out.println("Amazon product not found....");
+			else {
+				if (findElement(prop.getProperty("pivot_section")) != null)
 				implicitWait();
-				if(driver.findElement(By.xpath(".//*[@id='ecommerceStore"+(i+1)+"']/div[2]/a")).getAttribute("href").equalsIgnoreCase(col[0]))
-					System.out.println("*****Fetching amazon or Ebay URL*****");
-			} else {
-				driver.findElement(By.xpath(".//*[@id ='store" + (i + 1) + "']")).sendKeys(col[1]);
-				driver.findElement(By.xpath(".//*[@id ='price" + (i + 1) + "']")).sendKeys(col[2]);
-			    }
+				findAndClick("pivot_elegir");
+				implicitWait();
+				System.out.println("Amazon product added successfully....");
+				/*JavascriptExecutor jse = (JavascriptExecutor) driver;
+				jse.executeScript("arguments[0].scrollIntoView(true);",
+						findElement(prop.getProperty("Pivot_addOtrabutton")));*/
+				add_pivot_OtherStores(Pivot_otherStorevalues);
 			}
-		Thread.sleep(2000);
-		JavascriptExecutor jse = (JavascriptExecutor) driver;
-		jse.executeScript("arguments[0].scrollIntoView(true);",findElement(prop.getProperty("Pivot_addOtrabutton")));
-		findAndClick("Pivot_addOtrabutton");
-		implicitWait();
-		if(findElement(prop.getProperty("pivot_duplicateProd_error")).isDisplayed()==true)
-			System.out.println("Validation error-->>      Duplicate product from Amazon or Ebay  ");
-		else if(driver.findElement(By.xpath(".//*[@id='invalidEcommerceStore']")).isDisplayed()==true)
-			System.out.println("Validation error-->>     ** some field is missing **");
-		else
-			System.out.println("***** Pivot product added succesfully ****");
-	}
+		}
+
+		public void add_pivot_OtherStores(String Pivot_otherStorevalues) throws InterruptedException {
+			String row[] = Pivot_otherStorevalues.split("@###@");
+			for (int i = 0; i < row.length; i++) {
+				String col[] = row[i].split("@#@");
+				Actions ob = new Actions(driver);
+				ob.click(driver.findElement(By.xpath(".//*[@class='article-section']/div"))).perform();
+				JavascriptExecutor jse = (JavascriptExecutor) driver;
+				jse.executeScript("arguments[0].scrollIntoView(true);",findElement(prop.getProperty("Addotherstorebutton")));
+				if (i < row.length) 
+					ob.click(driver.findElement(By.xpath(prop.getProperty("Addotherstorebutton")))).perform();
+				driver.findElement(By.xpath(".//*[@id='url" + (i + 1) + "']")).sendKeys(col[0]);
+				ob.click(driver.findElement(By.xpath(".//*[@class='article-section']/div"))).perform();
+				if (col[0].contains("//www.amazon.es/")||(col[0].contains("//www.ebay.es/"))) {
+					implicitWait();
+					if(driver.findElement(By.xpath(".//*[@id='ecommerceStore"+(i+1)+"']/div[2]/a")).getAttribute("href").equalsIgnoreCase(col[0]))
+						System.out.println("*****Fetching amazon or Ebay URL*****");
+				} else {
+					driver.findElement(By.xpath(".//*[@id ='store" + (i + 1) + "']")).sendKeys(col[1]);
+					driver.findElement(By.xpath(".//*[@id ='price" + (i + 1) + "']")).sendKeys(col[2]);
+				    }
+				}
+			Thread.sleep(2000);
+			JavascriptExecutor jse = (JavascriptExecutor) driver;
+			jse.executeScript("arguments[0].scrollIntoView(true);",findElement(prop.getProperty("Pivot_addOtrabutton")));
+			findAndClick("Pivot_addOtrabutton");
+			implicitWait();
+			if(findElement(prop.getProperty("pivot_duplicateProd_error")).isDisplayed()==true)
+				System.out.println("Validation error-->>      Duplicate product from Amazon or Ebay  ");
+			else if(driver.findElement(By.xpath(".//*[@id='invalidEcommerceStore']")).isDisplayed()==true)
+				System.out.println("Validation error-->>     ** some field is missing **");
+			else
+				System.out.println("***** Pivot product added succesfully ****");
+		}
+
 
 	public void MVP_pivot_newsletter(String sitename)
 	{		
@@ -2759,7 +2784,7 @@ public class Adminproperty extends TestListenerAdapter {
 		for (int i = 0; i < row.length; i++) {
 		 String col[] = row[i].split("@#@");
 		if (i < row.length)
-		   findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div/div/button").click();
+		  findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div/div/button").click();
 		action.click(findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div[2]/div[" + (i + 2) + "]/div[1]")).sendKeys(col[0]).perform();
 		Thread.sleep(1000);
 		action.click(driver.findElement(By.xpath(".//*[@class='ProductInfo_preview-image__1hOqm']"))).perform();
