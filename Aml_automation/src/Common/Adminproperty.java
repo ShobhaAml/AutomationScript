@@ -2809,5 +2809,4 @@ public class Adminproperty extends TestListenerAdapter {
 		}
 		findAndClick("MVP_pivot_anadir");
 	}
-
 }
