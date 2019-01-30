@@ -80,29 +80,21 @@ public class Adminproperty extends TestListenerAdapter {
 	}
 
 	public WebDriver callproperty(String url, String browser) throws IOException {
-		/*
-         * LoggingPreferences loggingprefs = new LoggingPreferences();
-         * loggingprefs.enable(LogType.BROWSER, Level.ALL);
-         */
-        if (browser.trim().equalsIgnoreCase("Chrome")) {
-            System.setProperty("webdriver.chrome.driver",
-                    System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedriver.exe");
-            DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-            /* capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs); */
-            ChromeOptions options = new ChromeOptions();
-            options.addArguments("start-maximized");
-            // options.addArguments("" + capabilities + "");
-            driver = new ChromeDriver(options);
-        } else {
-            System.setProperty("webdriver.gecko.driver",
-                    System.getProperty("user.dir") + "//src//Driverfiles//" + "geckodriver.exe");
-            DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-            /* capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs); */
-            driver = new FirefoxDriver(capabilities);
-        }
-        driver.get(url);
-        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-        return driver;
+		if (browser.trim().equalsIgnoreCase("Chrome")) {
+			ChromeOptions options = new ChromeOptions();
+			driver = new ChromeDriver(options);
+
+			options.addArguments("start-maximized");
+
+		} else {
+			System.setProperty("webdriver.gecko.driver",
+					System.getProperty("user.dir") + "//src//Driverfiles//" + "geckodriver.exe");
+			DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+			driver = new FirefoxDriver(capabilities);
+		}
+		driver.get(url);
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		return driver;
 	}
 
 	public void uploadPrimaryImage(String primaryimage, String browser) throws Exception {
@@ -616,10 +608,10 @@ public class Adminproperty extends TestListenerAdapter {
 	}
 
 	public Object[][] readExcel(String excelsheetname, int columns) throws IOException {
-		String filepath = System.getProperty("user.dir") + "\\src\\Common\\";
+		String filepath = System.getProperty("user.dir") + "/src/Common/";
 		String filename = "excel.xlsx";
-		FileInputStream instream = new FileInputStream(filepath + "\\" + filename);
-		System.out.println(filepath + "\\" + filename);
+		FileInputStream instream = new FileInputStream(filepath + "/" + filename);
+		System.out.println(filepath + "/" + filename);
 		Workbook wb = new XSSFWorkbook(instream);
 		Sheet sheet = wb.getSheet(excelsheetname);
 		int rows = sheet.getLastRowNum() - sheet.getFirstRowNum();
@@ -2043,7 +2035,7 @@ public class Adminproperty extends TestListenerAdapter {
 
 	public void addMVP_SectionContent(String addContent) throws InterruptedException {
 		Actions actions = new Actions(driver);
-		if (findElement(prop.getProperty("typeSection")).getText().equalsIgnoreCase("Empieza a escribir aqu�...")) {
+		if (findElement(prop.getProperty("typeSection")).getText().equalsIgnoreCase("Empieza a escribir aqu...")) {
 			Thread.sleep(1000);
 			actions.moveToElement(driver.findElement(By.xpath(prop.getProperty("addSection"))));
 			actions.click();
@@ -2178,7 +2170,7 @@ public class Adminproperty extends TestListenerAdapter {
 	}
 
 	public void warnningPopup() {
-		String warnning = "Editar Este Art�culo en Alfa";
+		String warnning = "Editar Este Artculo en Alfa";
 		WebElement element = driver.findElement(By.xpath(prop.getProperty("matchTextMVP")));
 		element.getText();
 		System.out.println(element.getText());
@@ -2537,38 +2529,32 @@ public class Adminproperty extends TestListenerAdapter {
 	public void add_Otra_tienda(String Pivot_otherStoreProductTitle, String Pivot_otherStoreProductImage,
 			String Pivot_otherStorevalues) throws IOException, InterruptedException {
 		findAndClick("otherStoreProductTitle");
-		findAndWrite("otherStoreProductTitle", Pivot_otherStoreProductTitle);
-		findAndClick("otherStoreProductImage");
-		Thread.sleep(1000);
-		Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\DriverFiles\\fileupload.exe" + " "
-				+ System.getProperty("user.dir") + "\\src\\Images\\" + Pivot_otherStoreProductImage);
-
-		implicitWait();
-
-		implicitWait();
-		System.out.println("Image uploaded ");
-		String[] arrmultiplestore = Pivot_otherStorevalues.split("@###@");
-
-		System.out.println("Total array " + arrmultiplestore.length);
-		for (int i = 0; i < arrmultiplestore.length; i++) {
-			String[] arrstores = arrmultiplestore[i].split("@#@");
-			System.out.println(arrstores[0]);
-			System.out.println(arrstores[1]);
-			System.out.println(arrstores[2]);
-
-			driver.findElement(By.xpath(".//*[@id='url" + i + "']")).sendKeys(arrstores[0]);
-			driver.findElement(By.xpath(".//*[@id='store" + i + "']")).sendKeys(arrstores[1]);
-			driver.findElement(By.xpath(".//*[@id='price" + i + "']")).sendKeys(arrstores[2]);
-
-			if ((arrmultiplestore.length > 1) && ((i + 1) < arrmultiplestore.length)) {
-				findAndClick("Addotherstorebutton");
-			}
-
-		}
-		findAndClick("Pivot_addOtrabutton");
-		System.out.println("Otra Pivot added successfully");
+        findAndWrite("otherStoreProductTitle", Pivot_otherStoreProductTitle);
+        findAndClick("otherStoreProductImage");
+        Thread.sleep(1000);
+        Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\DriverFiles\\fileupload.exe" + " "
+                + System.getProperty("user.dir") + "\\src\\Images\\" + Pivot_otherStoreProductImage);
+        implicitWait();
+        implicitWait();
+        System.out.println("Image uploaded ");
+        String[] arrmultiplestore = Pivot_otherStorevalues.split("@###@");
+        System.out.println("Total array " + arrmultiplestore.length);
+        for (int i = 0; i < arrmultiplestore.length; i++) {
+            String[] arrstores = arrmultiplestore[i].split("@#@");
+            System.out.println(arrstores[0]);
+            System.out.println(arrstores[1]);
+            System.out.println(arrstores[2]);
+            driver.findElement(By.xpath(".//*[@id='url" + i + "']")).sendKeys(arrstores[0]);
+            driver.findElement(By.xpath(".//*[@id='store" + i + "']")).sendKeys(arrstores[1]);
+            driver.findElement(By.xpath(".//*[@id='price" + i + "']")).sendKeys(arrstores[2]);
+            if ((arrmultiplestore.length > 1) && ((i + 1) < arrmultiplestore.length)) {
+                findAndClick("Addotherstorebutton");
+            }
+        }
+        findAndClick("Pivot_addOtrabutton");
+        System.out.println("Otra Pivot added successfully");
 	}
-
+	
 	public void add_pivot_newsletter(String site_name) throws InterruptedException {
 		findAndClick("pivoticon");
 		implicitWait();
@@ -2602,19 +2588,18 @@ public class Adminproperty extends TestListenerAdapter {
 			System.out.println("Amazon product not found....");
 		else {
 			if (findElement(prop.getProperty("pivot_section")) != null)
-				implicitWait();
+			implicitWait();
 			findAndClick("pivot_elegir");
 			implicitWait();
 			System.out.println("Amazon product added successfully....");
-			JavascriptExecutor jse = (JavascriptExecutor) driver;
+			/*JavascriptExecutor jse = (JavascriptExecutor) driver;
 			jse.executeScript("arguments[0].scrollIntoView(true);",
-					findElement(prop.getProperty("Pivot_addOtrabutton")));
-			implicitWait();
-			add_OtherStores(Pivot_otherStorevalues);
+					findElement(prop.getProperty("Pivot_addOtrabutton")));*/
+			add_pivot_OtherStores(Pivot_otherStorevalues);
 		}
 	}
 
-	public void add_OtherStores(String Pivot_otherStorevalues) throws InterruptedException {
+	public void add_pivot_OtherStores(String Pivot_otherStorevalues) throws InterruptedException {
 		String row[] = Pivot_otherStorevalues.split("@###@");
 		for (int i = 0; i < row.length; i++) {
 			String col[] = row[i].split("@#@");
@@ -2626,25 +2611,28 @@ public class Adminproperty extends TestListenerAdapter {
 				ob.click(driver.findElement(By.xpath(prop.getProperty("Addotherstorebutton")))).perform();
 			driver.findElement(By.xpath(".//*[@id='url" + (i + 1) + "']")).sendKeys(col[0]);
 			ob.click(driver.findElement(By.xpath(".//*[@class='article-section']/div"))).perform();
-			if (col[0].contains("//www.amazon.es/")) {
+			if (col[0].contains("//www.amazon.es/")||(col[0].contains("//www.ebay.es/"))) {
 				implicitWait();
 				if(driver.findElement(By.xpath(".//*[@id='ecommerceStore"+(i+1)+"']/div[2]/a")).getAttribute("href").equalsIgnoreCase(col[0]))
-					System.out.println("*****Fetching amazon URL*****");
+					System.out.println("*****Fetching amazon or Ebay URL*****");
 			} else {
 				driver.findElement(By.xpath(".//*[@id ='store" + (i + 1) + "']")).sendKeys(col[1]);
 				driver.findElement(By.xpath(".//*[@id ='price" + (i + 1) + "']")).sendKeys(col[2]);
-			}}
-		Thread.sleep(1000);
+			    }
+			}
+		Thread.sleep(2000);
 		JavascriptExecutor jse = (JavascriptExecutor) driver;
 		jse.executeScript("arguments[0].scrollIntoView(true);",findElement(prop.getProperty("Pivot_addOtrabutton")));
 		findAndClick("Pivot_addOtrabutton");
 		implicitWait();
-		if(driver.findElement(By.xpath(".//*[@id='duplicateProduct']")).getText().equalsIgnoreCase("Error: no puedes poner dos enlaces de la misma tienda"))
-		System.out.println("****** Duplicate product from Amazon ******");
+		if(findElement(prop.getProperty("pivot_duplicateProd_error")).isDisplayed()==true)
+			System.out.println("Validation error-->>      Duplicate product from Amazon or Ebay  ");
+		else if(driver.findElement(By.xpath(".//*[@id='invalidEcommerceStore']")).isDisplayed()==true)
+			System.out.println("Validation error-->>     ** some field is missing **");
+		else
+			System.out.println("***** Pivot product added succesfully ****");
 	}
 
-
-	
 	public void MVP_pivot_newsletter(String sitename)
 	{		
 	    //Select option  .//span[text()='Xataka']
@@ -2770,7 +2758,7 @@ public class Adminproperty extends TestListenerAdapter {
 		implicitWait();
 		if(col[2].contains("&euro;"))
 		col[2] = col[2].replace("&euro;", "");
-		if (col[0].contains("//www.amazon.es/")||(col[0].contains("//www.ebay.in/"))) {
+		if (col[0].contains("//www.amazon.es/")||(col[0].contains("//www.ebay.es/"))) {
 		if (findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div[2]/div[" + (i + 2) + "]/div[2]/a").getAttribute("href").equalsIgnoreCase(col[0]))
 		System.out.println("*****Fetching amazon or Ebay URL*****");
 		} 
@@ -2779,7 +2767,7 @@ public class Adminproperty extends TestListenerAdapter {
 		  action.click(findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div[2]/div[" + (i + 2) + "]/div[3]")).sendKeys(col[2]).perform();
 		} 
 		else {
-		  action.click(driver.findElement(By.xpath(".//*[@class='EditProductModal_preview-image__2mLY9']"))).perform();
+		  action.click(driver.findElement(By.xpath(".//*[@class='ProductInfo_preview-image__1hOqm']"))).perform();
 		  implicitWait();
 		if (findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div[2]/div[" + (i + 2) + "]/div/div/p").getText().equalsIgnoreCase("Error: la url no es válida"))
 		  System.out.println("Add some valid url");
@@ -2788,5 +2776,4 @@ public class Adminproperty extends TestListenerAdapter {
 		}
 		findAndClick("MVP_pivot_anadir");
 	}
-
 }
