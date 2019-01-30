@@ -2610,7 +2610,6 @@ public class Adminproperty extends TestListenerAdapter {
 	}
 
 	public void add_pivot_Amazon(String product, String Pivot_otherStorevalues) throws InterruptedException {
-		public void add_pivot_Amazon(String product, String Pivot_otherStorevalues) throws InterruptedException {
 			findAndClick("pivoticon");
 			implicitWait();
 			findAndClick("pivot_product_tab");
