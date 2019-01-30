@@ -80,32 +80,29 @@ public class Adminproperty extends TestListenerAdapter {
 	}
 
 	public WebDriver callproperty(String url, String browser) throws IOException {
-
 		/*
-		 * LoggingPreferences loggingprefs = new LoggingPreferences();
-		 * loggingprefs.enable(LogType.BROWSER, Level.ALL);
-		 */
-		if (browser.trim().equalsIgnoreCase("Chrome")) {
-			System.setProperty("webdriver.chrome.driver",
-					System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedriver.exe");
-			DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-			/* capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs); */
-
-			ChromeOptions options = new ChromeOptions();
-			options.addArguments("start-maximized");
-			// options.addArguments("" + capabilities + "");
-			driver = new ChromeDriver(options);
-
-		} else {
-			System.setProperty("webdriver.gecko.driver",
-					System.getProperty("user.dir") + "//src//Driverfiles//" + "geckodriver.exe");
-			DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-			/* capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs); */
-			driver = new FirefoxDriver(capabilities);
-		}
-		driver.get(url);
-		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-		return driver;
+         * LoggingPreferences loggingprefs = new LoggingPreferences();
+         * loggingprefs.enable(LogType.BROWSER, Level.ALL);
+         */
+        if (browser.trim().equalsIgnoreCase("Chrome")) {
+            System.setProperty("webdriver.chrome.driver",
+                    System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedriver.exe");
+            DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+            /* capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs); */
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("start-maximized");
+            // options.addArguments("" + capabilities + "");
+            driver = new ChromeDriver(options);
+        } else {
+            System.setProperty("webdriver.gecko.driver",
+                    System.getProperty("user.dir") + "//src//Driverfiles//" + "geckodriver.exe");
+            DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+            /* capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs); */
+            driver = new FirefoxDriver(capabilities);
+        }
+        driver.get(url);
+        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        return driver;
 	}
 
 	public void uploadPrimaryImage(String primaryimage, String browser) throws Exception {
@@ -2766,13 +2763,13 @@ public class Adminproperty extends TestListenerAdapter {
 		   findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div/div/button").click();
 		action.click(findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div[2]/div[" + (i + 2) + "]/div[1]")).sendKeys(col[0]).perform();
 		Thread.sleep(1000);
-		action.click(driver.findElement(By.xpath(".//*[@class='EditProductModal_preview-image__2mLY9']"))).perform();
+		action.click(driver.findElement(By.xpath(".//*[@class='ProductInfo_preview-image__1hOqm']"))).perform();
 		implicitWait();
 		if(col[2].contains("&euro;"))
 		col[2] = col[2].replace("&euro;", "");
-		if (col[0].contains("//www.amazon.es/")) {
+		if (col[0].contains("//www.amazon.es/")||(col[0].contains("//www.ebay.in/"))) {
 		if (findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div[2]/div[" + (i + 2) + "]/div[2]/a").getAttribute("href").equalsIgnoreCase(col[0]))
-		System.out.println("*****Fetching amazon URL*****");
+		System.out.println("*****Fetching amazon or Ebay URL*****");
 		} 
 		else if (col[0].contains("http://") || (col[0].contains("https://"))) {
 		  action.click(findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div[2]/div[" + (i + 2) + "]/div[2]")).sendKeys(col[1]).perform();
