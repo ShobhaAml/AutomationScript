@@ -2640,7 +2640,7 @@ public class Adminproperty extends TestListenerAdapter {
 		findAndClick("Pivot_addOtrabutton");
 		implicitWait();
 		if(driver.findElement(By.xpath(".//*[@id='duplicateProduct']")).getText().equalsIgnoreCase("Error: no puedes poner dos enlaces de la misma tienda"))
-			System.out.println("****** Duplicate product from Amazon ******");
+		System.out.println("****** Duplicate product from Amazon ******");
 	}
 
 
