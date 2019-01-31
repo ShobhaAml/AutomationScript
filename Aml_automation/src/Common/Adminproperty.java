@@ -2809,4 +2809,56 @@ public class Adminproperty extends TestListenerAdapter {
 		}
 		findAndClick("MVP_pivot_anadir");
 	}
+	
+	public void edit_MVP_PivotAmazon() throws InterruptedException {
+		String Pivot_addotherStoreValues_afterEdit = "https://www.flipkart.com@#@FlipkartX@#@2.768,55";
+		Actions actions = new Actions(driver);
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//*[@id='container']/div[3]/div[2]/div")).click();
+		Thread.sleep(1000);
+		actions.moveToElement(findElement(prop.getProperty("Mvp_PivotToolbar_EditarIcon")));
+		actions.click().build().perform();
+		implicitWait();
+		Actions action = new Actions(driver);
+		String row[] = Pivot_addotherStoreValues_afterEdit.split("@###@");
+		for (int i = 0; i < row.length; i++) {
+			String col[] = row[i].split("@#@");
+			if (i < row.length)
+				findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div/div/button").click();
+			action.click(findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div[2]/div[" + (i + 4) + "]/div[1]"))
+					.sendKeys(col[0]).perform();
+			Thread.sleep(1000);
+			action.click(driver.findElement(By.xpath(".//*[@class='ProductInfo_preview-image__1hOqm']"))).perform();
+			action.click(findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div[2]/div[" + (i + 4) + "]/div[2]"))
+					.sendKeys(col[1]).perform();
+			action.click(findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div[2]/div[" + (i + 4) + "]/div[3]"))
+					.sendKeys(col[2]).perform();
+			implicitWait();
+			findAndClick("MVP_pivot_anadir");
+			System.out.println("***Pivot(Amazon product)has been successfully edited***");
+			implicitWait();
+			driver.findElement(By.xpath("//*[@id='container']/div[3]/div[2]/div")).click();
+			Thread.sleep(1000);
+			// Deleting added product in pivot
+			action.moveToElement(findElement(prop.getProperty("Mvp_PivotToolbar_EditarIcon")));
+			action.click().build().perform();
+			Thread.sleep(1000);
+			action.moveToElement(findElement(prop.getProperty("Mvp_deleteproductIcon")));
+			action.click().build().perform();
+			System.out.println("***Added amazon product has been successfully deleted***");
+			findAndClick("MVP_pivot_anadir");
+			implicitWait();
+		}
+	}
+
+	public void delete_MVP_PivotAmazon() throws InterruptedException {
+		Actions actions = new Actions(driver);
+		driver.findElement(By.xpath("//*[@id='container']/div[3]/div[2]/div")).click();
+		Thread.sleep(1000);
+		// Deleting amazon pivot
+		actions.moveToElement(findElement(prop.getProperty("Mvp_PivotToolbar_deleteIcon")));
+		actions.click().build().perform();
+		System.out.println("***Pivot has been successfully deleted***");
+
+	}
 }
