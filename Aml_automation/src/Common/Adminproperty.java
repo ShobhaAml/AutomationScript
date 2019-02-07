@@ -1,5 +1,8 @@
 package Common;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -2860,5 +2863,95 @@ public class Adminproperty extends TestListenerAdapter {
 		actions.click().build().perform();
 		System.out.println("***Pivot has been successfully deleted***");
 
+	}
+	
+	public void insertText_lfe(String postcontent) throws InterruptedException, AWTException {
+		driver.findElement(By.xpath("//*[@id=\"app\"]/div/div/div/div[1]")).click();
+		Actions act = new Actions(driver);
+		act.moveToElement(driver.findElement(By.xpath(prop.getProperty("longform_clickplus"))))
+				.moveToElement(driver.findElement(By.xpath(prop.getProperty("longform_clickTextIcon")))).build()
+				.perform();
+		Thread.sleep(2000);
+		if (!postcontent.equalsIgnoreCase("null")) {
+			act.sendKeys(postcontent);
+		}
+		act.build().perform();
+		System.out.println("*****Text inserted sucessfully*****");
+		implicitWait();
+
+	}
+	
+	public void insertVideo_lfe(String Youtube_Video) throws InterruptedException, AWTException {
+		driver.findElement(By.xpath("//*[@id=\"app\"]/div/div/div/div[1]")).click();
+		Actions act = new Actions(driver);
+		act.moveToElement(driver.findElement(By.xpath(prop.getProperty("longform_clickplus"))))
+				.moveToElement(driver.findElement(By.xpath(prop.getProperty("longform_videoIcon")))).click();
+		act.build().perform();
+		Thread.sleep(1000);
+		act.moveToElement(driver.findElement(By.xpath(prop.getProperty("longform_videoURLfield")))).click();
+		if (!Youtube_Video.equalsIgnoreCase("null")) {
+			findAndWrite("longform_videoURLfield", Youtube_Video);
+		}
+		act.build().perform();
+		System.out.println("*****Video inserted sucessfully*****");
+		implicitWait();
+
+	}
+	
+	public void insertCategoryAndTag_lfe(String category, String tag) throws InterruptedException, AWTException {
+		Actions act = new Actions(driver);
+		act.moveToElement(driver.findElement(By.xpath(prop.getProperty("longform_categoryXpath"))));
+		act.click();
+		implicitWait();
+		act.sendKeys(category);
+		act.sendKeys(Keys.ENTER);
+		act.build().perform();
+		System.out.println("*****Category inserted sucessfully*****");
+		Thread.sleep(1000);
+
+		Actions action = new Actions(driver);
+		action.moveToElement(driver.findElement(By.xpath(prop.getProperty("longform_tagXpath"))));
+		action.click();
+		implicitWait();
+		action.sendKeys(tag);
+		action.build().perform();
+		Thread.sleep(1000);
+		Robot robot = new Robot();
+		robot.keyPress(KeyEvent.VK_ENTER);
+		robot.keyRelease(KeyEvent.VK_ENTER);
+		System.out.println("*****Tag inserted sucessfully*****");
+
+	}
+
+	public void insertFbContent_lfe(String fbtext) throws InterruptedException, AWTException {
+
+		Actions act = new Actions(driver);
+		act.moveToElement(driver.findElement(By.xpath(prop.getProperty("longform_FbTextarea"))));
+		act.click();
+		implicitWait();
+		if (!(fbtext).equalsIgnoreCase("null")) {
+			act.sendKeys(fbtext);
+		}
+		act.build().perform();
+		System.out.println("*****FB content inserted sucessfully*****");
+
+	}
+
+	public void imageCropperLfe() throws InterruptedException {
+		Thread.sleep(2000);
+		List<WebElement> validarButtons = findElementsByXpath(prop.getProperty("lfe_validarButtons"));
+		for (WebElement validButton : validarButtons) {
+			if (validButton.getText().equalsIgnoreCase("validar")) {
+				validButton.click();
+				Thread.sleep(2000);
+			}
+		}
+		List<WebElement> editarButtons = findElementsByXpath(prop.getProperty("lfe_editarButtons"));
+		for (int i = 0; i < editarButtons.size(); i++) {
+			editarButtons.get(i).isDisplayed();
+		}
+		System.out.println("*****Images have been cropped sucessfully*****");
+		driver.findElement(By.xpath(prop.getProperty("longform_programorBtn"))).click();
+		System.out.println("*****Your post has been published sucessfully*****");
 	}
 }
