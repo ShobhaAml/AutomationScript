@@ -29,7 +29,7 @@ public class BrokenLinks
     String server, blogname, path, device, testserver, browser;
     String usuariolink = "", author = "";
     WebDriver driver = new HtmlUnitDriver();
-	String desktopurl="https://guest:guest@testing.xataka.com";
+   String desktopurl="https://guest:guest@testing.trendencias.com/";
     
     @BeforeMethod
     public void Setup() throws Exception
