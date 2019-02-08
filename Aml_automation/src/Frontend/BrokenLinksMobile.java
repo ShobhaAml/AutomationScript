@@ -13,23 +13,24 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import Common.Adminproperty;
 import Common.Frontend;
 
-public class BrokenLinks
+public class BrokenLinksMobile
 {
-   
+    
     String[] arrlinks;
     String sitelinks = "";
     Frontend frontendProperties = new Frontend();
     Properties prop = new Properties();
     String server, blogname, path, device, testserver, browser;
     String usuariolink = "", author = "";
+  	String Mobileurl="https://guest:guest@mtest.xataka.com";
     WebDriver driver = new HtmlUnitDriver();
-	String desktopurl="https://guest:guest@testing.trendencias.com/";
     
     @BeforeMethod
     public void Setup() throws Exception
@@ -42,36 +43,33 @@ public class BrokenLinks
         browser = prop.getProperty("browser");
     }
 
-    @Test
+    @Test 
     public void verfiyLinks() throws IOException
     {
-     //   driver = frontendProperties.frontcallproperty(prop.getProperty("url"),  prop.getProperty("browser"));
-    	
-    	driver.get(desktopurl);
-    	System.out.println("Main URL----------"+ desktopurl);
-        List<WebElement> anchorTagsList = driver.findElements(By.tagName("a"));
-        System.out.println( desktopurl +" ---Total no. of links are " + anchorTagsList.size());
+      driver.get(Mobileurl);
+       System.out.println(Mobileurl);
+	   List<WebElement> anchorTagsList = driver.findElements(By.tagName("a"));
+        System.out.println("Total no. of links are " + anchorTagsList.size());
         for (WebElement anchorTagElement : anchorTagsList) {
             if (anchorTagElement != null) {
                 String url = anchorTagElement.getAttribute("href");
-               // System.out.println(url+"-------------------------------");
-                               if (url != null
+              if ((url != null
                         && !url.contains("javascript")
                         && (!url.contains("utm_campaign=footer") && (!url
-                                .contains("#") && (!url.contains("youtu")) &&  (!url.contains("redirect?")) && ( !url.contains("mailto:?subject="))))) {
-                                   if(url.contains("https://testing.") || url.contains("https://test.") || (url.contains("https://mtest.")))
+                                .contains("#") && (!url.contains("youtu")) &&  (!url.contains("redirect?")) && ( !url.contains("mailto:?subject=")))))
+                            		   ) {
+                                   if(url.contains("testing.") || url.contains("test.") || (url.contains("mtest.")))
                                    {
-                                       if( url.contains("https://test."))
+                                       if( url.contains("test.") && ( !url.contains("mtest.")))
                                        {
-                                        url=url.replace("https://test.", "https://guest:guest@test.");
+                                        url=url.replace("test.", "guest:guest@test.");
                                        }
-                                       else if( url.contains("https://testing."))
+                                       else if( url.contains("mtest.")  && ( (!url.contains("guest:guest@mtest."))) )
                                        {
-                                           url=url.replace("https://testing.", "https://guest:guest@testing.");
-                                       }
-                                       else if( url.contains("mtest."))
+                                           url=url.replace("mtest.", "guest:guest@mtest.");
+                                       } else if( url.contains("testing.")  && ( (!url.contains("guest:guest@testing.")) ))
                                        {
-                                           url=url.replace("https://mtest.", "https://guest:guest@mtest.");
+                                           url=url.replace("testing.", "guest:guest@mtest.");
                                        }
                                    }
 
@@ -84,17 +82,13 @@ public class BrokenLinks
         }
 
         // check for Respuestas pages
-        System.out.println("usuariolink=" + usuariolink
+         System.out.println("usuariolink=" + usuariolink
                 + " **********AUthor===" + author);
-        VerifyInternalPages(author);
-        VerifyInternalPages(desktopurl + "/respuestas");
-        VerifyInternalPages(desktopurl + "/respuestas/preguntar");
-        // ** check for Archivos pages
-        VerifyInternalPages(desktopurl+"/archivos");
-        // Verify Editor Pages
-        VerifyInternalPages(desktopurl + "/quienes-somos");
-        // Verify Editor Pages
-        VerifyInternalPages(desktopurl + "/contacto");
+        VerifyInternalPages(Mobileurl + "/respuestas");
+         VerifyInternalPages(Mobileurl + "/respuestas/preguntar");
+        VerifyInternalPages(Mobileurl+"/otras-publicaciones");
+        VerifyInternalPages(Mobileurl + "/quienes-somos");
+         VerifyInternalPages(Mobileurl + "/contacto");
         if (usuariolink != "") {
             VerifyInternalPages(usuariolink);
         }
@@ -105,43 +99,42 @@ public class BrokenLinks
     public void VerifyInternalPages(String url) throws IOException
     {
         System.out.println("********* Verifing Internal Pages  " + url
-                + "*******");
-      //  driver = frontendProperties.frontcallproperty(url, prop.getProperty("browser"));
-     	driver.get(url);
+                + " *******");
+      	driver.get(url);
         List<WebElement> anchorTagsList = driver.findElements(By.tagName("a"));
         System.out.println("Total no. of links are " + anchorTagsList.size());
         for (WebElement anchorTagElement : anchorTagsList) {
             if (anchorTagElement != null) {
                 String url1 = anchorTagElement.getAttribute("href");
-               
-             //   System.out.println(url1+"--------------------------------<bR>");                
-                
-                if (url1 != null
-                        && !url1.contains("javascript")   && !url1.contains("javascript")   && !url1.contains("javascript")
-                        && (!url1.contains("utm_campaign=footer") && (!url1
-                                .contains("#") && (!url1.contains("youtu"))))) {
-                    if(url1.contains("https://testing.") || url1.contains("https://test.") || (url1.contains("https://mtest.")))
+              System.out.println(url1);
+
+                if ((url1 != null
+		         && !url1.contains("javascript")
+		         && (!url1.contains("utm_campaign=footer") && (!url1
+		                 .contains("#") && (!url1.contains("youtu")) &&  (!url1.contains("redirect?")) && ( !url1.contains("mailto:?subject=")))))
+             		  ) {
+                    if(url1.contains("testing.") || url1.contains("test.") || (url1.contains("mtest.")))
                     {
-                        if( url.contains("https://test."))
+                        if( url1.contains("test.") && ( !url1.contains("mtest.")))
                         {
-                         url1=url1.replace("https://test.", "https://guest:guest@test.");
+                         url1=url1.replace("test.", "guest:guest@test.");
                         }
-                        else if( url1.contains("https://testing."))
+                       
+                        else if( url1.contains("mtest.")  && ( (!url1.contains("guest:guest@mtest."))) )
                         {
-                            url1=url1.replace("https://testing.", "https://guest:guest@testing.");
-                        }
-                        else if( url1.contains("https://mtest."))
+                            url1=url1.replace("mtest.", "guest:guest@mtest.");
+                        } else if( url1.contains("testing.")  && ( (!url1.contains("guest:guest@testing.")) ))
                         {
-                            url1=url1.replace("https://mtest.", "https://guest:guest@mtest.");
+                            url1=url1.replace("testing.", "guest:guest@mtest.");
                         }
                     }
-                    if (url.contains("/usuario/")) {
-                        usuariolink = url;
+
+                    if (url1.contains("/usuario/")) {
+                        usuariolink = url1;
                     }
-                    // System.out.println(url1);
+                    //System.out.println(url1+"====");
                     verifyURLStatus(url1);
-                    
-                }
+                 }
             }
         }
     }
@@ -150,6 +143,8 @@ public class BrokenLinks
     {
         
         HttpClient client = HttpClientBuilder.create().build();
+    	
+    	
         HttpGet request = new HttpGet(URL);
         try {
             HttpResponse response = client.execute(request);
@@ -162,5 +157,12 @@ public class BrokenLinks
         }
         
       //  frontendProperties.ExtractJSLogs(URL);
+    }
+    
+    @AfterMethod
+    public void teardown()
+    {
+    	driver.quit();
+    	//driver.close();
     }
 }
