@@ -111,7 +111,7 @@ public class BrokenLinksMobile
             if (anchorTagElement != null) {
                 String url1 = anchorTagElement.getAttribute("href");
 
-              System.out.println(url1);
+             // System.out.println(url1);
 
                 if ((url1 != null
 		         && !url1.contains("javascript")
