@@ -21,6 +21,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -31,27 +32,35 @@ import Common.Adminproperty;
 	 
     public Properties ReadProperties() throws IOException {
 		
-		FileInputStream inStream = new FileInputStream("/Users/isha/AML/Automation/Aml_automation/src/Common/frontend.properties");
+		FileInputStream inStream = new FileInputStream(System.getProperty("user.dir") +"/src/Common/frontend.properties");
 		prop.load(inStream);
 		return prop;
 }
 
     public WebDriver frontcallproperty(String url, String browser) throws IOException {
 
-	if (browser.trim().equalsIgnoreCase("Chrome")) {
-		
-		ChromeOptions options = new ChromeOptions();
-		options.addArguments("start-maximized");
-		driver = new ChromeDriver(options);
+    	/*LoggingPreferences loggingprefs = new LoggingPreferences();
+    	loggingprefs.enable(LogType.BROWSER, Level.ALL);*/
+    	if (browser.trim().equalsIgnoreCase("Chrome")) {
+    		System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedriver.exe");
+    		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+    		/*capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);*/
 
-	} else {
-		System.setProperty("webdriver.gecko.driver",
-				System.getProperty("user.dir") + "//src//Driverfiles//" + "geckodriver.exe");
-		driver = new FirefoxDriver();
-	}
-	driver.get(url);
-	driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-	return driver;
+    		ChromeOptions options = new ChromeOptions();
+    		options.addArguments("start-maximized");
+    		//options.addArguments("" + capabilities + "");
+    		driver = new ChromeDriver(options);
+
+    	} else {
+    		System.setProperty("webdriver.gecko.driver",
+    				System.getProperty("user.dir") + "//src//Driverfiles//" + "geckodriver.exe");
+    		DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+    		/*capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);*/
+    		driver = new FirefoxDriver(capabilities);
+    	}
+    	driver.get(url);
+    	driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+    	return driver;
 }
 
 
@@ -217,38 +226,47 @@ import Common.Adminproperty;
 		implicitWait();
 
 		if(driver.getWindowHandles().size()>1){
-		for (String winHandle : driver.getWindowHandles()) {
-			driver.switchTo().window(winHandle);
-		}
-
-		implicitWait();
-		findAndWrite("twitter_email", username);
-		findAndWrite("twitter_password", password);
-		findAndClick("twitter_button");
-		implicitWait();
-		try {
-		if(driver.getCurrentUrl().contains("https://twitter.com/login/error")){	
-			message="Invalid login credentials";
-			System.out.println("Invalid login credentials");}
-		} 
-		catch (Exception e) {
-			
-		}
-		driver.switchTo().window(winHandleBefore);
+			System.out.println("URL ==" +driver.getCurrentUrl());
+			if(driver.getCurrentUrl().contains("twitter.com"))
+			{
+				for (String winHandle : driver.getWindowHandles()) {
+					driver.switchTo().window(winHandle);
+				}
 		
-		try {
-			
-			if(new WebDriverWait(driver, 10).until(ExpectedConditions
-					.visibilityOfElementLocated(By.xpath(prop.getProperty("deactivated_user")))) != null) {
-				message = new WebDriverWait(driver, 10)
-				.until(ExpectedConditions
-						.visibilityOfElementLocated(By.xpath(prop.getProperty("deactivated_user"))))
-				.getText();
-				message = "Deactivated User :  " + message;
+				implicitWait();
+				findAndWrite("twitter_email", username);
+				findAndWrite("twitter_password", password);
+				findAndClick("twitter_button");
+				implicitWait();
+				try {
+				if(driver.getCurrentUrl().contains("https://twitter.com/login/error")){	
+					message="Invalid login credentials";
+					System.out.println("Invalid login credentials");}
+				} 
+				catch (Exception e) {
+					
+				}	driver.switchTo().window(winHandleBefore);
+				
+				try {
+						
+						if(new WebDriverWait(driver, 10).until(ExpectedConditions
+								.visibilityOfElementLocated(By.xpath(prop.getProperty("deactivated_user")))) != null) {
+							message = new WebDriverWait(driver, 10)
+							.until(ExpectedConditions
+									.visibilityOfElementLocated(By.xpath(prop.getProperty("deactivated_user"))))
+							.getText();
+							message = "Deactivated User :  " + message;
+						}
+					} catch (Exception e) {
+					
+					}
 			}
-		} catch (Exception e) {
+			else
+			{
+				message="TWITTER not working, Not navigating to correct URL";
+			}
 		
-		}
+		
 		
 		}
 		return message;

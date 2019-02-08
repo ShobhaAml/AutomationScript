@@ -43,16 +43,19 @@ public class BrokenLinksMobile
         browser = prop.getProperty("browser");
     }
 
+
     @Test 
     public void verfiyLinks() throws IOException
     {
       driver.get(Mobileurl);
        System.out.println(Mobileurl);
+
 	   List<WebElement> anchorTagsList = driver.findElements(By.tagName("a"));
         System.out.println("Total no. of links are " + anchorTagsList.size());
         for (WebElement anchorTagElement : anchorTagsList) {
             if (anchorTagElement != null) {
                 String url = anchorTagElement.getAttribute("href");
+
               if ((url != null
                         && !url.contains("javascript")
                         && (!url.contains("utm_campaign=footer") && (!url
@@ -71,6 +74,7 @@ public class BrokenLinksMobile
                                        {
                                            url=url.replace("testing.", "guest:guest@mtest.");
                                        }
+
                                    }
 
                     if (url.contains("/autor/")) {
@@ -92,20 +96,21 @@ public class BrokenLinksMobile
         if (usuariolink != "") {
             VerifyInternalPages(usuariolink);
         }
-       
-        
     }
 
     public void VerifyInternalPages(String url) throws IOException
     {
         System.out.println("********* Verifing Internal Pages  " + url
                 + " *******");
+
       	driver.get(url);
+
         List<WebElement> anchorTagsList = driver.findElements(By.tagName("a"));
         System.out.println("Total no. of links are " + anchorTagsList.size());
         for (WebElement anchorTagElement : anchorTagsList) {
             if (anchorTagElement != null) {
                 String url1 = anchorTagElement.getAttribute("href");
+
               System.out.println(url1);
 
                 if ((url1 != null
@@ -135,6 +140,7 @@ public class BrokenLinksMobile
                     //System.out.println(url1+"====");
                     verifyURLStatus(url1);
                  }
+
             }
         }
     }
