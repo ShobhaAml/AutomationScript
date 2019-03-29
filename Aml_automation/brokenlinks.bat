@@ -1,1 +1,1 @@
-java -cp \Aml_automation\bin;\Aml_automation\libs\* org.testng.TestNG src\Brokenlink.xml
+java -cp \Aml_automation\*;\Aml_automation\libs\* org.testng.TestNG src\Brokenlink.xml
