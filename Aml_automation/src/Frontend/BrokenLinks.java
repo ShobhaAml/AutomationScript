@@ -161,6 +161,6 @@ public class BrokenLinks
             // e.printStackTrace();
         }
         
-      //  frontendProperties.ExtractJSLogs(URL);
+     //   frontendProperties.ExtractJSLogs(URL);
     }
 }
