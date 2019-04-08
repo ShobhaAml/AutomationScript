@@ -114,6 +114,8 @@ public class CreateLongformPostExcel {
 			adminProperties.insertFbContent_lfe(fbtext);
 
 			adminProperties.imageCropperLfe();
+			adminProperties.LFE_add_Sumario(summary, summary_layout);
+
 
 		}
 	}
