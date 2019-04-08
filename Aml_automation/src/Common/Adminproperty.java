@@ -2954,4 +2954,40 @@ public class Adminproperty extends TestListenerAdapter {
 		driver.findElement(By.xpath(prop.getProperty("longform_programorBtn"))).click();
 		System.out.println("*****Your post has been published sucessfully*****");
 	}
+	
+	public void LFE_layout(String layout) throws InterruptedException {
+		List<WebElement> sidePanel = findElementsByXpath(prop.getProperty("LFE_sidePanel"));
+		for (int i = 1; i <= sidePanel.size(); i++) {
+			sidePanel.get(i).click();
+			Thread.sleep(1000);
+			if (findElement(prop.getProperty("LFE_sidePanel_bg")).isDisplayed() == true) {
+				switch (layout) {
+				case "small":
+				case "normal":
+					List<WebElement> layout1 = findElementsByXpath(prop.getProperty("LFE_layout") + "/p/button");
+					for (int y = 1; y <= layout1.size() - 2; y++)
+						if (layout1.get(y).getText().equalsIgnoreCase(layout))
+							layout1.get(y).click();
+				case "big":
+				case "cover":
+				case "fullscreen":
+					List<WebElement> layout2 = findElementsByXpath(prop.getProperty("LFE_layout") + "/span/p/button");
+					for (int y = 1; y < layout2.size(); y++)
+						if (layout2.get(y).getText().equalsIgnoreCase(layout))
+						   layout2.get(y).click();
+				}
+			}
+			break;
+		}
+	}
+	
+	public void LFE_add_Sumario(String sumario, String layout) throws InterruptedException
+	{
+		Actions act = new Actions(driver);
+		act.click(driver.findElement(By.xpath(".//*[@class='btn glyphicon glyphicon-file']"))).build().perform();
+		adminProperties.implicitWait();
+		act.sendKeys("text").build().perform();
+		adminProperties.implicitWait();
+		LFE_layout(layout);
+	
 }
