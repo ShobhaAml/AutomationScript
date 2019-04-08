@@ -2986,7 +2986,7 @@ public class Adminproperty extends TestListenerAdapter {
 		Actions act = new Actions(driver);
 		act.click(driver.findElement(By.xpath(".//*[@class='btn glyphicon glyphicon-file']"))).build().perform();
 		implicitWait();
-		act.sendKeys("text").build().perform();
+		act.sendKeys(sumario).build().perform();
 		implicitWait();
 		LFE_layout(layout);
 	
