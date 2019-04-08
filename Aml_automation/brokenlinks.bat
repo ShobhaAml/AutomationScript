@@ -1,1 +1,1 @@
-java -cp https://github.com/agilemedialab/Automation/tree/master/Aml_automation/src ;https://github.com/agilemedialab/Automation/tree/master/Aml_automation/libs/* org.testng.TestNG https://github.com/agilemedialab/Automation/tree/master/Aml_automation/src/Brokenlink.xml
+java -cp https://github.com/agilemedialab/Automation/tree/master/Aml_automation ;https://github.com/agilemedialab/Automation/tree/master/Aml_automation/libs/* org.testng.TestNG https://github.com/agilemedialab/Automation/tree/master/Aml_automation/src/Brokenlink.xml
