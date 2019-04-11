@@ -3021,6 +3021,7 @@ public class Adminproperty extends TestListenerAdapter {
 		
 	}
 	
+	
 	public void addpivotFlipboard(String blogname) throws InterruptedException
 	{
 		findAndClick("pivoticon");

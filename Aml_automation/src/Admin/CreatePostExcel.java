@@ -271,8 +271,7 @@ public class CreatePostExcel {
 			if(!Pivot_newsletter.equalsIgnoreCase("null"))
 				adminProperties.add_pivot_newsletter(Pivot_newsletter);
 			
-	
-			
+	//Add fliboard in CMS for all blogs
 			adminProperties.implicitWait();			
 			String Flipboardarrblognames = adminProperties.GetpivotflipboardValues();
 			System.out.println(Flipboardarrblognames);
@@ -284,8 +283,7 @@ public class CreatePostExcel {
 				adminProperties.addpivotFlipboard(arrFlipboardarrblognames[i]);
 				
 			}
-			
-			
+				
 			
 			if (!Pivot_product_Article.equalsIgnoreCase("null")) {
 				System.out.println("Pivot Article =" + Pivot_product_Article);
