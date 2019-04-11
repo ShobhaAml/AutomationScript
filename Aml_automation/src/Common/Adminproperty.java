@@ -1880,7 +1880,6 @@ public class Adminproperty extends TestListenerAdapter {
 			}
 			cnt++;
 		}
-
 		return userdata;
 	}
 	/*
@@ -2656,12 +2655,12 @@ public class Adminproperty extends TestListenerAdapter {
 				    }
 				}
 			Thread.sleep(2000);
-			/*JavascriptExecutor jse = (JavascriptExecutor) driver;
+		/*JavascriptExecutor jse = (JavascriptExecutor) driver;
 			jse.executeScript("arguments[0].scrollIntoView(true);",findElement(prop.getProperty("Pivot_addOtrabutton")));*/
 			findAndClick("Pivot_addOtrabutton");
 			implicitWait();
 		/*	if(findElement(prop.getProperty("pivot_duplicateProd_error")).isDisplayed()==true)
-				System.out.println("Validation error-->>      Duplicate product from Amazon or Ebay  ");
+			System.out.println("Validation error-->>      Duplicate product from Amazon or Ebay  ");
 			else if(driver.findElement(By.xpath(".//*[@id='invalidEcommerceStore']")).isDisplayed()==true)
 				System.out.println("Validation error-->>     ** some field is missing **");
 			else
@@ -2990,49 +2989,3 @@ public class Adminproperty extends TestListenerAdapter {
 		implicitWait();
 		LFE_layout(layout);
 	}
-	
-	
-	public String GetpivotflipboardValues()
-	{
-		findAndClick("pivoticon");
-		implicitWait();
-		findAndClick("pivotflipboard");
-		Select flipboard = new Select(driver.findElement(By.id("pivot-flipboard-site")));
-		System.out.println(flipboard.getOptions().size());
-		
-		String arrblognames="";
-		
-		for(int i=0;i< flipboard.getOptions().size();i++)
-		{
-			
-			if(arrblognames=="")
-			{
-				arrblognames=flipboard.getOptions().get(i).getText();
-			}
-			else
-			{
-				arrblognames=arrblognames+"##"+ flipboard.getOptions().get(i).getText();
-			}
-			
-		}
-		driver.findElement(By.xpath(".//a[@class='modal-close js-pivot-close']")).click();
-		
-		return arrblognames;
-		
-	}
-	
-	
-	public void addpivotFlipboard(String blogname) throws InterruptedException
-	{
-		findAndClick("pivoticon");
-		implicitWait();
-		findAndClick("pivotflipboard");
-		Select flipboard = new Select(driver.findElement(By.id("pivot-flipboard-site")));
-		flipboard.selectByVisibleText(blogname);
-		Thread.sleep(5000);
-		implicitWait();
-		findAndClick("Flipboadbutton");
-	}
-	
-	
-}

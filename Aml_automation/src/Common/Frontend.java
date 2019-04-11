@@ -21,45 +21,51 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import Common.Adminproperty;
 
-public class Frontend extends Adminproperty
-{
-
-	public Properties ReadProperties() throws IOException {
-		FileInputStream inStream = new FileInputStream(
-				System.getProperty("user.dir") + "\\src\\Common\\frontend.properties");
+    public class Frontend extends Adminproperty
+    {
+	 
+    public Properties ReadProperties() throws IOException {
+		
+		FileInputStream inStream = new FileInputStream(System.getProperty("user.dir") +"/src/Common/frontend.properties");
 		prop.load(inStream);
 		return prop;
-	}
+}
 
-	public WebDriver frontcallproperty(String url, String browser) throws IOException {
-		if (browser.trim().equalsIgnoreCase("Chrome")) {
-			System.setProperty("webdriver.chrome.driver",
-					System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedriver.exe");
-			ChromeOptions options = new ChromeOptions();
-			options.addArguments("start-maximized");
-			driver = new ChromeDriver(options);
-		} else {
-			System.setProperty("webdriver.gecko.driver",
-					System.getProperty("user.dir") + "//src//Driverfiles//" + "geckodriver.exe");
-			driver = new FirefoxDriver();
-		}
-		driver.get(url);
-		if (browser.trim().equalsIgnoreCase("firefox")) {
-			driver.switchTo().alert().accept();
-			driver.manage().window().maximize();
-		}
+    public WebDriver frontcallproperty(String url, String browser) throws IOException {
 
-		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-		return driver;
-	}
+    	/*LoggingPreferences loggingprefs = new LoggingPreferences();
+    	loggingprefs.enable(LogType.BROWSER, Level.ALL);*/
+    	if (browser.trim().equalsIgnoreCase("Chrome")) {
+    		System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedriver.exe");
+    		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+    		/*capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);*/
+
+    		ChromeOptions options = new ChromeOptions();
+    		options.addArguments("start-maximized");
+    		//options.addArguments("" + capabilities + "");
+    		driver = new ChromeDriver(options);
+
+    	} else {
+    		System.setProperty("webdriver.gecko.driver",
+    				System.getProperty("user.dir") + "//src//Driverfiles//" + "geckodriver.exe");
+    		DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+    		/*capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);*/
+    		driver = new FirefoxDriver(capabilities);
+    	}
+    	driver.get(url);
+    	driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+    	return driver;
+}
+
 
 	public void clickMenu(String Linktext, String Rtype) {
-		super.findAndClick("cookie");
+		//super.findAndClick("cookie");
 		driver.findElement(By.xpath(prop.getProperty("Menu"))).click();
 		super.implicitWait();
 		if (Linktext.equalsIgnoreCase("EntraORegistrate")) {
@@ -220,38 +226,47 @@ public class Frontend extends Adminproperty
 		implicitWait();
 
 		if(driver.getWindowHandles().size()>1){
-		for (String winHandle : driver.getWindowHandles()) {
-			driver.switchTo().window(winHandle);
-		}
-
-		implicitWait();
-		findAndWrite("twitter_email", username);
-		findAndWrite("twitter_password", password);
-		findAndClick("twitter_button");
-		implicitWait();
-		try {
-		if(driver.getCurrentUrl().contains("https://twitter.com/login/error")){	
-			message="Invalid login credentials";
-			System.out.println("Invalid login credentials");}
-		} 
-		catch (Exception e) {
-			
-		}
-		driver.switchTo().window(winHandleBefore);
+			System.out.println("URL ==" +driver.getCurrentUrl());
+			if(driver.getCurrentUrl().contains("twitter.com"))
+			{
+				for (String winHandle : driver.getWindowHandles()) {
+					driver.switchTo().window(winHandle);
+				}
 		
-		try {
-			
-			if(new WebDriverWait(driver, 10).until(ExpectedConditions
-					.visibilityOfElementLocated(By.xpath(prop.getProperty("deactivated_user")))) != null) {
-				message = new WebDriverWait(driver, 10)
-				.until(ExpectedConditions
-						.visibilityOfElementLocated(By.xpath(prop.getProperty("deactivated_user"))))
-				.getText();
-				message = "Deactivated User :  " + message;
+				implicitWait();
+				findAndWrite("twitter_email", username);
+				findAndWrite("twitter_password", password);
+				findAndClick("twitter_button");
+				implicitWait();
+				try {
+				if(driver.getCurrentUrl().contains("https://twitter.com/login/error")){	
+					message="Invalid login credentials";
+					System.out.println("Invalid login credentials");}
+				} 
+				catch (Exception e) {
+					
+				}	driver.switchTo().window(winHandleBefore);
+				
+				try {
+						
+						if(new WebDriverWait(driver, 10).until(ExpectedConditions
+								.visibilityOfElementLocated(By.xpath(prop.getProperty("deactivated_user")))) != null) {
+							message = new WebDriverWait(driver, 10)
+							.until(ExpectedConditions
+									.visibilityOfElementLocated(By.xpath(prop.getProperty("deactivated_user"))))
+							.getText();
+							message = "Deactivated User :  " + message;
+						}
+					} catch (Exception e) {
+					
+					}
 			}
-		} catch (Exception e) {
+			else
+			{
+				message="TWITTER not working, Not navigating to correct URL";
+			}
 		
-		}
+		
 		
 		}
 		return message;
@@ -346,4 +361,74 @@ public class Frontend extends Adminproperty
 
 		return postdata;
 	}
+	
+	public void deactivation(String loginType, String username,  String password) throws Exception
+	   {
+		implicitWait();
+		findAndClick("Menu");
+		findAndClick("userDeactivate_Button");
+		implicitWait();
+		findAndClick("userDeactivate_acceptButton");
+		implicitWait();
+		findAndClick("userDeactivate_acceptButton");
+		implicitWait();
+		if (loginType.equalsIgnoreCase("standard"))
+			StandardLogin(username, password);
+		else if (loginType.equalsIgnoreCase("twitter"))
+			findAndClick("twitter_registor_button");
+		else {
+			findAndClick("facebook_registor_button");
+			implicitWait();
+			findAndWrite("facebook_password", password);
+			implicitWait();
+			findAndClick("facebook_button");
+		}
+		findAndClick("userDeactivate_acceptButton");
+		Thread.sleep(2000);
+		findAndClick("userDeactivate_cross");
+		System.out.println("<<--------------Try to re-login with same credential------------->>");
+		implicitWait();
+		if (findElement(prop.getProperty("Entra")).getText().equalsIgnoreCase("Entra") == true)
+			findAndClick("Entra");
+
+		if (loginType.equalsIgnoreCase("Standard"))
+			StandardLogin(username, password);
+		else if (loginType.equalsIgnoreCase("twitter"))
+			findAndClick("twitter_registor_button");
+		else if (loginType.equalsIgnoreCase("facebook")) {
+			findAndClick("Menu");
+			findAndClick("Entra");
+			implicitWait();
+			facebookLogin(username, password);
+		}
+		implicitWait();
+		if (driver.findElement(By.xpath(".//*[@id = 'wsl_invalid_user_deactivated']")).isDisplayed() == true)
+			System.out.println("************You are successfully deactivated**************");
+}
+	
+	public void DeactivateUserFromNewsletter(String loginType, String username, String password, String Linktext, String Rtype) throws Exception {
+		clickMenu(Linktext, Rtype);
+		if (loginType.equalsIgnoreCase("standard"))
+			StandardLogin(username, password);
+		else if (loginType.equalsIgnoreCase("twitter"))
+			twitterLogin(username, password);
+		else {
+			facebookLogin(username, password);
+		}
+		driver.findElement(By.xpath(prop.getProperty("Menu"))).click();
+		Thread.sleep(5000);
+		driver.findElement(By.xpath(prop.getProperty("Configuration"))).click();
+		Thread.sleep(2000);
+		if (driver.findElement(By.xpath(prop.getProperty("NewsletterCheckbox"))).isSelected()) {
+			driver.findElement(By.xpath(prop.getProperty("NewsletterCheckbox"))).click();
+			driver.findElement(By.xpath(prop.getProperty("Guardar_btn"))).click();
+			System.out.println("**********User is successfully unsubscribed from newsletter subscription**********");
+			implicitWait();
+		} else if (!driver.findElement(By.xpath(prop.getProperty("NewsletterCheckbox"))).isSelected()) {
+			System.out.println("*****User is already unsubscribed*****");
+		}
+		implicitWait();
+
+	}
+
 }

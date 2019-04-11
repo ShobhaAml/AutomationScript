@@ -62,7 +62,7 @@ public class CreatePostExcel_EditorRoles {
 			String Recipe_summary_layout, String homecontent, String homeimage, String Branded_club, String category,
 			String catagory_other, String tag, String seotitle, String seodesc, String specialpost,
 			String comment_closed, String author, String Twittertext, String fbtext, String Repost, String Run,
-			String Republish) throws Exception {
+			String Republish,String Future_time) throws Exception {
 
 		if (Run.trim().equalsIgnoreCase("Y")) {
 			// String blogrole = "Branded Collaborator";
@@ -314,6 +314,15 @@ public class CreatePostExcel_EditorRoles {
 				} else {
 					adminProperties.insertTagAndCategory(category, tag);
 				}
+				
+				
+				if(!Future_time.equalsIgnoreCase("null")) {
+					adminProperties.findAndClick("futuretxt");
+					adminProperties.findElement(prop.getProperty("futuretxt")).clear();;
+					adminProperties.implicitWait();				
+					adminProperties.findAndWrite("futuretxt", Future_time);
+				}
+				
 
 				if ((!homecontent.equalsIgnoreCase("null"))) {
 					adminProperties.findAndWrite("homepage_content", homecontent);
@@ -333,12 +342,13 @@ public class CreatePostExcel_EditorRoles {
 				}
 				System.out.println(adminProperties.imageCropper());
 
+							
 				if (category.equalsIgnoreCase("basics")) {
-					adminProperties.addFbTwitterText("null", "null");
-
+					adminProperties.addFbTwitterText("null", "null",Future_time);
 				} else {
-					adminProperties.addFbTwitterText(fbtext, Twittertext);
+					adminProperties.addFbTwitterText(fbtext, Twittertext,Future_time);
 				}
+				
 				adminProperties.implicitWait();
 
 				if (Republish.equalsIgnoreCase("Y")) {
