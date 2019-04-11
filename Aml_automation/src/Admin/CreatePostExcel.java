@@ -287,7 +287,7 @@ public class CreatePostExcel {
 				adminProperties.addpivotproduct(Pivot_product_Nombre,"nombre");
 				
 			}*/
-			
+		
 			if (!Pivot_product_Article.equalsIgnoreCase("null")) {
 				System.out.println("Pivot Article =" + Pivot_product_Article);
 

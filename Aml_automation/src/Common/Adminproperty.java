@@ -1880,7 +1880,6 @@ public class Adminproperty extends TestListenerAdapter {
 			}
 			cnt++;
 		}
-
 		return userdata;
 	}
 	/*
@@ -2656,16 +2655,16 @@ public class Adminproperty extends TestListenerAdapter {
 				    }
 				}
 			Thread.sleep(2000);
-			JavascriptExecutor jse = (JavascriptExecutor) driver;
-			jse.executeScript("arguments[0].scrollIntoView(true);",findElement(prop.getProperty("Pivot_addOtrabutton")));
+		/*JavascriptExecutor jse = (JavascriptExecutor) driver;
+			jse.executeScript("arguments[0].scrollIntoView(true);",findElement(prop.getProperty("Pivot_addOtrabutton")));*/
 			findAndClick("Pivot_addOtrabutton");
 			implicitWait();
-			if(findElement(prop.getProperty("pivot_duplicateProd_error")).isDisplayed()==true)
-				System.out.println("Validation error-->>      Duplicate product from Amazon or Ebay  ");
+		/*	if(findElement(prop.getProperty("pivot_duplicateProd_error")).isDisplayed()==true)
+			System.out.println("Validation error-->>      Duplicate product from Amazon or Ebay  ");
 			else if(driver.findElement(By.xpath(".//*[@id='invalidEcommerceStore']")).isDisplayed()==true)
 				System.out.println("Validation error-->>     ** some field is missing **");
 			else
-				System.out.println("***** Pivot product added succesfully ****");
+				System.out.println("***** Pivot product added succesfully ****");*/
 		}
 
 
