@@ -42,7 +42,7 @@ public class CreatePostExcel {
 
 	@DataProvider(name = "testdata")
 	public Object[][] TestDataFeed() throws Exception {
-		Object[][] postdata = adminProperties.readExcel("Normal", 86);
+		Object[][] postdata = adminProperties.readExcel("Normal", 87);
 		return postdata;
 	}
 
@@ -68,7 +68,7 @@ public class CreatePostExcel {
 			String Pivot_newsletter, String homecontent, String homeimage, String Branded_club, String category,
 			String catagory_other, String tag, String seotitle, String seodesc, String specialpost,
 			String comment_closed, String author, String Twittertext, String fbtext, String Repost, String Run,
-			String Republish,String Future_time, String Pivot_product_Article, String Pivot_product_Article_posttype) throws Exception {
+			String Republish,String Future_time, String Pivot_product_Article, String Pivot_product_Article_posttype, String Publish_to_homepage_checkbox) throws Exception {
 		if (Run.trim().equalsIgnoreCase("Y")) {
 			String blogrole = "";
 			adminProperties.LoginAdmin(prop.getProperty("admin_usename"), prop.getProperty("admin_pwd"));
@@ -267,7 +267,7 @@ public class CreatePostExcel {
 				}
 			}
 			if(!Pivot_newsletter.equalsIgnoreCase("null"))
-				adminProperties.add_pivot_newsletter(Pivot_newsletter);
+				//adminProperties.add_pivot_newsletter(Pivot_newsletter);
 			
 			adminProperties.implicitWait();			
 			String Flipboardarrblognames = adminProperties.GetpivotflipboardValues();
@@ -282,17 +282,17 @@ public class CreatePostExcel {
 			}
 		
 			if (!Pivot_product_Article.equalsIgnoreCase("null")) {
-				System.out.println("Pivot Article =" + Pivot_product_Article);
+				/*System.out.println("Pivot Article =" + Pivot_product_Article);
 
 				adminProperties.implicitWait();
 				adminProperties.addNewlines();
 				adminProperties.addpivotarticle(Pivot_product_Article, Pivot_product_Article_posttype, Pivot_product_Article);
-				adminProperties.addNewlines();
+				adminProperties.addNewlines();*/
 			}
-			adminProperties.implicitWait();
+				/*adminProperties.implicitWait();
 			((JavascriptExecutor) driver).executeScript("scroll(0, -800);");
 			Thread.sleep(6000);
-			/*
+		
 			 * if(blogrole.equalsIgnoreCase("Branded Collaborator")) { System.out.
 			 * println("Branded Collaborator don't have access to publish a post" ); } else{
 			 */
@@ -331,6 +331,23 @@ public class CreatePostExcel {
 			} else {
 				adminProperties.addFbTwitterText(fbtext, Twittertext,Future_time);
 			}
+			if(!Publish_to_homepage_checkbox.equalsIgnoreCase("null"))
+			{
+
+				if (Branded_club.equalsIgnoreCase("null")) {
+					WebElement publishtomhome = driver.findElement(By.xpath(".//input[@name='post_visibility']"));
+		  		
+					if(Publish_to_homepage_checkbox.equalsIgnoreCase("Y"))
+					{
+						if (!publishtomhome.isSelected()) {publishtomhome.click();}		
+					}
+					else if(Publish_to_homepage_checkbox.equalsIgnoreCase("N"))
+					{
+						if (publishtomhome.isSelected()) {publishtomhome.click();}	
+					}	
+				}
+		}
+			
 			adminProperties.implicitWait();
 			if (Republish.equalsIgnoreCase("Y")) {
 				adminProperties.republish();
