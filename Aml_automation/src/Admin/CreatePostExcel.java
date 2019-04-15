@@ -268,25 +268,18 @@ public class CreatePostExcel {
 			}
 			if(!Pivot_newsletter.equalsIgnoreCase("null"))
 				adminProperties.add_pivot_newsletter(Pivot_newsletter);
-	
-		/*	if(!Pivot_product_ASIN.equalsIgnoreCase("null"))
-			{
-				System.out.println("Pivot Asin =" +Pivot_product_ASIN );
-				
-				adminProperties.implicitWait();
-				adminProperties.addNewlines();
-				adminProperties.addpivot(Pivot_product_ASIN,"asin");
-			}
 			
-			if(!Pivot_product_Nombre.equalsIgnoreCase("null"))
+			adminProperties.implicitWait();			
+			String Flipboardarrblognames = adminProperties.GetpivotflipboardValues();
+			System.out.println(Flipboardarrblognames);
+			adminProperties.implicitWait();	
+			String[] arrFlipboardarrblognames= Flipboardarrblognames.split("##");
+			for(int i=0;i<arrFlipboardarrblognames.length;i++)
 			{
-				System.out.println("Pivot nombre= "+Pivot_product_Nombre );
+				System.out.println(arrFlipboardarrblognames[i]);
+				adminProperties.addpivotFlipboard(arrFlipboardarrblognames[i]);
 				
-				adminProperties.implicitWait();
-				adminProperties.addNewlines();
-				adminProperties.addpivotproduct(Pivot_product_Nombre,"nombre");
-				
-			}*/
+			}
 		
 			if (!Pivot_product_Article.equalsIgnoreCase("null")) {
 				System.out.println("Pivot Article =" + Pivot_product_Article);

@@ -2989,3 +2989,46 @@ public class Adminproperty extends TestListenerAdapter {
 		implicitWait();
 		LFE_layout(layout);
 	}
+	public String GetpivotflipboardValues()
+	{
+		findAndClick("pivoticon");
+		implicitWait();
+		findAndClick("pivotflipboard");
+		Select flipboard = new Select(driver.findElement(By.id("pivot-flipboard-site")));
+		System.out.println(flipboard.getOptions().size());
+		
+		String arrblognames="";
+		
+		for(int i=0;i< flipboard.getOptions().size();i++)
+		{
+			
+			if(arrblognames=="")
+			{
+				arrblognames=flipboard.getOptions().get(i).getText();
+			}
+			else
+			{
+				arrblognames=arrblognames+"##"+ flipboard.getOptions().get(i).getText();
+			}
+			
+		}
+		driver.findElement(By.xpath(".//a[@class='modal-close js-pivot-close']")).click();
+		
+		return arrblognames;
+		
+	}
+	
+	
+	public void addpivotFlipboard(String blogname) throws InterruptedException
+	{
+		findAndClick("pivoticon");
+		implicitWait();
+		findAndClick("pivotflipboard");
+		Select flipboard = new Select(driver.findElement(By.id("pivot-flipboard-site")));
+		flipboard.selectByVisibleText(blogname);
+		Thread.sleep(5000);
+		implicitWait();
+		findAndClick("Flipboadbutton");
+	}
+	
+}
