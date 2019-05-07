@@ -12,13 +12,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -31,7 +28,7 @@ public class Amptest {
 	String browser = "";
 	String status = "Y";
 	String PostTitle = "";
-	String url="https://www.xataka.com,https://www.trendencias.com,https://magnet.xataka.com,https://www.applesfera.com,https://www.xatakandroid.com";
+	String url="https://www.xataka.com,https://www.bebesymas.com,https://www.directoalpaladar.com,https://www.vitonica.com,https://www.espinof.com";
 	Map<String, Integer> FinalerrorMap = new HashMap<String, Integer>();
 	
 	@Test
@@ -50,7 +47,7 @@ public class Amptest {
 	        int cnt=1;
 	            for (WebElement element1 : list) {
 		           // System.out.println(element1.getAttribute("href"));
-		            if((cnt<5) && (!element1.getAttribute("href").contains("utm_campaign=repost"))) { 
+		            if((cnt<4) && (!element1.getAttribute("href").contains("utm_campaign=repost"))) { 
 		            	LocalerrorMap=getAMPerror(element1.getAttribute("href")+"/amp");
 		            	LocalerrorMap.forEach((k,v)->
             			{
