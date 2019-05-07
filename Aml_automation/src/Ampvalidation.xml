@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="Broken Link Suite" >
-  <test name="Desktop broken Links" >
+<suite name="AMP validation Suite" >
+  <test name="AMP validation" >
   <classes>
-  	<class  name="Frontend.BrokenLinks"></class>
+  	<class  name="Amptest"></class>
   </classes>
   </test>
   </suite>
