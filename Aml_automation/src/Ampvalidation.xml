@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="AMP validation Suite" >
-  <test name="AMP validation" >
+<suite name="Amp validation Suite" >
+  <test name="Amp validation" >
   <classes>
-  	<class  name="Amptest"></class>
+  	<class  name="Frontend.Amptest"></class>
   </classes>
   </test>
   </suite>
