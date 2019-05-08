@@ -16,7 +16,7 @@ import org.testng.annotations.Test;
 
 import Common.Frontend;
 
-public class HTMLvalidation {
+public class htmlvalidationtest {
 	WebDriver driver;
 	Frontend frontendProperties = new Frontend();
 	Properties prop = new Properties();

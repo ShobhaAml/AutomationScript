@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="htmlvalidation Suite" >
+  <test name="htmlvalidation" >
+  <classes>
+  	<class  name="Frontend.htmlvalidationtest"></class>
+  </classes>
+  </test>
+  </suite>
