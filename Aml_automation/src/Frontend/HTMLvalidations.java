@@ -43,7 +43,7 @@ public class HTMLvalidations {
 	            for (WebElement element1 : list) {
 		           // System.out.println(element1.getAttribute("href"));
 		            if((cnt<5) && (!element1.getAttribute("href").contains("utm_campaign=repost"))) { 
-		            	LocalerrorMap=getAMPerror(element1.getAttribute("href"));
+		            	LocalerrorMap=getHTMLerror(element1.getAttribute("href"));
 		            	LocalerrorMap.forEach((k,v)->
             			{
 		        			if ( FinalerrorMap.get(k) == null ) {
@@ -77,16 +77,16 @@ public class HTMLvalidations {
 		
 		driver.quit();
 	}
-	public Map<String, Integer> getAMPerror(String ampurl) throws Exception  {
+	public Map<String, Integer> getHTMLerror(String posturl) throws Exception  {
 		Map<String, Integer> errorMap = new HashMap<String, Integer>();
 		
 		String url = "https://validator.w3.org/";
 		/*WebDriver driver = new HtmlUnitDriver();
 		driver.get(url);*/
 		driver = frontendProperties.frontcallproperty(url, prop.getProperty("browser"));
-		System.out.println("AMP URL: "+ampurl);
+		System.out.println("Post URL: "+posturl);
 	
-     	driver.findElement(By.xpath(".//input[@id='uri']")).sendKeys(ampurl);
+     	driver.findElement(By.xpath(".//input[@id='uri']")).sendKeys(posturl);
 		driver.findElement(By.xpath(".//a[@class='submit']")).click();
 		
 		
