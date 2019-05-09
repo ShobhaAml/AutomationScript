@@ -1,1 +1,1 @@
-java -cp E:\Project\Automation\Aml_automation\bin;E:\Project\Automation\Aml_automation\libs\* org.testng.TestNG src\htmlvalidationtest.xml
+java -cp E:\Project\Automation\Aml_automation\bin;E:\Project\Automation\Aml_automation\libs\* org.testng.TestNG src\Htmlvalidation.xml
