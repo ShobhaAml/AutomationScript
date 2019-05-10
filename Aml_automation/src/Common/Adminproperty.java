@@ -59,7 +59,7 @@ import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.security.UserAndPassword;
+//import org.openqa.selenium.security.UserAndPassword;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -67,7 +67,7 @@ import org.testng.TestListenerAdapter;
 
 import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
-import ru.yandex.qatools.ashot.screentaker.ViewportPastingStrategy;
+//import ru.yandex.qatools.ashot.screentaker.ViewportPastingStrategy;
 
 public class Adminproperty extends TestListenerAdapter {
 
@@ -82,31 +82,31 @@ public class Adminproperty extends TestListenerAdapter {
 		return prop;
 	}
 
-	public WebDriver callproperty(String url, String browser) throws IOException {
-		/*
-         * LoggingPreferences loggingprefs = new LoggingPreferences();
-         * loggingprefs.enable(LogType.BROWSER, Level.ALL);
-         */
-        if (browser.trim().equalsIgnoreCase("Chrome")) {
-            System.setProperty("webdriver.chrome.driver",
-                    System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedriver.exe");
-            DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-            /* capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs); */
-            ChromeOptions options = new ChromeOptions();
-            options.addArguments("start-maximized");
-            // options.addArguments("" + capabilities + "");
-            driver = new ChromeDriver(options);
-        } else {
-            System.setProperty("webdriver.gecko.driver",
-                    System.getProperty("user.dir") + "//src//Driverfiles//" + "geckodriver.exe");
-            DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-            /* capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs); */
-            driver = new FirefoxDriver(capabilities);
-        }
-        driver.get(url);
-        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-        return driver;
-	}
+	  public WebDriver callproperty(String url, String browser) throws IOException {
+	        /*
+	         * LoggingPreferences loggingprefs = new LoggingPreferences();
+	         * loggingprefs.enable(LogType.BROWSER, Level.ALL);
+	         */
+	        if (browser.trim().equalsIgnoreCase("Chrome")) {
+	            System.setProperty("webdriver.chrome.driver",
+	                    System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedriver.exe");
+	            DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+	            /* capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs); */
+	            ChromeOptions options = new ChromeOptions();
+	            options.addArguments("start-maximized");
+	            // options.addArguments("" + capabilities + "");
+	            driver = new ChromeDriver(options);
+	        } else {
+	            System.setProperty("webdriver.gecko.driver",
+	                    System.getProperty("user.dir") + "//src//Driverfiles//" + "geckodriver.exe");
+	            DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+	            /* capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs); */
+	            driver = new FirefoxDriver(capabilities);
+	        }
+	        driver.get(url);
+	        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+	        return driver;
+	    }
 
 	public void uploadPrimaryImage(String primaryimage, String browser) throws Exception {
 		String primaryimagearr[] = primaryimage.split("@#@");
@@ -619,10 +619,9 @@ public class Adminproperty extends TestListenerAdapter {
 	}
 
 	public Object[][] readExcel(String excelsheetname, int columns) throws IOException {
-		String filepath = System.getProperty("user.dir") + "\\src\\Common\\";
+		String filepath = System.getProperty("user.dir") + "/src/Common/";
 		String filename = "excel.xlsx";
-		FileInputStream instream = new FileInputStream(filepath + "\\" + filename);
-		System.out.println(filepath + "\\" + filename);
+		FileInputStream instream = new FileInputStream(filepath + "/" + filename);
 		Workbook wb = new XSSFWorkbook(instream);
 		Sheet sheet = wb.getSheet(excelsheetname);
 		int rows = sheet.getLastRowNum() - sheet.getFirstRowNum();
@@ -1164,11 +1163,11 @@ public class Adminproperty extends TestListenerAdapter {
 		}
 	}
 
-	public void FullScreenshot(WebDriver driver, String screenshotName) throws IOException {
+	/*public void FullScreenshot(WebDriver driver, String screenshotName) throws IOException {
 		Screenshot screenshot = new AShot().shootingStrategy(new ViewportPastingStrategy(1000)).takeScreenshot(driver);
 		ImageIO.write(screenshot.getImage(), "PNG",
 				new File(System.getProperty("user.dir") + "\\src\\Screenshots\\" + screenshotName));
-	}
+	}*/
 
 	public static void captureScreenshot(WebDriver driver, String screenshotName) {
 
@@ -1217,7 +1216,7 @@ public class Adminproperty extends TestListenerAdapter {
 
 	}
 
-	public void DeleteVideo(String Video_post_name) {
+	/*public void DeleteVideo(String Video_post_name) {
 		WebElement tableelement = driver.findElement(By.id("video-list"));
 		WebDriverWait wait = new WebDriverWait(driver, 50);
 		wait.until(new Function<WebDriver, Boolean>() {
@@ -1284,7 +1283,7 @@ public class Adminproperty extends TestListenerAdapter {
 
 		}
 
-	}
+	}*/
 
 	public void videoGallery(String post_title, String post_url, String video_url, String checkbox, String sponsor_logo,
 			String sponsor_name)
@@ -1880,6 +1879,7 @@ public class Adminproperty extends TestListenerAdapter {
 			}
 			cnt++;
 		}
+
 		return userdata;
 	}
 	/*
@@ -2655,16 +2655,16 @@ public class Adminproperty extends TestListenerAdapter {
 				    }
 				}
 			Thread.sleep(2000);
-		/*JavascriptExecutor jse = (JavascriptExecutor) driver;
-			jse.executeScript("arguments[0].scrollIntoView(true);",findElement(prop.getProperty("Pivot_addOtrabutton")));*/
+			JavascriptExecutor jse = (JavascriptExecutor) driver;
+			jse.executeScript("arguments[0].scrollIntoView(true);",findElement(prop.getProperty("Pivot_addOtrabutton")));
 			findAndClick("Pivot_addOtrabutton");
 			implicitWait();
-		/*	if(findElement(prop.getProperty("pivot_duplicateProd_error")).isDisplayed()==true)
-			System.out.println("Validation error-->>      Duplicate product from Amazon or Ebay  ");
+			if(findElement(prop.getProperty("pivot_duplicateProd_error")).isDisplayed()==true)
+				System.out.println("Validation error-->>      Duplicate product from Amazon or Ebay  ");
 			else if(driver.findElement(By.xpath(".//*[@id='invalidEcommerceStore']")).isDisplayed()==true)
 				System.out.println("Validation error-->>     ** some field is missing **");
 			else
-				System.out.println("***** Pivot product added succesfully ****");*/
+				System.out.println("***** Pivot product added succesfully ****");
 		}
 
 
@@ -2973,7 +2973,7 @@ public class Adminproperty extends TestListenerAdapter {
 					List<WebElement> layout2 = findElementsByXpath(prop.getProperty("LFE_layout") + "/span/p/button");
 					for (int y = 1; y < layout2.size(); y++)
 						if (layout2.get(y).getText().equalsIgnoreCase(layout))
-						   layout2.get(y).click();
+							layout2.get(y).click();
 				}
 			}
 			break;
@@ -2985,7 +2985,7 @@ public class Adminproperty extends TestListenerAdapter {
 		Actions act = new Actions(driver);
 		act.click(driver.findElement(By.xpath(".//*[@class='btn glyphicon glyphicon-file']"))).build().perform();
 		implicitWait();
-		act.sendKeys(sumario).build().perform();
+		act.sendKeys("text").build().perform();
 		implicitWait();
 		LFE_layout(layout);
 	}
@@ -3030,5 +3030,9 @@ public class Adminproperty extends TestListenerAdapter {
 		implicitWait();
 		findAndClick("Flipboadbutton");
 	}
+	
+
+	
+	
 	
 }

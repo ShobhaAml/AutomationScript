@@ -28,13 +28,15 @@ public class BrokenLinks
     Properties prop = new Properties();
     String server, blogname, path, device, testserver, browser;
     String usuariolink = "", author = "";
-    WebDriver driver = new HtmlUnitDriver();
+    WebDriver driver = null;
    String desktopurl="https://guest:guest@testing.trendencias.com/";
     
     @BeforeMethod
     public void Setup() throws Exception
     {
         prop = frontendProperties.ReadProperties();
+        driver = frontendProperties.frontcallproperty(prop.getProperty("url"),
+                prop.getProperty("browser"));
         browser = prop.getProperty("browser");
         server = prop.getProperty("server");
         blogname = prop.getProperty("blogname");

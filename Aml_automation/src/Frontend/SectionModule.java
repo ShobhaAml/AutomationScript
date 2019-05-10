@@ -65,7 +65,7 @@ public class SectionModule {
     	System.out.println("Duplicate Recommendations : " + frontendProperties.findDuplicates(list));
     	if(frontendProperties.findDuplicates(list).size()>0)
       	{
-    		frontendProperties.FullScreenshot(driver,"r1.png");
+    		//frontendProperties.FullScreenshot(driver,"r1.png");
     		
       	}
      }
