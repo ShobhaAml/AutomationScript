@@ -1,1 +1,1 @@
-java -cp E:\Project\Automation\Aml_automation\bin;E:\Project\Automation\Aml_automation\libs\* org.testng.TestNG src\Ampvalidation.xml
+java -cp C:\Users\shobha\.jenkins\workspace\AMPvalidations\Aml_automation\bin;C:\Users\shobha\.jenkins\workspace\AMPvalidations\Aml_automation\libs\* org.testng.TestNG src\Ampvalidation.xml
