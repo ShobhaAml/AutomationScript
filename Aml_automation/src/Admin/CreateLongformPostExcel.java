@@ -87,10 +87,26 @@ public class CreateLongformPostExcel {
 			}
 
 			// Adding Text in the section field
-			adminProperties.insertText_lfe(postcontent);
+			if (!postcontent.equalsIgnoreCase("null")) {
+			adminProperties.insertText_lfe(postcontent);}
+			else {
+				System.out.println("Postcontent is 'null' in Excel file");
+			}
 
 			// Adding Video in the section field
-			adminProperties.insertVideo_lfe(Youtube_Video);
+			if (!Youtube_Video.equalsIgnoreCase("null")) {
+			adminProperties.insertVideo_lfe(Youtube_Video);}
+			else {
+				System.out.println("Youtube video is 'null' in Excel file");
+			}
+			
+			// Adding Ficha review in the section field
+			if (!ficha_review.equalsIgnoreCase("null")) {
+				adminProperties.fichaDeReview_lfe(ficha_review);
+				}
+				else {
+					System.out.println("FichaReview is 'null' in Excel file");
+				}
 
 			/*
 			 * adminProperties.findAndClick("longform_homepageImagePlusIcon");

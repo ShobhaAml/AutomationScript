@@ -3090,3 +3090,44 @@ public class Adminproperty extends TestListenerAdapter {
 			}
 		}
 	}
+	
+	public void fichaDeReview_lfe(String ficha_review) throws InterruptedException {
+		driver.findElement(By.xpath("//*[@id=\"app\"]/div/div/div/div[1]")).click();
+		Actions act = new Actions(driver);
+		act.moveToElement(driver.findElement(By.xpath(prop.getProperty("longform_clickplus"))))
+				.moveToElement(driver.findElement(By.xpath(prop.getProperty("longform_fichaReviewIcon")))).click();
+		act.build().perform();
+		Thread.sleep(1000);
+		String fichareviewarr[] = ficha_review.split("~##~");
+
+		for (int i = 0; i < fichareviewarr.length; i++) {
+			String fichareviewdetails[] = fichareviewarr[i].split("@##@");
+			if (!(fichareviewdetails[0].equalsIgnoreCase("null"))) {
+				findAndWrite("longform_fichareview_name", fichareviewdetails[0]);
+			} else {
+				findAndClick("longform_fichareview_checkbox");
+			}
+			System.out.println("Ficha Review: Total Score entered");
+
+			findAndWrite("longform_fichareview_best", fichareviewdetails[1]);
+			System.out.println("Ficha Review: Positive entered");
+			findAndWrite("longform_fichareview_worst", fichareviewdetails[2]);
+			System.out.println("Ficha Review: Negative entered");
+			implicitWait();
+
+			String fichreviewdatasheet[] = fichareviewdetails[3].split("@~#~@");
+			for (int j = 0; j < fichreviewdatasheet.length; j++) {
+				String fichreviewdatasheetdetails[] = fichreviewdatasheet[j].split("@###@");
+				for (int z = 0; z < fichreviewdatasheetdetails.length; z++) {
+					findElement(prop.getProperty("longform_fichareview_datasheet_row") + "[" + (j + 2)
+							+ "]" + "/td[" + (z + 2) + "]/input").sendKeys(fichreviewdatasheetdetails[z]);
+				}
+				System.out.println("Ficha Review: Column values entered");
+			}
+			findAndWrite("longform_fichareview_summary", fichareviewdetails[4]);
+			System.out.println("Ficha Review: Summary entered");
+		}
+		implicitWait();
+
+	}
+}
