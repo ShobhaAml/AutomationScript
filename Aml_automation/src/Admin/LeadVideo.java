@@ -41,6 +41,6 @@ public class LeadVideo
         property.findAndWrite("post_content", "some text");
         property.findAndClick("publish_tab");
         property.insertTagAndCategory(catagoryText, tag);
-        property.addFbTwitterText("fb_text", "text");
+     //   property.addFbTwitterText("fb_text", "text");
     }
 }

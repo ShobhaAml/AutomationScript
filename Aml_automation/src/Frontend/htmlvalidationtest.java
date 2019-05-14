@@ -24,6 +24,7 @@ public class htmlvalidationtest {
 	String status = "Y";
 	String PostTitle = "";
 	String url="https://www.xataka.com,https://www.bebesymas.com,https://www.directoalpaladar.com,https://www.vitonica.com,https://www.espinof.com";
+
 	Map<String, Integer> FinalerrorMap = new HashMap<String, Integer>();
 	
 	@Test
@@ -42,7 +43,7 @@ public class htmlvalidationtest {
 	        int cnt=1;
 	            for (WebElement element1 : list) {
 		           // System.out.println(element1.getAttribute("href"));
-		            if((cnt<5) && (!element1.getAttribute("href").contains("utm_campaign=repost"))) { 
+		            if((cnt<10) && (!element1.getAttribute("href").contains("utm_campaign=repost"))) { 
 		            	LocalerrorMap=getHTMLerror(element1.getAttribute("href"));
 		            	LocalerrorMap.forEach((k,v)->
             			{

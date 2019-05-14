@@ -46,7 +46,7 @@ public class addComments
         }
         else
         {
-            usersession= frontendProperties.login(username, password,  url,  usersession,  logintype);
+           // usersession= frontendProperties.login(username, password,  url,  usersession,  logintype);
         }
     }
     
@@ -61,7 +61,7 @@ public class addComments
        {
            //login
            frontendProperties.findAndClick("commentEntralogin");
-           frontendProperties.login(username, password,  url,  usersession,  logintype);
+          // frontendProperties.login(username, password,  url,  usersession,  logintype);
            
            usersession=frontendProperties.findElement(prop.getProperty("commentloogeduser")).getText();
            System.out.println(usersession + " successfully logged in from post page");

@@ -1,4 +1,4 @@
-package Admin_Dashboard_sanity;
+package AdminDashboardsanity;
 
 import java.sql.Connection;
 import java.sql.SQLException;

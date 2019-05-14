@@ -35,7 +35,7 @@ public class respuestasComment
 		if (usersession == "2") {
 			frontendProperties.findAndClick("cookie");
 		} else {
-			usersession = frontendProperties.login(username, password, url, usersession, logintype);
+			//usersession = frontendProperties.login(username, password, url, usersession, logintype);
 		}
 	}
 
@@ -50,8 +50,8 @@ public class respuestasComment
 		frontendProperties.findAndClick("respestasLink");
 		if (usersession == "2") {
 			// login
-			frontendProperties.findAndClick("regístrateCommentEntra");
-			frontendProperties.login(username, password, url, usersession, logintype);
+			frontendProperties.findAndClick("regÃ­strateCommentEntra");
+			//frontendProperties.login(username, password, url, usersession, logintype);
 
 			usersession = frontendProperties.findElement(prop.getProperty("resCommentloogeduser")).getText();
 			System.out.println(usersession + " successfully logged in from post page");

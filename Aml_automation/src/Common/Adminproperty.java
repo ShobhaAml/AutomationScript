@@ -3090,5 +3090,3 @@ public class Adminproperty extends TestListenerAdapter {
 			}
 		}
 	}
-	
-}
