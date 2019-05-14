@@ -67,11 +67,11 @@ public class breakingNews {
 	public void Edit_news(String news_title_name, String edittitle, String editlink) {
 		WebElement tableelement = driver.findElement(By.id("BreakingNewsListing"));
 		WebDriverWait wait = new WebDriverWait(driver, 50);
-		wait.until(new Predicate<WebDriver>() {
-			public boolean apply(WebDriver driver) {
-				return ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");
-			}
-		});
+		/*
+		 * wait.until(new Predicate<WebDriver>() { public boolean apply(WebDriver
+		 * driver) { return ((JavascriptExecutor)
+		 * driver).executeScript("return document.readyState").equals("complete"); } });
+		 */
 		int cnt = 1;
 		new Actions(driver).moveToElement(driver.findElement(By.className("table-actions"))).perform();
 		List<WebElement> list = adminProperties
