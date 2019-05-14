@@ -59,7 +59,7 @@ import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
-//import org.openqa.selenium.security.UserAndPassword;
+import org.openqa.selenium.security.UserAndPassword;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -67,7 +67,7 @@ import org.testng.TestListenerAdapter;
 
 import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
-//import ru.yandex.qatools.ashot.screentaker.ViewportPastingStrategy;
+import ru.yandex.qatools.ashot.screentaker.ViewportPastingStrategy;
 
 public class Adminproperty extends TestListenerAdapter {
 
@@ -82,31 +82,31 @@ public class Adminproperty extends TestListenerAdapter {
 		return prop;
 	}
 
-	  public WebDriver callproperty(String url, String browser) throws IOException {
-	        /*
-	         * LoggingPreferences loggingprefs = new LoggingPreferences();
-	         * loggingprefs.enable(LogType.BROWSER, Level.ALL);
-	         */
-	        if (browser.trim().equalsIgnoreCase("Chrome")) {
-	            System.setProperty("webdriver.chrome.driver",
-	                    System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedriver.exe");
-	            DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-	            /* capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs); */
-	            ChromeOptions options = new ChromeOptions();
-	            options.addArguments("start-maximized");
-	            // options.addArguments("" + capabilities + "");
-	            driver = new ChromeDriver(options);
-	        } else {
-	            System.setProperty("webdriver.gecko.driver",
-	                    System.getProperty("user.dir") + "//src//Driverfiles//" + "geckodriver.exe");
-	            DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-	            /* capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs); */
-	            driver = new FirefoxDriver(capabilities);
-	        }
-	        driver.get(url);
-	        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-	        return driver;
-	    }
+	public WebDriver callproperty(String url, String browser) throws IOException {
+		/*
+         * LoggingPreferences loggingprefs = new LoggingPreferences();
+         * loggingprefs.enable(LogType.BROWSER, Level.ALL);
+         */
+        if (browser.trim().equalsIgnoreCase("Chrome")) {
+            System.setProperty("webdriver.chrome.driver",
+                    System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedriver.exe");
+            DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+            /* capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs); */
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("start-maximized");
+            // options.addArguments("" + capabilities + "");
+            driver = new ChromeDriver(options);
+        } else {
+            System.setProperty("webdriver.gecko.driver",
+                    System.getProperty("user.dir") + "//src//Driverfiles//" + "geckodriver.exe");
+            DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+            /* capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs); */
+            driver = new FirefoxDriver(capabilities);
+        }
+        driver.get(url);
+        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        return driver;
+	}
 
 	public void uploadPrimaryImage(String primaryimage, String browser) throws Exception {
 		String primaryimagearr[] = primaryimage.split("@#@");
@@ -619,9 +619,10 @@ public class Adminproperty extends TestListenerAdapter {
 	}
 
 	public Object[][] readExcel(String excelsheetname, int columns) throws IOException {
-		String filepath = System.getProperty("user.dir") + "/src/Common/";
+		String filepath = System.getProperty("user.dir") + "\\src\\Common\\";
 		String filename = "excel.xlsx";
-		FileInputStream instream = new FileInputStream(filepath + "/" + filename);
+		FileInputStream instream = new FileInputStream(filepath + "\\" + filename);
+		System.out.println(filepath + "\\" + filename);
 		Workbook wb = new XSSFWorkbook(instream);
 		Sheet sheet = wb.getSheet(excelsheetname);
 		int rows = sheet.getLastRowNum() - sheet.getFirstRowNum();
@@ -1163,11 +1164,11 @@ public class Adminproperty extends TestListenerAdapter {
 		}
 	}
 
-	/*public void FullScreenshot(WebDriver driver, String screenshotName) throws IOException {
+	public void FullScreenshot(WebDriver driver, String screenshotName) throws IOException {
 		Screenshot screenshot = new AShot().shootingStrategy(new ViewportPastingStrategy(1000)).takeScreenshot(driver);
 		ImageIO.write(screenshot.getImage(), "PNG",
 				new File(System.getProperty("user.dir") + "\\src\\Screenshots\\" + screenshotName));
-	}*/
+	}
 
 	public static void captureScreenshot(WebDriver driver, String screenshotName) {
 
@@ -1216,7 +1217,7 @@ public class Adminproperty extends TestListenerAdapter {
 
 	}
 
-	/*public void DeleteVideo(String Video_post_name) {
+	public void DeleteVideo(String Video_post_name) {
 		WebElement tableelement = driver.findElement(By.id("video-list"));
 		WebDriverWait wait = new WebDriverWait(driver, 50);
 		wait.until(new Function<WebDriver, Boolean>() {
@@ -1283,7 +1284,7 @@ public class Adminproperty extends TestListenerAdapter {
 
 		}
 
-	}*/
+	}
 
 	public void videoGallery(String post_title, String post_url, String video_url, String checkbox, String sponsor_logo,
 			String sponsor_name)
@@ -1879,7 +1880,6 @@ public class Adminproperty extends TestListenerAdapter {
 			}
 			cnt++;
 		}
-
 		return userdata;
 	}
 	/*
@@ -2655,16 +2655,16 @@ public class Adminproperty extends TestListenerAdapter {
 				    }
 				}
 			Thread.sleep(2000);
-			JavascriptExecutor jse = (JavascriptExecutor) driver;
-			jse.executeScript("arguments[0].scrollIntoView(true);",findElement(prop.getProperty("Pivot_addOtrabutton")));
+		/*JavascriptExecutor jse = (JavascriptExecutor) driver;
+			jse.executeScript("arguments[0].scrollIntoView(true);",findElement(prop.getProperty("Pivot_addOtrabutton")));*/
 			findAndClick("Pivot_addOtrabutton");
 			implicitWait();
-			if(findElement(prop.getProperty("pivot_duplicateProd_error")).isDisplayed()==true)
-				System.out.println("Validation error-->>      Duplicate product from Amazon or Ebay  ");
+		/*	if(findElement(prop.getProperty("pivot_duplicateProd_error")).isDisplayed()==true)
+			System.out.println("Validation error-->>      Duplicate product from Amazon or Ebay  ");
 			else if(driver.findElement(By.xpath(".//*[@id='invalidEcommerceStore']")).isDisplayed()==true)
 				System.out.println("Validation error-->>     ** some field is missing **");
 			else
-				System.out.println("***** Pivot product added succesfully ****");
+				System.out.println("***** Pivot product added succesfully ****");*/
 		}
 
 
@@ -2973,7 +2973,7 @@ public class Adminproperty extends TestListenerAdapter {
 					List<WebElement> layout2 = findElementsByXpath(prop.getProperty("LFE_layout") + "/span/p/button");
 					for (int y = 1; y < layout2.size(); y++)
 						if (layout2.get(y).getText().equalsIgnoreCase(layout))
-							layout2.get(y).click();
+						   layout2.get(y).click();
 				}
 			}
 			break;
@@ -2985,7 +2985,7 @@ public class Adminproperty extends TestListenerAdapter {
 		Actions act = new Actions(driver);
 		act.click(driver.findElement(By.xpath(".//*[@class='btn glyphicon glyphicon-file']"))).build().perform();
 		implicitWait();
-		act.sendKeys("text").build().perform();
+		act.sendKeys(sumario).build().perform();
 		implicitWait();
 		LFE_layout(layout);
 	}
@@ -3031,8 +3031,62 @@ public class Adminproperty extends TestListenerAdapter {
 		findAndClick("Flipboadbutton");
 	}
 	
+	public void addHook(String hookCustomerLogo, String hookCustomerName, String hookLogoLink, String hookTextarea,
+			String hookImage, String hookButtonText) throws IOException, InterruptedException {
+		((JavascriptExecutor) driver).executeScript("window.scrollBy(0,-1000)");
+		findAndClick("hook_toolbar");
+		if (!hookCustomerLogo.equalsIgnoreCase("null")) {
+			findAndClick("hook_customerLogo");
+			Thread.sleep(1000);
+			Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\DriverFiles\\fileupload.exe" + " "
+					+ System.getProperty("user.dir") + "\\src\\Images\\" + hookCustomerLogo);
+		} else {
+			System.out.println("Hook customer logo is 'null' in Excel file");
+		}
+		Thread.sleep(5000);
+		if (!hookCustomerName.equalsIgnoreCase("null")) {
+			findAndWrite("hook_customerName", hookCustomerName);
 
-	
-	
-	
-}
+		} else {
+			System.out.println("Hook customer name is 'null' in Excel file");
+		}
+
+		if (!hookLogoLink.equalsIgnoreCase("null")) {
+			findAndWrite("hook_logoLink", hookLogoLink);
+		} else {
+			System.out.println("Hook logo link is 'null' in Excel file");
+		}
+		if (!hookTextarea.equalsIgnoreCase("null")) {
+			findAndWrite("hook_textarea", hookTextarea);
+		} else {
+			System.out.println("Hook textarea is 'null' in Excel file");
+		}
+		if (!hookImage.equalsIgnoreCase("null")) {
+			findAndClick("hook_image");
+			Thread.sleep(1000);
+			Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\DriverFiles\\fileupload.exe" + " "
+					+ System.getProperty("user.dir") + "\\src\\Images\\" + hookImage);
+		} else {
+			System.out.println("Hook image is 'null' in Excel file");
+		}
+		Thread.sleep(5000);
+		if (!hookButtonText.equalsIgnoreCase("null")) {
+			findAndWrite("hook_buttonText", hookButtonText);
+		} else {
+			System.out.println("Hook button text is 'null' in Excel file");
+		}
+
+		if (!hookCustomerLogo.equalsIgnoreCase("null") && !hookCustomerName.equalsIgnoreCase("null")
+				&& !hookLogoLink.equalsIgnoreCase("null") && !hookTextarea.equalsIgnoreCase("null")
+				&& !hookImage.equalsIgnoreCase("null") && !hookButtonText.equalsIgnoreCase("null")) {
+			findAndClick("hook_addbtn");
+			System.out.println("Hook is added successfully");
+		} else {
+			findAndClick("hook_addbtn");
+			List<WebElement> lists1 = driver.findElements(By.xpath("//p[contains(text(),'Error: Falta')]"));
+			for (WebElement test1 : lists1) {
+				System.out.println("Validation message: " + test1.getText());
+
+			}
+		}
+	}
