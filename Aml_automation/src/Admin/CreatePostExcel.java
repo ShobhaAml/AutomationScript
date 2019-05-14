@@ -42,7 +42,7 @@ public class CreatePostExcel {
 
 	@DataProvider(name = "testdata")
 	public Object[][] TestDataFeed() throws Exception {
-		Object[][] postdata = adminProperties.readExcel("Normal", 87);
+		Object[][] postdata = adminProperties.readExcel("Normal", 94);
 		return postdata;
 	}
 
@@ -63,12 +63,14 @@ public class CreatePostExcel {
 			String Recipe_Image, String Recipe_More_postcontent, String Recipe_Youtube_Video,
 			String Recipe_Youtube_Video_layout, String Vine_Video, String Recipe_Vine_Video_layout, String Vimeo_Video,
 			String Recipe_Vimeo_Video_layout, String FB_Video, String Recipe_FB_Video_layout, String Recipe_summary,
-			String Recipe_summary_layout, String Pivot_amazon_search,String Pivot_dropdown,
+			String Recipe_summary_layout, String Pivot_amazon_search, String Pivot_dropdown,
 			String Pivot_otherStoreProductTitle, String Pivot_otherStoreProductImage, String Pivot_otherStorevalues,
 			String Pivot_newsletter, String homecontent, String homeimage, String Branded_club, String category,
 			String catagory_other, String tag, String seotitle, String seodesc, String specialpost,
 			String comment_closed, String author, String Twittertext, String fbtext, String Repost, String Run,
-			String Republish,String Future_time, String Pivot_product_Article, String Pivot_product_Article_posttype, String Publish_to_homepage_checkbox) throws Exception {
+			String Republish, String Future_time, String Pivot_product_Article, String Pivot_product_Article_posttype,
+			String Publish_to_homepage_checkbox, String hook, String hookCustomerLogo, String hookCustomerName,
+			String hookLogoLink, String hookTextarea, String hookImage, String hookButtonText) throws Exception {
 		if (Run.trim().equalsIgnoreCase("Y")) {
 			String blogrole = "";
 			adminProperties.LoginAdmin(prop.getProperty("admin_usename"), prop.getProperty("admin_pwd"));
@@ -254,48 +256,56 @@ public class CreatePostExcel {
 				adminProperties.galleryPost(Gallery_name, Gallery_description, Gallery_tag, Gallery_ShowHeader,
 						Gallery_photos, browser);
 			}
-			
-			if(!Pivot_dropdown.equalsIgnoreCase("null"))
-			{
-				if(Pivot_dropdown.equalsIgnoreCase("otherStore")) {
+
+			if (!Pivot_dropdown.equalsIgnoreCase("null")) {
+				if (Pivot_dropdown.equalsIgnoreCase("otherStore")) {
 					adminProperties.addpivot(Pivot_dropdown);
-					adminProperties.add_Otra_tienda(Pivot_otherStoreProductTitle, Pivot_otherStoreProductImage, Pivot_otherStorevalues);
-				}
-				else if(Pivot_dropdown.equalsIgnoreCase("amazon")) {
+					adminProperties.add_Otra_tienda(Pivot_otherStoreProductTitle, Pivot_otherStoreProductImage,
+							Pivot_otherStorevalues);
+				} else if (Pivot_dropdown.equalsIgnoreCase("amazon")) {
 					adminProperties.implicitWait();
 					adminProperties.add_pivot_Amazon(Pivot_amazon_search, Pivot_otherStorevalues);
 				}
 			}
-			if(!Pivot_newsletter.equalsIgnoreCase("null"))
-				//adminProperties.add_pivot_newsletter(Pivot_newsletter);
-			
-			adminProperties.implicitWait();			
-			String Flipboardarrblognames = adminProperties.GetpivotflipboardValues();
-			System.out.println(Flipboardarrblognames);
-			adminProperties.implicitWait();	
-			String[] arrFlipboardarrblognames= Flipboardarrblognames.split("##");
-			for(int i=0;i<arrFlipboardarrblognames.length;i++)
-			{
-				System.out.println(arrFlipboardarrblognames[i]);
-				adminProperties.addpivotFlipboard(arrFlipboardarrblognames[i]);
-				
-			}
-		
-			if (!Pivot_product_Article.equalsIgnoreCase("null")) {
-				/*System.out.println("Pivot Article =" + Pivot_product_Article);
+			if (!Pivot_newsletter.equalsIgnoreCase("null"))
+				// adminProperties.add_pivot_newsletter(Pivot_newsletter);
 
 				adminProperties.implicitWait();
-				adminProperties.addNewlines();
-				adminProperties.addpivotarticle(Pivot_product_Article, Pivot_product_Article_posttype, Pivot_product_Article);
-				adminProperties.addNewlines();*/
+			String Flipboardarrblognames = adminProperties.GetpivotflipboardValues();
+			System.out.println(Flipboardarrblognames);
+			adminProperties.implicitWait();
+			String[] arrFlipboardarrblognames = Flipboardarrblognames.split("##");
+			for (int i = 0; i < arrFlipboardarrblognames.length; i++) {
+				System.out.println(arrFlipboardarrblognames[i]);
+				adminProperties.addpivotFlipboard(arrFlipboardarrblognames[i]);
+
 			}
-				/*adminProperties.implicitWait();
-			((JavascriptExecutor) driver).executeScript("scroll(0, -800);");
-			Thread.sleep(6000);
-		
+
+			if (!Pivot_product_Article.equalsIgnoreCase("null")) {
+				/*
+				 * System.out.println("Pivot Article =" + Pivot_product_Article);
+				 * 
+				 * adminProperties.implicitWait(); adminProperties.addNewlines();
+				 * adminProperties.addpivotarticle(Pivot_product_Article,
+				 * Pivot_product_Article_posttype, Pivot_product_Article);
+				 * adminProperties.addNewlines();
+				 */
+			}
+			/*
+			 * adminProperties.implicitWait(); ((JavascriptExecutor)
+			 * driver).executeScript("scroll(0, -800);"); Thread.sleep(6000);
+			 * 
 			 * if(blogrole.equalsIgnoreCase("Branded Collaborator")) { System.out.
 			 * println("Branded Collaborator don't have access to publish a post" ); } else{
 			 */
+
+			if (hook.equalsIgnoreCase("Y")) {
+				adminProperties.implicitWait();
+				adminProperties.addHook(hookCustomerLogo, hookCustomerName, hookLogoLink, hookTextarea, hookImage, hookButtonText);
+			} else {
+				adminProperties.addNewlines();
+			}
+
 			adminProperties.findAndClick("publish_tab");
 			adminProperties.handleAuthenticationDialog(browser);
 			Thread.sleep(7000);
@@ -307,15 +317,15 @@ public class CreatePostExcel {
 			if ((!homecontent.equalsIgnoreCase("null"))) {
 				adminProperties.findAndWrite("homepage_content", homecontent);
 			}
-			
-			if(!Future_time.equalsIgnoreCase("null")) {
+
+			if (!Future_time.equalsIgnoreCase("null")) {
 				adminProperties.findAndClick("futuretxt");
-				adminProperties.findElement(prop.getProperty("futuretxt")).clear();;
-				adminProperties.implicitWait();				
+				adminProperties.findElement(prop.getProperty("futuretxt")).clear();
+				;
+				adminProperties.implicitWait();
 				adminProperties.findAndWrite("futuretxt", Future_time);
 			}
-			
-			
+
 			if (specialpost.equalsIgnoreCase("Y")) {
 				adminProperties.specialPost(specialpost);
 			}
@@ -327,27 +337,27 @@ public class CreatePostExcel {
 			}
 			System.out.println(adminProperties.imageCropper());
 			if (category.equalsIgnoreCase("basics")) {
-				adminProperties.addFbTwitterText("null", "null",Future_time);
+				adminProperties.addFbTwitterText("null", "null", Future_time);
 			} else {
-				adminProperties.addFbTwitterText(fbtext, Twittertext,Future_time);
+				adminProperties.addFbTwitterText(fbtext, Twittertext, Future_time);
 			}
-			if(!Publish_to_homepage_checkbox.equalsIgnoreCase("null"))
-			{
+			if (!Publish_to_homepage_checkbox.equalsIgnoreCase("null")) {
 
 				if (Branded_club.equalsIgnoreCase("null")) {
 					WebElement publishtomhome = driver.findElement(By.xpath(".//input[@name='post_visibility']"));
-		  		
-					if(Publish_to_homepage_checkbox.equalsIgnoreCase("Y"))
-					{
-						if (!publishtomhome.isSelected()) {publishtomhome.click();}		
+
+					if (Publish_to_homepage_checkbox.equalsIgnoreCase("Y")) {
+						if (!publishtomhome.isSelected()) {
+							publishtomhome.click();
+						}
+					} else if (Publish_to_homepage_checkbox.equalsIgnoreCase("N")) {
+						if (publishtomhome.isSelected()) {
+							publishtomhome.click();
+						}
 					}
-					else if(Publish_to_homepage_checkbox.equalsIgnoreCase("N"))
-					{
-						if (publishtomhome.isSelected()) {publishtomhome.click();}	
-					}	
 				}
-		}
-			
+			}
+
 			adminProperties.implicitWait();
 			if (Republish.equalsIgnoreCase("Y")) {
 				adminProperties.republish();

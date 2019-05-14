@@ -3031,4 +3031,64 @@ public class Adminproperty extends TestListenerAdapter {
 		findAndClick("Flipboadbutton");
 	}
 	
+	public void addHook(String hookCustomerLogo, String hookCustomerName, String hookLogoLink, String hookTextarea,
+			String hookImage, String hookButtonText) throws IOException, InterruptedException {
+		((JavascriptExecutor) driver).executeScript("window.scrollBy(0,-1000)");
+		findAndClick("hook_toolbar");
+		if (!hookCustomerLogo.equalsIgnoreCase("null")) {
+			findAndClick("hook_customerLogo");
+			Thread.sleep(1000);
+			Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\DriverFiles\\fileupload.exe" + " "
+					+ System.getProperty("user.dir") + "\\src\\Images\\" + hookCustomerLogo);
+		} else {
+			System.out.println("Hook customer logo is 'null' in Excel file");
+		}
+		Thread.sleep(5000);
+		if (!hookCustomerName.equalsIgnoreCase("null")) {
+			findAndWrite("hook_customerName", hookCustomerName);
+
+		} else {
+			System.out.println("Hook customer name is 'null' in Excel file");
+		}
+
+		if (!hookLogoLink.equalsIgnoreCase("null")) {
+			findAndWrite("hook_logoLink", hookLogoLink);
+		} else {
+			System.out.println("Hook logo link is 'null' in Excel file");
+		}
+		if (!hookTextarea.equalsIgnoreCase("null")) {
+			findAndWrite("hook_textarea", hookTextarea);
+		} else {
+			System.out.println("Hook textarea is 'null' in Excel file");
+		}
+		if (!hookImage.equalsIgnoreCase("null")) {
+			findAndClick("hook_image");
+			Thread.sleep(1000);
+			Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\DriverFiles\\fileupload.exe" + " "
+					+ System.getProperty("user.dir") + "\\src\\Images\\" + hookImage);
+		} else {
+			System.out.println("Hook image is 'null' in Excel file");
+		}
+		Thread.sleep(5000);
+		if (!hookButtonText.equalsIgnoreCase("null")) {
+			findAndWrite("hook_buttonText", hookButtonText);
+		} else {
+			System.out.println("Hook button text is 'null' in Excel file");
+		}
+
+		if (!hookCustomerLogo.equalsIgnoreCase("null") && !hookCustomerName.equalsIgnoreCase("null")
+				&& !hookLogoLink.equalsIgnoreCase("null") && !hookTextarea.equalsIgnoreCase("null")
+				&& !hookImage.equalsIgnoreCase("null") && !hookButtonText.equalsIgnoreCase("null")) {
+			findAndClick("hook_addbtn");
+			System.out.println("Hook is added successfully");
+		} else {
+			findAndClick("hook_addbtn");
+			List<WebElement> lists1 = driver.findElements(By.xpath("//p[contains(text(),'Error: Falta')]"));
+			for (WebElement test1 : lists1) {
+				System.out.println("Validation message: " + test1.getText());
+
+			}
+		}
+	}
+	
 }
