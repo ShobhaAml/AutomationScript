@@ -76,7 +76,7 @@ public class SlideShowPost {
 		adminProperties.implicitWait();
 		adminProperties.insertTagAndCategory(catagoryText, tag);
 		adminProperties.implicitWait();
-		adminProperties.addFbTwitterText(fbtext, twitter_text);
+		//adminProperties.addFbTwitterText(fbtext, twitter_text);
 
 	}
 }

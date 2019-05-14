@@ -43,7 +43,7 @@ public class DraftPublish
         if (((categoryBox.isSelected()) == false) || ((tagBox.isEmpty()) == false) || (fbText.isEmpty()) == false) {
             property.implicitWait();
             property.insertTagAndCategory(catagoryText, tag);
-            property.addFbTwitterText("fb_text", "");
+          //  property.addFbTwitterText("fb_text", "");
         }
     }
 }

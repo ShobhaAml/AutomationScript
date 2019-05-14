@@ -48,10 +48,10 @@ public class NormalVideoPost
         if (insertHomePageContent == true) {
             property.HomePageContent();
             property.insertTagAndCategory(catagoryText, tag);
-            property.addFbTwitterText("fb_text",null);
+          //  property.addFbTwitterText("fb_text",null);
         } else {
             property.insertTagAndCategory(catagoryText, tag);
-            property.addFbTwitterText("fb_text",null);
+          //  property.addFbTwitterText("fb_text",null);
         }
     }
 }

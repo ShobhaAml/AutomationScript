@@ -66,11 +66,11 @@ public class breakingNews {
 	@Test(priority = 4)
 	public void Edit_news(String news_title_name, String edittitle, String editlink) {
 		WebElement tableelement = driver.findElement(By.id("BreakingNewsListing"));
-		WebDriverWait wait = new WebDriverWait(driver, 50);
-		/*
-		 * wait.until(new Predicate<WebDriver>() { public boolean apply(WebDriver
-		 * driver) { return ((JavascriptExecutor)
-		 * driver).executeScript("return document.readyState").equals("complete"); } });
+		/*WebDriverWait wait = new WebDriverWait(driver, 50);
+		
+		  wait.until(new Predicate<WebDriver>() { public boolean apply(WebDriver
+		  driver) { return ((JavascriptExecutor)
+		  driver).executeScript("return document.readyState").equals("complete"); } });
 		 */
 		int cnt = 1;
 		new Actions(driver).moveToElement(driver.findElement(By.className("table-actions"))).perform();
@@ -103,12 +103,12 @@ public class breakingNews {
 	@Test(priority = 6)
 	public void delete_news(String delete_news_title_name) {
 		WebElement tableelement = driver.findElement(By.id("BreakingNewsListing"));
-		WebDriverWait wait = new WebDriverWait(driver, 50);
-		wait.until(new Predicate<WebDriver>() {
-			public boolean apply(WebDriver driver) {
-				return ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");
-			}
-		});
+		/*
+		 * WebDriverWait wait = new WebDriverWait(driver, 50); wait.until(new
+		 * Predicate<WebDriver>() { public boolean apply(WebDriver driver) { return
+		 * ((JavascriptExecutor)
+		 * driver).executeScript("return document.readyState").equals("complete"); } });
+		 */
 		int cnt = 1;
 		new Actions(driver).moveToElement(driver.findElement(By.className("table-actions"))).perform();
 		List<WebElement> list = adminProperties
@@ -134,12 +134,12 @@ public class breakingNews {
 	@Test(priority = 5)
 	public void activate_news() throws InterruptedException {
 		WebElement tableelement = driver.findElement(By.id("BreakingNewsListing"));
-		WebDriverWait wait = new WebDriverWait(driver, 50);
-		wait.until(new Predicate<WebDriver>() {
-			public boolean apply(WebDriver driver) {
-				return ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");
-			}
-		});
+		/*
+		 * WebDriverWait wait = new WebDriverWait(driver, 50); wait.until(new
+		 * Predicate<WebDriver>() { public boolean apply(WebDriver driver) { return
+		 * ((JavascriptExecutor)
+		 * driver).executeScript("return document.readyState").equals("complete"); } });
+		 */
 		int cnt = 1;
 		new Actions(driver).moveToElement(driver.findElement(By.className("table-actions"))).perform();
 		List<WebElement> list = adminProperties

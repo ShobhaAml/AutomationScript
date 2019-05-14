@@ -60,7 +60,7 @@ public class NewEditor_post_creation {
 		adminProperties.implicitWait();
 		Thread.sleep(1000);
 		adminProperties.findAndClick("MVPImage");*/
-		adminProperties.ClickImageICON(driver);
+		//adminProperties.ClickImageICON(driver);
 		adminProperties.implicitWait();
         adminProperties.findAndClick("MVPResourceImage1");
 		adminProperties.implicitWait();

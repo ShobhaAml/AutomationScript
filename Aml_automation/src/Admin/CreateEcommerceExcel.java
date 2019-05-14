@@ -197,7 +197,7 @@ public class CreateEcommerceExcel
 
             }
 
-            adminProperties.addFbTwitterText(fbtext, Twittertext);
+            adminProperties.addFbTwitterText(fbtext, Twittertext,"null");
             adminProperties.implicitWait();
 
             if (Republish.equalsIgnoreCase("Y")) {

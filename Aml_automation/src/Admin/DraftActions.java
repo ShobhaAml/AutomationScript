@@ -56,7 +56,7 @@ public class DraftActions {
 		if (((categoryBox.isSelected()) == false) || ((tagBox.isEmpty()) == false) || (fbText.isEmpty()) == false) {
 			adminProperties.implicitWait();
 			adminProperties.insertTagAndCategory(catagoryText, tag);
-			adminProperties.addFbTwitterText("fb_text", "");
+			//adminProperties.addFbTwitterText("fb_text", "");
 		}
 		JavascriptExecutor jse = (JavascriptExecutor) driver;
 		jse.executeScript("window.scrollBy(0,-250)", "");
