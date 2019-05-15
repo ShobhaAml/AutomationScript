@@ -67,7 +67,7 @@ import org.testng.TestListenerAdapter;
 
 import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
-import ru.yandex.qatools.ashot.screentaker.ViewportPastingStrategy;
+//import ru.yandex.qatools.ashot.screentaker.ViewportPastingStrategy;
 
 public class Adminproperty extends TestListenerAdapter {
 
