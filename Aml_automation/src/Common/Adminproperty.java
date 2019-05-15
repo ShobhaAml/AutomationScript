@@ -1165,9 +1165,9 @@ public class Adminproperty extends TestListenerAdapter {
 	}
 
 	public void FullScreenshot(WebDriver driver, String screenshotName) throws IOException {
-		Screenshot screenshot = new AShot().shootingStrategy(new ViewportPastingStrategy(1000)).takeScreenshot(driver);
+		/*Screenshot screenshot = new AShot().shootingStrategy(new ViewportPastingStrategy(1000)).takeScreenshot(driver);
 		ImageIO.write(screenshot.getImage(), "PNG",
-				new File(System.getProperty("user.dir") + "\\src\\Screenshots\\" + screenshotName));
+				new File(System.getProperty("user.dir") + "\\src\\Screenshots\\" + screenshotName));*/
 	}
 
 	public static void captureScreenshot(WebDriver driver, String screenshotName) {
