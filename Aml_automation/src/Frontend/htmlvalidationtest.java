@@ -1,5 +1,6 @@
 package Frontend;
 
+import java.io.File;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -12,6 +13,7 @@ import java.util.Properties;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.testng.annotations.Test;
 
 import Common.Frontend;
@@ -36,7 +38,8 @@ public class htmlvalidationtest {
 		for(int i=0;i<blogname.length;i++)
 		{
 			System.out.println(blogname[i]);
-			driver = frontendProperties.frontcallproperty(blogname[i], prop.getProperty("browser"));
+			//driver = frontendProperties.frontcallproperty(blogname[i], prop.getProperty("browser"));
+			driver=headlessbrowser(blogname[i]);  
 			List<WebElement> list = driver.findElements(By.xpath(".//h2[@class='abstract-title']/a"));
 	        //System.out.println(list.size());
 	        
@@ -57,13 +60,8 @@ public class htmlvalidationtest {
             			}
         					);
 		            		
-            		
-            	
-		         	cnt=cnt+1;}
+    	         	cnt=cnt+1;}
 		         }
-	            
-	           
-	        
 		}
 		
 		 if ( FinalerrorMap.size()>0 ) { 
@@ -78,24 +76,25 @@ public class htmlvalidationtest {
 		
 		driver.quit();
 	}
+	public WebDriver headlessbrowser(String url){
+		 File file = new File( System.getProperty("user.dir") + "//src//Driverfiles//" + "phantomjs.exe");				
+         System.setProperty("phantomjs.binary.path", file.getAbsolutePath());		
+          driver = new PhantomJSDriver();	
+         driver.get(url);  
+		return driver;         
+		
+	}
 	public Map<String, Integer> getHTMLerror(String posturl) throws Exception  {
 		Map<String, Integer> errorMap = new HashMap<String, Integer>();
 		
 		String url = "https://validator.w3.org/";
-		/*WebDriver driver = new HtmlUnitDriver();
-		driver.get(url);*/
-		driver = frontendProperties.frontcallproperty(url, prop.getProperty("browser"));
+		driver=headlessbrowser(url);  
 		System.out.println("Post URL: "+posturl);
 	
      	driver.findElement(By.xpath(".//input[@id='uri']")).sendKeys(posturl);
 		driver.findElement(By.xpath(".//a[@class='submit']")).click();
-		
-		
-		
-	System.out.println(driver.findElements(By.xpath(".//ol/li[@class='error']")).size());
-		
-		
-		 if (driver.findElements(By.xpath(".//ol/li[@class='error']")).size()==0)
+		System.out.println(driver.findElements(By.xpath(".//ol/li[@class='error']")).size());
+	    if (driver.findElements(By.xpath(".//ol/li[@class='error']")).size()==0)
 		  {
 		 System.out.println("No HTML errors");
 		  

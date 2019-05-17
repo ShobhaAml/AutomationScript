@@ -1,5 +1,6 @@
 package Frontend;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Collections;
@@ -16,6 +17,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -40,7 +42,8 @@ public class Amptest {
 		for(int i=0;i<blogname.length;i++)
 		{
 			System.out.println(blogname[i]);
-			driver = frontendProperties.frontcallproperty(blogname[i], prop.getProperty("browser"));
+			//driver = frontendProperties.frontcallproperty(blogname[i], prop.getProperty("browser"));
+			driver=headlessbrowser(blogname[i]);
 			List<WebElement> list = driver.findElements(By.xpath(".//h2[@class='abstract-title']/a"));
 	        //System.out.println(list.size());
 	        
@@ -65,8 +68,6 @@ public class Amptest {
             	
 		         	cnt=cnt+1;}
 		         }
-	            
-	           
 	        
 		}
 		
@@ -90,7 +91,8 @@ public class Amptest {
 		String url = "https://validator.ampproject.org/";
 		/*WebDriver driver = new HtmlUnitDriver();
 		driver.get(url);*/
-		driver = frontendProperties.frontcallproperty(url, prop.getProperty("browser"));
+     	//driver=headlessbrowser(url);  
+			driver = frontendProperties.frontcallproperty(url, prop.getProperty("browser"));
 		System.out.println("AMP URL: "+ampurl);
 	
      	driver.findElement(By.xpath(".//input[@id='input']")).sendKeys(ampurl);
@@ -124,6 +126,14 @@ public class Amptest {
 	driver.close();
 
 		return errorMap;
+	}
+	public WebDriver headlessbrowser(String url){
+		 File file = new File( System.getProperty("user.dir") + "//src//Driverfiles//" + "phantomjs.exe");				
+        System.setProperty("phantomjs.binary.path", file.getAbsolutePath());		
+         driver = new PhantomJSDriver();	
+        driver.get(url);  
+		return driver;         
+		
 	}
 	 public static Map<String, Integer> sortByValue(Map<String, Integer> hm) 
 	    { 

@@ -32,7 +32,7 @@
         <version>3.0.0-M3</version>
         <configuration>
           <suiteXmlFiles>
-            <suiteXmlFile>src\Htmlvalidation.xml</suiteXmlFile>
+            <suiteXmlFile>>${SuiteXmlFile}</suiteXmlFile>
           </suiteXmlFiles>
         </configuration>
       </plugin>
@@ -117,6 +117,13 @@
     <type>jar</type>
     <scope>compile</scope>
 </dependency>
+<!-- https://mvnrepository.com/artifact/com.github.detro.ghostdriver/phantomjsdriver -->
+<dependency>
+    <groupId>com.github.detro.ghostdriver</groupId>
+    <artifactId>phantomjsdriver</artifactId>
+    <version>1.0.1</version>
+</dependency>
+
     </dependencies>
  
 </project>
