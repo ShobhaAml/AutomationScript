@@ -32,7 +32,7 @@
         <version>3.0.0-M3</version>
         <configuration>
           <suiteXmlFiles>
-            <suiteXmlFile>>${SuiteXmlFile}</suiteXmlFile>
+            <suiteXmlFile>${SuiteXmlFile}</suiteXmlFile>
           </suiteXmlFiles>
         </configuration>
       </plugin>
