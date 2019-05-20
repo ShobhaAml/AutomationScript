@@ -17,8 +17,8 @@ public class DraftActions {
 	String post_title = "pw longform post";
 	String listtype = "Dashboardlist";
 	String Selectors = "xatakandroid,xatakamovil";
-	String tittle_data = "En infinidad de ocasiones hemos comentado cómo influyen las modas en los entrenamientos";
-	String FurturePostname = "Tacos de pescado al chipotle. Receta mexicana fácil";
+	String tittle_data = "En infinidad de ocasiones hemos comentado influyen las modas en los entrenamientos";
+	String FurturePostname = "Tacos de pescado al chipotle. Receta mexicana ";
 	String fbText = "fb testing";
 	String twitterText = "";
 	String DateTime = "27/12/2027 12:27";
@@ -62,7 +62,7 @@ public class DraftActions {
 		jse.executeScript("window.scrollBy(0,-250)", "");
 		adminProperties.findAndClick("future_post_button");
 		if (adminProperties.findElement(prop.getProperty("futureValidation")).getText()
-				.contains("Tu post está programado")) {
+				.contains("Tu post estÃ¡ programado")) {
 			System.out.println(adminProperties
 					.findElement("Message for future post:- " + prop.getProperty("futureValidation")).getText());
 		}
