@@ -12,10 +12,10 @@ public class Draft_publish_delete_suite {
     Properties prop = new Properties();
     String postName = "Normal longform xataka trend";
     String listtype = "Dashboardlist";
-    String Post_Title= "Canon EOS 77D, toda la información y toma de contacto con la nueva réflex avanzada";
+    String Post_Title= "Canon EOS 77D, toda la y toma de contacto con la nuevavanzada";
     String Selectors = "xatakandroid,xatakamovil";
-    String tittle_data = "Las siete claves para elegir bien un segundo objetivo para tu cámara";
-    String FurturePostname = "Tacos de pescado al chipotle. Receta mexicana fácil";
+    String tittle_data = "Las siete claves para elegir bien un segundo objetivo para tu";
+    String FurturePostname = "Tacos de pescado al chipotle. Receta mexicana";
     String fbText = "fb testing";
     String twitterText = "";
     String DateTime = "27/12/2027 12:27";
