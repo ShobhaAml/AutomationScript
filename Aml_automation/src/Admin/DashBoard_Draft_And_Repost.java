@@ -19,11 +19,11 @@ public class DashBoard_Draft_And_Repost {
     WebDriver driver;
     Adminproperty adminProperties = new Adminproperty();
     Properties prop = new Properties();
-    String Postname = "En infinidad de ocasiones hemos comentado cómo influyen las modas en los entrenamientos";
+    String Postname = "En infinidad de ocasiones hemos comentado  influyen las modas en los entrenamientos";
     String listtype ="Dashboardlist";
     String Selectors = "xatakandroid,xatakamovil";
-    String tittle_data = "En infinidad de ocasiones hemos comentado cómo influyen las modas en los entrenamientos";
-    String FurturePostname = "Tacos de pescado al chipotle. Receta mexicana fácil";
+    String tittle_data = "En infinidad de ocasiones hemos comentado  influyen las modas en los entrenamientos";
+    String FurturePostname = "Tacos de pescado al chipotle. Receta mexicana fÃ¡cil";
   
     String DateTime="27/12/2027 12:27";
     String FuturePostDate ="12:30,21/12/2026";
