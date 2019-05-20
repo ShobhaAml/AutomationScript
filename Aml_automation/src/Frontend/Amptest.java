@@ -12,12 +12,17 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -42,8 +47,8 @@ public class Amptest {
 		for(int i=0;i<blogname.length;i++)
 		{
 			System.out.println(blogname[i]);
-			//driver = frontendProperties.frontcallproperty(blogname[i], prop.getProperty("browser"));
-			driver=headlessbrowser(blogname[i]);
+			driver = openbrowser(blogname[i]);
+			//driver=headlessbrowser(blogname[i]);
 			List<WebElement> list = driver.findElements(By.xpath(".//h2[@class='abstract-title']/a"));
 	        //System.out.println(list.size());
 	        
@@ -92,7 +97,7 @@ public class Amptest {
 		/*WebDriver driver = new HtmlUnitDriver();
 		driver.get(url);*/
      	//driver=headlessbrowser(url);  
-			driver = frontendProperties.frontcallproperty(url, prop.getProperty("browser"));
+			driver = openbrowser(url);
 		System.out.println("AMP URL: "+ampurl);
 	
      	driver.findElement(By.xpath(".//input[@id='input']")).sendKeys(ampurl);
@@ -127,13 +132,19 @@ public class Amptest {
 
 		return errorMap;
 	}
-	public WebDriver headlessbrowser(String url){
-		 File file = new File( System.getProperty("user.dir") + "//src//Driverfiles//" + "phantomjs.exe");				
-        System.setProperty("phantomjs.binary.path", file.getAbsolutePath());		
-         driver = new PhantomJSDriver();	
-        driver.get(url);  
-		return driver;         
-		
+	public WebDriver openbrowser(String url){
+		 // System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedriver.exe");
+		// For linux
+		System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedriver");
+	    ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--headless");
+        chromeOptions.addArguments("--no-sandbox");
+        driver = new ChromeDriver(chromeOptions);
+		 driver.get(url);
+    	  driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+  		
+		return driver;
+
 	}
 	 public static Map<String, Integer> sortByValue(Map<String, Integer> hm) 
 	    { 
