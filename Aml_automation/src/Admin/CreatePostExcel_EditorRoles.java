@@ -94,7 +94,7 @@ public class CreatePostExcel_EditorRoles {
 					adminProperties.findAndClick("navigate_brandClub");
 				} else if (category.equalsIgnoreCase("basics")) {
 					adminProperties.findAndClick("Basic_post");
-				} else if (category.equalsIgnoreCase("Vídeos")) {
+				} else if (category.equalsIgnoreCase("Videos")) {
 					adminProperties.findAndClick("LeadVideo");
 				} else {
 					adminProperties.findAndClick("create_post_link");
