@@ -64,7 +64,7 @@ public class Longform_Dashboard_Sanity {
            	 Thread.sleep(1000);
         	 adminProperties.findElement(prop.getProperty("longformPublicar")).click();
         	 Thread.sleep(2000);
-        	 if(adminProperties.findElement(prop.getProperty("longformBrandLabelBCollaborator")).getText().equalsIgnoreCase("Detalles de publicación Completa toda la información para que el equipo de WSL Branded Content pueda publicar el artículo")==true)
+        	 if(adminProperties.findElement(prop.getProperty("longformBrandLabelBCollaborator")).getText().equalsIgnoreCase("Detalles de  Completa toda la  para que el equipo de WSL Branded Content pueda publicar el ")==true)
              {longformType = "Brand";
               longformPostTypeArray.add(longformType);}}
         
