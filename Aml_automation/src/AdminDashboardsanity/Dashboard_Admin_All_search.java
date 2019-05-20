@@ -21,7 +21,7 @@ public class Dashboard_Admin_All_search {
 	
 	String todo="all";  /*all-Todos/1-Publicado/2-Borrador/3-Programado/5- Republicado*/
 	String Datefilter="Todos"; /*Fecha: Todos/ 2018-02=February 2018*/
-	String Authorfilter="Todos"; /*Autor: Todos/ Anna Martí/ Shobha*/
+	String Authorfilter="Todos"; /*Autor: Todos/ Anna/ Shobha*/
 	String countryfilter="ES" ; /* Value-ES/MX/US/PE/CO/ROW*/
 	
 	String search_keyword = "brand";
