@@ -23,7 +23,7 @@ public class DashBoard_Draft_And_Repost {
     String listtype ="Dashboardlist";
     String Selectors = "xatakandroid,xatakamovil";
     String tittle_data = "En infinidad de ocasiones hemos comentado  influyen las modas en los entrenamientos";
-    String FurturePostname = "Tacos de pescado al chipotle. Receta mexicana fácil";
+    String FurturePostname = "Tacos de pescado al chipotle. Receta mexicana";
   
     String DateTime="27/12/2027 12:27";
     String FuturePostDate ="12:30,21/12/2026";
