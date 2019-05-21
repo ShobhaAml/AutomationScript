@@ -3082,8 +3082,7 @@ public class Adminproperty extends TestListenerAdapter {
 			List<WebElement> lists1 = driver.findElements(By.xpath("//p[contains(text(),'Error: Falta')]"));
 			for (WebElement test1 : lists1) {
 				System.out.println("Validation message: " + test1.getText());
-
-			}
+}
 		}
 	}
 	
