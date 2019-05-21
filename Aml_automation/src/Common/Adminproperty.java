@@ -3130,4 +3130,74 @@ public class Adminproperty extends TestListenerAdapter {
 		implicitWait();
 
 	}
+	
+	public void LFE_add_fichaTecnica(String ficha_tecnica) throws InterruptedException
+	{
+		Actions act = new Actions(driver);
+		act.click(findElement(prop.getProperty("LFE_ficha_tool"))).build().perform();
+		implicitWait();
+		String[] ficha_arr1 = ficha_tecnica.split("@@#@@");
+		act.sendKeys(findElement(prop.getProperty("LFE_ficha_products")+"[1]/input"),ficha_arr1[0]).build().perform();
+		act.sendKeys(findElement(prop.getProperty("LFE_ficha_products")+"[2]/input"),ficha_arr1[1]).build().perform(); 
+		String[] ficha_arr2 = ficha_arr1[4].split("@&@");
+		findElement(prop.getProperty("LFE_ficha_rowCount")).clear();
+		implicitWait();
+		if (ficha_arr2.length > 3) {
+			findAndWrite("LFE_ficha_rowCount", new Integer(ficha_arr2.length-3).toString());
+			findAndClick("LFE_ficha_plus");
+		}
+		for (int i = 0; i < ficha_arr2.length; i++) {
+			String[] arritems = ficha_arr2[i].split("@#@");
+			for (int j = 0; j < arritems.length; j++) {
+				if (arritems[j].equalsIgnoreCase("null")) {
+					findElement(prop.getProperty("LFE_ficha_row") + "[" + (i + 2) + "]" + "/td[" + (j +2) + "]/input").sendKeys("");
+				} else {
+					findElement(prop.getProperty("LFE_ficha_row") + "[" + (i + 2) + "]" + "/td[" + (j + 2) + "]/input").sendKeys(arritems[j]);
+				}
+				}}
+		implicitWait();
+		findAndWrite("LFE_ficha_otherDetails", ficha_arr1[5]);
+	}
+	
+	public void publicar_MVP(String category, String tag, String fbText) throws InterruptedException, AWTException
+	{
+		Actions action = new Actions(driver);
+		action.moveToElement(driver.findElement(By.xpath(prop.getProperty("longform_publicarTab"))));
+		action.click();
+		action.build().perform();
+			Thread.sleep(2000);
+		insertCategoryAndTag_lfe(category, tag);
+		insertFbContent_lfe(fbText);
+		imageCropperLfe();
+	}
+	
+	public void brand_MVP(String category, String disclaimer)
+	{
+	 Actions act = new Actions(driver);
+	 act.moveToElement(driver.findElement(By.xpath(prop.getProperty("bAlfa_category")))).click().build().perform();
+	 act.sendKeys(category);
+	 act.sendKeys(Keys.ENTER);
+	 act.build().perform();
+	 implicitWait();
+	 if(category.equalsIgnoreCase("Brand Article")) {
+		Actions action = new Actions(driver);
+		action.moveToElement(driver.findElement(By.xpath(prop.getProperty("bAlfa_disclaimer")))).click().build().perform();;
+		action.sendKeys(disclaimer).perform();
+		}
+	}
+	public void primary_section_MVP(String primary, String URL) throws InterruptedException
+	{
+		if(primary.equalsIgnoreCase("image"))
+		{
+			findAndClick("MVP_primaryImage");
+			implicitWait();
+			mvpUrlImage(URL);
+			Insertimage("", "MVP_insertImage");
+		}
+			else  if (primary.equalsIgnoreCase("video"))
+			{
+				findAndClick("MVP_primaryVideo");
+				MVPaddVideo(URL, "");
+			}
+	}
 }
