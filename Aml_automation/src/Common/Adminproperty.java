@@ -1960,10 +1960,13 @@ public class Adminproperty extends TestListenerAdapter {
 		return status;
 	}
 
-	public void CreateMVPpost() throws InterruptedException {
+	public void CreateMVPpost(String postType) throws InterruptedException {
 		System.out.println("Move to warning screen");
 		findAndClick("navigation_header");
+		if(postType.equalsIgnoreCase("alfa"))
 		findAndClick("create_MVPpost_link");
+		else if(postType.equalsIgnoreCase("brand alfa"))
+			findAndClick("create_bAlfa_link");
 		Thread.sleep(3000);
 		ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
 		driver.switchTo().window(tabs.get(1));
@@ -1988,15 +1991,25 @@ public class Adminproperty extends TestListenerAdapter {
 		implicitWait();
 		findAndClick("Clickplus");
 		implicitWait();
-		if (icon.equalsIgnoreCase("image")) {
-			findAndClick("MVPImage");
-		} else if (icon.equalsIgnoreCase("instagram")) {
-			findAndClick("MVP_instagram");
-		} else if (icon.equalsIgnoreCase("giphy")) {
-			findAndClick("MVPgiphy");
-		} else if (icon.equalsIgnoreCase("pivot")) {
+		if (icon.equalsIgnoreCase("image")) 
+			findAndClick("MVP_Image");
+		else if (icon.equalsIgnoreCase("video")) 
+			findAndClick("MVP_video");
+		else if (icon.equalsIgnoreCase("giphy")) 
+			findAndClick("MVP_giphy");
+		else if (icon.equalsIgnoreCase("pivot")) 
 			findAndClick("MVP_pivot_icon");
-		}
+		
+		else if (icon.equalsIgnoreCase("instagram")) 
+			findAndClick("MVP_instagram");
+		 else if ((icon.equalsIgnoreCase("infogram"))||(icon.equalsIgnoreCase("datawrapper"))) 
+				findAndClick("MVP_infogram");	
+		else if (icon.equalsIgnoreCase("sumario"))
+			findAndClick("MVP_sumario");
+		else if (icon.equalsIgnoreCase("twitter"))
+			findAndClick("MVP_twitter");
+		else if(icon.equalsIgnoreCase("richcontent"))
+			findAndClick("MVP_richContent");
 
 		implicitWait();
 	}
@@ -2068,23 +2081,14 @@ public class Adminproperty extends TestListenerAdapter {
 	public void mvpUrlImage(String image_url) throws InterruptedException {
 		Actions action = new Actions(driver);
 		implicitWait();
-		action.moveToElement(driver.findElement(By.className(prop.getProperty("urlUploadClass"))));
-		action.click();
+		action.moveToElement(driver.findElement(By.xpath(prop.getProperty("urlUploadClass"))));
+		action.click().build().perform();
 		action.sendKeys(image_url);
 		action.build().perform();
 		findAndClick("mvp_image_url_button");
 		implicitWait();
 	}
 
-	public void Insertimage() {
-		Conditionalwait("image_select");
-		findAndClick("MVPResourceImage1");
-		implicitWait();
-		implicitWait();
-		driver.switchTo().activeElement();
-		findAndWrite("MVPImageAlt", "testing alternate text");
-		findAndClick("MVPInsertButton");
-	}
 
 	public void getHintImageToolbar() throws InterruptedException {
 		Actions actions = new Actions(driver);
@@ -2105,8 +2109,8 @@ public class Adminproperty extends TestListenerAdapter {
 			actions.moveToElement(toolBarList.get(i + 1)).clickAndHold().build().perform();
 		}
 	}
-
-	public void Insertimage(String layout) throws InterruptedException {
+	
+	public void Insertimage(String layout, String button) throws InterruptedException {
 		Conditionalwait("image_select");
 		Thread.sleep(3000);
 		findAndClick("image_select");
@@ -2115,15 +2119,13 @@ public class Adminproperty extends TestListenerAdapter {
 		implicitWait();
 		driver.switchTo().activeElement();
 		findAndWrite("MVPImageAlt", "testing alternate text");
-		if (layout.equalsIgnoreCase("")) {
-			findAndClick("MVPInsertButton");
-		} else {
-			// layoutResourcePanel(layout); //UPDATION
+		if (layout.equalsIgnoreCase("")) 
+			findAndClick(button);
+		else {
 			common_layout_mvp("imgLayoutResourcePanel", layout);
-			findAndClick("MVPInsertButton");
+			findAndClick(button);
 		}
-
-	}
+}
 
 	public void editImage(String image, String layout) throws InterruptedException {
 		Actions actions = new Actions(driver);
@@ -2151,10 +2153,10 @@ public class Adminproperty extends TestListenerAdapter {
 			// //findAndWrite("imgCaptionResourcePanel","testing caption text");
 			Thread.sleep(2000);
 			layoutResourcePanel(layout);
-			findAndClick("MVPInsertButton");
+			findAndClick("MVP_insertImage");
 		} else {
 			Thread.sleep(3000);
-			Insertimage(layout);
+			Insertimage(layout, "MVP_insertImage");
 		}
 	}
 
@@ -2244,24 +2246,33 @@ public class Adminproperty extends TestListenerAdapter {
 
 	public void addTwitterMVP(String twURL) throws InterruptedException {
 		implicitWait();
-		findAndClick("mvp_twitter");
-		implicitWait();
 		if (twURL.contains("twitter") == true) {
 			findAndWrite("mvp_tw_url", twURL);
 			implicitWait();
-			findAndClick("mvp_insertar");
+			findAndClick("MVPInsertButton");
 		} else {
 			findAndWrite("mvp_tw_url", twURL);
-			findAndClick("mvp_insertar");
+			findAndClick("MVPInsertButton");
 			implicitWait();
 			if (findElement(prop.getProperty("mvp_tw_validation")).isDisplayed() == true)
 				System.out.println("invalid twitter URL");
 		}
 	}
-
-	public void addSumarioMVP(String layout, String sumarioText) throws InterruptedException {
+	
+	public void addMVPInfogram(String infogramUrl, String layout) throws InterruptedException {
+		Actions action = new Actions(driver);
 		implicitWait();
-		findAndClick("mvp_sumario");
+		action.moveToElement(driver.findElement(By.xpath(prop.getProperty("MVPInfogramtextbox"))));
+		action.click();
+		action.sendKeys(infogramUrl);
+		action.build().perform();
+		common_layout_mvp("mvp_layout4", layout);
+		findAndClick("MVP_Insertar");
+		implicitWait();
+	}
+
+	public void addSumarioMVP(String sumarioText, String layout) throws InterruptedException {
+		implicitWait();
 		Actions action = new Actions(driver);
 		// action.moveToElement(driver.findElement(By.xpath("//*[@id=\"summarymodal\"]/div[1]/div/div/div/div/div")));
 		action.moveToElement(findElement(prop.getProperty("mvp_sumario_url")));
@@ -2270,33 +2281,25 @@ public class Adminproperty extends TestListenerAdapter {
 		action.build().perform();
 		implicitWait();
 		common_layout_mvp("mvp_layout1", layout);
-		findAndClick("mvp_insertar");
+		findAndClick("MVP_sumario_insert");
 	}
 
-	public void MVPaddInfogram(String infogramUrl) {
-		findAndClick("MVP_infogramIcon");
-		Actions action = new Actions(driver);
-		implicitWait();
-		action.moveToElement(driver.findElement(By.xpath(prop.getProperty("MVPInfogramtextbox"))));
-		action.click();
-		action.sendKeys(infogramUrl);
-		action.build().perform();
-		findAndClick("MVPInsertButton");
-		System.out.println("Infogram INSERTED successfully");
-		implicitWait();
-	}
-
-	public void MVPaddVideo(String videoUrl) {
-		findAndClick("MVP_videoIcon");
+	public void MVPaddVideo(String videoUrl, String layout) throws InterruptedException {
 		Actions action = new Actions(driver);
 		implicitWait();
 		action.moveToElement(driver.findElement(By.xpath(prop.getProperty("MVPVideotextbox"))));
 		action.click();
 		action.sendKeys(videoUrl);
 		action.build().perform();
-		findAndClick("MVPInsertButton");
-		System.out.println("Video INSERTED successfully");
 		implicitWait();
+		if(layout.equalsIgnoreCase(""))
+			findAndClick("MVP_insertarVideo");
+		else
+		{
+		common_layout_mvp("mvp_layout6", layout);
+		findAndClick("MVP_insertarVideo");
+		}
+		System.out.println("Video INSERTED successfully");
 	}
 
 	public void MVP_editInfogram(String layout) throws InterruptedException {
@@ -2372,11 +2375,13 @@ public class Adminproperty extends TestListenerAdapter {
 		for (int i = 1; i <= toolList.size(); i++) {
 			WebElement element = findElement(prop.getProperty(listXpath) + "[" + i + "]");
 			actions.moveToElement(element).clickAndHold().build();
-			Thread.sleep(1000);
+			Thread.sleep(1000);			
 			if (element.getAttribute("title").equalsIgnoreCase(takeAction)) {
 				element.click();
 				break;
 			}
+			else if(takeAction.equalsIgnoreCase("null"))
+				break;
 		}
 	}
 
@@ -2425,7 +2430,7 @@ public class Adminproperty extends TestListenerAdapter {
 				common_layout_mvp("mvp_layout2", layout);
 				break;
 			case "image":
-				Insertimage(layout);
+				Insertimage(layout, "MVP_insertImage");
 				break;
 			case "sumario":
 				Thread.sleep(2000);
@@ -2463,18 +2468,13 @@ public class Adminproperty extends TestListenerAdapter {
 
 	public void mvp_addRichContent(String alternativo, String text, String url)
 			throws InterruptedException, IOException {
-		findAndClick("mvp_richIcon");
-		Thread.sleep(2000);
-		findAndWrite("mvp_richText", "hello testing");
-		common_layout_mvp("mvp_layout1", "Grande");
+		findAndWrite("mvp_richText", text);
+		common_layout_mvp("mvp_layout5", "Grande");
 		Thread.sleep(2000);
 		mvp_add_AMPAlternativo(alternativo, text, url);
 	}
 
-	public void mvp_add_AMPAlternativo(String alternativo, String text, String url) throws InterruptedException {// url
-																													// can
-																													// be
-																													// video/image
+	public void mvp_add_AMPAlternativo(String alternativo, String text, String url) throws InterruptedException {// url can video/image
 		Actions actions = new Actions(driver);
 		List<WebElement> buttons = findElementsByXpath(prop.getProperty("mvp_rich_buttons"));
 		for (int i = 1; i <= buttons.size(); i++) {
@@ -2490,19 +2490,20 @@ public class Adminproperty extends TestListenerAdapter {
 			Thread.sleep(1000);
 			mvpUrlImage(url);
 			implicitWait();
-			Insertimage("");
+			Insertimage("", "MVP_insertarCodigo");
 			break;
 		case "texto alternativo":
 			Thread.sleep(1000);
 			actions.moveToElement(findElement(prop.getProperty("mvp_text_insert"))).click().perform();
-			actions.sendKeys(text).perform();
+			actions.sendKeys(text).build().perform();
 			implicitWait();
-			findAndClick("MVPInsertButton");
+			findAndClick("MVP_insertarCodigo");
 			break;
 		case "vídeo alternativo":
 			implicitWait();
 			actions.sendKeys(url).build().perform();
-			findAndClick("MVPInsertButton");
+			implicitWait();
+			findAndClick("MVP_insertarcodigo");
 			break;
 		}
 	}
@@ -2655,18 +2656,17 @@ public class Adminproperty extends TestListenerAdapter {
 				    }
 				}
 			Thread.sleep(2000);
-		/*JavascriptExecutor jse = (JavascriptExecutor) driver;
-			jse.executeScript("arguments[0].scrollIntoView(true);",findElement(prop.getProperty("Pivot_addOtrabutton")));*/
+			JavascriptExecutor jse = (JavascriptExecutor) driver;
+			jse.executeScript("arguments[0].scrollIntoView(true);",findElement(prop.getProperty("Pivot_addOtrabutton")));
 			findAndClick("Pivot_addOtrabutton");
 			implicitWait();
-		/*	if(findElement(prop.getProperty("pivot_duplicateProd_error")).isDisplayed()==true)
-			System.out.println("Validation error-->>      Duplicate product from Amazon or Ebay  ");
+			if(findElement(prop.getProperty("pivot_duplicateProd_error")).isDisplayed()==true)
+				System.out.println("Validation error-->>      Duplicate product from Amazon or Ebay  ");
 			else if(driver.findElement(By.xpath(".//*[@id='invalidEcommerceStore']")).isDisplayed()==true)
 				System.out.println("Validation error-->>     ** some field is missing **");
 			else
-				System.out.println("***** Pivot product added succesfully ****");*/
+				System.out.println("***** Pivot product added succesfully ****");
 		}
-
 
 	public void MVP_pivot_newsletter(String sitename)
 	{		
@@ -2684,7 +2684,7 @@ public class Adminproperty extends TestListenerAdapter {
 
 	public void addpivotarticle(String article, String Pivot_product_Article_posttype, String Pivot_product_Article)
 			throws InterruptedException {
-		findAndClick("pivoticon");
+		//findAndClick("pivoticon");
 		implicitWait();
 		findAndWrite("pivotsearchinputtext_article", article);
 		findAndClick("pivotsearchbutton_article");

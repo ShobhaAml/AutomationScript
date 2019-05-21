@@ -42,17 +42,17 @@ public class CreatePostExcel {
 
 	@DataProvider(name = "testdata")
 	public Object[][] TestDataFeed() throws Exception {
-		Object[][] postdata = adminProperties.readExcel("Normal", 94);
+		Object[][] postdata = adminProperties.readExcel("Normal",102);
 		return postdata;
 	}
 
 	@Test(dataProvider = "testdata")
-	public void createPost(String posttype, String posttitle, String postcontent, String primaryimage,
+	public void createPost(String posttype, String posttitle, String postcontent, String primary,String image, String imageLayout,
 			String postcontent_more, String Youtube_Video, String Youtube_layout, String Vine, String Vine_layout,
 			String Vimeo, String Vimeo_layout, String Gallery_name, String Gallery_description, String Gallery_tag,
 			String Gallery_ShowHeader, String Gallery_photos, String multiple_images, String embeded_code,
 			String summary, String summary_layout, String actualizacion, String ficha_technica, String ficha_review,
-			String giphy_url, String giphy_layout, String giphy_caption, String Inforgram_datawrapper_URL,
+			String giphy_url, String giphy_layout, String giphy_caption, String instagram,String Inforgram_datawrapper_URL,
 			String infographLayout, String infographCaption, String slideshowimages, String tabledata,
 			String Checkbox_same_width, String Checkbox_table_first_row_heading,
 			String Checkbox_table_first_column_heading, String Checkbox_table_occupy_all_avaiable_width,
@@ -65,12 +65,12 @@ public class CreatePostExcel {
 			String Recipe_Vimeo_Video_layout, String FB_Video, String Recipe_FB_Video_layout, String Recipe_summary,
 			String Recipe_summary_layout, String Pivot_amazon_search, String Pivot_dropdown,
 			String Pivot_otherStoreProductTitle, String Pivot_otherStoreProductImage, String Pivot_otherStorevalues,
-			String Pivot_newsletter, String homecontent, String homeimage, String Branded_club, String category,
+			String Pivot_newsletter, String homecontent, String homeimage, String Branded_club, String disclaimer, String category,
 			String catagory_other, String tag, String seotitle, String seodesc, String specialpost,
-			String comment_closed, String author, String Twittertext, String fbtext, String Repost, String Run,
+			String comment_closed, String author, String Twittertext, String fbtext, String Contenido_Patrocinado, String Repost, String Run,
 			String Republish, String Future_time, String Pivot_product_Article, String Pivot_product_Article_posttype,
 			String Publish_to_homepage_checkbox, String hook, String hookCustomerLogo, String hookCustomerName,
-			String hookLogoLink, String hookTextarea, String hookImage, String hookButtonText) throws Exception {
+			String hookLogoLink, String hookTextarea, String hookImage, String hookButtonText, String richContent_alternativo, String rich_text, String rich_URL) throws Exception {
 		if (Run.trim().equalsIgnoreCase("Y")) {
 			String blogrole = "";
 			adminProperties.LoginAdmin(prop.getProperty("admin_usename"), prop.getProperty("admin_pwd"));
