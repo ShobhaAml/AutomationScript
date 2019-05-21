@@ -3157,15 +3157,15 @@ public class Adminproperty extends TestListenerAdapter {
 	{
 		if(primary.equalsIgnoreCase("image"))
 		{
-			findAndClick("MVP_primaryImage");
-			implicitWait();
-			mvpUrlImage(URL);
-			Insertimage("", "MVP_insertImage");
+		findAndClick("MVP_primaryImage");
+		implicitWait();
+		mvpUrlImage(URL);
+		Insertimage("", "MVP_insertImage");
 		}
 		else  if (primary.equalsIgnoreCase("video"))
 		{
-			findAndClick("MVP_primaryVideo");
-			MVPaddVideo(URL, "");
+		findAndClick("MVP_primaryVideo");
+		MVPaddVideo(URL, "");
 		}
 	}
 }
