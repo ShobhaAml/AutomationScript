@@ -3162,10 +3162,10 @@ public class Adminproperty extends TestListenerAdapter {
 			mvpUrlImage(URL);
 			Insertimage("", "MVP_insertImage");
 		}
-			else  if (primary.equalsIgnoreCase("video"))
-			{
-				findAndClick("MVP_primaryVideo");
-				MVPaddVideo(URL, "");
-			}
+		else  if (primary.equalsIgnoreCase("video"))
+		{
+			findAndClick("MVP_primaryVideo");
+			MVPaddVideo(URL, "");
+		}
 	}
 }

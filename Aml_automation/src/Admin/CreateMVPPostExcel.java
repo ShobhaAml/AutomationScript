@@ -66,7 +66,6 @@ public class CreateMVPPostExcel {
 			System.out.println(list.size() +"list count");
 			System.out.println(list.get(list.size()-1).getAttribute("id"));
 			adminProperties.implicitWait();*/
-			
 			//adminProperties.primary_section_MVP(primary, image);
 			adminProperties.primary_section_MVP(primary, video);
 	
