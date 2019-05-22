@@ -185,6 +185,6 @@ public class CreateMVPPostExcel {
 			
 	}
 		adminProperties.publicar_MVP(category, tag, fbtext);
-		adminProperties.brand_MVP(Branded_club, disclaimer);
+		adminProperties.brandCategory_MVP(Branded_club, disclaimer);
 }
 }

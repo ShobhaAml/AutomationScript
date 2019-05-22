@@ -3171,20 +3171,20 @@ public class Adminproperty extends TestListenerAdapter {
 		imageCropperLfe();
 	}
 	
-	public void brand_MVP(String category, String disclaimer)
+	public void brandCategory_MVP(String category, String disclaimer)
 	{
-	 Actions act = new Actions(driver);
-	 act.moveToElement(driver.findElement(By.xpath(prop.getProperty("bAlfa_category")))).click().build().perform();
-	 act.sendKeys(category);
-	 act.sendKeys(Keys.ENTER);
-	 act.build().perform();
+	 action_sendKeys(driver.findElement(By.xpath(prop.getProperty("bAlfa_category"))), category);
 	 implicitWait();
+	 Actions act = new Actions(driver);
+	 act.moveToElement(findElement(prop.getProperty("MVP_TW_textarea"))).click().build().perform();	
+	 act.sendKeys(Keys.SPACE).sendKeys(""+"   #test #test").build().perform();
 	 if(category.equalsIgnoreCase("Brand Article")) {
 		Actions action = new Actions(driver);
-		action.moveToElement(driver.findElement(By.xpath(prop.getProperty("bAlfa_disclaimer")))).click().build().perform();;
+		action.moveToElement(findElement(prop.getProperty("bAlfa_disclaimer"))).click().build().perform();;
 		action.sendKeys(disclaimer).perform();
 		}
 	}
+	
 	public void primary_section_MVP(String primary, String URL) throws InterruptedException
 	{
 		if(primary.equalsIgnoreCase("image"))
@@ -3200,4 +3200,50 @@ public class Adminproperty extends TestListenerAdapter {
 				MVPaddVideo(URL, "");
 			}
 	}
+	
+	public void CF_flipboard_magazine(String pivot_module) throws InterruptedException
+	  {
+		 CF_pivot_dropdown(pivot_module);
+		 implicitWait();
+		 String sites[] = new String[]{"Xataka", "Xataka Móvil", "Xataka Foto","Xataka Android", "Xataka Smart Home","Xataka Windows", "Xataka eSports","Magnet", "Applesfera","Vida Extra", "Genbeta","Compradiccion","Trendencias", "Directo al Paladar","Bebés y Más", "Vitónica", "Decoesfera", "Motorpasión","Motorpasión Moto", "Espinof", "Diario del Viajero" }; 
+		 String magazine[] = new String[] {"Ciencia", "Tarifas y promociones para móviles", "Fotógrafos", "Todo Xiaomi", "Hogar Digital","Windows", "Fortnite", "Japón", "Trucos Apple","Nintendo", "Linux","Lo mejor de las mejores rebajas", "Libros, cine y series de televisión","Chocolate", "Lactancia", "Entrenamiento en el gimnasio", "Hogar Digital", "Superdeportivos", "Solo Motos", "Oscars 2019","Viajar en coche" };
+		 for(int i =0; i<sites.length; i++)
+		 {
+			implicitWait();
+			action_sendKeys(findElement(prop.getProperty("MVP_flipboard_dropdown")), sites[i]);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath(".//*[@value='siteMagazine']")).click();
+			Thread.sleep(1000);
+			action_sendKeys(findElement(prop.getProperty("MVP_magazine_dropdown")), magazine[i]);
+			findAndClick("Mvp_addPivotbutton");
+			Thread.sleep(1000);
+			if((i>=sites.length)||(i==sites.length-1))
+				break;
+			else
+			CF_pivot_dropdown("Flipboard");
+			}
+	    }
+	 
+	 public void action_sendKeys(WebElement webElement, String sites)
+	 {
+		 Actions act = new Actions(driver);
+	   	    act.moveToElement(webElement).click().build().perform();
+		    act.sendKeys(sites);
+		    act.sendKeys(Keys.ENTER).build().perform();
+			implicitWait();
+	 }
+	 
+	 public void CF_pivot_dropdown(String item) throws InterruptedException
+	 {
+		 ClickICON(driver, "pivot");
+		 List<WebElement> list = findElementsByXpath(prop.getProperty("MVP_pivot_dropdown"));
+		 for(int i=1; i<list.size();i++)
+		 {
+			 if(list.get(i).getText().equalsIgnoreCase(item))
+			 {
+			 list.get(i).click();
+			 break;
+			 }
+		 }
+	 }
 }
