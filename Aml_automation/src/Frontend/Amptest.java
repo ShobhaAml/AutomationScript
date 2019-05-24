@@ -46,6 +46,7 @@ public class Amptest {
 		{
 			System.out.println(blogname[i]);
 			driver=headlessbrowser(blogname[i]);
+			
 			List<WebElement> list = driver.findElements(By.xpath(".//h2[@class='abstract-title']/a"));
 	        
 	        int cnt=1;
