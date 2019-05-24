@@ -4,8 +4,7 @@
   <groupId>Aml_automation</groupId>
   <artifactId>Aml_automation</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  
-  <build>
+    <build>
     <sourceDirectory>src</sourceDirectory>
     <resources>
       <resource>
