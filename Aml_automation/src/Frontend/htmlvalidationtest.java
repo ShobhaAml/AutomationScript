@@ -26,7 +26,6 @@ public class htmlvalidationtest {
 	String status = "Y";
 	String PostTitle = "";
 	String url="https://www.xataka.com,https://www.bebesymas.com,https://www.directoalpaladar.com,https://www.vitonica.com,https://www.espinof.com";
-
 	Map<String, Integer> FinalerrorMap = new HashMap<String, Integer>();
 	
 	@Test
@@ -77,12 +76,11 @@ public class htmlvalidationtest {
 		driver.quit();
 	}
 	public WebDriver headlessbrowser(String url){
-		 File file = new File( System.getProperty("user.dir") + "//src//Driverfiles//" + "phantomjs.exe");				
-         System.setProperty("phantomjs.binary.path", file.getAbsolutePath());		
-          driver = new PhantomJSDriver();	
-         driver.get(url);  
-		return driver;         
-		
+		ChromeOptions chromeOptions = new ChromeOptions();
+	    chromeOptions.addArguments("--headless");
+	    ChromeDriver driver = new ChromeDriver(chromeOptions);
+		driver.get(url);     
+		return driver; 
 	}
 	public Map<String, Integer> getHTMLerror(String posturl) throws Exception  {
 		Map<String, Integer> errorMap = new HashMap<String, Integer>();
