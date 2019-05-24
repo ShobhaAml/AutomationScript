@@ -44,6 +44,7 @@ public class Amptest {
 			System.out.println(blogname[i]);
 			//driver = frontendProperties.frontcallproperty(blogname[i], prop.getProperty("browser"));
 			driver=headlessbrowser(blogname[i]);
+			
 			List<WebElement> list = driver.findElements(By.xpath(".//h2[@class='abstract-title']/a"));
 	        //System.out.println(list.size());
 	        
