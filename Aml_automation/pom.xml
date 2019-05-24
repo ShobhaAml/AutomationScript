@@ -123,11 +123,13 @@
     <type>jar</type>
     <scope>compile</scope>
 </dependency>
-<!-- https://mvnrepository.com/artifact/com.github.detro.ghostdriver/phantomjsdriver -->
+<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-chrome-driver -->
 <dependency>
-    <groupId>com.github.detro.ghostdriver</groupId>
-    <artifactId>phantomjsdriver</artifactId>
-    <version>1.0.1</version>
+    <groupId>org.seleniumhq.selenium</groupId>
+    <artifactId>selenium-chrome-driver</artifactId>
+    <version>2.50.0</version>
 </dependency>
+
+
 </dependencies>
 </project>
