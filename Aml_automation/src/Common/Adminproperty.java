@@ -3251,8 +3251,7 @@ public class Adminproperty extends TestListenerAdapter {
 
 			String flipboardarr[] = flipboard_blogname.split("@##@");
 			for (int i = 0; i < flipboardarr.length; i++) {
-				ClickICON(driver, "pivot");
-				findAndClick("MVP_flipboard_icon");
+				CF_pivot_dropdown("flipboard");
 				driver.switchTo().activeElement();
 				Actions action = new Actions(driver);
 				implicitWait();
