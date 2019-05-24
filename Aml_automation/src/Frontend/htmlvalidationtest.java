@@ -28,7 +28,6 @@ public class htmlvalidationtest {
 	String status = "Y";
 	String PostTitle = "";
 	String url="https://www.xataka.com,https://www.bebesymas.com,https://www.directoalpaladar.com,https://www.vitonica.com,https://www.espinof.com";
-
 	Map<String, Integer> FinalerrorMap = new HashMap<String, Integer>();
 	
 	@Test
@@ -81,7 +80,6 @@ public class htmlvalidationtest {
 	    ChromeDriver driver = new ChromeDriver(chromeOptions);
 		driver.get(url);     
 		return driver; 
-		
 	}
 	public Map<String, Integer> getHTMLerror(String posturl) throws Exception  {
 		Map<String, Integer> errorMap = new HashMap<String, Integer>();
