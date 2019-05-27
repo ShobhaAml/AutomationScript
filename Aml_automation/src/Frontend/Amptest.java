@@ -36,16 +36,12 @@ public class Amptest {
 		for(int i=0;i<blogname.length;i++)
 		{
 			System.out.println(blogname[i]);
-			//driver = frontendProperties.frontcallproperty(blogname[i], prop.getProperty("browser"));
 			driver=headlessbrowser(blogname[i]);
-			
 			List<WebElement> list = driver.findElements(By.xpath(".//h2[@class='abstract-title']/a"));
-	        //System.out.println(list.size());
-	        
+	         
 	        int cnt=1;
 	            for (WebElement element1 : list) {
-		           // System.out.println(element1.getAttribute("href"));
-		            if((cnt<4) && (!element1.getAttribute("href").contains("utm_campaign=repost"))) { 
+		           if((cnt<4) && (!element1.getAttribute("href").contains("utm_campaign=repost"))) { 
 		            	LocalerrorMap=getAMPerror(element1.getAttribute("href")+"/amp");
 		            	LocalerrorMap.forEach((k,v)->
             			{
@@ -82,11 +78,8 @@ public class Amptest {
 		Map<String, Integer> errorMap = new HashMap<String, Integer>();
 		
 		String url = "https://validator.ampproject.org/";
-		/*WebDriver driver = new HtmlUnitDriver();
-		driver.get(url);*/
-     	//driver=headlessbrowser(url);  
-			driver = frontendProperties.frontcallproperty(url, prop.getProperty("browser"));
-		System.out.println("AMP URL: "+ampurl);
+	   	driver=headlessbrowser(url);  
+				System.out.println("AMP URL: "+ampurl);
 	
      	driver.findElement(By.xpath(".//input[@id='input']")).sendKeys(ampurl);
 		driver.findElement(By.id("validateButton")).click();
@@ -121,11 +114,11 @@ public class Amptest {
 		return errorMap;
 	}
 	public WebDriver headlessbrowser(String url){
-		 File file = new File( System.getProperty("user.dir") + "//src//Driverfiles//" + "phantomjs.exe");				
-        System.setProperty("phantomjs.binary.path", file.getAbsolutePath());		
-         driver = new PhantomJSDriver();	
-        driver.get(url);  
-		return driver;         
+		ChromeOptions chromeOptions = new ChromeOptions();
+	    chromeOptions.addArguments("--headless");
+	    ChromeDriver driver = new ChromeDriver(chromeOptions);
+		driver.get(url);     
+		return driver;
 		
 	}
 	 public static Map<String, Integer> sortByValue(Map<String, Integer> hm) 
