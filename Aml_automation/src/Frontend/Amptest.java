@@ -24,7 +24,9 @@ public class Amptest {
 	String browser = "";
 	String status = "Y";
 	String PostTitle = "";
-	String url="https://www.xataka.com,https://www.bebesymas.com,https://www.directoalpaladar.com,https://www.vitonica.com,https://www.espinof.com";
+	//String url="https://www.xataka.com,https://www.bebesymas.com,https://www.directoalpaladar.com,https://www.vitonica.com,https://www.espinof.com";
+	String url="https://www.vitonica.com";
+	
 	Map<String, Integer> FinalerrorMap = new HashMap<String, Integer>();
 	
 	@Test
@@ -84,6 +86,7 @@ public class Amptest {
      	driver.findElement(By.xpath(".//input[@id='input']")).sendKeys(ampurl);
 		driver.findElement(By.id("validateButton")).click();
 		
+		driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
 		
 		if(driver.findElement(By.xpath(".//div[@class='ampproject-result style-scope webui-statusbar']/span")).getText()=="PASS")
 		{
@@ -96,7 +99,7 @@ public class Amptest {
 			List<WebElement> list=driver.findElements(By.xpath(".//div[@class='message style-scope webui-errorlist']"));
 			
 			for (WebElement element1 : list) {
-				 // System.out.println(element1.getText());
+				// System.out.println(element1.getText());
 				  
 				if ( errorMap.get(element1.getText()) == null ) {
 				    errorMap.put(element1.getText(),1);
