@@ -1,6 +1,6 @@
 package Frontend;
 
-import java.io.File;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -9,13 +9,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.testng.annotations.Test;
 
 import Common.Frontend;
@@ -79,7 +77,7 @@ public class htmlvalidationtest {
 	    chromeOptions.addArguments("--headless");
 	    ChromeDriver driver = new ChromeDriver(chromeOptions);
 		driver.get(url);     
-		return driver; 
+		return driver;
 	}
 	public Map<String, Integer> getHTMLerror(String posturl) throws Exception  {
 		Map<String, Integer> errorMap = new HashMap<String, Integer>();
