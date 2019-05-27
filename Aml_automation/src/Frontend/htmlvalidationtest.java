@@ -37,11 +37,14 @@ public class htmlvalidationtest {
 		for(int i=0;i<blogname.length;i++)
 		{
 			System.out.println(blogname[i]);
+			//driver = frontendProperties.frontcallproperty(blogname[i], prop.getProperty("browser"));
 			driver=headlessbrowser(blogname[i]);  
 			List<WebElement> list = driver.findElements(By.xpath(".//h2[@class='abstract-title']/a"));
+	        //System.out.println(list.size());
 	        
 	        int cnt=1;
 	            for (WebElement element1 : list) {
+		           // System.out.println(element1.getAttribute("href"));
 		            if((cnt<5) && (!element1.getAttribute("href").contains("utm_campaign=repost"))) { 
 		            	LocalerrorMap=getHTMLerror(element1.getAttribute("href"));
 		            	LocalerrorMap.forEach((k,v)->
@@ -61,7 +64,7 @@ public class htmlvalidationtest {
 		}
 		
 		 if ( FinalerrorMap.size()>0 ) { 
-	            System.out.println("*********************FINAL result**************************");
+	            System.out.println("FINAL result");
 	    		FinalerrorMap=sortByValue(FinalerrorMap);
 	         	FinalerrorMap.forEach((k,v)->System.out.println("Final Result : " + k + " Count : " + v));
 	         	}
