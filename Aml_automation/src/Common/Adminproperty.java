@@ -3201,6 +3201,29 @@ public class Adminproperty extends TestListenerAdapter {
 			}
 	}
 	
+	public void action_sendKeys(WebElement webElement, String sites)
+	 {
+		 Actions act = new Actions(driver);
+	   	    act.moveToElement(webElement).click().build().perform();
+		    act.sendKeys(sites);
+		    act.sendKeys(Keys.ENTER).build().perform();
+			implicitWait();
+	 }
+	 
+	 public void CF_pivot_dropdown(String item) throws InterruptedException
+	 {
+		 ClickICON(driver, "pivot");
+		 List<WebElement> list = findElementsByXpath(prop.getProperty("MVP_pivot_dropdown"));
+		 for(int i=1; i<list.size();i++)
+		 {
+			 if(list.get(i).getText().equalsIgnoreCase(item))
+			 {
+			 list.get(i).click();
+			 break;
+			 }
+		 }
+	 }
+	
 	public void CF_flipboard_magazine(String pivot_module) throws InterruptedException
 	  {
 		 CF_pivot_dropdown(pivot_module);
@@ -3224,26 +3247,24 @@ public class Adminproperty extends TestListenerAdapter {
 			}
 	    }
 	 
-	 public void action_sendKeys(WebElement webElement, String sites)
-	 {
-		 Actions act = new Actions(driver);
-	   	    act.moveToElement(webElement).click().build().perform();
-		    act.sendKeys(sites);
-		    act.sendKeys(Keys.ENTER).build().perform();
-			implicitWait();
-	 }
-	 
-	 public void CF_pivot_dropdown(String item) throws InterruptedException
-	 {
-		 ClickICON(driver, "pivot");
-		 List<WebElement> list = findElementsByXpath(prop.getProperty("MVP_pivot_dropdown"));
-		 for(int i=1; i<list.size();i++)
-		 {
-			 if(list.get(i).getText().equalsIgnoreCase(item))
-			 {
-			 list.get(i).click();
-			 break;
-			 }
-		 }
-	 }
+	 public void addpivotFlipboard_Alfa(String flipboard_blogname) throws InterruptedException {
+
+			String flipboardarr[] = flipboard_blogname.split("@##@");
+			for (int i = 0; i < flipboardarr.length; i++) {
+				CF_pivot_dropdown("flipboard");
+				driver.switchTo().activeElement();
+				Actions action = new Actions(driver);
+				implicitWait();
+				action.moveToElement(driver.findElement(By.xpath(".//div[@class='css-1dcvmb5 react-select__control']")))
+						.click();
+				action.moveToElement(driver.findElement(By.xpath(
+						"//div[@class='css-1hwfws3 react-select__value-container react-select__value-container--has-value']")))
+						.click();
+				implicitWait();
+				action.sendKeys(flipboardarr[i]).sendKeys(Keys.ENTER);
+				action.build().perform();
+				implicitWait();
+				findAndClick("MVP_flipboard_AddButton");
+			}
+		}
 }
