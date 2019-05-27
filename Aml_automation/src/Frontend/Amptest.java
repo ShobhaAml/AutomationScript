@@ -15,15 +15,11 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
 import Common.Frontend;
 
 public class Amptest {
