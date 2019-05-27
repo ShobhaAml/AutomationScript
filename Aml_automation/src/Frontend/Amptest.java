@@ -1,19 +1,14 @@
 package Frontend;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -61,9 +56,7 @@ public class Amptest {
             			}
         					);
 		            		
-            		
-            	
-		         	cnt=cnt+1;}
+   	         	cnt=cnt+1;}
 		         }
 	        
 		}
