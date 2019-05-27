@@ -24,8 +24,8 @@ public class Amptest {
 	String browser = "";
 	String status = "Y";
 	String PostTitle = "";
-	//String url="https://www.xataka.com,https://www.bebesymas.com,https://www.directoalpaladar.com,https://www.vitonica.com,https://www.espinof.com";
-	String url="https://www.vitonica.com";
+	String url="https://www.xataka.com,https://www.bebesymas.com,https://www.directoalpaladar.com,https://www.vitonica.com,https://www.espinof.com";
+	
 	
 	Map<String, Integer> FinalerrorMap = new HashMap<String, Integer>();
 	
