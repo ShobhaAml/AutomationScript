@@ -84,28 +84,28 @@ public class Adminproperty extends TestListenerAdapter {
 
 	public WebDriver callproperty(String url, String browser) throws IOException {
 		/*
-         * LoggingPreferences loggingprefs = new LoggingPreferences();
-         * loggingprefs.enable(LogType.BROWSER, Level.ALL);
-         */
-        if (browser.trim().equalsIgnoreCase("Chrome")) {
-            System.setProperty("webdriver.chrome.driver",
-                    System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedriver.exe");
-            DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-            /* capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs); */
-            ChromeOptions options = new ChromeOptions();
-            options.addArguments("start-maximized");
-            // options.addArguments("" + capabilities + "");
-            driver = new ChromeDriver(options);
-        } else {
-            System.setProperty("webdriver.gecko.driver",
-                    System.getProperty("user.dir") + "//src//Driverfiles//" + "geckodriver.exe");
-            DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-            /* capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs); */
-            driver = new FirefoxDriver(capabilities);
-        }
-        driver.get(url);
-        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-        return driver;
+		 * LoggingPreferences loggingprefs = new LoggingPreferences();
+		 * loggingprefs.enable(LogType.BROWSER, Level.ALL);
+		 */
+		if (browser.trim().equalsIgnoreCase("Chrome")) {
+			System.setProperty("webdriver.chrome.driver",
+					System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedriver.exe");
+			DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+			/* capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs); */
+			ChromeOptions options = new ChromeOptions();
+			options.addArguments("start-maximized");
+			// options.addArguments("" + capabilities + "");
+			driver = new ChromeDriver(options);
+		} else {
+			System.setProperty("webdriver.gecko.driver",
+					System.getProperty("user.dir") + "//src//Driverfiles//" + "geckodriver.exe");
+			DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+			/* capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs); */
+			driver = new FirefoxDriver(capabilities);
+		}
+		driver.get(url);
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		return driver;
 	}
 
 	public void uploadPrimaryImage(String primaryimage, String browser) throws Exception {
@@ -1165,9 +1165,13 @@ public class Adminproperty extends TestListenerAdapter {
 	}
 
 	public void FullScreenshot(WebDriver driver, String screenshotName) throws IOException {
-		/*Screenshot screenshot = new AShot().shootingStrategy(new ViewportPastingStrategy(1000)).takeScreenshot(driver);
-		ImageIO.write(screenshot.getImage(), "PNG",
-				new File(System.getProperty("user.dir") + "\\src\\Screenshots\\" + screenshotName));*/
+		/*
+		 * Screenshot screenshot = new AShot().shootingStrategy(new
+		 * ViewportPastingStrategy(1000)).takeScreenshot(driver);
+		 * ImageIO.write(screenshot.getImage(), "PNG", new
+		 * File(System.getProperty("user.dir") + "\\src\\Screenshots\\" +
+		 * screenshotName));
+		 */
 	}
 
 	public static void captureScreenshot(WebDriver driver, String screenshotName) {
@@ -1963,9 +1967,9 @@ public class Adminproperty extends TestListenerAdapter {
 	public void CreateMVPpost(String postType) throws InterruptedException {
 		System.out.println("Move to warning screen");
 		findAndClick("navigation_header");
-		if(postType.equalsIgnoreCase("alfa"))
-		findAndClick("create_MVPpost_link");
-		else if(postType.equalsIgnoreCase("brand alfa"))
+		if (postType.equalsIgnoreCase("alfa"))
+			findAndClick("create_MVPpost_link");
+		else if (postType.equalsIgnoreCase("brand alfa"))
 			findAndClick("create_bAlfa_link");
 		Thread.sleep(3000);
 		ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
@@ -1991,24 +1995,24 @@ public class Adminproperty extends TestListenerAdapter {
 		implicitWait();
 		findAndClick("Clickplus");
 		implicitWait();
-		if (icon.equalsIgnoreCase("image")) 
+		if (icon.equalsIgnoreCase("image"))
 			findAndClick("MVP_Image");
-		else if (icon.equalsIgnoreCase("video")) 
+		else if (icon.equalsIgnoreCase("video"))
 			findAndClick("MVP_video");
-		else if (icon.equalsIgnoreCase("giphy")) 
+		else if (icon.equalsIgnoreCase("giphy"))
 			findAndClick("MVP_giphy");
-		else if (icon.equalsIgnoreCase("pivot")) 
+		else if (icon.equalsIgnoreCase("pivot"))
 			findAndClick("MVP_pivot_icon");
-		
-		else if (icon.equalsIgnoreCase("instagram")) 
+
+		else if (icon.equalsIgnoreCase("instagram"))
 			findAndClick("MVP_instagram");
-		 else if ((icon.equalsIgnoreCase("infogram"))||(icon.equalsIgnoreCase("datawrapper"))) 
-				findAndClick("MVP_infogram");	
+		else if ((icon.equalsIgnoreCase("infogram")) || (icon.equalsIgnoreCase("datawrapper")))
+			findAndClick("MVP_infogram");
 		else if (icon.equalsIgnoreCase("sumario"))
 			findAndClick("MVP_sumario");
 		else if (icon.equalsIgnoreCase("twitter"))
 			findAndClick("MVP_twitter");
-		else if(icon.equalsIgnoreCase("richcontent"))
+		else if (icon.equalsIgnoreCase("richcontent"))
 			findAndClick("MVP_richContent");
 
 		implicitWait();
@@ -2089,7 +2093,6 @@ public class Adminproperty extends TestListenerAdapter {
 		implicitWait();
 	}
 
-
 	public void getHintImageToolbar() throws InterruptedException {
 		Actions actions = new Actions(driver);
 		Thread.sleep(1000);
@@ -2109,7 +2112,7 @@ public class Adminproperty extends TestListenerAdapter {
 			actions.moveToElement(toolBarList.get(i + 1)).clickAndHold().build().perform();
 		}
 	}
-	
+
 	public void Insertimage(String layout, String button) throws InterruptedException {
 		Conditionalwait("image_select");
 		Thread.sleep(3000);
@@ -2119,13 +2122,13 @@ public class Adminproperty extends TestListenerAdapter {
 		implicitWait();
 		driver.switchTo().activeElement();
 		findAndWrite("MVPImageAlt", "testing alternate text");
-		if (layout.equalsIgnoreCase("")) 
+		if (layout.equalsIgnoreCase(""))
 			findAndClick(button);
 		else {
 			common_layout_mvp("imgLayoutResourcePanel", layout);
 			findAndClick(button);
 		}
-}
+	}
 
 	public void editImage(String image, String layout) throws InterruptedException {
 		Actions actions = new Actions(driver);
@@ -2258,7 +2261,7 @@ public class Adminproperty extends TestListenerAdapter {
 				System.out.println("invalid twitter URL");
 		}
 	}
-	
+
 	public void addMVPInfogram(String infogramUrl, String layout) throws InterruptedException {
 		Actions action = new Actions(driver);
 		implicitWait();
@@ -2292,12 +2295,11 @@ public class Adminproperty extends TestListenerAdapter {
 		action.sendKeys(videoUrl);
 		action.build().perform();
 		implicitWait();
-		if(layout.equalsIgnoreCase(""))
+		if (layout.equalsIgnoreCase(""))
 			findAndClick("MVP_insertarVideo");
-		else
-		{
-		common_layout_mvp("mvp_layout6", layout);
-		findAndClick("MVP_insertarVideo");
+		else {
+			common_layout_mvp("mvp_layout6", layout);
+			findAndClick("MVP_insertarVideo");
 		}
 		System.out.println("Video INSERTED successfully");
 	}
@@ -2375,12 +2377,11 @@ public class Adminproperty extends TestListenerAdapter {
 		for (int i = 1; i <= toolList.size(); i++) {
 			WebElement element = findElement(prop.getProperty(listXpath) + "[" + i + "]");
 			actions.moveToElement(element).clickAndHold().build();
-			Thread.sleep(1000);			
+			Thread.sleep(1000);
 			if (element.getAttribute("title").equalsIgnoreCase(takeAction)) {
 				element.click();
 				break;
-			}
-			else if(takeAction.equalsIgnoreCase("null"))
+			} else if (takeAction.equalsIgnoreCase("null"))
 				break;
 		}
 	}
@@ -2474,7 +2475,9 @@ public class Adminproperty extends TestListenerAdapter {
 		mvp_add_AMPAlternativo(alternativo, text, url);
 	}
 
-	public void mvp_add_AMPAlternativo(String alternativo, String text, String url) throws InterruptedException {// url can video/image
+	public void mvp_add_AMPAlternativo(String alternativo, String text, String url) throws InterruptedException {// url
+																													// can
+																													// video/image
 		Actions actions = new Actions(driver);
 		List<WebElement> buttons = findElementsByXpath(prop.getProperty("mvp_rich_buttons"));
 		for (int i = 1; i <= buttons.size(); i++) {
@@ -2540,56 +2543,55 @@ public class Adminproperty extends TestListenerAdapter {
 	public void add_Otra_tienda(String Pivot_otherStoreProductTitle, String Pivot_otherStoreProductImage,
 			String Pivot_otherStorevalues) throws IOException, InterruptedException {
 		findAndClick("otherStoreProductTitle");
-        findAndWrite("otherStoreProductTitle", Pivot_otherStoreProductTitle);
-        findAndClick("otherStoreProductImage");
-        Thread.sleep(1000);
-        Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\DriverFiles\\fileupload.exe" + " "
-                + System.getProperty("user.dir") + "\\src\\Images\\" + Pivot_otherStoreProductImage);
-        implicitWait();
-        System.out.println("Image uploaded ");
-        String[] arrmultiplestore = Pivot_otherStorevalues.split("@###@");
-        System.out.println("Total array " + arrmultiplestore.length);
-        for (int i = 0; i < arrmultiplestore.length; i++) {
-            String[] arrstores = arrmultiplestore[i].split("@#@");
-            System.out.println(arrstores[0]);
-            System.out.println(arrstores[1]);
-            System.out.println(arrstores[2]);
+		findAndWrite("otherStoreProductTitle", Pivot_otherStoreProductTitle);
+		findAndClick("otherStoreProductImage");
+		Thread.sleep(1000);
+		Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\DriverFiles\\fileupload.exe" + " "
+				+ System.getProperty("user.dir") + "\\src\\Images\\" + Pivot_otherStoreProductImage);
+		implicitWait();
+		System.out.println("Image uploaded ");
+		String[] arrmultiplestore = Pivot_otherStorevalues.split("@###@");
+		System.out.println("Total array " + arrmultiplestore.length);
+		for (int i = 0; i < arrmultiplestore.length; i++) {
+			String[] arrstores = arrmultiplestore[i].split("@#@");
+			System.out.println(arrstores[0]);
+			System.out.println(arrstores[1]);
+			System.out.println(arrstores[2]);
 
-            driver.findElement(By.xpath(".//*[@id='url" + i + "']")).sendKeys(arrstores[0]);
-            
-            if ((arrstores[0].contains("//www.amazon.es/")) ||  (arrstores[0].contains("//www.ebay.es/"))){
-                System.out.println("Fetching url");
-             //.//div[@id='ecommerceStore0']/div[@class='pivot-store-price']/a[1]
+			driver.findElement(By.xpath(".//*[@id='url" + i + "']")).sendKeys(arrstores[0]);
 
-                driver.findElement(By.xpath(".//div[@id='ecommerceStore0']")).click();
-                Boolean presentApiprice=driver.findElement(By.xpath(".//div[@id='ecommerceStore"+(i)+"']/div[@class='pivot-store-price']/a[1]")).isDisplayed();
-                if(presentApiprice==true)
-                {
-                    System.out.println("Price fetched by API");
-                }
-                else
-                {
-                    implicitWait();
-                }
-            
-            }
-            else {
-            driver.findElement(By.xpath(".//*[@id='store" + i + "']")).sendKeys(arrstores[1]);
-            driver.findElement(By.xpath(".//*[@id='price" + i + "']")).sendKeys(arrstores[2]);
-            }
-           if ((arrmultiplestore.length > 1) && ((i + 1) < arrmultiplestore.length)) {
-                findAndClick("Addotherstorebutton");
-            }
-}
-        findAndClick("Pivot_addOtrabutton");
-        if(findElement(prop.getProperty("pivot_duplicateProd_error")).isDisplayed()==true)
-            System.out.println("****** Duplicate product from Amazon or Ebay******");
-        else if(driver.findElement(By.xpath(".//*[@id='invalidEcommerceStore']")).isDisplayed()==true)
-            System.out.println("**** some field is missing *****");
-        else
-        System.out.println("Otra Pivot added successfully");
+			if ((arrstores[0].contains("//www.amazon.es/")) || (arrstores[0].contains("//www.ebay.es/"))) {
+				System.out.println("Fetching url");
+				// .//div[@id='ecommerceStore0']/div[@class='pivot-store-price']/a[1]
+
+				driver.findElement(By.xpath(".//div[@id='ecommerceStore0']")).click();
+				Boolean presentApiprice = driver
+						.findElement(By
+								.xpath(".//div[@id='ecommerceStore" + (i) + "']/div[@class='pivot-store-price']/a[1]"))
+						.isDisplayed();
+				if (presentApiprice == true) {
+					System.out.println("Price fetched by API");
+				} else {
+					implicitWait();
+				}
+
+			} else {
+				driver.findElement(By.xpath(".//*[@id='store" + i + "']")).sendKeys(arrstores[1]);
+				driver.findElement(By.xpath(".//*[@id='price" + i + "']")).sendKeys(arrstores[2]);
+			}
+			if ((arrmultiplestore.length > 1) && ((i + 1) < arrmultiplestore.length)) {
+				findAndClick("Addotherstorebutton");
+			}
+		}
+		findAndClick("Pivot_addOtrabutton");
+		if (findElement(prop.getProperty("pivot_duplicateProd_error")).isDisplayed() == true)
+			System.out.println("****** Duplicate product from Amazon or Ebay******");
+		else if (driver.findElement(By.xpath(".//*[@id='invalidEcommerceStore']")).isDisplayed() == true)
+			System.out.println("**** some field is missing *****");
+		else
+			System.out.println("Otra Pivot added successfully");
 	}
-	
+
 	public void add_pivot_newsletter(String site_name) throws InterruptedException {
 		findAndClick("pivoticon");
 		implicitWait();
@@ -2613,66 +2615,69 @@ public class Adminproperty extends TestListenerAdapter {
 	}
 
 	public void add_pivot_Amazon(String product, String Pivot_otherStorevalues) throws InterruptedException {
-			findAndClick("pivoticon");
+		findAndClick("pivoticon");
+		implicitWait();
+		findAndClick("pivot_product_tab");
+		findAndWrite("pivot_textarea", product);
+		findAndClick("pivot_buscar");
+		if (findElement(prop.getProperty("pivot_amazon_available")).getText()
+				.equalsIgnoreCase("Error: producto no encontrado"))
+			System.out.println("Amazon product not found....");
+		else {
+			if (findElement(prop.getProperty("pivot_section")) != null)
+				implicitWait();
+			findAndClick("pivot_elegir");
 			implicitWait();
-			findAndClick("pivot_product_tab");
-			findAndWrite("pivot_textarea", product);
-			findAndClick("pivot_buscar");
-			if (findElement(prop.getProperty("pivot_amazon_available")).getText()
-					.equalsIgnoreCase("Error: producto no encontrado"))
-				System.out.println("Amazon product not found....");
-			else {
-				if (findElement(prop.getProperty("pivot_section")) != null)
+			System.out.println("Amazon product added successfully....");
+			/*
+			 * JavascriptExecutor jse = (JavascriptExecutor) driver;
+			 * jse.executeScript("arguments[0].scrollIntoView(true);",
+			 * findElement(prop.getProperty("Pivot_addOtrabutton")));
+			 */
+			add_pivot_OtherStores(Pivot_otherStorevalues);
+		}
+	}
+
+	public void add_pivot_OtherStores(String Pivot_otherStorevalues) throws InterruptedException {
+		String row[] = Pivot_otherStorevalues.split("@###@");
+		for (int i = 0; i < row.length; i++) {
+			String col[] = row[i].split("@#@");
+			Actions ob = new Actions(driver);
+			ob.click(driver.findElement(By.xpath(".//*[@class='article-section']/div"))).perform();
+			JavascriptExecutor jse = (JavascriptExecutor) driver;
+			jse.executeScript("arguments[0].scrollIntoView(true);",
+					findElement(prop.getProperty("Addotherstorebutton")));
+			if (i < row.length)
+				ob.click(driver.findElement(By.xpath(prop.getProperty("Addotherstorebutton")))).perform();
+			driver.findElement(By.xpath(".//*[@id='url" + (i + 1) + "']")).sendKeys(col[0]);
+			ob.click(driver.findElement(By.xpath(".//*[@class='article-section']/div"))).perform();
+			if (col[0].contains("//www.amazon.es/") || (col[0].contains("//www.ebay.es/"))) {
 				implicitWait();
-				findAndClick("pivot_elegir");
-				implicitWait();
-				System.out.println("Amazon product added successfully....");
-				/*JavascriptExecutor jse = (JavascriptExecutor) driver;
-				jse.executeScript("arguments[0].scrollIntoView(true);",
-						findElement(prop.getProperty("Pivot_addOtrabutton")));*/
-				add_pivot_OtherStores(Pivot_otherStorevalues);
+				if (driver.findElement(By.xpath(".//*[@id='ecommerceStore" + (i + 1) + "']/div[2]/a"))
+						.getAttribute("href").equalsIgnoreCase(col[0]))
+					System.out.println("*****Fetching amazon or Ebay URL*****");
+			} else {
+				driver.findElement(By.xpath(".//*[@id ='store" + (i + 1) + "']")).sendKeys(col[1]);
+				driver.findElement(By.xpath(".//*[@id ='price" + (i + 1) + "']")).sendKeys(col[2]);
 			}
 		}
+		Thread.sleep(2000);
+		JavascriptExecutor jse = (JavascriptExecutor) driver;
+		jse.executeScript("arguments[0].scrollIntoView(true);", findElement(prop.getProperty("Pivot_addOtrabutton")));
+		findAndClick("Pivot_addOtrabutton");
+		implicitWait();
+		if (findElement(prop.getProperty("pivot_duplicateProd_error")).isDisplayed() == true)
+			System.out.println("Validation error-->>      Duplicate product from Amazon or Ebay  ");
+		else if (driver.findElement(By.xpath(".//*[@id='invalidEcommerceStore']")).isDisplayed() == true)
+			System.out.println("Validation error-->>     ** some field is missing **");
+		else
+			System.out.println("***** Pivot product added succesfully ****");
+	}
 
-		public void add_pivot_OtherStores(String Pivot_otherStorevalues) throws InterruptedException {
-			String row[] = Pivot_otherStorevalues.split("@###@");
-			for (int i = 0; i < row.length; i++) {
-				String col[] = row[i].split("@#@");
-				Actions ob = new Actions(driver);
-				ob.click(driver.findElement(By.xpath(".//*[@class='article-section']/div"))).perform();
-				JavascriptExecutor jse = (JavascriptExecutor) driver;
-				jse.executeScript("arguments[0].scrollIntoView(true);",findElement(prop.getProperty("Addotherstorebutton")));
-				if (i < row.length) 
-					ob.click(driver.findElement(By.xpath(prop.getProperty("Addotherstorebutton")))).perform();
-				driver.findElement(By.xpath(".//*[@id='url" + (i + 1) + "']")).sendKeys(col[0]);
-				ob.click(driver.findElement(By.xpath(".//*[@class='article-section']/div"))).perform();
-				if (col[0].contains("//www.amazon.es/")||(col[0].contains("//www.ebay.es/"))) {
-					implicitWait();
-					if(driver.findElement(By.xpath(".//*[@id='ecommerceStore"+(i+1)+"']/div[2]/a")).getAttribute("href").equalsIgnoreCase(col[0]))
-						System.out.println("*****Fetching amazon or Ebay URL*****");
-				} else {
-					driver.findElement(By.xpath(".//*[@id ='store" + (i + 1) + "']")).sendKeys(col[1]);
-					driver.findElement(By.xpath(".//*[@id ='price" + (i + 1) + "']")).sendKeys(col[2]);
-				    }
-				}
-			Thread.sleep(2000);
-			JavascriptExecutor jse = (JavascriptExecutor) driver;
-			jse.executeScript("arguments[0].scrollIntoView(true);",findElement(prop.getProperty("Pivot_addOtrabutton")));
-			findAndClick("Pivot_addOtrabutton");
-			implicitWait();
-			if(findElement(prop.getProperty("pivot_duplicateProd_error")).isDisplayed()==true)
-				System.out.println("Validation error-->>      Duplicate product from Amazon or Ebay  ");
-			else if(driver.findElement(By.xpath(".//*[@id='invalidEcommerceStore']")).isDisplayed()==true)
-				System.out.println("Validation error-->>     ** some field is missing **");
-			else
-				System.out.println("***** Pivot product added succesfully ****");
-		}
-
-	public void MVP_pivot_newsletter(String sitename)
-	{		
-	    //Select option  .//span[text()='Xataka']
-       driver.findElement(By.xpath(".//input[@value='"+sitename+"']")).click();
-       findAndClick("Mvp_addPivotbutton");
+	public void MVP_pivot_newsletter(String sitename) {
+		// Select option .//span[text()='Xataka']
+		driver.findElement(By.xpath(".//input[@value='" + sitename + "']")).click();
+		findAndClick("Mvp_addPivotbutton");
 	}
 
 	public void MVP_pivot_amazon(String Pivot_amazon_search) {
@@ -2684,7 +2689,7 @@ public class Adminproperty extends TestListenerAdapter {
 
 	public void addpivotarticle(String article, String Pivot_product_Article_posttype, String Pivot_product_Article)
 			throws InterruptedException {
-		//findAndClick("pivoticon");
+		// findAndClick("pivoticon");
 		implicitWait();
 		findAndWrite("pivotsearchinputtext_article", article);
 		findAndClick("pivotsearchbutton_article");
@@ -2731,7 +2736,7 @@ public class Adminproperty extends TestListenerAdapter {
 
 	public void add_MVP_pivotarticle(String Pivot_product_Article, String Pivot_product_Article_posttype)
 			throws InterruptedException {
-		//findAndClick("MVP_pivot_icon");
+		// findAndClick("MVP_pivot_icon");
 		findAndClick("MvP_pivot_Article");
 		Actions action = new Actions(driver);
 		action.moveToElement(driver.findElement(By.xpath(prop.getProperty("MvP_article_search")))).build().perform();
@@ -2778,40 +2783,45 @@ public class Adminproperty extends TestListenerAdapter {
 		}
 
 	}
-	
+
 	public void MVP_add_ecommerce(String Pivot_otherStorevalues) throws InterruptedException {
 		implicitWait();
 		Actions action = new Actions(driver);
 		String row[] = Pivot_otherStorevalues.split("@###@");
 		for (int i = 0; i < row.length; i++) {
-		 String col[] = row[i].split("@#@");
-		if (i < row.length)
-		  findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div/div/button").click();
-		action.click(findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div[2]/div[" + (i + 2) + "]/div[1]")).sendKeys(col[0]).perform();
-		Thread.sleep(1000);
-		action.click(driver.findElement(By.xpath(".//*[@class='ProductInfo_preview-image__1hOqm']"))).perform();
-		implicitWait();
-		if(col[2].contains("&euro;"))
-		col[2] = col[2].replace("&euro;", "");
-		if (col[0].contains("//www.amazon.es/")||(col[0].contains("//www.ebay.es/"))) {
-		if (findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div[2]/div[" + (i + 2) + "]/div[2]/a").getAttribute("href").equalsIgnoreCase(col[0]))
-		System.out.println("*****Fetching amazon or Ebay URL*****");
-		} 
-		else if (col[0].contains("http://") || (col[0].contains("https://"))) {
-		  action.click(findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div[2]/div[" + (i + 2) + "]/div[2]")).sendKeys(col[1]).perform();
-		  action.click(findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div[2]/div[" + (i + 2) + "]/div[3]")).sendKeys(col[2]).perform();
-		} 
-		else {
-		  action.click(driver.findElement(By.xpath(".//*[@class='ProductInfo_preview-image__1hOqm']"))).perform();
-		  implicitWait();
-		if (findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div[2]/div[" + (i + 2) + "]/div/div/p").getText().equalsIgnoreCase("Error: la url no es válida"))
-		  System.out.println("Add some valid url");
-		implicitWait();
+			String col[] = row[i].split("@#@");
+			if (i < row.length)
+				findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div/div/button").click();
+			action.click(findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div[2]/div[" + (i + 2) + "]/div[1]"))
+					.sendKeys(col[0]).perform();
+			Thread.sleep(1000);
+			action.click(driver.findElement(By.xpath(".//*[@class='ProductInfo_preview-image__1hOqm']"))).perform();
+			implicitWait();
+			if (col[2].contains("&euro;"))
+				col[2] = col[2].replace("&euro;", "");
+			if (col[0].contains("//www.amazon.es/") || (col[0].contains("//www.ebay.es/"))) {
+				if (findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div[2]/div[" + (i + 2) + "]/div[2]/a")
+						.getAttribute("href").equalsIgnoreCase(col[0]))
+					System.out.println("*****Fetching amazon or Ebay URL*****");
+			} else if (col[0].contains("http://") || (col[0].contains("https://"))) {
+				action.click(
+						findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div[2]/div[" + (i + 2) + "]/div[2]"))
+						.sendKeys(col[1]).perform();
+				action.click(
+						findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div[2]/div[" + (i + 2) + "]/div[3]"))
+						.sendKeys(col[2]).perform();
+			} else {
+				action.click(driver.findElement(By.xpath(".//*[@class='ProductInfo_preview-image__1hOqm']"))).perform();
+				implicitWait();
+				if (findElement(prop.getProperty("MVP_pivot_MODAL3") + "/div/div[2]/div[" + (i + 2) + "]/div/div/p")
+						.getText().equalsIgnoreCase("Error: la url no es válida"))
+					System.out.println("Add some valid url");
+				implicitWait();
 			}
 		}
 		findAndClick("MVP_pivot_anadir");
 	}
-	
+
 	public void edit_MVP_PivotAmazon() throws InterruptedException {
 		String Pivot_addotherStoreValues_afterEdit = "https://www.flipkart.com@#@FlipkartX@#@2.768,55";
 		Actions actions = new Actions(driver);
@@ -2863,7 +2873,7 @@ public class Adminproperty extends TestListenerAdapter {
 		System.out.println("***Pivot has been successfully deleted***");
 
 	}
-	
+
 	public void insertText_lfe(String postcontent) throws InterruptedException, AWTException {
 		driver.findElement(By.xpath("//*[@id=\"app\"]/div/div/div/div[1]")).click();
 		Actions act = new Actions(driver);
@@ -2879,7 +2889,7 @@ public class Adminproperty extends TestListenerAdapter {
 		implicitWait();
 
 	}
-	
+
 	public void insertVideo_lfe(String Youtube_Video) throws InterruptedException, AWTException {
 		driver.findElement(By.xpath("//*[@id=\"app\"]/div/div/div/div[1]")).click();
 		Actions act = new Actions(driver);
@@ -2896,7 +2906,7 @@ public class Adminproperty extends TestListenerAdapter {
 		implicitWait();
 
 	}
-	
+
 	public void insertCategoryAndTag_lfe(String category, String tag) throws InterruptedException, AWTException {
 		Actions act = new Actions(driver);
 		act.moveToElement(driver.findElement(By.xpath(prop.getProperty("longform_categoryXpath"))));
@@ -2953,7 +2963,7 @@ public class Adminproperty extends TestListenerAdapter {
 		driver.findElement(By.xpath(prop.getProperty("longform_programorBtn"))).click();
 		System.out.println("*****Your post has been published sucessfully*****");
 	}
-	
+
 	public void LFE_layout(String layout) throws InterruptedException {
 		List<WebElement> sidePanel = findElementsByXpath(prop.getProperty("LFE_sidePanel"));
 		for (int i = 1; i <= sidePanel.size(); i++) {
@@ -2973,15 +2983,14 @@ public class Adminproperty extends TestListenerAdapter {
 					List<WebElement> layout2 = findElementsByXpath(prop.getProperty("LFE_layout") + "/span/p/button");
 					for (int y = 1; y < layout2.size(); y++)
 						if (layout2.get(y).getText().equalsIgnoreCase(layout))
-						   layout2.get(y).click();
+							layout2.get(y).click();
 				}
 			}
 			break;
 		}
 	}
-	
-	public void LFE_add_Sumario(String sumario, String layout) throws InterruptedException
-	{
+
+	public void LFE_add_Sumario(String sumario, String layout) throws InterruptedException {
 		Actions act = new Actions(driver);
 		act.click(driver.findElement(By.xpath(".//*[@class='btn glyphicon glyphicon-file']"))).build().perform();
 		implicitWait();
@@ -2989,38 +2998,32 @@ public class Adminproperty extends TestListenerAdapter {
 		implicitWait();
 		LFE_layout(layout);
 	}
-	public String GetpivotflipboardValues()
-	{
+
+	public String GetpivotflipboardValues() {
 		findAndClick("pivoticon");
 		implicitWait();
 		findAndClick("pivotflipboard");
 		Select flipboard = new Select(driver.findElement(By.id("pivot-flipboard-site")));
 		System.out.println(flipboard.getOptions().size());
-		
-		String arrblognames="";
-		
-		for(int i=0;i< flipboard.getOptions().size();i++)
-		{
-			
-			if(arrblognames=="")
-			{
-				arrblognames=flipboard.getOptions().get(i).getText();
+
+		String arrblognames = "";
+
+		for (int i = 0; i < flipboard.getOptions().size(); i++) {
+
+			if (arrblognames == "") {
+				arrblognames = flipboard.getOptions().get(i).getText();
+			} else {
+				arrblognames = arrblognames + "##" + flipboard.getOptions().get(i).getText();
 			}
-			else
-			{
-				arrblognames=arrblognames+"##"+ flipboard.getOptions().get(i).getText();
-			}
-			
+
 		}
 		driver.findElement(By.xpath(".//a[@class='modal-close js-pivot-close']")).click();
-		
+
 		return arrblognames;
-		
+
 	}
-	
-	
-	public void addpivotFlipboard(String blogname) throws InterruptedException
-	{
+
+	public void addpivotFlipboard(String blogname) throws InterruptedException {
 		findAndClick("pivoticon");
 		implicitWait();
 		findAndClick("pivotflipboard");
@@ -3030,7 +3033,7 @@ public class Adminproperty extends TestListenerAdapter {
 		implicitWait();
 		findAndClick("Flipboadbutton");
 	}
-	
+
 	public void addHook(String hookCustomerLogo, String hookCustomerName, String hookLogoLink, String hookTextarea,
 			String hookImage, String hookButtonText) throws IOException, InterruptedException {
 		((JavascriptExecutor) driver).executeScript("window.scrollBy(0,-1000)");
@@ -3090,7 +3093,7 @@ public class Adminproperty extends TestListenerAdapter {
 			}
 		}
 	}
-	
+
 	public void fichaDeReview_lfe(String ficha_review) throws InterruptedException {
 		driver.findElement(By.xpath("//*[@id=\"app\"]/div/div/div/div[1]")).click();
 		Actions act = new Actions(driver);
@@ -3119,8 +3122,8 @@ public class Adminproperty extends TestListenerAdapter {
 			for (int j = 0; j < fichreviewdatasheet.length; j++) {
 				String fichreviewdatasheetdetails[] = fichreviewdatasheet[j].split("@###@");
 				for (int z = 0; z < fichreviewdatasheetdetails.length; z++) {
-					findElement(prop.getProperty("longform_fichareview_datasheet_row") + "[" + (j + 2)
-							+ "]" + "/td[" + (z + 2) + "]/input").sendKeys(fichreviewdatasheetdetails[z]);
+					findElement(prop.getProperty("longform_fichareview_datasheet_row") + "[" + (j + 2) + "]" + "/td["
+							+ (z + 2) + "]/input").sendKeys(fichreviewdatasheetdetails[z]);
 				}
 				System.out.println("Ficha Review: Column values entered");
 			}
@@ -3130,108 +3133,108 @@ public class Adminproperty extends TestListenerAdapter {
 		implicitWait();
 
 	}
-	
-	public void LFE_add_fichaTecnica(String ficha_tecnica) throws InterruptedException
-	{
+
+	public void LFE_add_fichaTecnica(String ficha_tecnica) throws InterruptedException {
 		Actions act = new Actions(driver);
 		act.click(findElement(prop.getProperty("LFE_ficha_tool"))).build().perform();
 		implicitWait();
 		String[] ficha_arr1 = ficha_tecnica.split("@@#@@");
-		act.sendKeys(findElement(prop.getProperty("LFE_ficha_products")+"[1]/input"),ficha_arr1[0]).build().perform();
-		act.sendKeys(findElement(prop.getProperty("LFE_ficha_products")+"[2]/input"),ficha_arr1[1]).build().perform(); 
+		act.sendKeys(findElement(prop.getProperty("LFE_ficha_products") + "[1]/input"), ficha_arr1[0]).build()
+				.perform();
+		act.sendKeys(findElement(prop.getProperty("LFE_ficha_products") + "[2]/input"), ficha_arr1[1]).build()
+				.perform();
 		String[] ficha_arr2 = ficha_arr1[4].split("@&@");
 		findElement(prop.getProperty("LFE_ficha_rowCount")).clear();
 		implicitWait();
 		if (ficha_arr2.length > 3) {
-			findAndWrite("LFE_ficha_rowCount", new Integer(ficha_arr2.length-3).toString());
+			findAndWrite("LFE_ficha_rowCount", new Integer(ficha_arr2.length - 3).toString());
 			findAndClick("LFE_ficha_plus");
 		}
 		for (int i = 0; i < ficha_arr2.length; i++) {
 			String[] arritems = ficha_arr2[i].split("@#@");
 			for (int j = 0; j < arritems.length; j++) {
 				if (arritems[j].equalsIgnoreCase("null")) {
-					findElement(prop.getProperty("LFE_ficha_row") + "[" + (i + 2) + "]" + "/td[" + (j +2) + "]/input").sendKeys("");
+					findElement(prop.getProperty("LFE_ficha_row") + "[" + (i + 2) + "]" + "/td[" + (j + 2) + "]/input")
+							.sendKeys("");
 				} else {
-					findElement(prop.getProperty("LFE_ficha_row") + "[" + (i + 2) + "]" + "/td[" + (j + 2) + "]/input").sendKeys(arritems[j]);
+					findElement(prop.getProperty("LFE_ficha_row") + "[" + (i + 2) + "]" + "/td[" + (j + 2) + "]/input")
+							.sendKeys(arritems[j]);
 				}
-				}}
+			}
+		}
 		implicitWait();
 		findAndWrite("LFE_ficha_otherDetails", ficha_arr1[5]);
 	}
-	
-	public void publicar_MVP(String category, String tag, String fbText) throws InterruptedException, AWTException
-	{
+
+	public void publicar_MVP(String category, String tag, String fbText) throws InterruptedException, AWTException {
 		Actions action = new Actions(driver);
 		action.moveToElement(driver.findElement(By.xpath(prop.getProperty("longform_publicarTab"))));
 		action.click();
 		action.build().perform();
-			Thread.sleep(2000);
+		Thread.sleep(2000);
 		insertCategoryAndTag_lfe(category, tag);
 		insertFbContent_lfe(fbText);
 		imageCropperLfe();
 	}
-	
-	public void brandCategory_MVP(String category, String disclaimer)
-	{
-	 action_sendKeys(driver.findElement(By.xpath(prop.getProperty("bAlfa_category"))), category);
-	 implicitWait();
-	 Actions act = new Actions(driver);
-	 act.moveToElement(findElement(prop.getProperty("MVP_TW_textarea"))).click().build().perform();	
-	 act.sendKeys(Keys.SPACE).sendKeys(""+"   #test #test").build().perform();
-	 if(category.equalsIgnoreCase("Brand Article")) {
-		Actions action = new Actions(driver);
-		action.moveToElement(findElement(prop.getProperty("bAlfa_disclaimer"))).click().build().perform();;
-		action.sendKeys(disclaimer).perform();
+
+	public void brandCategory_MVP(String category, String disclaimer) {
+		action_sendKeys(driver.findElement(By.xpath(prop.getProperty("bAlfa_category"))), category);
+		implicitWait();
+		Actions act = new Actions(driver);
+		act.moveToElement(findElement(prop.getProperty("MVP_TW_textarea"))).click().build().perform();
+		act.sendKeys(Keys.SPACE).sendKeys("" + "   #test #test").build().perform();
+		if (category.equalsIgnoreCase("Brand Article")) {
+			Actions action = new Actions(driver);
+			action.moveToElement(findElement(prop.getProperty("bAlfa_disclaimer"))).click().build().perform();
+			;
+			action.sendKeys(disclaimer).perform();
 		}
 	}
-	
-	public void primary_section_MVP(String primary, String URL) throws InterruptedException
-	{
-		if(primary.equalsIgnoreCase("image"))
-		{
+
+	public void primary_section_MVP(String primary, String URL) throws InterruptedException {
+		if (primary.equalsIgnoreCase("image")) {
 			findAndClick("MVP_primaryImage");
 			implicitWait();
 			mvpUrlImage(URL);
 			Insertimage("", "MVP_insertImage");
+		} else if (primary.equalsIgnoreCase("video")) {
+			findAndClick("MVP_primaryVideo");
+			MVPaddVideo(URL, "");
 		}
-			else  if (primary.equalsIgnoreCase("video"))
-			{
-				findAndClick("MVP_primaryVideo");
-				MVPaddVideo(URL, "");
-			}
 	}
-	
-	public void action_sendKeys(WebElement webElement, String sites)
-	 {
-		 Actions act = new Actions(driver);
-	   	    act.moveToElement(webElement).click().build().perform();
-		    act.sendKeys(sites);
-		    act.sendKeys(Keys.ENTER).build().perform();
-			implicitWait();
-	 }
-	 
-	 public void CF_pivot_dropdown(String item) throws InterruptedException
-	 {
-		 ClickICON(driver, "pivot");
-		 List<WebElement> list = findElementsByXpath(prop.getProperty("MVP_pivot_dropdown"));
-		 for(int i=1; i<list.size();i++)
-		 {
-			 if(list.get(i).getText().equalsIgnoreCase(item))
-			 {
-			 list.get(i).click();
-			 break;
-			 }
-		 }
-	 }
-	
-	public void CF_flipboard_magazine(String pivot_module) throws InterruptedException
-	  {
-		 CF_pivot_dropdown(pivot_module);
-		 implicitWait();
-		 String sites[] = new String[]{"Xataka", "Xataka Móvil", "Xataka Foto","Xataka Android", "Xataka Smart Home","Xataka Windows", "Xataka eSports","Magnet", "Applesfera","Vida Extra", "Genbeta","Compradiccion","Trendencias", "Directo al Paladar","Bebés y Más", "Vitónica", "Decoesfera", "Motorpasión","Motorpasión Moto", "Espinof", "Diario del Viajero" }; 
-		 String magazine[] = new String[] {"Ciencia", "Tarifas y promociones para móviles", "Fotógrafos", "Todo Xiaomi", "Hogar Digital","Windows", "Fortnite", "Japón", "Trucos Apple","Nintendo", "Linux","Lo mejor de las mejores rebajas", "Libros, cine y series de televisión","Chocolate", "Lactancia", "Entrenamiento en el gimnasio", "Hogar Digital", "Superdeportivos", "Solo Motos", "Oscars 2019","Viajar en coche" };
-		 for(int i =0; i<sites.length; i++)
-		 {
+
+	public void action_sendKeys(WebElement webElement, String sites) {
+		Actions act = new Actions(driver);
+		act.moveToElement(webElement).click().build().perform();
+		act.sendKeys(sites);
+		act.sendKeys(Keys.ENTER).build().perform();
+		implicitWait();
+	}
+
+	public void CF_pivot_dropdown(String item) throws InterruptedException {
+		ClickICON(driver, "pivot");
+		List<WebElement> list = findElementsByXpath(prop.getProperty("MVP_pivot_dropdown"));
+		for (int i = 1; i < list.size(); i++) {
+			if (list.get(i).getText().equalsIgnoreCase(item)) {
+				list.get(i).click();
+				break;
+			}
+		}
+	}
+
+	public void CF_flipboard_magazine(String pivot_module) throws InterruptedException {
+		CF_pivot_dropdown(pivot_module);
+		implicitWait();
+		String sites[] = new String[] { "Xataka", "Xataka Móvil", "Xataka Foto", "Xataka Android", "Xataka Smart Home",
+				"Xataka Windows", "Xataka eSports", "Magnet", "Applesfera", "Vida Extra", "Genbeta", "Compradiccion",
+				"Trendencias", "Directo al Paladar", "Bebés y Más", "Vitónica", "Decoesfera", "Motorpasión",
+				"Motorpasión Moto", "Espinof", "Diario del Viajero" };
+		String magazine[] = new String[] { "Ciencia", "Tarifas y promociones para móviles", "Fotógrafos",
+				"Todo Xiaomi", "Hogar Digital", "Windows", "Fortnite", "Japón", "Trucos Apple", "Nintendo", "Linux",
+				"Lo mejor de las mejores rebajas", "Libros, cine y series de televisión", "Chocolate", "Lactancia",
+				"Entrenamiento en el gimnasio", "Hogar Digital", "Superdeportivos", "Solo Motos", "Oscars 2019",
+				"Viajar en coche" };
+		for (int i = 0; i < sites.length; i++) {
 			implicitWait();
 			action_sendKeys(findElement(prop.getProperty("MVP_flipboard_dropdown")), sites[i]);
 			Thread.sleep(1000);
@@ -3240,60 +3243,94 @@ public class Adminproperty extends TestListenerAdapter {
 			action_sendKeys(findElement(prop.getProperty("MVP_magazine_dropdown")), magazine[i]);
 			findAndClick("Mvp_addPivotbutton");
 			Thread.sleep(1000);
-			if((i>=sites.length)||(i==sites.length-1))
+			if ((i >= sites.length) || (i == sites.length - 1))
 				break;
 			else
-			CF_pivot_dropdown("Flipboard");
-			}
-	    }
-	 
-	 public void addpivotFlipboard_Alfa(String flipboard_blogname) throws InterruptedException {
+				CF_pivot_dropdown("Flipboard");
+		}
+	}
 
-			String flipboardarr[] = flipboard_blogname.split("@##@");
-			for (int i = 0; i < flipboardarr.length; i++) {
-				CF_pivot_dropdown("flipboard");
-				driver.switchTo().activeElement();
-				Actions action = new Actions(driver);
-				implicitWait();
-				action.moveToElement(driver.findElement(By.xpath(".//div[@class='css-1dcvmb5 react-select__control']")))
-						.click();
-				action.moveToElement(driver.findElement(By.xpath(
-						"//div[@class='css-1hwfws3 react-select__value-container react-select__value-container--has-value']")))
-						.click();
-				implicitWait();
-				action.sendKeys(flipboardarr[i]).sendKeys(Keys.ENTER);
-				action.build().perform();
-				implicitWait();
-				findAndClick("MVP_flipboard_AddButton");
+	public void addpivotFlipboard_Alfa(String flipboard_blogname) throws InterruptedException {
+
+		String flipboardarr[] = flipboard_blogname.split("@##@");
+		for (int i = 0; i < flipboardarr.length; i++) {
+			CF_pivot_dropdown("flipboard");
+			driver.switchTo().activeElement();
+			Actions action = new Actions(driver);
+			implicitWait();
+			action.moveToElement(driver.findElement(By.xpath(".//div[@class='css-1dcvmb5 react-select__control']")))
+					.click();
+			action.moveToElement(driver.findElement(By.xpath(
+					"//div[@class='css-1hwfws3 react-select__value-container react-select__value-container--has-value']")))
+					.click();
+			implicitWait();
+			action.sendKeys(flipboardarr[i]).sendKeys(Keys.ENTER);
+			action.build().perform();
+			implicitWait();
+			findAndClick("MVP_flipboard_AddButton");
+		}
+	}
+
+	public void insertGif_lfe(String Gif_link) throws InterruptedException, AWTException {
+		driver.findElement(By.xpath("//*[@id=\"app\"]/header/div/div[2]/div/div/div/div/button[1]")).click();
+		Actions mouse = new Actions(driver);
+		mouse.moveToElement(driver.findElement(By.xpath(prop.getProperty("add_icon"))))
+				.moveToElement(driver.findElement(By.xpath(prop.getProperty("longform_gifpath")))).click();
+		mouse.build().perform();
+		Thread.sleep(1000);
+		findAndWrite("longform_gifurl", Gif_link);
+		driver.findElement(By.xpath("//*[@id=\"div-text-area3\"]/div/div/div/label")).click();
+		System.out.println("Gif inserted successfully");
+		implicitWait();
+
+	}
+
+	public void insertInfogram_lfe(String Infogram_link) throws InterruptedException, AWTException {
+		driver.findElement(By.xpath("//*[@id=\"app\"]/header/div/div[2]/div/div/div/div/button[1]")).click();
+		Actions mouse = new Actions(driver);
+		mouse.moveToElement(driver.findElement(By.xpath(prop.getProperty("add_icon"))))
+				.moveToElement(driver.findElement(By.xpath(prop.getProperty("longform_Infogrampath")))).click();
+		mouse.build().perform();
+		Thread.sleep(1000);
+		findAndWrite("longform_Infogramurl", Infogram_link);
+		driver.findElement(By.xpath("//*[@id=\"div-text-area3\"]/div/div/div/label")).click();
+		System.out.println("Infogram inserted successfully");
+		implicitWait();
+
+	}
+
+	public void addPivotExternalCMS(String pivot_ExternalUrl, String pivot_ExternalNombre,
+			String pivot_ExternalArticletitle) {
+		findAndClick("pivoticon");
+		findAndClick("pivotExternalTab");
+		if (!pivot_ExternalUrl.equalsIgnoreCase("null")) {
+			findAndWrite("pivotExternalUrl", pivot_ExternalUrl);
+		} else {
+			System.out.println("External Url field is 'null' in Excel file");
+		}
+		if (!pivot_ExternalNombre.equalsIgnoreCase("null")) {
+			findAndWrite("pivotExternalNombre", pivot_ExternalNombre);
+		} else {
+			System.out.println("External Name field is 'null' in Excel file");
+		}
+		if (!pivot_ExternalArticletitle.equalsIgnoreCase("null")) {
+			findAndWrite("pivotExternalArticletitle", pivot_ExternalArticletitle);
+		} else {
+			System.out.println("External article title field is 'null' in Excel file");
+		}
+		if (!pivot_ExternalUrl.equalsIgnoreCase("null") && !pivot_ExternalNombre.equalsIgnoreCase("null")
+				&& !pivot_ExternalArticletitle.equalsIgnoreCase("null")) {
+			findAndClick("Addpivotproduct");
+			System.out.println("PivotExternalLink is added successfully");
+		} else {
+			findAndClick("Addpivotproduct");
+			List<WebElement> lists1 = driver
+					.findElements(By.xpath("//p[@class='error message'][contains(text(),'Error:')]"));
+			for (WebElement test1 : lists1) {
+				System.out.println("Validation message--> " + test1.getText());
+
 			}
 		}
-	 
-	 public void insertGif_lfe(String Gif_link) throws InterruptedException, AWTException {
-			driver.findElement(By.xpath("//*[@id=\"app\"]/header/div/div[2]/div/div/div/div/button[1]")).click();
-			Actions mouse = new Actions(driver);
-			mouse.moveToElement(driver.findElement(By.xpath(prop.getProperty("add_icon"))))
-					.moveToElement(driver.findElement(By.xpath(prop.getProperty("longform_gifpath"))))
-					.click();
-			mouse.build().perform();
-			Thread.sleep(1000);
-			findAndWrite("longform_gifurl", Gif_link);
-			driver.findElement(By.xpath("//*[@id=\"div-text-area3\"]/div/div/div/label")).click();
-			System.out.println("Gif inserted successfully");
-			implicitWait();
-			
-		}
-		public void insertInfogram_lfe(String Infogram_link) throws InterruptedException, AWTException {
-			driver.findElement(By.xpath("//*[@id=\"app\"]/header/div/div[2]/div/div/div/div/button[1]")).click();
-			Actions mouse = new Actions(driver);
-			mouse.moveToElement(driver.findElement(By.xpath(prop.getProperty("add_icon"))))
-					.moveToElement(driver.findElement(By.xpath(prop.getProperty("longform_Infogrampath"))))
-					.click();
-			mouse.build().perform();
-			Thread.sleep(1000);
-			findAndWrite("longform_Infogramurl", Infogram_link);
-			driver.findElement(By.xpath("//*[@id=\"div-text-area3\"]/div/div/div/label")).click();
-			System.out.println("Infogram inserted successfully");
-			implicitWait();
-			
-		}
+
+	}
 }
