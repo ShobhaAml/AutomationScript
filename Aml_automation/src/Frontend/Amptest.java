@@ -117,13 +117,12 @@ public class Amptest {
 		return errorMap;
 	}
 	public WebDriver headlessbrowser(String url){
-		  System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedriver");
-      ChromeOptions chromeOptions = new ChromeOptions();
+		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "//src//Driverfiles//linux//" + "chromedriver");
+        ChromeOptions chromeOptions = new ChromeOptions();
 	    chromeOptions.addArguments("--headless");
 	    ChromeDriver driver = new ChromeDriver(chromeOptions);
 		driver.get(url);     
-		return driver;
-		
+		return driver;		
 	}
 	 public static Map<String, Integer> sortByValue(Map<String, Integer> hm) 
 	    { 
