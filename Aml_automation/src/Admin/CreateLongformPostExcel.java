@@ -46,7 +46,7 @@ public class CreateLongformPostExcel {
 
 	@DataProvider(name = "testdata")
 	public Object[][] TestDataFeed() throws Exception {
-		Object[][] postdata = adminProperties.readExcel("Longform", 38);
+		Object[][] postdata = adminProperties.readExcel("Longform", 40);
 		return postdata;
 	}
 
@@ -59,7 +59,7 @@ public class CreateLongformPostExcel {
 			String Checkbox_table_first_column_heading, String Checkbox_table_occupy_all_avaiable_width,
 			String homecontent, String homeimage, String category, String catagory_other, String tag, String seotitle,
 			String seodesc, String specialpost, String comment_closed, String author, String Twittertext, String fbtext,
-			String Repost, String Run, String Republish, String Future_time) throws Exception {
+			String Repost, String Run, String Republish, String Future_time, String Gif_link, String Infogram_link) throws Exception {
 		if (Run.trim().equalsIgnoreCase("Y")) {
 			String blogrole = "";
 			adminProperties.LoginAdmin(prop.getProperty("admin_usename"), prop.getProperty("admin_pwd"));
@@ -107,6 +107,20 @@ public class CreateLongformPostExcel {
 				else {
 					System.out.println("FichaReview is 'null' in Excel file");
 				}
+			
+			// Adding Gif in the section field
+						if (!Gif_link.equalsIgnoreCase("null")) {
+							adminProperties.insertGif_lfe(Gif_link);
+						} else {
+							System.out.println("Gif link is not available");
+						}
+
+						// Adding Gif in the section field
+						if (!Infogram_link.equalsIgnoreCase("null")) {
+							adminProperties.insertInfogram_lfe(Infogram_link);
+						} else {
+							System.out.println("Infogram link is not available");
+						}
 
 			/*
 			 * adminProperties.findAndClick("longform_homepageImagePlusIcon");
