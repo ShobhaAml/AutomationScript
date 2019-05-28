@@ -42,7 +42,7 @@ public class CreatePostExcel {
 
 	@DataProvider(name = "testdata")
 	public Object[][] TestDataFeed() throws Exception {
-		Object[][] postdata = adminProperties.readExcel("Normal", 108);
+		Object[][] postdata = adminProperties.readExcel("Normal", 109);
 		return postdata;
 	}
 
@@ -71,7 +71,7 @@ public class CreatePostExcel {
 			String Repost, String Run, String Republish, String Future_time, String Pivot_product_Article,
 			String Pivot_product_Article_posttype, String Publish_to_homepage_checkbox, String hook,
 			String hookCustomerLogo, String hookCustomerName, String hookLogoLink, String hookTextarea,
-			String hookImage, String hookButtonText, String richContent_alternativo, String rich_text, String rich_URL,
+			String hookImage, String hookButtonText, String richContent_alternativo, String rich_text, String rich_URL, String flipboard, String flipboard_blogname, String flipboard_magazine, 
 			String pivotExternalLink, String pivot_ExternalUrl, String pivot_ExternalNombre,
 			String pivot_ExternalArticletitle) throws Exception {
 		if (Run.trim().equalsIgnoreCase("Y")) {
