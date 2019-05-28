@@ -3221,34 +3221,29 @@ public class Adminproperty extends TestListenerAdapter {
 			}
 		}
 	}
-
-	public void CF_flipboard_magazine(String pivot_module) throws InterruptedException {
-		CF_pivot_dropdown(pivot_module);
-		implicitWait();
-		String sites[] = new String[] { "Xataka", "Xataka Móvil", "Xataka Foto", "Xataka Android", "Xataka Smart Home",
-				"Xataka Windows", "Xataka eSports", "Magnet", "Applesfera", "Vida Extra", "Genbeta", "Compradiccion",
-				"Trendencias", "Directo al Paladar", "Bebés y Más", "Vitónica", "Decoesfera", "Motorpasión",
-				"Motorpasión Moto", "Espinof", "Diario del Viajero" };
-		String magazine[] = new String[] { "Ciencia", "Tarifas y promociones para móviles", "Fotógrafos",
-				"Todo Xiaomi", "Hogar Digital", "Windows", "Fortnite", "Japón", "Trucos Apple", "Nintendo", "Linux",
-				"Lo mejor de las mejores rebajas", "Libros, cine y series de televisión", "Chocolate", "Lactancia",
-				"Entrenamiento en el gimnasio", "Hogar Digital", "Superdeportivos", "Solo Motos", "Oscars 2019",
-				"Viajar en coche" };
-		for (int i = 0; i < sites.length; i++) {
+	
+	public void CF_flipboard_magazine(String sites, String magazine) throws InterruptedException
+	  {
+		 CF_pivot_dropdown("Flipboard");
+		 implicitWait();
+		 String[] sitesArr = sites.split("@##@");
+		 String[] magazineArr = magazine.split("@##@");
+		 for(int i =0; i<sitesArr.length; i++)
+		 {
 			implicitWait();
-			action_sendKeys(findElement(prop.getProperty("MVP_flipboard_dropdown")), sites[i]);
+			action_sendKeys(findElement(prop.getProperty("MVP_flipboard_dropdown")), sitesArr[i]);
 			Thread.sleep(1000);
 			driver.findElement(By.xpath(".//*[@value='siteMagazine']")).click();
 			Thread.sleep(1000);
-			action_sendKeys(findElement(prop.getProperty("MVP_magazine_dropdown")), magazine[i]);
+			action_sendKeys(findElement(prop.getProperty("MVP_magazine_dropdown")), magazineArr[i]);
 			findAndClick("Mvp_addPivotbutton");
 			Thread.sleep(1000);
-			if ((i >= sites.length) || (i == sites.length - 1))
+			if((i>=sitesArr.length)||(i==sitesArr.length-1))
 				break;
 			else
-				CF_pivot_dropdown("Flipboard");
-		}
-	}
+			CF_pivot_dropdown("Flipboard");
+			}
+	    }
 
 	public void addpivotFlipboard_Alfa(String flipboard_blogname) throws InterruptedException {
 
@@ -3333,4 +3328,36 @@ public class Adminproperty extends TestListenerAdapter {
 		}
 
 	}
+	
+	public void MVP_add_review(String review) throws InterruptedException
+	 {
+		ClickICON(driver, "review");
+		String[] revArr = review.split("~##~");
+		findAndWrite("MVP_review_score", revArr[0]);
+		implicitWait();
+		String[] rows = revArr[2].split("@##@");
+		if(revArr[1].equalsIgnoreCase("y"))
+			driver.findElement(By.xpath(".//input[@type='checkbox']")).click();
+		implicitWait();
+		if (rows.length > 3) {
+		findAndWrite("MVP_review_rowCount", new Integer(rows.length-3).toString());
+		findAndClick("MVP_review_anadir");}
+		for (int i = 0; i < rows.length; i++) {
+			String[] col = rows[i].split("@~#~@");		
+			for (int j = 0; j < col.length; j++) {
+				if (col[j].equalsIgnoreCase("null")) {
+					findElement(prop.getProperty("MVP_review_table") + "[" + (i + 1) + "]" + "/td[" + (j+1) + "]/div/div/input").sendKeys("");
+				} else {
+					findElement(prop.getProperty("MVP_review_table") + "[" + (i + 1) + "]" + "/td[" + (j+1) + "]/div/div/input").sendKeys(col[j]);
+				}
+			}
+	 }
+		findAndWrite("MVP_review_positive", revArr[3]);
+		findAndWrite("MVP_review_negative", revArr[4]);
+		implicitWait();
+		Actions action = new Actions(driver);
+		action.moveToElement(findElement(prop.getProperty("MVP_review_resumen"))).click().sendKeys(revArr[5]).build().perform();
+		implicitWait();
+		findAndClick("MVPInsertButton");
+	 }
 }
