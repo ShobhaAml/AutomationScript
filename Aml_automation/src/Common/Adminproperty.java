@@ -3253,11 +3253,8 @@ public class Adminproperty extends TestListenerAdapter {
 			driver.switchTo().activeElement();
 			Actions action = new Actions(driver);
 			implicitWait();
-			action.moveToElement(driver.findElement(By.xpath(".//div[@class='css-1dcvmb5 react-select__control']")))
-					.click();
-			action.moveToElement(driver.findElement(By.xpath(
-					"//div[@class='css-1hwfws3 react-select__value-container react-select__value-container--has-value']")))
-					.click();
+			action.moveToElement(findElement(prop.getProperty("MVP_flipboard_siteDrpdown"))).click();
+			action.moveToElement(findElement(prop.getProperty("MVP_flipboard_siteDrpdownSearchField"))).click();
 			implicitWait();
 			action.sendKeys(flipboardarr[i]).sendKeys(Keys.ENTER);
 			action.build().perform();
@@ -3360,4 +3357,39 @@ public class Adminproperty extends TestListenerAdapter {
 		implicitWait();
 		findAndClick("MVPInsertButton");
 	 }
+	
+	public void addpivotExternal_Alfa(String pivot_ExternalUrl, String pivot_ExternalNombre,
+			String pivot_ExternalArticletitle) throws InterruptedException {
+		CF_pivot_dropdown("Artículo externo");
+		driver.switchTo().activeElement();
+		implicitWait();
+		if (!pivot_ExternalUrl.equalsIgnoreCase("null")) {
+			findAndWrite("MVP_pivotExternalUrl", pivot_ExternalUrl);
+		} else {
+			System.out.println("External Url field is 'null' in Excel file");
+		}
+		if (!pivot_ExternalNombre.equalsIgnoreCase("null")) {
+			findAndWrite("MVP_pivotExternalNombre", pivot_ExternalNombre);
+		} else {
+			System.out.println("External Name field is 'null' in Excel file");
+		}
+		if (!pivot_ExternalArticletitle.equalsIgnoreCase("null")) {
+			findAndWrite("MVP_pivotExternalArticletitle", pivot_ExternalArticletitle);
+		} else {
+			System.out.println("External article title field is 'null' in Excel file");
+		}
+		if (!pivot_ExternalUrl.equalsIgnoreCase("null") && !pivot_ExternalNombre.equalsIgnoreCase("null")
+				&& !pivot_ExternalArticletitle.equalsIgnoreCase("null")) {
+			findAndClick("MVP_flipboard_AddButton");
+			System.out.println("PivotExternalLink is added successfully");
+		} else {
+			findAndClick("MVP_flipboard_AddButton");
+			List<WebElement> lists1 = driver.findElements(By.xpath("//p[contains(text(),'Error:')]"));
+			for (WebElement test1 : lists1) {
+				System.out.println("Validation message--> " + test1.getText());
+
+			}
+		}
+
+	}
 }
