@@ -3221,7 +3221,7 @@ public class Adminproperty extends TestListenerAdapter {
 			}
 		}
 	}
-
+	
 	public void CF_flipboard_magazine(String sites, String magazine) throws InterruptedException
 	  {
 		 CF_pivot_dropdown("Flipboard");

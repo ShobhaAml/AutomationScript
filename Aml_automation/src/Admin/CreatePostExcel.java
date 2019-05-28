@@ -77,7 +77,7 @@ public class CreatePostExcel {
 		if (Run.trim().equalsIgnoreCase("Y")) {
 			String blogrole = "";
 			adminProperties.LoginAdmin(prop.getProperty("admin_usename"), prop.getProperty("admin_pwd"));
-			/*
+			/*//
 			 * Connection conn = adminProperties.connectDb(); String arrlogin =
 			 * adminProperties.checkuserlogintype(conn
 			 * ,prop.getProperty("admin_usename"),prop.getProperty("admin_pwd")) ;

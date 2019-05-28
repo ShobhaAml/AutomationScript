@@ -65,7 +65,7 @@ public class CreateMVPPostExcel {
 			adminProperties.LoginAdmin(prop.getProperty("admin_usename"), prop.getProperty("admin_pwd"));
 			adminProperties.CreateMVPpost(posttype);
 			Thread.sleep(5000);
-			System.out.println("Let's add title to post");
+			System.out.println("Let's add title ..to post");
 			//adminProperties.AddMVPTitle("Testing title");
 			adminProperties.implicitWait();
 			/*
