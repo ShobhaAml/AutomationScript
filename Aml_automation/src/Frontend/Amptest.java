@@ -117,10 +117,10 @@ public class Amptest {
 		return errorMap;
 	}
 	public WebDriver headlessbrowser(String url){
-		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "//src//Driverfiles//linux//" + "chromedriver");
+		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "//src//Driverfiles//linux//chromedriver");
         ChromeOptions chromeOptions = new ChromeOptions();
 	    chromeOptions.addArguments("--headless");
-	    ChromeDriver driver = new ChromeDriver(chromeOptions);
+	    WebDriver  driver = new ChromeDriver(chromeOptions);
 		driver.get(url);     
 		return driver;		
 	}
