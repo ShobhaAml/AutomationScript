@@ -58,15 +58,15 @@ public class CreateMVPPostExcel {
 			String Repost, String Run, String Republish, String Future_time, String Pivot_product_Article,
 			String Pivot_product_Article_posttype, String Publish_to_homepage_checkbox, String hook,
 			String hookCustomerLogo, String hookCustomerName, String hookLogoLink, String hookTextarea,
-			String hookImage, String hookButtonText, String richContent_alternativo, String rich_text, String rich_URL, String flipboard, String flipboard_blogname, String flipboard_magazine, 
-			String pivotExternalLink, String pivot_ExternalUrl, String pivot_ExternalNombre,
-			String pivot_ExternalArticletitle) throws Exception {
+			String hookImage, String hookButtonText, String richContent_alternativo, String rich_text, String rich_URL,
+			String flipboard, String flipboard_blogname, String flipboard_magazine, String pivotExternalLink,
+			String pivot_ExternalUrl, String pivot_ExternalNombre, String pivot_ExternalArticletitle) throws Exception {
 		if (Run.trim().equalsIgnoreCase("Y")) {
 			adminProperties.LoginAdmin(prop.getProperty("admin_usename"), prop.getProperty("admin_pwd"));
 			adminProperties.CreateMVPpost(posttype);
 			Thread.sleep(5000);
 			System.out.println("Let's add title ..to post");
-			//adminProperties.AddMVPTitle("Testing title");
+			// adminProperties.AddMVPTitle("Testing title");
 			adminProperties.implicitWait();
 			/*
 			 * List<WebElement> list =
@@ -160,17 +160,22 @@ public class CreateMVPPostExcel {
 				adminProperties.addpivotFlipboard_Alfa(flipboard_blogname);
 
 			}
-			
-			if(!flipboard_blogname.equalsIgnoreCase("null"))
-			{
+
+			if (!flipboard_blogname.equalsIgnoreCase("null")) {
 				adminProperties.implicitWait();
 				adminProperties.CF_flipboard_magazine(flipboard_blogname, flipboard_magazine);
 			}
-			
-			if(!ficha_review.equalsIgnoreCase("null"))
-			{
+
+			if (!ficha_review.equalsIgnoreCase("null")) {
 				adminProperties.implicitWait();
 				adminProperties.MVP_add_review(ficha_review);
+			}
+
+			if (pivotExternalLink.equalsIgnoreCase("Y")) {
+				adminProperties.implicitWait();
+				adminProperties.addpivotExternal_Alfa(pivot_ExternalUrl, pivot_ExternalNombre, pivot_ExternalArticletitle);
+			} else {
+				adminProperties.addNewlines();
 			}
 
 		}
