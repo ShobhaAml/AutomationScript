@@ -3267,4 +3267,33 @@ public class Adminproperty extends TestListenerAdapter {
 				findAndClick("MVP_flipboard_AddButton");
 			}
 		}
+	 
+	 public void insertGif_lfe(String Gif_link) throws InterruptedException, AWTException {
+			driver.findElement(By.xpath("//*[@id=\"app\"]/header/div/div[2]/div/div/div/div/button[1]")).click();
+			Actions mouse = new Actions(driver);
+			mouse.moveToElement(driver.findElement(By.xpath(prop.getProperty("add_icon"))))
+					.moveToElement(driver.findElement(By.xpath(prop.getProperty("longform_gifpath"))))
+					.click();
+			mouse.build().perform();
+			Thread.sleep(1000);
+			findAndWrite("longform_gifurl", Gif_link);
+			driver.findElement(By.xpath("//*[@id=\"div-text-area3\"]/div/div/div/label")).click();
+			System.out.println("Gif inserted successfully");
+			implicitWait();
+			
+		}
+		public void insertInfogram_lfe(String Infogram_link) throws InterruptedException, AWTException {
+			driver.findElement(By.xpath("//*[@id=\"app\"]/header/div/div[2]/div/div/div/div/button[1]")).click();
+			Actions mouse = new Actions(driver);
+			mouse.moveToElement(driver.findElement(By.xpath(prop.getProperty("add_icon"))))
+					.moveToElement(driver.findElement(By.xpath(prop.getProperty("longform_Infogrampath"))))
+					.click();
+			mouse.build().perform();
+			Thread.sleep(1000);
+			findAndWrite("longform_Infogramurl", Infogram_link);
+			driver.findElement(By.xpath("//*[@id=\"div-text-area3\"]/div/div/div/label")).click();
+			System.out.println("Infogram inserted successfully");
+			implicitWait();
+			
+		}
 }
