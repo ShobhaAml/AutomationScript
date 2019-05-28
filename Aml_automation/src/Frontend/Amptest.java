@@ -120,7 +120,7 @@ public class Amptest {
 		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "//src//Driverfiles//linux//chromedriver");
         ChromeOptions chromeOptions = new ChromeOptions();
 	    chromeOptions.addArguments("--headless");
-	    WebDriver  driver = new ChromeDriver(chromeOptions);
+	    ChromeDriver driver = new ChromeDriver(chromeOptions);
 		driver.get(url);     
 		return driver;		
 	}
