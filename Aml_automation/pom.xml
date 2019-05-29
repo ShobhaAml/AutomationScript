@@ -32,6 +32,7 @@
           <suiteXmlFiles>
             <suiteXmlFile>${SuiteXmlFile}</suiteXmlFile>
           </suiteXmlFiles>
+          <argLine>-Dfile.encoding=UTF-8</argLine>
         </configuration>
       </plugin>
       <plugin>
@@ -44,13 +45,7 @@
             <goalPrefix>test</goalPrefix>
         </configuration>
     </plugin>
-    <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-surefire-plugin</artifactId>
-    <configuration>
-        <argLine>-Dfile.encoding=UTF-8</argLine>
-    </configuration>
-</plugin>
+
     </plugins>
     
   </build>
