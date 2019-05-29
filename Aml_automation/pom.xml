@@ -123,8 +123,14 @@
     <version>2.50.0</version>
 </dependency>
 </dependencies>
+<dependency>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-resources-plugin</artifactId>
+  <version>3.1.0</version>
+  <type>maven-plugin</type>
+</dependency>
  <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
-
 </project>
