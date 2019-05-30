@@ -122,6 +122,7 @@
     <artifactId>selenium-chrome-driver</artifactId>
     <version>2.50.0</version>
 </dependency>
+
 <dependency>
   <groupId>org.apache.maven.plugins</groupId>
   <artifactId>maven-resources-plugin</artifactId>
@@ -129,7 +130,6 @@
   <type>maven-plugin</type>
 </dependency>
   </dependencies>
-  
  <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
