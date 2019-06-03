@@ -40,7 +40,7 @@
             <fork>true</fork>
             <goalPrefix>test</goalPrefix>
            <encoding>Cp1252</encoding>
-          </configuration>
+  </configuration>
     </plugin>
 
  <plugin>
@@ -125,11 +125,18 @@
     <artifactId>selenium-chrome-driver</artifactId>
     <version>2.50.0</version>
 </dependency>
+
 <dependency>
   <groupId>org.apache.maven.plugins</groupId>
   <artifactId>maven-resources-plugin</artifactId>
   <version>3.1.0</version>
   <type>maven-plugin</type>
+</dependency>
+  
+  <dependency>
+    <groupId>com.google.appengine</groupId>
+    <artifactId>gcloud-maven-plugin</artifactId>
+    <version>2.0.9.133.v201611104</version>
 </dependency>
   </dependencies>
   
