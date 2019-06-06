@@ -108,8 +108,7 @@ public class Amptest {
 			}
 			
 			errorMap.forEach((k,v)->System.out.println("Item : " + k + " Count : " + v));
-		
-			
+
 		}
 		
 	driver.close();
@@ -117,9 +116,12 @@ public class Amptest {
 		return errorMap;
 	}
 	public WebDriver headlessbrowser(String url){
-		 System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
+	//	 System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
+		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "//src//Driverfiles//linux//chromedriver");
         ChromeOptions chromeOptions = new ChromeOptions();
 	    chromeOptions.addArguments("--headless");
+	    chromeOptions.addArguments("--no-sandbox");
+	
 	    ChromeDriver driver = new ChromeDriver(chromeOptions);
 		driver.get(url);     
 		return driver;		
