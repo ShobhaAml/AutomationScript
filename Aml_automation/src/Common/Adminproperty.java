@@ -3243,4 +3243,64 @@ public class Adminproperty extends TestListenerAdapter {
 		}
 
 	}
+public void insertInsta_MVP() throws InterruptedException, AWTException, IOException{
+		
+		String PivotInsta[] = new String[] { "Xataka", "Xataka México", "Applesfera", "Vida Extra", "Trendencias",
+				"Directo al Paladar", "Bebés y Más", "Vitónica", "Decoesfera", "Directo Al Paladar México", "Motorpasión", "Motorpasión México",
+				"Espinof", "WATmag" };
+		for (int i = 0; i < PivotInsta.length; i++) {
+			implicitWait();
+			ClickICON(driver,"pivot");
+			Actions action = new Actions(driver);
+			action.moveToElement(driver.findElement(By.xpath(prop.getProperty("Pivot_Insta")))).click().build().perform();
+			action.moveToElement(driver.findElement(By.xpath(prop.getProperty("Pivot_Insta_Dropdown"))));
+			action.click().sendKeys(PivotInsta[i]).sendKeys(Keys.ENTER);
+			action.build().perform();
+			implicitWait();
+			driver.findElement(By.xpath(prop.getProperty("Add_InstaPivot_Button"))).click();
+		}
+	
+	}
+	
+	public void insertHook_MVP(String hook_title,String hook_link, String hook_text, String hook_button ) throws InterruptedException, IOException, AWTException {
+			
+			ClickICON(driver,"hook");
+			implicitWait();
+			findAndClick("Hook_Img1_Button"); findAndClick("Image_Upload");
+			Thread.sleep(1000);
+			Runtime.getRuntime().exec(System.getProperty("user.dir") +"\\src\\Images\\hooklogo.exe");
+			Thread.sleep(5000);
+			Actions action = new Actions(driver);
+			action.moveToElement(driver.findElement(By.xpath(prop.getProperty("Image_Click")))); action.click().build().perform();
+			findAndClick("Hook_Img2_Button"); findAndClick("Image_Upload");
+			Thread.sleep(1000);
+			Runtime.getRuntime().exec(System.getProperty("user.dir") +"\\src\\Images\\hookimage.exe"); Thread.sleep(5000);
+			action.moveToElement(driver.findElement(By.xpath(prop.getProperty("Image_Click")))); action.click().build().perform();
+		 
+			if (!hook_title.equalsIgnoreCase("null")) {
+				findAndWrite("Hook_Title", hook_title);
+			} else {
+				System.out.println("Title is not available");
+			}
+			if (!hook_link.equalsIgnoreCase("null")) {
+				findAndWrite("Hook_Link", hook_link);
+			} else {
+				System.out.println("Link is not available");
+			}
+			if (!hook_text.equalsIgnoreCase("null")) {
+				findAndClick("Hook_Text");
+				implicitWait();
+				action.moveToElement(driver.findElement(By.xpath(prop.getProperty("Hook_Text"))));
+				action.click().sendKeys(hook_text).build().perform();
+			} else {
+				System.out.println("Text is not available");
+			}
+			if (!hook_button.equalsIgnoreCase("null")) {
+				findAndWrite("Hook_Button", hook_button);
+			} else {
+				System.out.println("Button name is not available");
+			}
+			implicitWait();
+			findAndClick("Hook_Add_Button");
+		}
 }

@@ -29,7 +29,7 @@ public class CreateMVPPostExcel {
 
 	@DataProvider(name = "testdata")
 	public Object[][] TestDataFeed() throws Exception {
-		Object[][] postdata = adminProperties.readExcel("Normal", 108);
+		Object[][] postdata = adminProperties.readExcel("Normal", 113);
 		return postdata;
 	}
 
@@ -60,7 +60,8 @@ public class CreateMVPPostExcel {
 			String hookCustomerLogo, String hookCustomerName, String hookLogoLink, String hookTextarea,
 			String hookImage, String hookButtonText, String richContent_alternativo, String rich_iFrame, String rich_URL,
 			String flipboard, String flipboard_blogname, String flipboard_magazine, String pivotExternalLink,
-			String pivot_ExternalUrl, String pivot_ExternalNombre, String pivot_ExternalArticletitle) throws Exception {
+			String pivot_ExternalUrl, String pivot_ExternalNombre, String pivot_ExternalArticletitle, String hook_title,
+			String hook_link, String hook_text, String hook_button) throws Exception {
 		
 		if (Run.trim().equalsIgnoreCase("Y")) {
 			adminProperties.LoginAdmin(prop.getProperty("admin_usename"), prop.getProperty("admin_pwd"));
@@ -203,6 +204,13 @@ public class CreateMVPPostExcel {
 			} else {
 				adminProperties.addNewlines();
 			}*/
+			
+
+			//Add all pivot insta to cf post		
+			adminProperties.insertInsta_MVP();
+			
+			//Add hook to MVP
+			adminProperties.insertHook_MVP(hook_title, hook_link, hook_text, hook_button);
 		}
 		//adminProperties.publicar_MVP(category, tag, fbtext);
 		//adminProperties.brandCategory_MVP(Branded_club, disclaimer);
