@@ -203,7 +203,6 @@ public class CreateMVPPostExcel {
 			} else {
 				adminProperties.addNewlines();
 			}*/
-
 		}
 		//adminProperties.publicar_MVP(category, tag, fbtext);
 		//adminProperties.brandCategory_MVP(Branded_club, disclaimer);

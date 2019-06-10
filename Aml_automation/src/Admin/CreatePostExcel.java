@@ -386,7 +386,8 @@ public class CreatePostExcel {
 			adminProperties.implicitWait();
 			adminProperties.findAndClick("post_title");
 			adminProperties.implicitWait();
-		} else {
+		} 
+		else {
 			adminProperties.implicitWait();
 			adminProperties.findAndClick("post_title");
 			((JavascriptExecutor) driver).executeScript("window.scrollBy(0,0)");

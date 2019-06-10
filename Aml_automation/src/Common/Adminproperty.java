@@ -107,7 +107,7 @@ public class Adminproperty extends TestListenerAdapter {
 		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 		return driver;
 	}
-
+	
 	public void uploadPrimaryImage(String primaryimage, String browser) throws Exception {
 		String primaryimagearr[] = primaryimage.split("@#@");
 		for (int i = 0; i < primaryimagearr.length; i++) {
