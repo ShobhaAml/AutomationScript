@@ -42,12 +42,12 @@ public class CreatePostExcel {
 
 	@DataProvider(name = "testdata")
 	public Object[][] TestDataFeed() throws Exception {
-		Object[][] postdata = adminProperties.readExcel("Normal", 109);
+		Object[][] postdata = adminProperties.readExcel("Normal", 108);
 		return postdata;
 	}
 
 	@Test(dataProvider = "testdata")
-	public void createPost(String posttype, String posttitle, String postcontent, String primary, String image,
+	public void createPost(String posttype, String posttitle, String postcontent, String image,
 			String imageLayout, String postcontent_more, String Youtube_Video, String Youtube_layout, String Vine,
 			String Vine_layout, String Vimeo, String Vimeo_layout, String Gallery_name, String Gallery_description,
 			String Gallery_tag, String Gallery_ShowHeader, String Gallery_photos, String multiple_images,

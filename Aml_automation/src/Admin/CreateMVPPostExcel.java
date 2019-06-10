@@ -29,12 +29,12 @@ public class CreateMVPPostExcel {
 
 	@DataProvider(name = "testdata")
 	public Object[][] TestDataFeed() throws Exception {
-		Object[][] postdata = adminProperties.readExcel("Normal", 109);
+		Object[][] postdata = adminProperties.readExcel("Normal", 108);
 		return postdata;
 	}
 
 	@Test(dataProvider = "testdata")
-	public void createPost(String posttype, String posttitle, String postcontent, String primary, String image,
+	public void createPost(String posttype, String posttitle, String postcontent, String image,
 			String imageLayout, String postcontent_more, String Youtube_Video, String Youtube_layout, String Vine,
 			String Vine_layout, String Vimeo, String Vimeo_layout, String Gallery_name, String Gallery_description,
 			String Gallery_tag, String Gallery_ShowHeader, String Gallery_photos, String multiple_images,
@@ -58,27 +58,85 @@ public class CreateMVPPostExcel {
 			String Repost, String Run, String Republish, String Future_time, String Pivot_product_Article,
 			String Pivot_product_Article_posttype, String Publish_to_homepage_checkbox, String hook,
 			String hookCustomerLogo, String hookCustomerName, String hookLogoLink, String hookTextarea,
-			String hookImage, String hookButtonText, String richContent_alternativo, String rich_text, String rich_URL,
+			String hookImage, String hookButtonText, String richContent_alternativo, String rich_iFrame, String rich_URL,
 			String flipboard, String flipboard_blogname, String flipboard_magazine, String pivotExternalLink,
 			String pivot_ExternalUrl, String pivot_ExternalNombre, String pivot_ExternalArticletitle) throws Exception {
+		
 		if (Run.trim().equalsIgnoreCase("Y")) {
 			adminProperties.LoginAdmin(prop.getProperty("admin_usename"), prop.getProperty("admin_pwd"));
 			adminProperties.CreateMVPpost(posttype);
-			Thread.sleep(5000);
-			System.out.println("Let's add title ..to post");
-			// adminProperties.AddMVPTitle("Testing title");
+			Thread.sleep(2000);
+			adminProperties.AddMVPTitle(posttitle);
 			adminProperties.implicitWait();
+			adminProperties.primary_section_MVP(Youtube_Video);/// pass image or Youtube_Video
+			Thread.sleep(2000);
+			
+			if(!postcontent.equalsIgnoreCase("null")) 
+			{
+			  adminProperties.MVP_sectionContent(postcontent);
+			  adminProperties.implicitWait();
+		    }
+			
+			if(!instagram.equalsIgnoreCase("null")) 
+			{
+				 adminProperties.ClickICON(driver,"instagram");
+				 adminProperties.implicitWait(); 
+				 adminProperties.MVP_modules_withoutLayout(instagram); 
+			}
+			
+			if(!image.equalsIgnoreCase("null")) 
+			{
+				 adminProperties.ClickICON(driver,"image");
+				 adminProperties.implicitWait(); 
+				 adminProperties.MVP_image_viaURL(image);
+				 adminProperties.MVP_uploadImage(imageLayout, "");
+			}
+			
+			
+			
+			if(!Twittertext.equalsIgnoreCase("null")) 
+			{
+				 adminProperties.ClickICON(driver,"twitter"); 
+				 adminProperties.implicitWait();
+				 adminProperties.MVP_modules_withoutLayout(Twittertext); 
+				 adminProperties.implicitWait(); 
+			}
+			
+			if(!giphy_url.equalsIgnoreCase("null"))
+			{
+				 adminProperties.ClickICON(driver,"giphy"); adminProperties.implicitWait();
+				 adminProperties.MVP_modules_withLayout(giphy_url, giphy_layout); 
+			}
+			
+			if(!Inforgram_datawrapper_URL.equalsIgnoreCase("null")) 
+			{
+				 adminProperties.implicitWait();
+				 adminProperties.ClickICON(driver,"infogram"); 
+				 adminProperties.MVP_modules_withLayout(Inforgram_datawrapper_URL, infographLayout);
+				 adminProperties.implicitWait(); 
+			}
+			
+			if(!summary.equalsIgnoreCase("null")) 
+			{
+				 adminProperties.implicitWait();
+				 adminProperties.ClickICON(driver,"sumario"); 
+				 adminProperties.MVP_add_sumario(summary, summary_layout);
+				 adminProperties.implicitWait();
+			} 
 			/*
-			 * List<WebElement> list =
-			 * adminProperties.findElementsByXpath(prop.getProperty("MVPSectionList"));
-			 * System.out.println(list.size() +"list count");
-			 * System.out.println(list.get(list.size()-1).getAttribute("id"));
-			 * adminProperties.implicitWait();
-			 */
-
-			// adminProperties.primary_section_MVP(primary, image);
-			adminProperties.primary_section_MVP(primary, Youtube_Video);
-
+			if (!(Youtube_Video.equalsIgnoreCase("null"))) {
+				 adminProperties.implicitWait();
+				 adminProperties.MVP_modules_withLayout(Youtube_Video, Youtube_layout); 
+				 }*/
+				 
+			if(!richContent_alternativo.equalsIgnoreCase("null")) 
+			{
+				 adminProperties.implicitWait();
+				 adminProperties.ClickICON(driver,"richContent"); 
+				 adminProperties.mvp_addRichContent(richContent_alternativo, rich_iFrame, rich_URL);
+				 adminProperties.implicitWait();
+			} 
+		
 			/*
 			 * if(!Pivot_newsletter.equalsIgnoreCase("null")) {
 			 * adminProperties.ClickICON(driver,"pivot");
@@ -113,48 +171,16 @@ public class CreateMVPPostExcel {
 			 * adminProperties.ClickICON(driver,"image"); adminProperties.implicitWait();
 			 * adminProperties.mvpUrlImage(image); adminProperties.Insertimage(imageLayout,
 			 * "MVP_insertImage"); }
+			 
+			 }
 			 * 
-			 * if (!(video.equalsIgnoreCase("null"))) {
-			 * adminProperties.ClickICON(driver,"video"); adminProperties.implicitWait();
-			 * adminProperties.MVPaddVideo(video, videoLayout); } if
-			 * (!(richContent_alternativo.equalsIgnoreCase("null"))) {
-			 * adminProperties.ClickICON(driver,"richcontent");
-			 * adminProperties.implicitWait();
-			 * adminProperties.mvp_addRichContent(richContent_alternativo, rich_text,
-			 * rich_URL); }
-			 * 
-			 * if (!(primaryimage.equalsIgnoreCase("null"))) {
-			 * adminProperties.ClickICON(driver,"image"); adminProperties.implicitWait();
-			 * adminProperties.mvpUrlImage("https://i.blogs.es/dee55e/tinoiv/1024_682.jpg");
-			 * adminProperties.Insertimage(""); }
-			 * 
-			 * if(!postcontent.equalsIgnoreCase("null")) {
-			 * adminProperties.addMVP_SectionContent(postcontent);
-			 * adminProperties.implicitWait();
-			 * 
-			 * } if(!Infogram_datawrapper_URL.equalsIgnoreCase("null")) {
-			 * adminProperties.ClickICON(driver,"infogram"); adminProperties.implicitWait();
-			 * adminProperties.addMVPInfogram(Infogram_datawrapper_URL, infographLayout);
-			 * adminProperties.implicitWait(); }
-			 * 
-			 * if(!giphy_url.equalsIgnoreCase("null")) {
-			 * adminProperties.ClickICON(driver,"giphy"); adminProperties.implicitWait();
-			 * adminProperties.MVPmodules(giphy_url); }
-			 * if(!instagram.equalsIgnoreCase("null")) {
-			 * adminProperties.ClickICON(driver,"instagram");
-			 * adminProperties.implicitWait(); adminProperties.MVPmodules(instagram); }
-			 * 
-			 * if(!summary.equalsIgnoreCase("null")) {
-			 * adminProperties.ClickICON(driver,"sumario"); adminProperties.implicitWait();
-			 * adminProperties.addSumarioMVP(summary, summary_layout);
-			 * adminProperties.implicitWait(); } if(!Twittertext.equalsIgnoreCase("null")) {
-			 * adminProperties.ClickICON(driver,"twitter"); adminProperties.implicitWait();
-			 * adminProperties.MVPmodules(Twittertext); adminProperties.implicitWait(); }
+			 
+			 
 			 * 
 			 * /*Actions action = new Actions(driver);
 			 * action.moveToElement(driver.findElement(By.xpath(prop.getProperty(
 			 * "content_section_path")))); action.click();
-			 */
+			 
 
 			if (flipboard.equalsIgnoreCase("Y")) {
 				adminProperties.addpivotFlipboard_Alfa(flipboard_blogname);
@@ -176,10 +202,10 @@ public class CreateMVPPostExcel {
 				adminProperties.addpivotExternal_Alfa(pivot_ExternalUrl, pivot_ExternalNombre, pivot_ExternalArticletitle);
 			} else {
 				adminProperties.addNewlines();
-			}
+			}*/
 
 		}
-		adminProperties.publicar_MVP(category, tag, fbtext);
-		adminProperties.brandCategory_MVP(Branded_club, disclaimer);
+		//adminProperties.publicar_MVP(category, tag, fbtext);
+		//adminProperties.brandCategory_MVP(Branded_club, disclaimer);
 	}
 }
