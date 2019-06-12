@@ -13,7 +13,7 @@ public class headless {
 	public void testbrowser()
 	{
 		
-		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "//src//Driverfiles//linux//chromedriver");
+		System.setProperty("webdriver.chrome.driver", "//var//lib//jenkins/jobs//AMPvalidations//workspace//Aml_automation///src//Driverfiles//linux//chromedriver");
      
 	
 	    WebDriver driver = new ChromeDriver();
