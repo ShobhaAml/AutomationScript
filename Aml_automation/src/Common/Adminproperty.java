@@ -1221,32 +1221,25 @@ public class Adminproperty extends TestListenerAdapter {
 
 	}
 
-	public void DeleteVideo(String Video_post_name) {
-		WebElement tableelement = driver.findElement(By.id("video-list"));
-		WebDriverWait wait = new WebDriverWait(driver, 50);
-		wait.until(new Function<WebDriver, Boolean>() {
-			public Boolean apply(WebDriver driver) {
-				return ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");
-			}
-		});
-		int cnt = 1;
-		List<WebElement> list = findElementsByXpath(".//*[@id='video-list']/table/tbody/tr/td[1]");
-		for (WebElement element : list) {
-			System.out.println(element.getText());
+	/*
+	 * public void DeleteVideo(String Video_post_name) { WebElement tableelement =
+	 * driver.findElement(By.id("video-list")); WebDriverWait wait = new
+	 * WebDriverWait(driver, 50); wait.until(new Function<WebDriver, Boolean>() {
+	 * public Boolean apply(WebDriver driver) { return ((JavascriptExecutor)
+	 * driver).executeScript("return document.readyState").equals("complete"); } });
+	 * int cnt = 1; List<WebElement> list =
+	 * findElementsByXpath(".//*[@id='video-list']/table/tbody/tr/td[1]"); for
+	 * (WebElement element : list) { System.out.println(element.getText());
+	 * 
+	 * if (element.getText().equalsIgnoreCase(Video_post_name)) {
+	 * findElement(prop.getProperty("video_list") + "[" + cnt + "]" +
+	 * prop.getProperty("del_td")).click(); implicitWait(); Alert alert =
+	 * driver.switchTo().alert(); alert.accept(); break; } cnt++;
+	 * 
+	 * } }
+	 */
 
-			if (element.getText().equalsIgnoreCase(Video_post_name)) {
-				findElement(prop.getProperty("video_list") + "[" + cnt + "]" + prop.getProperty("del_td")).click();
-				implicitWait();
-				Alert alert = driver.switchTo().alert();
-				alert.accept();
-				break;
-			}
-			cnt++;
-
-		}
-	}
-
-	public void EditVideoGallery(String Video_post_name, String checkbox) throws Exception {
+/*	public void EditVideoGallery(String Video_post_name, String checkbox) throws Exception {
 		WebElement tableelement = driver.findElement(By.id("video-list"));
 		WebDriverWait wait = new WebDriverWait(driver, 50);
 		wait.until(new Function<WebDriver, Boolean>() {
@@ -1288,7 +1281,7 @@ public class Adminproperty extends TestListenerAdapter {
 
 		}
 
-	}
+	}*/
 
 	public void videoGallery(String post_title, String post_url, String video_url, String checkbox, String sponsor_logo,
 			String sponsor_name)
@@ -2252,8 +2245,7 @@ public class Adminproperty extends TestListenerAdapter {
 			break;
 		case "richContent":
 			break;
-		case "hook":
-			break;
+		
 		}
 		MVP_common_layout("toolbar_icon", Action);
 		implicitWait();
@@ -3262,7 +3254,7 @@ public void insertInsta_MVP() throws InterruptedException, AWTException, IOExcep
 	
 	}
 	
-	public void insertHook_MVP(String hook_title,String hook_link, String hook_text, String hook_button ) throws InterruptedException, IOException, AWTException {
+	public void insertHook_MVP(String hookCustomerName,String hookLogoLink, String hookTextarea, String hookButtonText ) throws InterruptedException, IOException, AWTException {
 			
 			ClickICON(driver,"hook");
 			implicitWait();
@@ -3277,26 +3269,26 @@ public void insertInsta_MVP() throws InterruptedException, AWTException, IOExcep
 			Runtime.getRuntime().exec(System.getProperty("user.dir") +"\\src\\Images\\hookimage.exe"); Thread.sleep(5000);
 			action.moveToElement(driver.findElement(By.xpath(prop.getProperty("Image_Click")))); action.click().build().perform();
 		 
-			if (!hook_title.equalsIgnoreCase("null")) {
-				findAndWrite("Hook_Title", hook_title);
+			if (!hookCustomerName.equalsIgnoreCase("null")) {
+				findAndWrite("Hook_Title", hookCustomerName);
 			} else {
 				System.out.println("Title is not available");
 			}
-			if (!hook_link.equalsIgnoreCase("null")) {
-				findAndWrite("Hook_Link", hook_link);
+			if (!hookLogoLink.equalsIgnoreCase("null")) {
+				findAndWrite("Hook_Link", hookLogoLink);
 			} else {
 				System.out.println("Link is not available");
 			}
-			if (!hook_text.equalsIgnoreCase("null")) {
+			if (!hookTextarea.equalsIgnoreCase("null")) {
 				findAndClick("Hook_Text");
 				implicitWait();
 				action.moveToElement(driver.findElement(By.xpath(prop.getProperty("Hook_Text"))));
-				action.click().sendKeys(hook_text).build().perform();
+				action.click().sendKeys(hookTextarea).build().perform();
 			} else {
 				System.out.println("Text is not available");
 			}
-			if (!hook_button.equalsIgnoreCase("null")) {
-				findAndWrite("Hook_Button", hook_button);
+			if (!hookButtonText.equalsIgnoreCase("null")) {
+				findAndWrite("Hook_Button", hookButtonText);
 			} else {
 				System.out.println("Button name is not available");
 			}

@@ -47,12 +47,12 @@ public class CreatePostExcel {
 	}
 
 	@Test(dataProvider = "testdata")
-	public void createPost(String posttype, String posttitle, String postcontent, String image,
-			String imageLayout, String postcontent_more, String Youtube_Video, String Youtube_layout, String Vine,
-			String Vine_layout, String Vimeo, String Vimeo_layout, String Gallery_name, String Gallery_description,
-			String Gallery_tag, String Gallery_ShowHeader, String Gallery_photos, String multiple_images,
-			String embeded_code, String summary, String summary_layout, String actualizacion, String ficha_technica,
-			String ficha_review, String giphy_url, String giphy_layout, String giphy_caption, String instagram,
+	public void createPost(String posttype, String posttitle, String postcontent, String image, String imageLayout,
+			String postcontent_more, String Youtube_Video, String Youtube_layout, String Vine, String Vine_layout,
+			String Vimeo, String Vimeo_layout, String Gallery_name, String Gallery_description, String Gallery_tag,
+			String Gallery_ShowHeader, String Gallery_photos, String multiple_images, String embeded_code,
+			String summary, String summary_layout, String actualizacion, String ficha_technica, String ficha_review,
+			String giphy_url, String giphy_layout, String giphy_caption, String instagram,
 			String Inforgram_datawrapper_URL, String infographLayout, String infographCaption, String slideshowimages,
 			String tabledata, String Checkbox_same_width, String Checkbox_table_first_row_heading,
 			String Checkbox_table_first_column_heading, String Checkbox_table_occupy_all_avaiable_width,
@@ -71,7 +71,8 @@ public class CreatePostExcel {
 			String Repost, String Run, String Republish, String Future_time, String Pivot_product_Article,
 			String Pivot_product_Article_posttype, String Publish_to_homepage_checkbox, String hook,
 			String hookCustomerLogo, String hookCustomerName, String hookLogoLink, String hookTextarea,
-			String hookImage, String hookButtonText, String richContent_alternativo, String rich_text, String rich_URL, String flipboard, String flipboard_blogname, String flipboard_magazine, 
+			String hookImage, String hookButtonText, String richContent_alternativo, String rich_iFrame,
+			String rich_URL, String flipboard, String flipboard_blogname, String flipboard_magazine,
 			String pivotExternalLink, String pivot_ExternalUrl, String pivot_ExternalNombre,
 			String pivot_ExternalArticletitle) throws Exception {
 		if (Run.trim().equalsIgnoreCase("Y")) {
