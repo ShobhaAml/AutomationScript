@@ -26,6 +26,7 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.0.0-M3</version>
         <configuration>
+         <useSystemClassLoader>false</useSystemClassLoader>
           <suiteXmlFiles>
             <suiteXmlFile>${SuiteXmlFile}</suiteXmlFile>
           </suiteXmlFiles>
@@ -122,12 +123,14 @@
     <type>jar</type>
     <scope>compile</scope>
 </dependency>
+
 <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-chrome-driver -->
 <dependency>
     <groupId>org.seleniumhq.selenium</groupId>
     <artifactId>selenium-chrome-driver</artifactId>
-    <version>2.50.0</version>
+    <version>3.141.59</version>
 </dependency>
+
 
 <dependency>
   <groupId>org.apache.maven.plugins</groupId>
