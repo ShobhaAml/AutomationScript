@@ -3102,8 +3102,9 @@ public class Adminproperty extends TestListenerAdapter {
 			action.sendKeys(flipboardarr[i]).sendKeys(Keys.ENTER);
 			action.build().perform();
 			implicitWait();
-			findAndClick("MVP_flipboard_AddButton");
+			findAndClick("Mvp_addPivotbutton");
 		}
+		System.out.println("Pivot Flipboard added successfully");
 	}
 
 	public void insertGif_lfe(String Gif_link) throws InterruptedException, AWTException {
@@ -3223,10 +3224,10 @@ public class Adminproperty extends TestListenerAdapter {
 		}
 		if (!pivot_ExternalUrl.equalsIgnoreCase("null") && !pivot_ExternalNombre.equalsIgnoreCase("null")
 				&& !pivot_ExternalArticletitle.equalsIgnoreCase("null")) {
-			findAndClick("MVP_flipboard_AddButton");
+			findAndClick("Mvp_addPivotbutton");
 			System.out.println("PivotExternalLink is added successfully");
 		} else {
-			findAndClick("MVP_flipboard_AddButton");
+			findAndClick("Mvp_addPivotbutton");
 			List<WebElement> lists1 = driver.findElements(By.xpath("//p[contains(text(),'Error:')]"));
 			for (WebElement test1 : lists1) {
 				System.out.println("Validation message--> " + test1.getText());
