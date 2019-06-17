@@ -2245,6 +2245,9 @@ public class Adminproperty extends TestListenerAdapter {
 			break;
 		case "richContent":
 			break;
+		case "hook":
+			driver.findElement(By.xpath("//div[@class='Hook_wrapper__2i94_']")).click();
+			break;
 		
 		}
 		MVP_common_layout("toolbar_icon", Action);
@@ -2289,6 +2292,10 @@ public class Adminproperty extends TestListenerAdapter {
 				implicitWait();
 				findAndClick("MVPInsertButton");
 				break;
+			case "hook":
+				  driver.findElement(By.xpath(prop.getProperty("Hook_Link"))).clear();
+				  findAndWrite("Hook_Link", newURL);
+				  findAndClick("Hook_Edit_Button");
 			}
 		}	
 	}
