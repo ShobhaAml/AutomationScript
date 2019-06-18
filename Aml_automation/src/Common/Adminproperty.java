@@ -2222,25 +2222,28 @@ public class Adminproperty extends TestListenerAdapter {
 		action.moveToElement(driver.findElement(By.xpath(prop.getProperty(xPath)))).sendKeys(text).perform();
 	}
 
-	public void MVP_update_modules(String Module, String Action, String newURL, String layout)//    Action = editar or quitar
+	public void MVP_editORdelete(String Module, String Action, String updatedText, String layout)//    Action = editar or quitar
+																							//updatedText= String or array
 			throws InterruptedException {
 		Thread.sleep(1000);
 		switch (Module.toLowerCase()) {
 		case "instagram":
-			 driver.findElement(By.xpath(".//div[@class='module-container']/div/div[@class='block-instagram block-highlight']")).click();
-			 break;
+			driver.findElement(
+					By.xpath(".//div[@class='module-container']/div/div[@class='block-instagram block-highlight']"))
+					.click();
+			break;
 		case "twitter":
-			 driver.findElement(By.xpath(".//div[@class='block-twitter block-highlight']")).click();
-			 break;
+			driver.findElement(By.xpath(".//div[@class='block-twitter block-highlight']")).click();
+			break;
 		case "sumario":
-			 findAndClick("mvp_sumario_click");
-			 break;
+			findAndClick("mvp_sumario_click");
+			break;
 		case "infogram":
 		case "image":
 		case "giphy":
 		case "video":
-			 driver.findElement(By.xpath(".//div[@class='module-container']/div/div[@class='block-highlight']")).click();
-			 break;
+			driver.findElement(By.xpath(".//div[@class='module-container']/div/div[@class='block-highlight']")).click();
+			break;
 		case "pivot":
 			break;
 		case "richContent":
@@ -2248,56 +2251,77 @@ public class Adminproperty extends TestListenerAdapter {
 		case "hook":
 			driver.findElement(By.xpath("//div[@class='Hook_wrapper__2i94_']")).click();
 			break;
-		
+		case "fichareview":
+			driver.findElement(By.xpath(".//div[@class='module-container']/div/div[@class='block-highlight']")).click();
+			break;
 		}
 		MVP_common_layout("toolbar_icon", Action);
 		implicitWait();
-		
+
 		if (Action.equalsIgnoreCase("Editar")) {
 			Thread.sleep(1000);
-		switch (Module.toLowerCase()) {
+			switch (Module.toLowerCase()) {
 			case "image":
-				if (newURL.equalsIgnoreCase("")) 
+				 if (updatedText.equalsIgnoreCase(""))
 					MVP_uploadImage(layout, "MVP_insertImage");
-				else {
-					MVP_image_viaURL(newURL);
-					MVP_uploadImage(layout, "MVP_insertImage");}
-				break;
+				 else {
+					MVP_image_viaURL(updatedText);
+					MVP_uploadImage(layout, "MVP_insertImage");
+				 }
+				 break;
 			case "infogram":
-				MVP_update_textArea("MVPmoduletextbox", newURL);
-				MVP_common_layout("mvp_layout4", layout);
-				implicitWait();
-				findAndClick("MVP_Insertar");
-				break;
+				 MVP_update_textArea("MVPmoduletextbox", updatedText);
+				 MVP_common_layout("mvp_layout4", layout);
+				 implicitWait();
+				 findAndClick("MVP_Insertar");
+				 break;
 			case "sumario":
-				implicitWait();
-				MVP_update_textArea("mvp_sumario_url", newURL);
-				MVP_common_layout("mvp_layout1", layout);
-				findAndClick("MVP_saveSumario");
-				break;
+				 implicitWait();
+				 MVP_update_textArea("mvp_sumario_url", updatedText);
+				 MVP_common_layout("mvp_layout1", layout);
+				 findAndClick("MVP_saveSumario");
+				 break;
 			case "twitter":
 			case "instagram":
-				MVP_update_textArea("MVPmoduletextbox", newURL);
-				findAndClick("MVPInsertButton");
-				break;
+				 MVP_update_textArea("MVPmoduletextbox", updatedText);
+				 findAndClick("MVPInsertButton");
+				 break;
 			case "video":
-				MVP_update_textArea("MVPmoduletextbox", newURL);
-				MVP_common_layout("mvp_layout6", layout);
-				implicitWait();
-				findAndClick("MVP_insertarVideo");
-				break;
+				 MVP_update_textArea("MVPmoduletextbox", updatedText);
+				 MVP_common_layout("mvp_layout6", layout);
+				 implicitWait();
+				 findAndClick("MVP_insertarVideo");
+				 break;
 			case "giphy":
-				MVP_update_textArea("MVPmoduletextbox", newURL);
-				MVP_common_layout("mvp_layout6", layout);
-				implicitWait();
-				findAndClick("MVPInsertButton");
-				break;
+				 MVP_update_textArea("MVPmoduletextbox", updatedText);
+				 MVP_common_layout("mvp_layout6", layout);
+				 implicitWait();
+				 findAndClick("MVPInsertButton");
+				 break;
 			case "hook":
-				  driver.findElement(By.xpath(prop.getProperty("Hook_Link"))).clear();
-				  findAndWrite("Hook_Link", newURL);
-				  findAndClick("Hook_Edit_Button");
-			}
-		}	
+				 driver.findElement(By.xpath(prop.getProperty("Hook_Link"))).clear();
+				 findAndWrite("Hook_Link", updatedText);
+				 findAndClick("Hook_Edit_Button");
+				 break;
+			case "fichareview":
+				 Thread.sleep(1000);
+				 Actions action = new Actions(driver);
+				 List<WebElement> List = driver.findElements(By.xpath("*//div/input"));
+				 for (int i = 0; i < List.size(); i++) {
+					action.moveToElement(List.get(i)).build().perform();
+					action.click().build().perform();
+					implicitWait();
+					List.get(i).clear();
+				  }
+				 implicitWait();
+				 driver.findElement(By.xpath(prop.getProperty("MVP_review_positive"))).clear();
+				 driver.findElement(By.xpath(prop.getProperty("MVP_review_negative"))).clear();
+				 driver.findElement(By.xpath(prop.getProperty("MVP_review_resumen"))).clear();
+				 Thread.sleep(2000);
+				 MVP_add_review(updatedText);
+				 implicitWait();
+			 }
+		}
 	}
 	
 	public void mvp_addRichContent(String alternativo, String iFrame, String url)
@@ -3245,8 +3269,8 @@ public class Adminproperty extends TestListenerAdapter {
 	}
 public void insertInsta_MVP() throws InterruptedException, AWTException, IOException{
 		
-		String PivotInsta[] = new String[] { "Xataka", "Xataka México", "Applesfera", "Vida Extra", "Trendencias",
-				"Directo al Paladar", "Bebés y Más", "Vitónica", "Decoesfera", "Directo Al Paladar México", "Motorpasión", "Motorpasión México",
+		String PivotInsta[] = new String[] { "Xataka", "Xataka Mï¿½xico", "Applesfera", "Vida Extra", "Trendencias",
+				"Directo al Paladar", "Bebï¿½s y Mï¿½s", "Vitï¿½nica", "Decoesfera", "Directo Al Paladar Mï¿½xico", "Motorpasiï¿½n", "Motorpasiï¿½n Mï¿½xico",
 				"Espinof", "WATmag" };
 		for (int i = 0; i < PivotInsta.length; i++) {
 			implicitWait();
