@@ -29,7 +29,7 @@ public class CreateMVPPostExcel {
 
 	@DataProvider(name = "testdata")
 	public Object[][] TestDataFeed() throws Exception {
-		Object[][] postdata = adminProperties.readExcel("Normal", 106);
+		Object[][] postdata = adminProperties.readExcel("Normal", 105);
 		return postdata;
 	}
 
@@ -56,11 +56,11 @@ public class CreateMVPPostExcel {
 			String category, String catagory_other, String tag, String seotitle, String seodesc, String specialpost,
 			String comment_closed, String author, String Twittertext, String fbtext, String Contenido_Patrocinado,
 			String Repost, String Run, String Republish, String Future_time, String Pivot_product_Article,
-			String Pivot_product_Article_posttype, String Publish_to_homepage_checkbox, String hook,
-			String hookCustomerLogo, String hookCustomerName, String hookLogoLink, String hookTextarea,
-			String hookImage, String hookButtonText, String richContent_alternativo, String rich_iFrame,
-			String rich_URL, String flipboard_blogname, String flipboard_magazine, String pivot_ExternalUrl,
-			String pivot_ExternalNombre, String pivot_ExternalArticletitle) throws Exception {
+			String Pivot_product_Article_posttype, String Publish_to_homepage_checkbox, String hookCustomerLogo,
+			String hookCustomerName, String hookLogoLink, String hookTextarea, String hookImage, String hookButtonText,
+			String richContent_alternativo, String rich_iFrame, String rich_URL, String flipboard_blogname,
+			String flipboard_magazine, String pivot_ExternalUrl, String pivot_ExternalNombre,
+			String pivot_ExternalArticletitle) throws Exception {
 
 		if (Run.trim().equalsIgnoreCase("Y")) {
 			adminProperties.LoginAdmin(prop.getProperty("admin_usename"), prop.getProperty("admin_pwd"));
@@ -176,7 +176,7 @@ public class CreateMVPPostExcel {
 
 			// Add pivot flipboard to CF post
 			if (!flipboard_blogname.equalsIgnoreCase("null")) {
-			adminProperties.addpivotFlipboard_Alfa(flipboard_blogname);
+				adminProperties.addpivotFlipboard_Alfa(flipboard_blogname);
 			}
 
 			if (!flipboard_blogname.equalsIgnoreCase("null")) {
