@@ -42,7 +42,7 @@ public class CreatePostExcel {
 
 	@DataProvider(name = "testdata")
 	public Object[][] TestDataFeed() throws Exception {
-		Object[][] postdata = adminProperties.readExcel("Normal", 108);
+		Object[][] postdata = adminProperties.readExcel("Normal", 105);
 		return postdata;
 	}
 
@@ -69,17 +69,16 @@ public class CreatePostExcel {
 			String category, String catagory_other, String tag, String seotitle, String seodesc, String specialpost,
 			String comment_closed, String author, String Twittertext, String fbtext, String Contenido_Patrocinado,
 			String Repost, String Run, String Republish, String Future_time, String Pivot_product_Article,
-			String Pivot_product_Article_posttype, String Publish_to_homepage_checkbox, String hook,
-			String hookCustomerLogo, String hookCustomerName, String hookLogoLink, String hookTextarea,
-			String hookImage, String hookButtonText, String richContent_alternativo, String rich_iFrame,
-			String rich_URL, String flipboard, String flipboard_blogname, String flipboard_magazine,
-			String pivotExternalLink, String pivot_ExternalUrl, String pivot_ExternalNombre,
+			String Pivot_product_Article_posttype, String Publish_to_homepage_checkbox, String hookCustomerLogo,
+			String hookCustomerName, String hookLogoLink, String hookTextarea, String hookImage, String hookButtonText,
+			String richContent_alternativo, String rich_iFrame, String rich_URL, String flipboard_blogname,
+			String flipboard_magazine, String pivot_ExternalUrl, String pivot_ExternalNombre,
 			String pivot_ExternalArticletitle) throws Exception {
 		if (Run.trim().equalsIgnoreCase("Y")) {
 			String blogrole = "";
 			adminProperties.LoginAdmin(prop.getProperty("admin_usename"), prop.getProperty("admin_pwd"));
-			/*//
-			 * Connection conn = adminProperties.connectDb(); String arrlogin =
+			/*
+			 * // Connection conn = adminProperties.connectDb(); String arrlogin =
 			 * adminProperties.checkuserlogintype(conn
 			 * ,prop.getProperty("admin_usename"),prop.getProperty("admin_pwd")) ;
 			 * if(arrlogin!=null) { String[] logintypes=arrlogin.split("@##@"); blogrole=
@@ -302,22 +301,14 @@ public class CreatePostExcel {
 			 * if(blogrole.equalsIgnoreCase("Branded Collaborator")) { System.out.
 			 * println("Branded Collaborator don't have access to publish a post" ); } else{
 			 */
+			
+			// Add hook to CMS post
+			adminProperties.addHook(hookCustomerLogo, hookCustomerName, hookLogoLink, hookTextarea, hookImage,
+					hookButtonText);
 
-			if (hook.equalsIgnoreCase("Y")) {
-				adminProperties.implicitWait();
-				adminProperties.addHook(hookCustomerLogo, hookCustomerName, hookLogoLink, hookTextarea, hookImage,
-						hookButtonText);
-			} else {
-				adminProperties.addNewlines();
-			}
-
-			if (pivotExternalLink.equalsIgnoreCase("Y")) {
-				adminProperties.implicitWait();
-				adminProperties.addPivotExternalCMS(pivot_ExternalUrl, pivot_ExternalNombre,
-						pivot_ExternalArticletitle);
-			} else {
-				adminProperties.addNewlines();
-			}
+			// Add pivot external to CMS post
+			adminProperties.implicitWait();
+			adminProperties.addPivotExternalCMS(pivot_ExternalUrl, pivot_ExternalNombre, pivot_ExternalArticletitle);
 
 			adminProperties.findAndClick("publish_tab");
 			adminProperties.handleAuthenticationDialog(browser);
@@ -387,8 +378,7 @@ public class CreatePostExcel {
 			adminProperties.implicitWait();
 			adminProperties.findAndClick("post_title");
 			adminProperties.implicitWait();
-		} 
-		else {
+		} else {
 			adminProperties.implicitWait();
 			adminProperties.findAndClick("post_title");
 			((JavascriptExecutor) driver).executeScript("window.scrollBy(0,0)");
