@@ -191,7 +191,7 @@ public class CreateMVPPostExcel {
 			// Add pivot external to CF post
 			adminProperties.addpivotExternal_Alfa(pivot_ExternalUrl, pivot_ExternalNombre, pivot_ExternalArticletitle);
 
-			// Add all pivot insta to cf post
+			// Add pivot instagram to CF post
 			adminProperties.insertInsta_MVP();
 
 			// Add hook to MVP

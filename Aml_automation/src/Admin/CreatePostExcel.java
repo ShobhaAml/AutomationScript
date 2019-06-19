@@ -301,9 +301,12 @@ public class CreatePostExcel {
 			 * if(blogrole.equalsIgnoreCase("Branded Collaborator")) { System.out.
 			 * println("Branded Collaborator don't have access to publish a post" ); } else{
 			 */
+			
+			// Add hook to CMS post
 			adminProperties.addHook(hookCustomerLogo, hookCustomerName, hookLogoLink, hookTextarea, hookImage,
 					hookButtonText);
 
+			// Add pivot external to CMS post
 			adminProperties.implicitWait();
 			adminProperties.addPivotExternalCMS(pivot_ExternalUrl, pivot_ExternalNombre, pivot_ExternalArticletitle);
 
