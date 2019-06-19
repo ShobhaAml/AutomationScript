@@ -20,5 +20,4 @@ public class headless {
 		WebDriver driver = new ChromeDriver(chromeOptions);
 		driver.get("http://google.com");     
 	}
-
 }
