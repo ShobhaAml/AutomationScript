@@ -29,7 +29,7 @@ public class CreateMVPPostExcel {
 
 	@DataProvider(name = "testdata")
 	public Object[][] TestDataFeed() throws Exception {
-		Object[][] postdata = adminProperties.readExcel("Normal", 105);
+		Object[][] postdata = adminProperties.readExcel("Normal", 106);
 		return postdata;
 	}
 
@@ -60,7 +60,7 @@ public class CreateMVPPostExcel {
 			String hookCustomerName, String hookLogoLink, String hookTextarea, String hookImage, String hookButtonText,
 			String richContent_alternativo, String rich_iFrame, String rich_URL, String flipboard_blogname,
 			String flipboard_magazine, String pivot_ExternalUrl, String pivot_ExternalNombre,
-			String pivot_ExternalArticletitle) throws Exception {
+			String pivot_ExternalArticletitle, String flipboard) throws Exception {
 
 		if (Run.trim().equalsIgnoreCase("Y")) {
 			adminProperties.LoginAdmin(prop.getProperty("admin_usename"), prop.getProperty("admin_pwd"));
