@@ -174,15 +174,26 @@ public class CreateMVPPostExcel {
 				adminProperties.MVP_uploadImage(imageLayout, "MVP_insertImage");
 			}
 
-			// Add pivot flipboard to CF post
-			if (!flipboard_blogname.equalsIgnoreCase("null")) {
-				adminProperties.addpivotFlipboard_Alfa(flipboard_blogname);
-			}
 
-			if (!flipboard_blogname.equalsIgnoreCase("null")) {
+			if (flipboard.equalsIgnoreCase("Y")) {
+				
+				String blognames=adminProperties.getflipboardBlogs();
+				adminProperties.addpivotFlipboard_Alfa(blognames);
 				adminProperties.implicitWait();
-				adminProperties.CF_flipboard_magazine(flipboard_blogname, flipboard_magazine);
+				
+				String[] sitesArr = blognames.split("@##@");
+				for(int i =0; i<sitesArr.length; i++)
+				{
+					System.out.println("Flipboard magzine for " + sitesArr[i]);
+					adminProperties.CF_flipboard_magazine(sitesArr[i]); 
+				}
+				
+				
 			}
+			
+			
+			
+			
 			if (!ficha_review.equalsIgnoreCase("null")) {
 				adminProperties.implicitWait();
 				adminProperties.MVP_add_review(ficha_review);

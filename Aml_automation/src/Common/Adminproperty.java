@@ -2222,106 +2222,75 @@ public class Adminproperty extends TestListenerAdapter {
 		action.moveToElement(driver.findElement(By.xpath(prop.getProperty(xPath)))).sendKeys(text).perform();
 	}
 
-	public void MVP_editORdelete(String Module, String Action, String updatedText, String layout)//    Action = editar or quitar
-																							//updatedText= String or array
+	public void MVP_update_modules(String Module, String Action, String newURL, String layout)//    Action = editar or quitar
 			throws InterruptedException {
 		Thread.sleep(1000);
 		switch (Module.toLowerCase()) {
 		case "instagram":
-			driver.findElement(
-					By.xpath(".//div[@class='module-container']/div/div[@class='block-instagram block-highlight']"))
-					.click();
-			break;
+			 driver.findElement(By.xpath(".//div[@class='module-container']/div/div[@class='block-instagram block-highlight']")).click();
+			 break;
 		case "twitter":
-			driver.findElement(By.xpath(".//div[@class='block-twitter block-highlight']")).click();
-			break;
+			 driver.findElement(By.xpath(".//div[@class='block-twitter block-highlight']")).click();
+			 break;
 		case "sumario":
-			findAndClick("mvp_sumario_click");
-			break;
+			 findAndClick("mvp_sumario_click");
+			 break;
 		case "infogram":
 		case "image":
 		case "giphy":
 		case "video":
-			driver.findElement(By.xpath(".//div[@class='module-container']/div/div[@class='block-highlight']")).click();
-			break;
+			 driver.findElement(By.xpath(".//div[@class='module-container']/div/div[@class='block-highlight']")).click();
+			 break;
 		case "pivot":
 			break;
 		case "richContent":
 			break;
-		case "hook":
-			driver.findElement(By.xpath("//div[@class='Hook_wrapper__2i94_']")).click();
-			break;
-		case "fichareview":
-			driver.findElement(By.xpath(".//div[@class='module-container']/div/div[@class='block-highlight']")).click();
-			break;
+		
 		}
 		MVP_common_layout("toolbar_icon", Action);
 		implicitWait();
-
+		
 		if (Action.equalsIgnoreCase("Editar")) {
 			Thread.sleep(1000);
-			switch (Module.toLowerCase()) {
+		switch (Module.toLowerCase()) {
 			case "image":
-				 if (updatedText.equalsIgnoreCase(""))
+				if (newURL.equalsIgnoreCase("")) 
 					MVP_uploadImage(layout, "MVP_insertImage");
-				 else {
-					MVP_image_viaURL(updatedText);
-					MVP_uploadImage(layout, "MVP_insertImage");
-				 }
-				 break;
+				else {
+					MVP_image_viaURL(newURL);
+					MVP_uploadImage(layout, "MVP_insertImage");}
+				break;
 			case "infogram":
-				 MVP_update_textArea("MVPmoduletextbox", updatedText);
-				 MVP_common_layout("mvp_layout4", layout);
-				 implicitWait();
-				 findAndClick("MVP_Insertar");
-				 break;
+				MVP_update_textArea("MVPmoduletextbox", newURL);
+				MVP_common_layout("mvp_layout4", layout);
+				implicitWait();
+				findAndClick("MVP_Insertar");
+				break;
 			case "sumario":
-				 implicitWait();
-				 MVP_update_textArea("mvp_sumario_url", updatedText);
-				 MVP_common_layout("mvp_layout1", layout);
-				 findAndClick("MVP_saveSumario");
-				 break;
+				implicitWait();
+				MVP_update_textArea("mvp_sumario_url", newURL);
+				MVP_common_layout("mvp_layout1", layout);
+				findAndClick("MVP_saveSumario");
+				break;
 			case "twitter":
 			case "instagram":
-				 MVP_update_textArea("MVPmoduletextbox", updatedText);
-				 findAndClick("MVPInsertButton");
-				 break;
+				MVP_update_textArea("MVPmoduletextbox", newURL);
+				findAndClick("MVPInsertButton");
+				break;
 			case "video":
-				 MVP_update_textArea("MVPmoduletextbox", updatedText);
-				 MVP_common_layout("mvp_layout6", layout);
-				 implicitWait();
-				 findAndClick("MVP_insertarVideo");
-				 break;
+				MVP_update_textArea("MVPmoduletextbox", newURL);
+				MVP_common_layout("mvp_layout6", layout);
+				implicitWait();
+				findAndClick("MVP_insertarVideo");
+				break;
 			case "giphy":
-				 MVP_update_textArea("MVPmoduletextbox", updatedText);
-				 MVP_common_layout("mvp_layout6", layout);
-				 implicitWait();
-				 findAndClick("MVPInsertButton");
-				 break;
-			case "hook":
-				 driver.findElement(By.xpath(prop.getProperty("Hook_Link"))).clear();
-				 findAndWrite("Hook_Link", updatedText);
-				 findAndClick("Hook_Edit_Button");
-				 break;
-			case "fichareview":
-				 Thread.sleep(1000);
-				 Actions action = new Actions(driver);
-				 List<WebElement> List = driver.findElements(By.xpath("*//div/input"));
-				 for (int i = 0; i < List.size(); i++) {
-					action.moveToElement(List.get(i)).build().perform();
-					action.click().build().perform();
-					implicitWait();
-					List.get(i).clear();
-				  }
-				 implicitWait();
-				 driver.findElement(By.xpath(prop.getProperty("MVP_review_positive"))).clear();
-				 driver.findElement(By.xpath(prop.getProperty("MVP_review_negative"))).clear();
-				 driver.findElement(By.xpath(prop.getProperty("MVP_review_resumen"))).clear();
-				 Thread.sleep(2000);
-				 MVP_add_review(updatedText);
-				 implicitWait();
-			 }
-		}
+				MVP_update_textArea("MVPmoduletextbox", newURL);
+				MVP_common_layout("mvp_layout6", layout);
+				implicitWait();
+				findAndClick("MVPInsertButton");
+				break;
+			}
+		}	
 	}
 	
 	public void mvp_addRichContent(String alternativo, String iFrame, String url)
@@ -3096,42 +3065,108 @@ public class Adminproperty extends TestListenerAdapter {
 		}
 	}
 	
-	public void CF_flipboard_magazine(String sites, String magazine) throws InterruptedException
-	  {
-		 CF_pivot_dropdown("Flipboard");
-		 implicitWait();
-		 String[] sitesArr = sites.split("@##@");
-		 String[] magazineArr = magazine.split("@##@");
-		 for(int i =0; i<sitesArr.length; i++)
-		 {
-			implicitWait();
-			action_sendKeys(findElement(prop.getProperty("MVP_flipboard_dropdown")), sitesArr[i]);
-			Thread.sleep(1000);
-			driver.findElement(By.xpath(".//*[@value='siteMagazine']")).click();
-			Thread.sleep(1000);
-			action_sendKeys(findElement(prop.getProperty("MVP_magazine_dropdown")), magazineArr[i]);
-			findAndClick("Mvp_addPivotbutton");
-			Thread.sleep(1000);
-			if((i>=sitesArr.length)||(i==sitesArr.length-1))
-				break;
-			else
-			CF_pivot_dropdown("Flipboard");
-			}
+	public void CF_flipboard_magazine(String site) throws InterruptedException
+	{
+		 String magzines= getflipboardmagzines(site);
+		if(magzines!="") { 
+		 String[] magzinesArr = magzines.split("@##@");
+		    
+		  for (int j = 0; j < magzinesArr.length; j++) {
+		    	CF_pivot_dropdown("Flipboard");
+				implicitWait();
+				action_sendKeys(findElement(prop.getProperty("MVP_flipboard_dropdown")), site);
+				Thread.sleep(1000);
+				driver.findElement(By.xpath(".//*[@value='siteMagazine']")).click();
+				Thread.sleep(1000);
+		    	action_sendKeys(findElement(prop.getProperty("MVP_magazine_dropdown")), magzinesArr[j]);
+				findAndClick("Mvp_addPivotbutton");
+		    }
+		
+		}
+		 
 	    }
 
+	public String getflipboardmagzines(String site) throws InterruptedException
+	{    
+	String addfirst="";
+	 String flipboard_blogmagzines="";
+		CF_pivot_dropdown("Flipboard");
+		implicitWait();
+		action_sendKeys(findElement(prop.getProperty("MVP_flipboard_dropdown")), site);
+		//Thread.sleep(1000);
+      	String presentelement="";
+        List<WebElement> Elementpresent =  findElementsByXpath("//div[@class='m-no-margin row']/div");
+	    for (WebElement list1 : Elementpresent) {
+	        	 System.out.println("ELEMENT======="+list1.getText());
+	        	 presentelement= presentelement + list1.getText();	
+	        	 }
+	        System.out.println("presentelement==========="+presentelement);
+	  	if(presentelement.contains("Tipo de pivot de Flipboard")) { 
+		driver.findElement(By.xpath(".//*[@value='siteMagazine']")).click();
+		Thread.sleep(1000);
+		findElement(prop.getProperty("MVP_magazine_dropdown")).click();
+	  //  System.out.println(driver.findElement(By.xpath(".//*[@class='row']")).getAttribute("innerHTML"));
+        System.out.println("hello-------------"+driver.findElements(By.xpath("//div[contains(@class,'react-select__option')]")).size());
+	    List<WebElement> blogs =  findElementsByXpath("//div[contains(@class,'react-select__option')]");
+	      
+	        for (WebElement list : blogs) {
+	           System.out.println(list.getText());
+	            if(flipboard_blogmagzines=="")
+	            {
+	            	flipboard_blogmagzines=list.getText();
+	            	addfirst=list.getText();
+	            }else{ flipboard_blogmagzines =flipboard_blogmagzines + "@##@" + list.getText();}
+	        }
+	        
+	        action_sendKeys(findElement(prop.getProperty("MVP_magazine_dropdown")), addfirst);
+  			findAndClick("Mvp_addPivotbutton");
+		}
+		else
+		{
+			System.out.println("EXIT,  No magzine available for this blog");
+			driver.findElement(By.xpath("//div[@class='col-xs-2 end-xs']/button")).click();
+			flipboard_blogmagzines="";
+		}
+		
+	        return flipboard_blogmagzines;
+	}
+	
+	public String getflipboardBlogs() throws InterruptedException
+	{
+		   String flipboard_blogname="";
+		   CF_pivot_dropdown("flipboard");
+	       findElement(prop.getProperty("MVP_flipboard_siteDrpdown")).click();
+	       List<WebElement> blogs =  findElementsByXpath("//div[contains(@class,'react-select__option')]");
+	        for (WebElement list : blogs) {
+	            if(flipboard_blogname=="")
+	            {
+	            	flipboard_blogname=list.getText();
+	            }else{ flipboard_blogname =flipboard_blogname + "@##@" + list.getText();}
+	        }
+	        
+	        return flipboard_blogname;
+	}
+	
+	
 	public void addpivotFlipboard_Alfa(String flipboard_blogname) throws InterruptedException {
-
+		//System.out.println("flipboard_blogname=="+flipboard_blogname);
+        
 		String flipboardarr[] = flipboard_blogname.split("@##@");
 		for (int i = 0; i < flipboardarr.length; i++) {
+			
+			if(i>0) {
 			CF_pivot_dropdown("flipboard");
-			driver.switchTo().activeElement();
+			driver.switchTo().activeElement();}
 			Actions action = new Actions(driver);
 			implicitWait();
 			action.moveToElement(findElement(prop.getProperty("MVP_flipboard_siteDrpdown"))).click();
 			action.moveToElement(findElement(prop.getProperty("MVP_flipboard_siteDrpdownSearchField"))).click();
 			implicitWait();
-			action.sendKeys(flipboardarr[i]).sendKeys(Keys.ENTER);
-			action.build().perform();
+			/*
+			 * action.sendKeys(flipboardarr[i]).sendKeys(Keys.ENTER);
+			 * action.build().perform();
+			 */
+		    action_sendKeys(findElement(prop.getProperty("MVP_flipboard_siteDrpdownSearchField")), flipboardarr[i]);
 			implicitWait();
 			findAndClick("Mvp_addPivotbutton");
 		}
