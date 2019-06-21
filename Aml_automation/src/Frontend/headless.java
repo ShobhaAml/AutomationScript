@@ -19,6 +19,6 @@ public class headless {
        // chromeOptions.setExperimentalOption(“useAutomationExtension”, false);
 		WebDriver driver = new ChromeDriver(chromeOptions);
 		driver.get("http://www.google.com");     
-		System.out.println("-->");
+		System.out.println("<-->");
 	}
 }
