@@ -18,6 +18,7 @@ public class headless {
         chromeOptions.addArguments("--disable-dev-shm-usage");
        // chromeOptions.setExperimentalOption(“useAutomationExtension”, false);
 		WebDriver driver = new ChromeDriver(chromeOptions);
-		driver.get("http://google.com");     
+		driver.get("http://www.google.com");     
+		System.out.println("-->");
 	}
 }
