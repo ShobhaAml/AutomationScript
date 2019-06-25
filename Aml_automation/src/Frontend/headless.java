@@ -11,10 +11,9 @@ public class headless {
 	public void testbrowser()
 	{
 		
-		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/usr/bin/chromedriver");
+			System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "//src//Driverfiles//linux//chromedriver");
         ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.setBinary("/usr/bin/chromedriver");
-        chromeOptions.addArguments("--headless");
+       chromeOptions.addArguments("--headless");
         chromeOptions.addArguments("--no-sandbox");
         chromeOptions.addArguments("--disable-dev-shm-usage");
       //  chromeOptions.setExperimentalOption("useAutomationExtension", false);
