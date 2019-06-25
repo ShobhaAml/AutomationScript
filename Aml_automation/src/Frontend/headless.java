@@ -13,10 +13,11 @@ public class headless {
 		
 		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "//src//Driverfiles//linux//chromedriver");
         ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.setBinary("//src//Driverfiles//linux//chromedriver");
         chromeOptions.addArguments("--headless");
         chromeOptions.addArguments("--no-sandbox");
         chromeOptions.addArguments("--disable-dev-shm-usage");
-        chromeOptions.setExperimentalOption(“useAutomationExtension”, false);
+        chromeOptions.setExperimentalOption("useAutomationExtension", false);
 		WebDriver driver = new ChromeDriver(chromeOptions);
 		driver.get("http://google.com");     
 	}
