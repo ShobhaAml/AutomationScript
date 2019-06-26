@@ -14,7 +14,6 @@ public class headless {
 		ChromeOptions chromeOptions = new ChromeOptions();
 		chromeOptions.setBinary("//src//Driverfiles//linux//chromedriver");
 		chromeOptions.addArguments("--no-sandbox");
-		options.addArguments("disable-infobars");
 		chromeOptions.addArguments("--headless");
 		chromeOptions.addArguments("--disable-dev-shm-usage");
 		chromeOptions.setExperimentalOption("useAutomationExtension", false);
