@@ -15,9 +15,9 @@ public class headless {
 		//chromeOptions.setBinary("//src//Driverfiles//linux//chromedriver");
 		chromeOptions.addArguments("--no-sandbox");
 		chromeOptions.addArguments("--headless");
-		chromeOptions.addArguments("--disable-dev-shm-usage");
+		//chromeOptions.addArguments("--disable-dev-shm-usage");
 		//chromeOptions.setExperimentalOption("useAutomationExtension", false);
-		WebDriver driver = new ChromeDriver(chromeOptions);
+		ChromeDriver driver = new ChromeDriver(chromeOptions);
 		driver.get("http://google.com");    
 	}
 }
