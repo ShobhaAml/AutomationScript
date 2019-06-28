@@ -16,7 +16,7 @@ public class headless {
 		chromeOptions.addArguments("--no-sandbox");
 		chromeOptions.addArguments("--headless");
 		chromeOptions.addArguments("--disable-dev-shm-usage");
-		chromeOptions.setExperimentalOption("useAutomationExtension", false);
+		//chromeOptions.setExperimentalOption("useAutomationExtension", false);
 		WebDriver driver = new ChromeDriver(chromeOptions);
 		driver.get("http://google.com");    
 	}
