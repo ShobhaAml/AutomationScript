@@ -10,7 +10,7 @@ public class headless {
 	@Test
 	public void testbrowser()
 	{
-		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "//src//Driverfiles//linux//chromedriver");
+		System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
 		ChromeOptions chromeOptions = new ChromeOptions();
 		chromeOptions.setBinary("//src//Driverfiles//linux//chromedriver");
 		chromeOptions.addArguments("--no-sandbox");
