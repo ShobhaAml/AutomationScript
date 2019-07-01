@@ -10,7 +10,7 @@ public class headless {
 	@Test
 	public void testbrowser()
 	{
-		System.setProperty("webdriver.chrome.driver", "/home/soni/Downloads/chromedriver");
+		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "//src//Driverfiles//chromedriver");
 		ChromeOptions chromeOptions = new ChromeOptions();
 		//chromeOptions.setBinary("//src//Driverfiles//linux//chromedriver");
 		chromeOptions.addArguments("--no-sandbox");
@@ -18,6 +18,6 @@ public class headless {
 		//chromeOptions.addArguments("--disable-dev-shm-usage");
 		//chromeOptions.setExperimentalOption("useAutomationExtension", false);
 		ChromeDriver driver = new ChromeDriver(chromeOptions);
-		driver.get("http://google.com");    
+		driver.get("http://google.com");
 	}
 }
