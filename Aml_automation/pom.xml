@@ -123,12 +123,12 @@
     <type>jar</type>
     <scope>compile</scope>
 </dependency>
-<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-chrome-driver -->
+<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-chrome-driver 
   <dependency>
     <groupId>org.seleniumhq.selenium</groupId>
     <artifactId>selenium-chrome-driver</artifactId>
     <version>3.3.1</version>
-</dependency>
+</dependency>-->
 
 <dependency>
   <groupId>org.apache.maven.plugins</groupId>
@@ -136,6 +136,5 @@
   <version>3.1.0</version>
   <type>maven-plugin</type>
 </dependency>
-
   </dependencies>
 </project>
