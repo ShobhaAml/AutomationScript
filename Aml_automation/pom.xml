@@ -137,10 +137,22 @@
   <type>maven-plugin</type>
 </dependency>
 
-<dependency>
+<!--  <dependency>
     <groupId>software.reinvent</groupId>
     <artifactId>headless-chrome</artifactId>
     <version>0.3.6</version>
+</dependency>-->
+
+<dependency>
+     <groupId>io.github.bonigarcia</groupId>
+     <artifactId>webdrivermanager</artifactId>
+     <version>2.2.5</version>
+</dependency>
+
+<dependency>
+<groupId>org.seleniumhq.selenium</groupId>
+<artifactId>selenium-chrome-driver</artifactId>
+<version>2.50.0</version>
 </dependency>
 
   </dependencies>
