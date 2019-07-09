@@ -15,50 +15,37 @@
       </resource>
     </resources>
     <pluginManagement>
-        <plugins>
-            <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-            <plugin>
-                <groupId>org.eclipse.m2e</groupId>
-                <artifactId>lifecycle-mapping</artifactId>
-                <version>1.0.0</version>
-                <configuration>
-                    <lifecycleMappingMetadata>
-                        <pluginExecutions>
-                            <pluginExecution>
-                                <pluginExecutionFilter>
-                                    <groupId>
-                                        com.lazerycode.selenium
-                                    </groupId>
-                                    <artifactId>
-                                        driver-binary-downloader-maven-plugin
-                                    </artifactId>
-                                    <versionRange>
-                                        [1.0.17,)
-                                    </versionRange>
-                                    <goals>
-                                        <goal>selenium</goal>
-                                    </goals>
-                                </pluginExecutionFilter>
-                                <action>
-                                    <ignore></ignore>
-                                </action>
-                            </pluginExecution>
-                        </pluginExecutions>
-                    </lifecycleMappingMetadata>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.20.1</version>
-            </plugin>
-        
-      
-   <!--  <plugin>
+    <plugins>
+      <plugin>
+            <groupId>com.github.zetten</groupId>
+            <artifactId>xvfb-maven-plugin</artifactId>
+            <version>${xvfb-maven-plugin.version}</version>
+            <executions>
+                <execution>
+                    <id>wrap-tests</id>
+                    <goals>
+                        <goal>run</goal>
+                        <goal>stop</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+        <plugin>
+            <groupId>org.eclipse.tycho</groupId>
+            <artifactId>tycho-surefire-plugin</artifactId>
+            <version>${tycho.version}</version>
+            <configuration>
+                <useUIHarness>true</useUIHarness>
+                <environmentVariables>
+                    <DISPLAY>${xvfb.display}</DISPLAY>
+                </environmentVariables>
+            </configuration>
+        </plugin>
+   <plugin>
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-resources-plugin</artifactId>
      <version>3.1.0</version>
-   </plugin>  -->  
+   </plugin>    
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -90,8 +77,9 @@
       <artifactId>maven-resources-plugin</artifactId>
       <version>3.0.2</version>   
  </plugin>
-</plugins>
-    </pluginManagement>    
+    </plugins>
+    </pluginManagement>
+    
   </build>
   <dependencies>
           <dependency>
@@ -174,6 +162,12 @@
   <version>3.1.0</version>
   <type>maven-plugin</type>
 </dependency>
+
+<!--  <dependency>
+    <groupId>software.reinvent</groupId>
+    <artifactId>headless-chrome</artifactId>
+    <version>0.3.6</version>
+</dependency>-->
 
 <dependency>
      <groupId>io.github.bonigarcia</groupId>
