@@ -180,6 +180,11 @@
 <artifactId>selenium-chrome-driver</artifactId>
 <version>2.50.0</version>
 </dependency>
+<dependency>
+    <groupId>com.github.zetten</groupId>
+    <artifactId>xvfb-maven-plugin</artifactId>
+    <version>1.0.2</version>
+</dependency>
 
   </dependencies>
 </project>
