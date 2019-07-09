@@ -4,7 +4,7 @@
   <groupId>Aml_automation</groupId>
   <artifactId>Aml_automation</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-    <build>
+   <build>
     <sourceDirectory>src</sourceDirectory>
     <resources>
       <resource>
@@ -14,13 +14,51 @@
         </excludes>
       </resource>
     </resources>
-    <plugins>
+    <pluginManagement>
+        <plugins>
+            <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+            <plugin>
+                <groupId>org.eclipse.m2e</groupId>
+                <artifactId>lifecycle-mapping</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    <lifecycleMappingMetadata>
+                        <pluginExecutions>
+                            <pluginExecution>
+                                <pluginExecutionFilter>
+                                    <groupId>
+                                        com.lazerycode.selenium
+                                    </groupId>
+                                    <artifactId>
+                                        driver-binary-downloader-maven-plugin
+                                    </artifactId>
+                                    <versionRange>
+                                        [1.0.17,)
+                                    </versionRange>
+                                    <goals>
+                                        <goal>selenium</goal>
+                                    </goals>
+                                </pluginExecutionFilter>
+                                <action>
+                                    <ignore></ignore>
+                                </action>
+                            </pluginExecution>
+                        </pluginExecutions>
+                    </lifecycleMappingMetadata>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.20.1</version>
+            </plugin>
+        
       
-   <plugin>
+   <!--  <plugin>
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-resources-plugin</artifactId>
      <version>3.1.0</version>
-   </plugin>    
+   </plugin>  -->  
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -52,8 +90,8 @@
       <artifactId>maven-resources-plugin</artifactId>
       <version>3.0.2</version>   
  </plugin>
-    </plugins>
-    
+</plugins>
+    </pluginManagement>    
   </build>
   <dependencies>
           <dependency>
@@ -136,12 +174,6 @@
   <version>3.1.0</version>
   <type>maven-plugin</type>
 </dependency>
-
-<!--  <dependency>
-    <groupId>software.reinvent</groupId>
-    <artifactId>headless-chrome</artifactId>
-    <version>0.3.6</version>
-</dependency>-->
 
 <dependency>
      <groupId>io.github.bonigarcia</groupId>
