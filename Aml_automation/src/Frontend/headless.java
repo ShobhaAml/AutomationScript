@@ -19,13 +19,11 @@ public class headless {
     	 //options.addArguments("windows-size=1400,800");
     	 //options.addArguments("–disable-dev-shm-usage");
       	 options.addArguments("headless");
+      	 options.addArguments("–disable-gpu");
         WebDriver driver = new ChromeDriver(options);
          driver.get("http://www.google.com");
          System.out.println("test");
 
-  
-	
-	     
 	    
 	}
 
