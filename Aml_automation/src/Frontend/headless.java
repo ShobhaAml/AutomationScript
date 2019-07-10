@@ -25,7 +25,7 @@ public class headless {
 		//options.addArguments("--always-authorize-plugins");
 
       	 options.addArguments("headless");
-      	// options.addArguments("–disable-gpu");
+      	// options.addArguments("–disable-gpu"); 
       	 //options.setBinary(System.getProperty("user.dir") + "//src//Driverfiles//chromedriver");
  		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "//src//Driverfiles//chromedriver");
 
