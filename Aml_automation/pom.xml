@@ -157,6 +157,18 @@
   <version>3.1.0</version>
   <type>maven-plugin</type>
 </dependency>
+
+<!--  <dependency>
+    <groupId>org.codehaus.redback.components.cache</groupId>
+    <artifactId>spring-cache-hashmap</artifactId>
+    <version>1.1</version>
+</dependency>
+
+<dependency>
+     <groupId>org.seleniumhq.selenium</groupId>
+     <artifactId>selenium-chrome-driver</artifactId>
+     <version>2.50.0</version>
+</dependency>-->
     <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
 	<dependency>
 	    <groupId>io.github.bonigarcia</groupId>
