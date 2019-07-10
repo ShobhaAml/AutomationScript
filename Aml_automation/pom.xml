@@ -5,7 +5,7 @@
   <artifactId>Aml_automation</artifactId>
   <version>0.0.1-SNAPSHOT</version>
     <build>
-    <sourceDirectory>src</sourceDirectory>
+    <sourceDirectory>src/Frontend</sourceDirectory>
     <resources>
       <resource>
         <directory>src</directory>
@@ -14,8 +14,34 @@
         </excludes>
       </resource>
     </resources>
+      <pluginManagement>
     <plugins>
-      
+      <plugin>
+            <groupId>com.github.zetten</groupId>
+            <artifactId>xvfb-maven-plugin</artifactId>
+            <version>${xvfb-maven-plugin.version}</version>
+            <executions>
+                <execution>
+                    <id>wrap-tests</id>
+                    <goals>
+                        <goal>run</goal>
+                        <goal>stop</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+        <plugin>
+            <groupId>org.eclipse.tycho</groupId>
+            <artifactId>tycho-surefire-plugin</artifactId>
+            <version>${tycho.version}</version>
+            <configuration>
+                <useUIHarness>true</useUIHarness>
+                <environmentVariables>
+                    <DISPLAY>${xvfb.display}</DISPLAY>
+                </environmentVariables>
+            </configuration>
+        </plugin>
+ 
    <plugin>
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-resources-plugin</artifactId>
@@ -26,6 +52,7 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.0.0-M3</version>
         <configuration>
+                <testFailureIgnore>true</testFailureIgnore>
         
           <suiteXmlFiles>
             <suiteXmlFile>${SuiteXmlFile}</suiteXmlFile>
@@ -38,12 +65,12 @@
         <configuration>
             <source>1.8</source>
             <target>1.8</target>
-          <!--   <fork>true</fork> -->
+            <fork>true</fork>
             <goalPrefix>test</goalPrefix>
            <encoding>Cp1252</encoding>
-         <!--    <includes>
+            <includes>
                    <include>headless.java</include>
-              </includes> -->
+              </includes>
   </configuration>
     </plugin>
 
@@ -53,6 +80,7 @@
       <version>3.0.2</version>   
  </plugin>
     </plugins>
+          </pluginManagement>
     
   </build>
   <dependencies>
@@ -123,18 +151,12 @@
     <type>jar</type>
     <scope>compile</scope>
 </dependency>
-
-
 <dependency>
   <groupId>org.apache.maven.plugins</groupId>
   <artifactId>maven-resources-plugin</artifactId>
   <version>3.1.0</version>
   <type>maven-plugin</type>
 </dependency>
-<dependency>
-    <groupId>org.codehaus.redback.components.cache</groupId>
-    <artifactId>spring-cache-hashmap</artifactId>
-    <version>1.1</version>
-</dependency>
   </dependencies>
 </project>
+  
