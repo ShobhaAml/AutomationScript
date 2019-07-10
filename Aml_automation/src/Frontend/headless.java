@@ -1,4 +1,4 @@
-package Frontend;
+ package Frontend;
 
 
 
@@ -14,12 +14,12 @@ public class headless {
 	@Test
 	public void testbrowser()
 	{	
- 		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "//src//Driverfiles//chromedriver");
+ 		//System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "//src//Driverfiles//chromedriver");
+        System.out.println("test");    
  		ChromeOptions options = new ChromeOptions();
- 		WebDriver driver = new ChromeDriver(options);
-        options.addArguments("--whitelist-ip *");
-        options.addArguments("--proxy-server='direct://'");
-        options.addArguments("--proxy-bypass-list=*");
+       // options.addArguments("--whitelist-ip *");
+       // options.addArguments("--proxy-server='direct://'");
+       // options.addArguments("--proxy-bypass-list=*");
       	// options.setBinary(System.getProperty("user.dir") + "//src//Driverfiles//chromedriver");
  		//options.addArguments("windows-size=1400,800");
     	 //options.addArguments("–disable-dev-shm-usage");
@@ -37,9 +37,9 @@ public class headless {
          WebDriver driver =  new ChromeDriver(capabilities);*/
       	 //options.addArguments("–disable-gpu");
 
-       
+  		WebDriver driver = new ChromeDriver(options);
+
         driver.get("http://www.google.com");
-         System.out.println("test");    
 	}
 
 }
