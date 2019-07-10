@@ -2,9 +2,11 @@ package Frontend;
 
 
 
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.Test;
 
 public class headless {
@@ -18,14 +20,20 @@ public class headless {
  		//options.addArguments("windows-size=1400,800");
     	 //options.addArguments("–disable-dev-shm-usage");
 		options.addArguments("--start-maximized");
+     	 options.addArguments("--headless");
 		//ChromeDriverManager.getInstance().setup();
-		options.addArguments("--dns-prefetch-disable");
-		options.addArguments("--always-authorize-plugins");
+		//options.addArguments("--dns-prefetch-disable");
+		//options.addArguments("--always-authorize-plugins");
+         DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 
-      	 options.addArguments("headless");
-      	 options.addArguments("–disable-gpu");
+         capabilities.setBrowserName("chrome");
+         capabilities.setPlatform(Platform.LINUX);
 
-        WebDriver driver = new ChromeDriver(options);
+         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+         WebDriver driver =  new ChromeDriver(capabilities);
+      	 //options.addArguments("–disable-gpu");
+
+       // WebDriver driver = new ChromeDriver(options);
         driver.get("http://www.google.com");
          System.out.println("test");    
 	}
