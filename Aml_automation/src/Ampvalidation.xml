@@ -2,7 +2,7 @@
 <suite name="Amp validation Suite" >
   <test name="Amp validation" >
   <classes>
-  	<class  name="Frontend.headless"></class>
+  	<class  name="Frontend.Amptest"></class>
   </classes>
   </test>
   </suite>
