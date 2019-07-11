@@ -23,7 +23,7 @@ public class headless {
 
         driver.get("https://google.com");
 		
-		System.out.println("test");    
+		System.out.println("testing");    
  		//ChromeOptions options = new ChromeOptions();
        /* options.addArguments("--whitelist-ip *");
         options.addArguments("--proxy-server='direct://'");
