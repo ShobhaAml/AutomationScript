@@ -1,5 +1,4 @@
 package Frontend;
-
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -116,9 +115,9 @@ public class Amptest {
 		return errorMap;
 	}
 	public WebDriver headlessbrowser(String url){
-	    System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "//src//Driverfiles//linux//chromedriver");
+	   System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "//src//Driverfiles//chromedriver");
         ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.setBinary("//src//Driverfiles//linux//chromedriver");
+        //chromeOptions.setBinary("//src//Driverfiles//linux//chromedriver");
 	    chromeOptions.addArguments("--headless");
 	    chromeOptions.addArguments("--no-sandbox");
 	
