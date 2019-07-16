@@ -76,12 +76,13 @@ public class htmlvalidationtest {
 		driver.quit();
 	}
 	public WebDriver headlessbrowser(String url){
-		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "//src//Driverfiles//chromedriver");
-		ChromeOptions chromeOptions = new ChromeOptions();
-	    chromeOptions.addArguments("--headless");
-	    ChromeDriver driver = new ChromeDriver(chromeOptions);
-		driver.get(url);     
-		return driver;
+      	     System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "//src//Driverfiles//chromedriver");
+             ChromeOptions chromeOptions = new ChromeOptions();
+             chromeOptions.addArguments("--headless");
+	     chromeOptions.addArguments("--no-sandbox");
+	     ChromeDriver driver = new ChromeDriver(chromeOptions);
+	     driver.get(url);     
+	     return driver;	
 	}
 	public Map<String, Integer> getHTMLerror(String posturl) throws Exception  {
 		Map<String, Integer> errorMap = new HashMap<String, Integer>();
