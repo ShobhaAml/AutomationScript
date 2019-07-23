@@ -12,6 +12,8 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -29,14 +31,24 @@ public class BrokenLinks
     String server, blogname, path, device, testserver, browser;
     String usuariolink = "", author = "";
     WebDriver driver = null;
-   String desktopurl="https://guest:guest@testing.xataka.com/";
+    String desktopurl="https://guest:guest@testing.xataka.com/";
+   
+   public WebDriver launchHeadlessBrowser()
+   {
+	System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "//src//Driverfiles//chromedriver.exe");
+	ChromeOptions chromeOptions = new ChromeOptions();
+    chromeOptions.addArguments("--headless");
+    chromeOptions.addArguments("--no-sandbox");
+    WebDriver driver = new ChromeDriver(chromeOptions);
+	return driver;
+	   
+   }
     
     @BeforeMethod
     public void Setup() throws Exception
     {
         prop = frontendProperties.ReadProperties();
-        driver = frontendProperties.frontcallproperty(prop.getProperty("url"),
-                prop.getProperty("browser"));
+        driver = launchHeadlessBrowser();
         browser = prop.getProperty("browser");
         server = prop.getProperty("server");
         blogname = prop.getProperty("blogname");
@@ -47,8 +59,6 @@ public class BrokenLinks
     @Test
     public void verfiyLinks() throws IOException
     {
-     //   driver = frontendProperties.frontcallproperty(prop.getProperty("url"),  prop.getProperty("browser"));
-    	
     	driver.get(desktopurl);
     	System.out.println("Main URL----------"+ desktopurl);
         List<WebElement> anchorTagsList = driver.findElements(By.tagName("a"));
