@@ -40,8 +40,7 @@ public class BrokenLinks
     chromeOptions.addArguments("--headless");
     chromeOptions.addArguments("--no-sandbox");
     WebDriver driver = new ChromeDriver(chromeOptions);
-	return driver;
-	   
+	return driver;   
    }
     
     @BeforeMethod
