@@ -10,6 +10,8 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import Common.Adminproperty;
@@ -22,11 +24,12 @@ public class BrokenLinks_admin {
 	Properties prop = new Properties();
 	String server, blogname, path, device, testserver, browser;
 
-	@BeforeMethod
+   @BeforeMethod
 	public void Setup() throws Exception {
 		prop = adminProperties.ReadProperties();
-		driver = adminProperties.callproperty(prop.getProperty("url"), prop.getProperty("browser"));
-		browser = prop.getProperty("browser");
+		//driver = adminProperties.callproperty(prop.getProperty("url"), prop.getProperty("browser"));
+		//browser = prop.getProperty("browser");
+		driver = adminProperties.headlessBrowser_admin(prop.getProperty("url"));
 		adminProperties.LoginAdmin(prop.getProperty("admin_usename"), prop.getProperty("admin_pwd"));
 	}
 
@@ -54,6 +57,7 @@ public class BrokenLinks_admin {
 				}
 			}
 		}
+		driver.close();
 
 		VerifyInternalPages(prop.getProperty("url") + "/newposts/new");
 		VerifyInternalPages(prop.getProperty("url") + "/slideposts/new");
@@ -84,7 +88,8 @@ public class BrokenLinks_admin {
 
 	public void VerifyInternalPages(String url) throws Exception {
 		System.out.println("********* Verifing Internal Pages  " + url + "*******");
-		driver = adminProperties.callproperty(url, prop.getProperty("browser"));
+		//driver = adminProperties.callproperty(url, prop.getProperty("browser"));
+		driver = adminProperties.headlessBrowser_admin(prop.getProperty("url"));
 		adminProperties.LoginAdmin(prop.getProperty("admin_usename"), prop.getProperty("admin_pwd"));
 		List<WebElement> anchorTagsList = driver.findElements(By.tagName("a"));
 		System.out.println("Total no. of links are " + anchorTagsList.size());
@@ -107,11 +112,13 @@ public class BrokenLinks_admin {
 				}
 			}
 		}
+		driver.close();
 	}
 
 	public void VerifyInternalPages_LFE(String url) throws Exception {
 		System.out.println("********* Verifing Internal Pages_LongformPost *******");
-		driver = adminProperties.callproperty(url, prop.getProperty("browser"));
+		//driver = adminProperties.callproperty(url, prop.getProperty("browser"));
+		driver = adminProperties.headlessBrowser_admin(prop.getProperty("url"));
 		adminProperties.LoginAdmin(prop.getProperty("admin_usename"), prop.getProperty("admin_pwd"));
 		adminProperties.findAndClick("navigation_header");
 		adminProperties.findAndClick("create_normallongform_link");
@@ -139,11 +146,13 @@ public class BrokenLinks_admin {
 				}
 			}
 		}
+		driver.close();
 	}
 
 	public void VerifyInternalPages_brandedLFE(String url) throws Exception {
 		System.out.println("********* Verifing Internal Pages_BrandedLongformPost *******");
-		driver = adminProperties.callproperty(url, prop.getProperty("browser"));
+		//driver = adminProperties.callproperty(url, prop.getProperty("browser"));
+		driver = adminProperties.headlessBrowser_admin(prop.getProperty("url"));
 		adminProperties.LoginAdmin(prop.getProperty("admin_usename"), prop.getProperty("admin_pwd"));
 		adminProperties.findAndClick("navigation_header");
 		adminProperties.findAndClick("create_brandlongform_link");
@@ -171,11 +180,13 @@ public class BrokenLinks_admin {
 				}
 			}
 		}
+		driver.close();
 	}
 
 	public void VerifyInternalPages_MVP(String url) throws Exception {
 		System.out.println("********* Verifing Internal MVPPost *******");
-		driver = adminProperties.callproperty(url, prop.getProperty("browser"));
+		//driver = adminProperties.callproperty(url, prop.getProperty("browser"));
+		driver = adminProperties.headlessBrowser_admin(prop.getProperty("url"));
 		adminProperties.LoginAdmin(prop.getProperty("admin_usename"), prop.getProperty("admin_pwd"));
 		adminProperties.findAndClick("navigation_header");
 		adminProperties.findAndClick("create_MVPpost_link");
@@ -208,11 +219,13 @@ public class BrokenLinks_admin {
 				}
 			}
 		}
+		driver.close();
 	}
 
 	public void VerifyInternalPages_brandedMVP(String url) throws Exception {
 		System.out.println("********* Verifing Internal BrandedMVPPost *******");
-		driver = adminProperties.callproperty(url, prop.getProperty("browser"));
+		//driver = adminProperties.callproperty(url, prop.getProperty("browser"));
+		driver = adminProperties.headlessBrowser_admin(prop.getProperty("url"));
 		adminProperties.LoginAdmin(prop.getProperty("admin_usename"), prop.getProperty("admin_pwd"));
 		adminProperties.findAndClick("navigation_header");
 		adminProperties.findAndClick("create_MVPpost_link");
@@ -245,6 +258,7 @@ public class BrokenLinks_admin {
 				}
 			}
 		}
+		driver.close();
 	}
 
 	public void verifyURLStatus(String URL) {
