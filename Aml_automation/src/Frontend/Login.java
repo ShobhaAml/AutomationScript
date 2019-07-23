@@ -3,6 +3,8 @@ package Frontend;
 import java.util.Properties;
 
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
@@ -22,11 +24,13 @@ public class Login {
 	@BeforeMethod
 	    public void openbrowser() throws Exception
 	    {
-	        prop = frontendProperties.ReadProperties();
-	        driver = frontendProperties.frontcallproperty(prop.getProperty("url"),
-	                prop.getProperty("browser"));
-	        browser = prop.getProperty("browser");
-	        url=prop.getProperty("url");
+	      prop = frontendProperties.ReadProperties();
+	      driver = frontendProperties.headlessbrowser(prop.getProperty("url"), "headless");
+	     
+	      //driver = frontendProperties.frontcallproperty(prop.getProperty("url"),
+	      //prop.getProperty("browser"));
+		  //browser = prop.getProperty("browser");
+		  url=prop.getProperty("url");
 	       
 	    }
 	 
@@ -36,25 +40,38 @@ public class Login {
 			return postdata;
 		}
 
-	   //@Test(dataProvider = "testdata")
+	   @Test(dataProvider = "testdata")
 	   public void StandardLogin(String username, String password) throws Exception
 	   {
 		   System.out.println("****Sanity of STANDARD LOGIN******");
 		   frontendProperties.login(username, password,url,"std");
+		   frontendProperties.implicitWait();
+		   frontendProperties.implicitWait();
+	   		driver.close();
 		}
 	   
-	  // @Test(dataProvider = "testdata")
+	   //@Test(dataProvider = "testdata")
 		public void facebookLogin(String username, String password) throws Exception
 		{
 		    System.out.println("****Sanity of FACEBOOK LOGIN******");
 			frontendProperties.login(username, password,url,"fb");
+			frontendProperties.implicitWait();
+	   		driver.close();
 		}
 		
-	    @Test(dataProvider = "testdata") public void twitterLogin(String username, String password) throws Exception
+	    //@Test(dataProvider = "testdata")
+	    public void twitterLogin(String username, String password) throws Exception
 		{
 	    	System.out.println("****Sanity of TWITTER LOGIN******");
 	   		//frontendProperties.login("agiletest111@gmail.com", "amita123",url,"twitter");
 	   		frontendProperties.login(username, password,url,"twitter");
 	   		
+	   		
 		}
+	    @AfterTest
+	    public void closeAllWindows()
+	    {
+	    	//driver.quit();
+	    }
+	    
 }

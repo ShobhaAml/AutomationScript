@@ -47,7 +47,7 @@ import Common.Adminproperty;
     		/*capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);*/
 
     		ChromeOptions options = new ChromeOptions();
-    		options.addArguments("start-maximized");
+    		options.addArguments("start-maximize");
     		//options.addArguments("" + capabilities + "");
     		driver = new ChromeDriver(options);
 
@@ -430,5 +430,15 @@ import Common.Adminproperty;
 		implicitWait();
 
 	}
+	
+		public WebDriver headlessbrowser(String url, String mode){
+	 	System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "//src//Driverfiles//chromedriver.exe");
+	    ChromeOptions chromeOptions = new ChromeOptions();
+	    chromeOptions.addArguments(mode);
+	    //chromeOptions.addArguments("--no-sandbox");
+	    driver = new ChromeDriver(chromeOptions);
+	    driver.get(url);     
+	    return driver;	
+		}
 
 }
