@@ -3362,4 +3362,15 @@ public void insertInsta_MVP() throws InterruptedException, AWTException, IOExcep
 			implicitWait();
 			findAndClick("Hook_Add_Button");
 		}
+	
+	public WebDriver headlessBrowser_admin(String url)
+	{	
+		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "//src//Driverfiles//chromedriver.exe");
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--headless");
+        chromeOptions.addArguments("--no-sandbox");
+        driver = new ChromeDriver(chromeOptions);
+        driver.get(url);
+		return driver;
+	}
 }
