@@ -2036,12 +2036,13 @@ public class Adminproperty extends TestListenerAdapter {
 
 	public void MVP_sectionContent(String addContent) throws InterruptedException {
 		Actions actions = new Actions(driver);
-		if (findElement(prop.getProperty("typeSection")).getText().equalsIgnoreCase("Empieza a escribir aqu...")) {
+		if (findElement(prop.getProperty("typeSection")).getText().equalsIgnoreCase("")) {
 			Thread.sleep(1000);
-			actions.moveToElement(driver.findElement(By.xpath(prop.getProperty("addSection"))));
+			actions.moveToElement(driver.findElement(By.xpath(prop.getProperty("typeSection"))));
 			actions.click();
 			actions.sendKeys(addContent);
 			actions.build().perform();
+			actions.sendKeys(Keys.ENTER).build().perform();
 			implicitWait();
 		} else {
 			Thread.sleep(1000);
@@ -2245,6 +2246,10 @@ public class Adminproperty extends TestListenerAdapter {
 			break;
 		case "richContent":
 			break;
+		case "review":			
+			driver.findElement(By.xpath(".//div[@class='module-container']/div/div[@class='block-highlight']")).click();
+			driver.manage().timeouts().implicitlyWait(50,  TimeUnit.SECONDS);
+			break;
 		
 		}
 		MVP_common_layout("toolbar_icon", Action);
@@ -2289,6 +2294,24 @@ public class Adminproperty extends TestListenerAdapter {
 				implicitWait();
 				findAndClick("MVPInsertButton");
 				break;
+			case "review":
+				 driver.manage().timeouts().implicitlyWait(100,  TimeUnit.SECONDS);
+				 Actions action = new Actions(driver);
+				 List<WebElement> List = driver.findElements(By.xpath("*//div/input"));
+				 for (int i = 1; i < List.size(); i++) {
+					action.moveToElement(List.get(i)).build().perform();
+					action.click().build().perform();
+					implicitWait();
+					List.get(i).clear();
+				  }
+				 implicitWait();
+				 driver.findElement(By.xpath(prop.getProperty("MVP_review_positive"))).clear();
+				 driver.findElement(By.xpath(prop.getProperty("MVP_review_negative"))).clear();
+				 driver.findElement(By.xpath(prop.getProperty("MVP_review_resumen"))).clear();
+				 driver.manage().timeouts().implicitlyWait(100,  TimeUnit.SECONDS);
+				 MVP_add_review(newURL);
+				 implicitWait();
+				 break;
 			}
 		}	
 	}
