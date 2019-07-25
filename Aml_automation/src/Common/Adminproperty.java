@@ -2036,13 +2036,12 @@ public class Adminproperty extends TestListenerAdapter {
 
 	public void MVP_sectionContent(String addContent) throws InterruptedException {
 		Actions actions = new Actions(driver);
-		if (findElement(prop.getProperty("typeSection")).getText().equalsIgnoreCase("")) {
+		if (findElement(prop.getProperty("typeSection")).getText().equalsIgnoreCase("Empieza a escribir aqu...")) {
 			Thread.sleep(1000);
-			actions.moveToElement(driver.findElement(By.xpath(prop.getProperty("typeSection"))));
+			actions.moveToElement(driver.findElement(By.xpath(prop.getProperty("addSection"))));
 			actions.click();
 			actions.sendKeys(addContent);
 			actions.build().perform();
-			actions.sendKeys(Keys.ENTER).build().perform();
 			implicitWait();
 		} else {
 			Thread.sleep(1000);
@@ -2055,6 +2054,7 @@ public class Adminproperty extends TestListenerAdapter {
 			actions.sendKeys(Keys.ENTER);
 			actions.build().perform();
 		}
+	}
 	
 	public void MVP_image_viaPanel(String browser) throws IOException, InterruptedException {
 		findAndClick("MVP_upload_img_btn");
@@ -3237,7 +3237,8 @@ public class Adminproperty extends TestListenerAdapter {
 	}
 	
 	public void MVP_add_review(String review) throws InterruptedException
-	{
+	 {
+		ClickICON(driver, "review");
 		String[] revArr = review.split("~##~");
 		findAndWrite("MVP_review_score", revArr[0]);
 		implicitWait();
