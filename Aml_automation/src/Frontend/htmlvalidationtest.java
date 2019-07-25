@@ -4,6 +4,7 @@ package Frontend;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -93,22 +94,40 @@ public class htmlvalidationtest {
 	
      	driver.findElement(By.xpath(".//input[@id='uri']")).sendKeys(posturl);
 		driver.findElement(By.xpath(".//a[@class='submit']")).click();
-		System.out.println(driver.findElements(By.xpath(".//ol/li[@class='error']")).size());
+		
 	    if (driver.findElements(By.xpath(".//ol/li[@class='error']")).size()==0)
 		  {
-		 System.out.println("No HTML errors");
+	    	System.out.println(driver.findElements(By.xpath(".//ol/li[@class='error']")).size());
+	    	System.out.println("No HTML errors");
 		  
 		 } else {
-			 System.out.println("Here are the HTML errors");
+			 int cnt=0;
 			 List<WebElement> list=driver.findElements(By.xpath(".//ol/li[@class='error']"));
 		  
 			 for (WebElement element1 : list) { 
-			  
-			  if ( errorMap.get(element1.getText()) == null ) {
-			  errorMap.put(element1.getText(),1); }
-			  
-			  }
-			 errorMap.forEach((k,v)->System.out.println("Item : " + k + " Count : " + v));
+					 if(! element1.getText().contains("Error: Element img is missing required attribute src.")){
+						
+					  if ( errorMap.get(element1.getText()) == null ) {
+						  errorMap.put(element1.getText(),1); 
+					  	}	
+					   cnt=cnt+1;
+				      }
+				 }
+			 
+			 if(cnt>0)
+			 {
+			    	System.out.println(cnt);
+			    	System.out.println("Here are the HTML errors");
+					
+			 }else
+			 {
+				 System.out.println("0");
+				 System.out.println("No HTML errors");
+			 }
+			 
+			errorMap.forEach((k,v)->System.out.println("Item : " + k + " Count : " + v));
+			
+			 
 		  
 		 }
 		 	driver.close();
