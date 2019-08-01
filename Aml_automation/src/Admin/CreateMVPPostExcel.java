@@ -66,11 +66,15 @@ public class CreateMVPPostExcel {
 			adminProperties.LoginAdmin(prop.getProperty("admin_usename"), prop.getProperty("admin_pwd"));
 			adminProperties.CreateMVPpost(posttype);
 			Thread.sleep(2000);
-			adminProperties.AddMVPTitle(posttitle);
 			adminProperties.implicitWait();
-			adminProperties.primary_section_MVP(Youtube_Video);/// pass image or Youtube_Video
 			Thread.sleep(2000);
-
+						
+			if (!posttitle.equalsIgnoreCase("null")) {
+				adminProperties.AddMVPTitle(posttitle);
+				adminProperties.implicitWait();
+				adminProperties.primary_section_MVP(Youtube_Video);/// pass image or Youtube_Video
+			}
+			
 			if (!postcontent.equalsIgnoreCase("null")) {
 				adminProperties.MVP_sectionContent(postcontent);
 				adminProperties.implicitWait();
@@ -86,7 +90,7 @@ public class CreateMVPPostExcel {
 				adminProperties.ClickICON(driver, "image");
 				adminProperties.implicitWait();
 				adminProperties.MVP_image_viaURL(image);
-				adminProperties.MVP_uploadImage(imageLayout, "");
+				adminProperties.MVP_uploadImage(imageLayout, "MVP_insertImage");
 			}
 
 			if (!Twittertext.equalsIgnoreCase("null")) {
@@ -128,6 +132,23 @@ public class CreateMVPPostExcel {
 				adminProperties.MVP_modules_withLayout(Inforgram_datawrapper_URL, infographLayout);
 				adminProperties.implicitWait();
 			}
+			
+			if (!(Pivot_dropdown.equalsIgnoreCase("null"))) {
+				adminProperties.CF_pivot_dropdown("Producto");
+				
+				if (Pivot_dropdown.equalsIgnoreCase("otherstores")) {
+					adminProperties.MVP_addPivot_Ecommerce("otherstores","", Pivot_otherStorevalues, Pivot_otherStoreProductTitle, Pivot_otherStoreProductImage);
+				} 
+				else if (Pivot_dropdown.equalsIgnoreCase("amazon")) {
+					adminProperties.implicitWait();
+					adminProperties.MVP_addPivot_Ecommerce("Amazon",Pivot_amazon_search, Pivot_otherStorevalues, "", "");
+				}
+				else if(Pivot_dropdown.equalsIgnoreCase("ebay"))
+				{
+					adminProperties.MVP_addPivot_Ecommerce("Ebay",Pivot_amazon_search, Pivot_otherStorevalues, "", "");
+				}
+			}
+
 
 			if (!Pivot_newsletter.equalsIgnoreCase("null")) {
 				adminProperties.ClickICON(driver, "pivot");
@@ -138,22 +159,6 @@ public class CreateMVPPostExcel {
 				adminProperties.ClickICON(driver, "pivot");
 				adminProperties.implicitWait();
 				adminProperties.add_MVP_pivotarticle(Pivot_product_Article, Pivot_product_Article_posttype);
-			}
-
-			if (!Pivot_dropdown.equalsIgnoreCase("null")) {
-				Actions action = new Actions(driver);
-				action.sendKeys(Keys.ENTER);
-				action.build().perform();
-				action.moveToElement(driver.findElement(By.xpath(prop.getProperty("content_section_path"))));
-				action.click();
-				adminProperties.ClickICON(driver, "pivot");
-
-				if (Pivot_dropdown.equalsIgnoreCase("amazon")) {
-					adminProperties.findAndClick("MvP_pivot_Product");
-					adminProperties.MVP_pivot_amazon(Pivot_amazon_search.toLowerCase());
-					adminProperties.implicitWait();
-					adminProperties.MVP_add_ecommerce(Pivot_otherStorevalues);
-				}
 			}
 
 			if (!Pivot_product_Article.equalsIgnoreCase("null")) {
@@ -191,22 +196,20 @@ public class CreateMVPPostExcel {
 				
 			}
 			
-			
-			
-			
 			if (!ficha_review.equalsIgnoreCase("null")) {
+				adminProperties.ClickICON(driver, "review");
 				adminProperties.implicitWait();
 				adminProperties.MVP_add_review(ficha_review);
 			}
 
 			// Add pivot external to CF post
-			adminProperties.addpivotExternal_Alfa(pivot_ExternalUrl, pivot_ExternalNombre, pivot_ExternalArticletitle);
+			//adminProperties.addpivotExternal_Alfa(pivot_ExternalUrl, pivot_ExternalNombre, pivot_ExternalArticletitle);
 
 			// Add pivot instagram to CF post
-			adminProperties.insertInsta_MVP();
+			//adminProperties.insertInsta_MVP();
 
 			// Add hook to MVP
-			adminProperties.insertHook_MVP(hookCustomerName, hookLogoLink, hookTextarea, hookButtonText);
+			//adminProperties.insertHook_MVP(hookCustomerName, hookLogoLink, hookTextarea, hookButtonText);
 
 		}
 		Actions action = new Actions(driver);
