@@ -2551,7 +2551,10 @@ public class Adminproperty extends TestListenerAdapter {
 			System.out.println("***** Pivot product added succesfully ****");
 	}
 
-	public void MVP_pivot_newsletter(String sitename) {
+	public void MVP_pivot_newsletter(String sitename) throws InterruptedException {
+		ClickICON(driver, "Pivot");
+		implicitWait();
+		findAndClick("MVP_Newsletter");
 		// Select option .//span[text()='Xataka']
 		driver.findElement(By.xpath(".//input[@value='" + sitename + "']")).click();
 		findAndClick("Mvp_addPivotbutton");
