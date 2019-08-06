@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite thread-count="-1" guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
-  <test name="Default test(failed)">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
+  <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="Admin.NewEditor_post_creation">
+      <class name="Admin.CreateMVPPostExcel">
         <methods>
-          <include name="MVPattachImage"/>
           <include name="Setup"/>
+          <include name="createPost" invocation-numbers="0"/>
         </methods>
-      </class> <!-- Admin.NewEditor_post_creation -->
+      </class> <!-- Admin.CreateMVPPostExcel -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

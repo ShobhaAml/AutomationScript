@@ -2083,14 +2083,14 @@ public class Adminproperty extends TestListenerAdapter {
 		Thread.sleep(3000);
 		implicitWait();
 		driver.switchTo().activeElement();
-		if ((layout.equalsIgnoreCase("")) || (button.equalsIgnoreCase("")))// for other stores in pivot
+		if ((layout.equalsIgnoreCase("")) && (button.equalsIgnoreCase("")))// for other stores in pivot
 		{
 			System.out.println("Inside pivot");
-		} else if ((layout.equalsIgnoreCase("")) || !(button.equalsIgnoreCase("")))// for rich content
+		} else if ((layout.equalsIgnoreCase("")) && !(button.equalsIgnoreCase("")))// for rich content
 		{
 			findAndWrite("MVPImageAlt", "testing alternate text");
 			findAndClick(button);
-		} else if ((layout.equalsIgnoreCase(layout)) || (button.equalsIgnoreCase("MVP_insertImage"))) {
+		} else if ((layout.equalsIgnoreCase(layout)) && (button.equalsIgnoreCase("MVP_insertImage"))) {
 			findAndWrite("MVPImageAlt", "testing alternate text");
 			MVP_common_layout("imgLayoutResourcePanel", layout);
 			findAndClick("MVP_insertImage");
@@ -2370,10 +2370,17 @@ public class Adminproperty extends TestListenerAdapter {
 			break;
 		}
 	}
-
+	public void Action_Clear(String xpath) throws InterruptedException{
+		Actions action = new Actions(driver);
+		Actions act = action.moveToElement(driver.findElement(By.xpath(xpath)));
+		act.click().sendKeys(Keys.chord(Keys.CONTROL, "a"), " ");
+		act.sendKeys(Keys.BACK_SPACE).build().perform();
+		Thread.sleep(1000);
+	}
+	
 	public void MVP_update_richContent(String newAlternativo, String takeAction, String iFrame, String layout,
 			String url) throws InterruptedException {
-		driver.findElement(By.xpath("//*[@class='icon-rich-content']")).click();
+		driver.findElement(By.xpath(prop.getProperty("Highlight_RichContent"))).click();
 		MVP_common_layout("toolbar_icon", takeAction);
 		implicitWait();
 		if (iFrame.isEmpty() == false) {
@@ -2381,27 +2388,30 @@ public class Adminproperty extends TestListenerAdapter {
 			findAndWrite("mvp_richText", iFrame);
 			MVP_common_layout("mvp_layout5", layout);
 			implicitWait();
-			// if (findElement(prop.getProperty("mvp_amp_div")).getAttribute("class")
-			// .equalsIgnoreCase("amp-img-container"))
-			/*
-			 * if(driver.findElement(By.xpath(
-			 * "/html/body/div[2]/div[3]/div/div[2]/div[6]/div[2]")).getAttribute("class").
-			 * equalsIgnoreCase("amp-img-container"))
-			 * 
-			 * System.out.println("Old AMP alternativo: IMAGE"); else if
-			 * (findElement(prop.getProperty("mvp_amp_div")).getAttribute("class")
-			 * .equalsIgnoreCase("video-play-icon"))
-			 * System.out.println("Old AMP alternativo: " +
-			 * driver.findElement(By.xpath(".//*[@class='amp-content']/img")).getAttribute(
-			 * "alt")); else System.out.println("Old AMP alternativo: TEXTO");
-			 */
+			Actions action = new Actions(driver); 
+		if (newAlternativo.contentEquals("texto alternativo")) {			
+			action.moveToElement(driver.findElement(By.xpath(prop.getProperty("Edit_RichText_Button")))).click().build().perform();
+			driver.switchTo().activeElement();
+			Action_Clear(prop.getProperty("mvp_text_insert"));
 			Thread.sleep(1000);
-			mvp_add_AMPAlternativo(newAlternativo, url);
+			Actions act = action.moveToElement(driver.findElement(By.xpath(prop.getProperty("mvp_text_insert")))); 
+			act.click().sendKeys(url).build().perform();
+			action.moveToElement(driver.findElement(By.xpath(prop.getProperty("Rich_content_insert_text")))).click().build().perform();
+			}
+		else if (newAlternativo.contentEquals("imagen alternativa")) {
+			action.moveToElement(driver.findElement(By.xpath(prop.getProperty("Edit_RichImage_Button")))).click().build().perform();
+			MVP_image_viaURL(url);
 			implicitWait();
-			driver.findElement(By.xpath("//*[@class='node-wrapper block-highlight']")).click();
-			MVP_common_layout("toolbar_icon", takeAction);
-			Thread.sleep(1000);
-			System.out.println("Alternativo is successfully updated.");
+			MVP_uploadImage("", "MVP_insertarCodigo");
+			
+		}
+		else if (newAlternativo.contentEquals("vídeo alternativo")) {
+			action.moveToElement(driver.findElement(By.xpath(prop.getProperty("Edit_RichVideo_Button")))).click().build().perform();
+			Action_Clear(prop.getProperty("Rich_content_insert_video"));
+			Actions act = action.moveToElement(driver.findElement(By.xpath(prop.getProperty("Rich_content_insert_video"))));
+			act.click().sendKeys(url).build().perform();
+			action.moveToElement(driver.findElement(By.xpath(prop.getProperty("Rich_content_insert_videoButton")))).click().build().perform();
+		}
 		}
 	}
 
