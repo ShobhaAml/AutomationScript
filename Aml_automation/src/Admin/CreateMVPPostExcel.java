@@ -149,8 +149,6 @@ public class CreateMVPPostExcel {
 			}
 
 			if (!Pivot_newsletter.equalsIgnoreCase("null")) {
-				adminProperties.ClickICON(driver, "pivot");
-				adminProperties.findAndClick("MvP_pivot_newsletter");
 				adminProperties.MVP_pivot_newsletter(Pivot_newsletter.toLowerCase());
 			}
 			if (!(Pivot_product_Article.equalsIgnoreCase("null"))) {

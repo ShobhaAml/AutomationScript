@@ -2552,9 +2552,7 @@ public class Adminproperty extends TestListenerAdapter {
 	}
 
 	public void MVP_pivot_newsletter(String sitename) throws InterruptedException {
-		ClickICON(driver, "Pivot");
-		implicitWait();
-		findAndClick("MVP_Newsletter");
+		CF_pivot_dropdown("Newsletter");
 		// Select option .//span[text()='Xataka']
 		driver.findElement(By.xpath(".//input[@value='" + sitename + "']")).click();
 		findAndClick("Mvp_addPivotbutton");
@@ -3081,6 +3079,7 @@ public class Adminproperty extends TestListenerAdapter {
 
 	public void CF_pivot_dropdown(String item) throws InterruptedException {
 		ClickICON(driver, "pivot");
+		implicitWait();
 		List<WebElement> list = findElementsByXpath(prop.getProperty("MVP_pivot_dropdown"));
 		for (int i = 1; i < list.size(); i++) {
 			if (list.get(i).getText().equalsIgnoreCase(item)) {
