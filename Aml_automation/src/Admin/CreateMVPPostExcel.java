@@ -29,7 +29,7 @@ public class CreateMVPPostExcel {
 
 	@DataProvider(name = "testdata")
 	public Object[][] TestDataFeed() throws Exception {
-		Object[][] postdata = adminProperties.readExcel("Normal", 106);
+		Object[][] postdata = adminProperties.readExcel("Normal", 107);
 		return postdata;
 	}
 
@@ -60,7 +60,7 @@ public class CreateMVPPostExcel {
 			String hookCustomerName, String hookLogoLink, String hookTextarea, String hookImage, String hookButtonText,
 			String richContent_alternativo, String rich_iFrame, String rich_URL, String flipboard_blogname,
 			String flipboard_magazine, String pivot_ExternalUrl, String pivot_ExternalNombre,
-			String pivot_ExternalArticletitle, String flipboard) throws Exception {
+			String pivot_ExternalArticletitle, String flipboard, String Pivot_Insta) throws Exception {
 
 		if (Run.trim().equalsIgnoreCase("Y")) {
 			adminProperties.LoginAdmin(prop.getProperty("admin_usename"), prop.getProperty("admin_pwd"));
@@ -195,16 +195,17 @@ public class CreateMVPPostExcel {
 				adminProperties.MVP_add_review(ficha_review);
 			}
 
-			// Add pivot external to CF post
-			// adminProperties.addpivotExternal_Alfa(pivot_ExternalUrl,
-			// pivot_ExternalNombre, pivot_ExternalArticletitle);
-
-			// Add pivot instagram to CF post
-			// adminProperties.insertInsta_MVP();
-
-			// Add hook to MVP
-			// adminProperties.insertHook_MVP(hookCustomerName, hookLogoLink, hookTextarea,
-			// hookButtonText);
+			if (!pivot_ExternalUrl.equalsIgnoreCase("null")) {
+				 adminProperties.addpivotExternal_Alfa(pivot_ExternalUrl,pivot_ExternalNombre, pivot_ExternalArticletitle);
+				}
+			
+			if (!Pivot_Insta.equalsIgnoreCase("null")) {
+				 adminProperties.insertInsta_MVP();
+				 }
+			
+			if (!hookCustomerName.equalsIgnoreCase("null")) {
+				 adminProperties.insertHook_MVP(hookCustomerName, hookLogoLink, hookTextarea, hookButtonText);
+				 }
 
 		}
 		Actions action = new Actions(driver);

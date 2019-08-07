@@ -1999,6 +1999,8 @@ public class Adminproperty extends TestListenerAdapter {
 			findAndClick("MVP_twitter");
 		else if (icon.equalsIgnoreCase("richcontent"))
 			findAndClick("MVP_richContent");
+		else if (icon.equalsIgnoreCase("review"))
+            findAndClick("MVP_fichaReview");
 		implicitWait();
 	}
 
@@ -3304,7 +3306,7 @@ public class Adminproperty extends TestListenerAdapter {
 
 	public void addpivotExternal_Alfa(String pivot_ExternalUrl, String pivot_ExternalNombre,
 			String pivot_ExternalArticletitle) throws InterruptedException {
-		CF_pivot_dropdown("Artï¿½culo externo");
+		CF_pivot_dropdown("Artículo externo");
 		driver.switchTo().activeElement();
 		implicitWait();
 		if (!pivot_ExternalUrl.equalsIgnoreCase("null")) {
@@ -3339,20 +3341,18 @@ public class Adminproperty extends TestListenerAdapter {
 
 	public void insertInsta_MVP() throws InterruptedException, AWTException, IOException {
 
-		String PivotInsta[] = new String[] { "Xataka", "Xataka Mï¿½xico", "Applesfera", "Vida Extra", "Trendencias",
-				"Directo al Paladar", "Bebï¿½s y Mï¿½s", "Vitï¿½nica", "Decoesfera", "Directo Al Paladar Mï¿½xico",
-				"Motorpasiï¿½n", "Motorpasiï¿½n Mï¿½xico", "Espinof", "WATmag" };
+		String PivotInsta[] = new String[] { "Xataka", "Xataka México", "Applesfera", "Vida Extra", "Trendencias",
+				"Directo al Paladar", "Bebés y Más", "Vitónica", "Decoesfera", "Directo Al Paladar México",
+				"Motorpasión", "Motorpasión México", "Espinof", "WATmag" };
 		for (int i = 0; i < PivotInsta.length; i++) {
 			implicitWait();
-			ClickICON(driver, "pivot");
+			CF_pivot_dropdown("Instagram");
 			Actions action = new Actions(driver);
-			action.moveToElement(driver.findElement(By.xpath(prop.getProperty("Pivot_Insta")))).click().build()
-					.perform();
 			action.moveToElement(driver.findElement(By.xpath(prop.getProperty("Pivot_Insta_Dropdown"))));
 			action.click().sendKeys(PivotInsta[i]).sendKeys(Keys.ENTER);
 			action.build().perform();
 			implicitWait();
-			driver.findElement(By.xpath(prop.getProperty("Add_InstaPivot_Button"))).click();
+			action.moveToElement(driver.findElement(By.xpath(prop.getProperty("Add_InstaPivot_Button")))).click().build().perform();
 		}
 
 	}
