@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="1" ignored="0" total="1" passed="0">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="55401" started-at="2019-08-06T07:34:27Z" finished-at="2019-08-06T07:35:22Z">
+  <suite name="Default suite" duration-ms="40156" started-at="2019-08-06T10:52:21Z" finished-at="2019-08-06T10:53:02Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="55401" started-at="2019-08-06T07:34:27Z" finished-at="2019-08-06T07:35:22Z">
+    <test name="Default test" duration-ms="40156" started-at="2019-08-06T10:52:21Z" finished-at="2019-08-06T10:53:02Z">
       <class name="Admin.CreateMVPPostExcel">
-        <test-method status="PASS" signature="Setup()[pri:0, instance:Admin.CreateMVPPostExcel@50de0926]" name="Setup" is-config="true" duration-ms="5009" started-at="2019-08-06T07:34:27Z" finished-at="2019-08-06T07:34:32Z">
+        <test-method status="PASS" signature="Setup()[pri:0, instance:Admin.CreateMVPPostExcel@50de0926]" name="Setup" is-config="true" duration-ms="5949" started-at="2019-08-06T10:52:22Z" finished-at="2019-08-06T10:52:28Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Setup -->
-        <test-method status="FAIL" signature="createPost(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:Admin.CreateMVPPostExcel@50de0926]" name="createPost" duration-ms="49494" started-at="2019-08-06T07:34:32Z" data-provider="testdata" finished-at="2019-08-06T07:35:22Z">
+        <test-method status="FAIL" signature="createPost(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:Admin.CreateMVPPostExcel@50de0926]" name="createPost" duration-ms="33564" started-at="2019-08-06T10:52:28Z" data-provider="testdata" finished-at="2019-08-06T10:53:02Z">
           <params>
             <param index="0">
               <value>
@@ -543,24 +543,18 @@
                 <![CDATA[Y]]>
               </value>
             </param>
+            <param index="106">
+              <value>
+                <![CDATA[Y]]>
+              </value>
+            </param>
           </params>
           <exception class="java.lang.NullPointerException">
             <full-stacktrace>
               <![CDATA[java.lang.NullPointerException
-at org.openqa.selenium.remote.RemoteWebDriver.findElements(RemoteWebDriver.java:446)
-at org.openqa.selenium.remote.RemoteWebDriver.findElementsByXPath(RemoteWebDriver.java:513)
-at org.openqa.selenium.By$ByXPath.findElements(By.java:356)
-at org.openqa.selenium.remote.RemoteWebDriver.findElements(RemoteWebDriver.java:398)
-at org.openqa.selenium.support.ui.ExpectedConditions.findElement(ExpectedConditions.java:882)
-at org.openqa.selenium.support.ui.ExpectedConditions.access$000(ExpectedConditions.java:44)
-at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:206)
-at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:202)
-at org.openqa.selenium.support.ui.ExpectedConditions$22.apply(ExpectedConditions.java:644)
-at org.openqa.selenium.support.ui.ExpectedConditions$22.apply(ExpectedConditions.java:641)
-at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:209)
-at Common.Adminproperty.findAndClick(Adminproperty.java:169)
-at Common.Adminproperty.ClickICON(Adminproperty.java:1982)
-at Admin.CreateMVPPostExcel.createPost(CreateMVPPostExcel.java:93)
+at Common.Adminproperty.findAndWrite(Adminproperty.java:175)
+at Common.Adminproperty.addpivotExternal_Alfa(Adminproperty.java:3311)
+at Admin.CreateMVPPostExcel.createPost(CreateMVPPostExcel.java:74)
 at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
 at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
