@@ -1,15 +1,21 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">	
 <suite thread-count="1" verbose="1" name="Frontend Sanity Suite" parallel="tests">
          
-  <test name="BrokenLinks">
-	 <classes>
-	   <class name="Frontend.BrokenLinks"/>
-	 </classes>
-   </test>
+	<test name="BrokenLinks">
+		<classes>
+		<class name="Frontend.BrokenLinks"/>
+		</classes>
+	</test>
    
- <test name="Login">
-     <classes>
-       <class name="Frontend.Login"/>
-     </classes>
-   </test>
+	<test name="Login">
+		<classes>
+		<class name="Frontend.Login"/>
+		</classes>
+	</test>
+  	 
+	<test name="Comments">
+		<classes>
+		<class name="Frontend.AddComments"/>
+		</classes>
+     </test>
 </suite>
