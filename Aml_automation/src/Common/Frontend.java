@@ -3,7 +3,6 @@ package Common;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.InvalidPathException;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -48,7 +47,7 @@ import Common.Adminproperty;
     		/*capabilities.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);*/
 
     		ChromeOptions options = new ChromeOptions();
-    		options.addArguments("start-maximized");
+    		options.addArguments("start-maximize");
     		//options.addArguments("" + capabilities + "");
     		driver = new ChromeDriver(options);
 
@@ -137,13 +136,39 @@ import Common.Adminproperty;
 		return invalidmessage;
 	}
 	public void addcomments(String comment) {
-		findAndClick("totalcomments");
-		implicitWait();
+		String error = "";
 		findAndWrite("commentbox", comment);
 		implicitWait();
 		findAndClick("commentsubmit");
-		System.out.println("Post Comment added successfully");
-	 }
+		try {
+
+			/*
+			 * WebDriverWait wait = new WebDriverWait(driver, 5); // The int
+			 * here is the maximum time in seconds the element can wait. error =
+			 * wait.until(
+			 * ExpectedConditions.visibilityOfElementLocated(By.xpath(prop
+			 * .getProperty("commenterror")))).getText();
+			 */
+			if (findElement(prop.getProperty("commenterror")) != null) {
+				error = findElement(prop.getProperty("commenterror")).getText();
+				System.out.println("ERROR: " + error);
+			}
+
+		} catch (Exception e) {
+
+		}
+		System.out.println("ERROR: " + error);
+		if (error == "") {
+			/*
+			 * List<WebElement> lst = findElementsByXpath(prop
+			 * .getProperty("commentlist")); System.out.println(lst.size()); for
+			 * (WebElement list : lst) { if
+			 * (list.findElement(By.className("comment-content")).getText()
+			 * .equalsIgnoreCase(comment)) {
+			 * System.out.println("<b>Added comment: </b>" + comment); } }
+			 */
+		}
+	}
 
 	public Boolean IsElementPresent(By by, WebDriver driver) {
 		try {
@@ -155,7 +180,7 @@ import Common.Adminproperty;
 
 	}
 
-	public String login(String username, String password, String logintype) throws Exception {
+	public String login(String username, String password, String url,  String logintype) throws Exception {
 		String message = "";
 			clickMenu("EntraORegistrate","login");
 			if (logintype == "twitter") {
@@ -187,11 +212,8 @@ import Common.Adminproperty;
 		return message;
 	}
 
-	public void addRescomments(String comment, String url) throws InterruptedException {
-		System.out.println("Opening Respuestas link");
-    	Thread.sleep(2000);
-	    driver.navigate().to(url + "/respuestas");
-	    findAndClick("respuestas_ques");
+	public void addRescomments(String comment) {
+
 		findAndWrite("resCommentEntra", comment);
 		findAndClick("publishRespuestasComment");
 
@@ -202,38 +224,53 @@ import Common.Adminproperty;
 		String winHandleBefore = driver.getWindowHandle();
 		findAndClick("twitter_registor_button");
 		implicitWait();
-		ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
-		driver.switchTo().window(tabs.get(1));
-		implicitWait();
-		implicitWait();
-		findAndWrite("twitter_email", username);
-		findAndWrite("twitter_password", password);
-		findAndClick("twitter_button");
-		implicitWait();
-		try {
-		if(driver.getCurrentUrl().contains("https://twitter.com/login/error")){	
-			message="Invalid login credentials";
-			System.out.println("Invalid login credentials");}
-		} 
-		catch (Exception e) {
-			
-		}	driver.switchTo().window(winHandleBefore);
-		
-		try {
-				
-				if(new WebDriverWait(driver, 10).until(ExpectedConditions
-						.visibilityOfElementLocated(By.xpath(prop.getProperty("deactivated_user")))) != null) {
-					message = new WebDriverWait(driver, 10)
-					.until(ExpectedConditions
-							.visibilityOfElementLocated(By.xpath(prop.getProperty("deactivated_user"))))
-					.getText();
-					message = "Deactivated User :  " + message;
-					}
-				} catch (Exception e) {
-				
+
+		if(driver.getWindowHandles().size()>1){
+			System.out.println("URL ==" +driver.getCurrentUrl());
+			if(driver.getCurrentUrl().contains("twitter.com"))
+			{
+				for (String winHandle : driver.getWindowHandles()) {
+					driver.switchTo().window(winHandle);
 				}
-				return message;
+		
+				implicitWait();
+				findAndWrite("twitter_email", username);
+				findAndWrite("twitter_password", password);
+				findAndClick("twitter_button");
+				implicitWait();
+				try {
+				if(driver.getCurrentUrl().contains("https://twitter.com/login/error")){	
+					message="Invalid login credentials";
+					System.out.println("Invalid login credentials");}
+				} 
+				catch (Exception e) {
+					
+				}	driver.switchTo().window(winHandleBefore);
+				
+				try {
+						
+						if(new WebDriverWait(driver, 10).until(ExpectedConditions
+								.visibilityOfElementLocated(By.xpath(prop.getProperty("deactivated_user")))) != null) {
+							message = new WebDriverWait(driver, 10)
+							.until(ExpectedConditions
+									.visibilityOfElementLocated(By.xpath(prop.getProperty("deactivated_user"))))
+							.getText();
+							message = "Deactivated User :  " + message;
+						}
+					} catch (Exception e) {
+					
+					}
+			}
+			else
+			{
+				message="TWITTER not working, Not navigating to correct URL";
+			}
+		
+		
+		
 		}
+		return message;
+	}
 
 	public String facebookLogin(String username, String password) throws Exception {
 		String message = "Success";
@@ -403,12 +440,5 @@ import Common.Adminproperty;
 	    driver.get(url);     
 	    return driver;	
 		}
-		
-		public WebDriver logout() {
-			findAndClick("Menu");
-			findAndClick("Logout");
-			return driver;
-		}
-		
 
 }
