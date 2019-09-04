@@ -3306,7 +3306,7 @@ public class Adminproperty extends TestListenerAdapter {
 
 	public void addpivotExternal_Alfa(String pivot_ExternalUrl, String pivot_ExternalNombre,
 			String pivot_ExternalArticletitle) throws InterruptedException {
-		CF_pivot_dropdown("Artículo externo");
+		CF_pivot_dropdown("Artï¿½culo externo");
 		driver.switchTo().activeElement();
 		implicitWait();
 		if (!pivot_ExternalUrl.equalsIgnoreCase("null")) {
@@ -3341,9 +3341,9 @@ public class Adminproperty extends TestListenerAdapter {
 
 	public void insertInsta_MVP() throws InterruptedException, AWTException, IOException {
 
-		String PivotInsta[] = new String[] { "Xataka", "Xataka México", "Applesfera", "Vida Extra", "Trendencias",
-				"Directo al Paladar", "Bebés y Más", "Vitónica", "Decoesfera", "Directo Al Paladar México",
-				"Motorpasión", "Motorpasión México", "Espinof", "WATmag" };
+		String PivotInsta[] = new String[] { "Xataka", "Xataka Mï¿½xico", "Applesfera", "Vida Extra", "Trendencias",
+				"Directo al Paladar", "Bebï¿½s y Mï¿½s", "Vitï¿½nica", "Decoesfera", "Directo Al Paladar Mï¿½xico",
+				"Motorpasiï¿½n", "Motorpasiï¿½n Mï¿½xico", "Espinof", "WATmag" };
 		for (int i = 0; i < PivotInsta.length; i++) {
 			implicitWait();
 			CF_pivot_dropdown("Instagram");
@@ -3414,5 +3414,47 @@ public class Adminproperty extends TestListenerAdapter {
 		driver = new ChromeDriver(chromeOptions);
 		driver.get(url);
 		return driver;
+	}
+	
+	public void affiliate_Products(String product) throws InterruptedException {
+		Select select = new Select(driver.findElement(By.id("amazon-select-option")));
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("window.scrollBy(0,600)", "");
+		implicitWait();
+		char[] chars = product.toCharArray();
+		for (char c : chars) {
+			if (Character.isDigit(c)) {
+				select.selectByValue("asin");
+				break;
+			} else
+				select.selectByValue("keywords");
+		}
+		Actions actions = new Actions(driver);
+		if (findElement(prop.getProperty("affiliate_products_text")) != null)
+			findElement(prop.getProperty("affiliate_products_text")).clear();
+		actions.moveToElement(findElement(prop.getProperty("affiliate_products_text"))).click().sendKeys(product)
+				.build().perform();
+		actions.click(driver.findElement(By.xpath(".//button[@id = 'amazon-search']"))).perform();
+		Thread.sleep(2000);
+		if (findElement(prop.getProperty("affilate_product_error")).getAttribute("style")
+				.equalsIgnoreCase("display: none;")) {
+			List<WebElement> list = findElementsByXpath(prop.getProperty("affiliate_products_list"));
+			for (WebElement element : list) {
+				element.click();
+				break;
+			}
+			System.out.println("***** Product added successfully *****");
+		} else
+			System.out.println("***** Product not found ******");
+	}
+
+	public String fetchAuthor() {
+		String name;
+		findAndClick("navigation_header");
+		driver.findElement(By.xpath(".//a[@href='/profile']")).click();
+		implicitWait();
+		name = driver.findElement(By.xpath(".//input[@id = 'editor_profile_form_display_name']")).getAttribute("value");
+		driver.close();
+		return name;
 	}
 }
