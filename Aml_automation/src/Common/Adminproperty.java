@@ -18,6 +18,7 @@ import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -1462,31 +1463,6 @@ public class Adminproperty extends TestListenerAdapter {
 		}
 
 		return postdata;
-	}
-
-	public String getID(String ID) throws Exception {
-		String status = "";
-		String url = "https://testing.xataka.com/admin/newposts/";
-		url = url + ID;
-		WebDriver driver = new HtmlUnitDriver();
-		driver.get(url);
-		// System.out.println(driver.getCurrentUrl());
-		String username = prop.getProperty("Uadmin");
-		String pwd = prop.getProperty("Padmin");
-		driver.findElement(By.xpath(prop.getProperty("login_username_txt"))).sendKeys(username);
-		driver.findElement(By.xpath(prop.getProperty("login_pwd_txt"))).sendKeys(pwd);
-		driver.findElement(By.xpath(prop.getProperty("login_submit_button"))).click();
-		driver.navigate().refresh();
-		// System.out.println("Current url" + driver.getCurrentUrl());
-		if (driver.getCurrentUrl().contains("clubposts")) {
-			status = "Club";
-		} else {
-			status = "normal";
-		}
-		// System.out.println(driver.getCurrentUrl() +"==" + status);
-		driver.close();
-
-		return status;
 	}
 
 	public void checkThumbnails(String URL) {
@@ -3447,14 +3423,41 @@ public class Adminproperty extends TestListenerAdapter {
 		} else
 			System.out.println("***** Product not found ******");
 	}
+	
+	public String getID(String ID) throws Exception {
+		String status = "";
+		String url = "https://testadmin.xataka.com/newposts/";
+		url = url + ID;
+		WebDriver driver = new HtmlUnitDriver();
+		driver.get(url);
+		String username = prop.getProperty("Uadmin");
+		String pwd = prop.getProperty("Padmin");
+		driver.findElement(By.xpath(prop.getProperty("login_username_txt"))).sendKeys(username);
+		driver.findElement(By.xpath(prop.getProperty("login_pwd_txt"))).sendKeys(pwd);
+		driver.findElement(By.xpath(prop.getProperty("login_submit_button"))).click();
+		driver.manage().timeouts().implicitlyWait(1000, TimeUnit.SECONDS);
+		driver.navigate().refresh();
 
-	public String fetchAuthor() {
-		String name;
+		if (driver.getCurrentUrl().contains("clubposts")) {
+			status = "Club";
+		} else {
+			status = "normal";
+		}
+		driver.manage().timeouts().implicitlyWait(3000, TimeUnit.SECONDS);
+		driver.close();
+		return status;
+	}
+
+	public List<String> fetch_Role_Author() throws Exception {
+		String name, role;
 		findAndClick("navigation_header");
 		driver.findElement(By.xpath(".//a[@href='/profile']")).click();
 		implicitWait();
 		name = driver.findElement(By.xpath(".//input[@id = 'editor_profile_form_display_name']")).getAttribute("value");
-		driver.close();
-		return name;
+
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		role = (String) js.executeScript("return WSL2.config.userRole");
+		List<String> l = new ArrayList<String>(Arrays.asList(name, role));
+		return l;
 	}
 }
