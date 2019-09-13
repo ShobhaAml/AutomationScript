@@ -3,7 +3,7 @@ package AdminDashboardsanity;
 import java.io.IOException;
 import java.util.List;
 
-import Admin_Dashboard_sanity.ExcelDashboardButtonSanity;
+import AdminDashboardsanity.ExcelDashboardButtonSanity;
 
 import java.util.Properties;
 import java.util.function.Function;
