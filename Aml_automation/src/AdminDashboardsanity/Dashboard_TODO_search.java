@@ -1,4 +1,4 @@
-package Admin_Dashboard_sanity;
+package AdminDashboardsanity;
 
 import java.io.IOException;
 import java.util.List;
@@ -15,7 +15,7 @@ import Admin.CheckUserRoles;
 import Common.Adminproperty;
 
 public class Dashboard_TODO_search {
-	String search_keyword = "";
+	String search_keyword = "Cf post";
 	int pageno=1;
 	
 	
@@ -52,10 +52,14 @@ public class Dashboard_TODO_search {
 		blogroleName="admin";
 		Authorname=	"admin";
 		blogrole="";
+		
+	
 	}
 
 	@Test
 	public void Todosearch() throws Exception {
+		
+			
 		adminProperties.findElement(prop.getProperty("search_field_path")).sendKeys(search_keyword);
 		adminProperties.implicitWait();
 		adminProperties.findAndClick("search_button");
@@ -230,7 +234,7 @@ public class Dashboard_TODO_search {
 		String[] valueToWrite;
 		String fileName = "DashboardButton.xlsx";
 		String sheetName = "TODOSearch";
-		//System.out.println(Authorname + "===" + (postauthor));
+		//System.out.println("Result Match"+ "===" + (tresult) +"===="+presult);
 		String status = "Fail";
 
 		int total = Integer.parseInt(titleMatch) + Integer.parseInt(postcontentMatch);

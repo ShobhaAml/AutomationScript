@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.DataProvider;
@@ -37,12 +36,6 @@ public class CheckButtonsForPosttype {
 	String eCommbutton="Rechazar,Editar,Destacar";
 				
 	
-	/* public void getPosttypes() throws Exception
-	 {
-		 posttypearr=adminProperties.getPostType();
-	     System.out.println("Get post type");
-	 }
-	 */
 	 
 	@Test
 	public void Setup() throws Exception {
@@ -51,7 +44,19 @@ public class CheckButtonsForPosttype {
 		driver = adminProperties.callproperty(prop.getProperty("url"),
 				prop.getProperty("browser"));
 		browser = prop.getProperty("browser");
-		getuserloginRole();
+		//getuserloginRole();
+		
+
+		/*WITHOUT DB*/
+		adminProperties.LoginAdmin(prop.getProperty("admin_usename"), prop.getProperty("admin_pwd"));
+		blogroleName="admin";
+		Authorname=	"admin";
+		blogrole="";
+		
+		
+		
+		
+		
 	}
 
 	@DataProvider(name = "testdata")
@@ -178,7 +183,7 @@ public class CheckButtonsForPosttype {
 	 
 	 if(types.equalsIgnoreCase("Future") && (rowclass.equalsIgnoreCase("scheduled")))
 	  {
-		 System.out.println(rolebased);
+		// System.out.println(rolebased +"ddddddddddddddddddddddddddddddddddddd");
 		if(rolebased.equalsIgnoreCase("Editor"))
 		{
 			if(Editor_Self_unbranded.equalsIgnoreCase("Y"))
@@ -519,10 +524,14 @@ public class CheckButtonsForPosttype {
  {	
 	String category="";
 	List<WebElement> list = adminProperties.findElementsByXpath(".//*[@id='posts_list']/tr");
-		//System.out.println(list.size());
+		System.out.println( "count=================="+list.size());
 		if(list.size()>0)
 		{
+			
+		//	System.out.println("LOOP-----------------");
+			
 		for (int i =0; i < list.size(); i++) {
+		//	System.out.println("hiiiiiiiiiii" + i );
 			String posttypeviaID= "normal";
 			String Comparebutton="";
 			
@@ -551,14 +560,14 @@ public class CheckButtonsForPosttype {
 		    if(!list.get(i).getAttribute("class").equalsIgnoreCase("tr-repost-incoming")){
 			 postauthor=adminProperties.findElement(".//*[@id='posts_list']/tr[" + (i + 1) + "]//td[3]/a").getText();
 			 posttypeviaID=adminProperties.getID(postid);
-				 
-			 }
-		    category=adminProperties.findElement(".//*[@id='posts_list']/tr[" + (i + 1) + "]//td[4]/p/a[1]").getText();
-			
-			if(category.equalsIgnoreCase("Especial Branded"))
-			{
+			 category=adminProperties.findElement(".//*[@id='posts_list']/tr[" + (i + 1) + "]//td[4]/p/a[1]").getText();
+			 if(category.equalsIgnoreCase("Especial Branded"))
+			 {
 				posttypeviaID="Club";
-			}
+			  }
+			
+			 }
+			
 			
 		    
 			System.out.println("postid=="+postid + "  posttypeviaID==" +posttypeviaID + "   category=="+category);
@@ -603,6 +612,8 @@ public class CheckButtonsForPosttype {
 
 public void Getactualresult(String Comparebutton, String posttype , String ptype, String category )
 {
+	
+	System.out.println("postype=================" + posttype);
 	
 	System.out.println(Authorname +"==="+(postauthor));
 	

@@ -1,10 +1,11 @@
-package Admin_Dashboard_sanity;
+package AdminDashboardsanity;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -17,9 +18,9 @@ import Admin.CheckUserRoles;
 import Common.Adminproperty;
 
 public class Dashboard_Admin_All_search {
-	int pageno=4;
+	int pageno=1;
 	
-	String todo="all";  /*all-Todos/1-Publicado/2-Borrador/3-Programado/5- Republicado*/
+	String todo="1";  /*all-Todos/1-Publicado/2-Borrador/3-Programado/5- Republicado*/
 	String Datefilter="Todos"; /*Fecha: Todos/ 2018-02=February 2018*/
 	String Authorfilter="Todos"; /*Autor: Todos/ Anna/ Shobha*/
 	String countryfilter="ES" ; /* Value-ES/MX/US/PE/CO/ROW*/
@@ -65,8 +66,12 @@ public class Dashboard_Admin_All_search {
 	{
 	//***Change filter values
 		
+		
+		
 		if(!todo.equalsIgnoreCase("Todos")){
+	
 		Select filter1 = new Select(adminProperties.findElement(".//*[@id='postStatus']"));
+		System.out.println(todo);
 		filter1.selectByValue(todo);	
 		adminProperties.implicitWait();}
 		
