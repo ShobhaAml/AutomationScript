@@ -3448,8 +3448,9 @@ public class Adminproperty extends TestListenerAdapter {
 		return status;
 	}
 
-	public List<String> fetch_Role_Author() throws Exception {
+	public Object[] fetch_Role_Author() throws Exception {
 		String name, role;
+		Object[] array;
 		findAndClick("navigation_header");
 		driver.findElement(By.xpath(".//a[@href='/profile']")).click();
 		implicitWait();
@@ -3457,7 +3458,9 @@ public class Adminproperty extends TestListenerAdapter {
 
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		role = (String) js.executeScript("return WSL2.config.userRole");
-		List<String> l = new ArrayList<String>(Arrays.asList(name, role));
-		return l;
+		List<String> list = new ArrayList<String>(Arrays.asList(name, role));
+
+		array = list.toArray();
+		return array;
 	}
 }
