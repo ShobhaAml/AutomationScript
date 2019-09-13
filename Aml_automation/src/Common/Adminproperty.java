@@ -3450,36 +3450,45 @@ public class Adminproperty extends TestListenerAdapter {
 
 	public String fetch_Role_Author() throws Exception {
 		String arrval = "";
-		String name, blogrole, blogroleName;
-		findAndClick("navigation_header");
-
-		name = driver.findElement(By.xpath(".//a[@href='/profile']")).getText();
-		driver.manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
-		driver.findElement(By.xpath(".//a[@class='menu-dash']")).click();
+		String name, blogrole, blogroleName = null;
 
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		blogrole = (String) js.executeScript("return WSL2.config.userRole");
 
-		if ((blogrole.equalsIgnoreCase("Editor")) || (blogrole.equalsIgnoreCase("Lead Editor"))
-				|| (blogrole.equalsIgnoreCase("Editor Senior"))) {
+		switch (blogrole) {
+		case "Editor":
+		case "Lead Editor":
+		case "Editor Senior":
 			blogroleName = "Editor";
-
-		} else if (blogrole.equalsIgnoreCase("Coordinator")) {
+			break;
+		case "Coordinator":
 			blogroleName = "UBC";
-
-		} else if (blogrole.equalsIgnoreCase("Colaborador")) {
-			blogroleName = "UbCol";
-		} else if (blogrole.equalsIgnoreCase("Branded Coordinator")) {
-			blogroleName = "BC";
-		} else if (blogrole.equalsIgnoreCase("Branded Collaborator")) {
+			break;
+		case "Branded Collaborator":
 			blogroleName = "Bcol";
-		} else {
+			break;
+		case "Administrator":
 			blogroleName = "admin";
+			break;
+		case "Branded Coordinator":
+			blogroleName = "BC";
+			break;
+		case "Colaborador":
+			blogroleName = "UbCol";
+			break;
 		}
+
+		findAndClick("navigation_header");
+		if (blogroleName == "BC" || blogroleName == "Bcol")
+			name = driver.findElement(By.xpath(".//li[@class='first']")).getText();
+		else
+			name = driver.findElement(By.xpath(".//a[@href='/profile']")).getText();
+		driver.manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
+		driver.findElement(By.xpath(".//a[@class='menu-dash']")).click();
+
 		if (arrval == "") {
 			arrval = name + "#" + blogroleName;
 		}
-
 		return arrval;
 	}
 }
