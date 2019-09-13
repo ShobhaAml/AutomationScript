@@ -3452,9 +3452,10 @@ public class Adminproperty extends TestListenerAdapter {
 		String arrval = "";
 		String name, blogrole, blogroleName;
 		findAndClick("navigation_header");
-		driver.findElement(By.xpath(".//a[@href='/profile']")).click();
-		implicitWait();
-		name = driver.findElement(By.xpath(".//input[@id = 'editor_profile_form_display_name']")).getAttribute("value");
+
+		name = driver.findElement(By.xpath(".//a[@href='/profile']")).getText();
+		driver.manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
+		driver.findElement(By.xpath(".//a[@class='menu-dash']")).click();
 
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		blogrole = (String) js.executeScript("return WSL2.config.userRole");
@@ -3466,7 +3467,7 @@ public class Adminproperty extends TestListenerAdapter {
 		} else if (blogrole.equalsIgnoreCase("Coordinator")) {
 			blogroleName = "UBC";
 
-		} else if (blogrole.equalsIgnoreCase("Collaborator")) {
+		} else if (blogrole.equalsIgnoreCase("Colaborador")) {
 			blogroleName = "UbCol";
 		} else if (blogrole.equalsIgnoreCase("Branded Coordinator")) {
 			blogroleName = "BC";
