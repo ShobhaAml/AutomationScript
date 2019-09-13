@@ -1,4 +1,4 @@
-package Admin_Dashboard_sanity;
+package AdminDashboardsanity;
 
 import java.io.IOException;
 import java.util.List;
