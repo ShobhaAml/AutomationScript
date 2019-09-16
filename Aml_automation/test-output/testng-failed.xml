@@ -3,12 +3,12 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="Admin.CreateMVPPostExcel">
+      <class name="Frontend.AmazonProductsForAdblocker">
         <methods>
+          <include name="CompareAmazonProducts"/>
           <include name="Setup"/>
-          <include name="createPost" invocation-numbers="0"/>
         </methods>
-      </class> <!-- Admin.CreateMVPPostExcel -->
+      </class> <!-- Frontend.AmazonProductsForAdblocker -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
