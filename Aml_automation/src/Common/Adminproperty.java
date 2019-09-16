@@ -3429,47 +3429,43 @@ public class Adminproperty extends TestListenerAdapter {
 		String status = "";
 		String url = "https://testadmin.xataka.com/newposts/";
 		url = url + ID;
-		//WebDriver driver = new HtmlUnitDriver();
 		System.setProperty("webdriver.chrome.driver",
 				System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedriver.exe");
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("headless");
-		driver = new ChromeDriver(options);
-		driver.get(url);
+		WebDriver loopdriver = new ChromeDriver(options);
+		loopdriver.get(url);
 		String username = prop.getProperty("Uadmin");
 		String pwd = prop.getProperty("Padmin");
-		driver.findElement(By.xpath(prop.getProperty("login_username_txt"))).sendKeys(username);
-		driver.findElement(By.xpath(prop.getProperty("login_pwd_txt"))).sendKeys(pwd);
-		driver.findElement(By.xpath(prop.getProperty("login_submit_button"))).click();
-		driver.manage().timeouts().implicitlyWait(1000, TimeUnit.SECONDS);
-		driver.navigate().refresh();
-		System.out.println(url);
-		if (driver.getCurrentUrl().contains("clubposts")) {
+		loopdriver.findElement(By.xpath(prop.getProperty("login_username_txt"))).sendKeys(username);
+		loopdriver.findElement(By.xpath(prop.getProperty("login_pwd_txt"))).sendKeys(pwd);
+		loopdriver.findElement(By.xpath(prop.getProperty("login_submit_button"))).click();
+		loopdriver.manage().timeouts().implicitlyWait(1000, TimeUnit.SECONDS);
+		if (loopdriver.getCurrentUrl().contains("clubposts")) {
 			status = "Club";
-		} else if(driver.getCurrentUrl().contains("escribir")) {
+		} else if(loopdriver.getCurrentUrl().contains("escribir")) {
 			Thread.sleep(2000);
-			findAndClick("mvp_close_dialog");
-			Thread.sleep(2000);
-			Actions action = new Actions(driver);
-			action.moveToElement(driver.findElement(By.xpath(prop.getProperty("longform_publicarTab")))).click().build().perform();
-			Thread.sleep(2000);
-			WebElement Text = driver.findElement(By.xpath(prop.getProperty("otras_cat")));
+			loopdriver.findElement( By.xpath(prop.getProperty("mvp_close_dialog"))).click();
+			Thread.sleep(1000);
+			loopdriver.manage().timeouts().implicitlyWait(3000, TimeUnit.SECONDS);
+			loopdriver.findElement(By.xpath(prop.getProperty("longform_publicarTab"))).click();
+			WebElement Text = loopdriver.findElement(By.xpath(prop.getProperty("otras_cat")));
 			expected = Text.getText();
 			System.out.println(Text);
-			if (expected.contains("Artículo especial")) {
+			if (expected.contains("especial")) {
 				status = "normal";
 			} else {
 				status = "club";
 			}
 		}
-		else if(driver.getCurrentUrl().contains("newposts")) {
+		else{
 			status = "normal";
 		}
-		System.out.println("Post Type is "+ status);
-		driver.manage().timeouts().implicitlyWait(3000, TimeUnit.SECONDS);
-		driver.close();
+		loopdriver.manage().timeouts().implicitlyWait(3000, TimeUnit.SECONDS);
+		loopdriver.close();
 		return status;
 	}
+
 
 	public String fetch_Role_Author() throws Exception {
 		String arrval = "";
