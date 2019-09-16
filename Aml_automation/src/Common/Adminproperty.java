@@ -3425,10 +3425,16 @@ public class Adminproperty extends TestListenerAdapter {
 	}
 	
 	public String getID(String ID) throws Exception {
+		String expected = "";
 		String status = "";
 		String url = "https://testadmin.xataka.com/newposts/";
 		url = url + ID;
-		WebDriver driver = new HtmlUnitDriver();
+		//WebDriver driver = new HtmlUnitDriver();
+		System.setProperty("webdriver.chrome.driver",
+				System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedriver.exe");
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("headless");
+		driver = new ChromeDriver(options);
 		driver.get(url);
 		String username = prop.getProperty("Uadmin");
 		String pwd = prop.getProperty("Padmin");
@@ -3437,12 +3443,29 @@ public class Adminproperty extends TestListenerAdapter {
 		driver.findElement(By.xpath(prop.getProperty("login_submit_button"))).click();
 		driver.manage().timeouts().implicitlyWait(1000, TimeUnit.SECONDS);
 		driver.navigate().refresh();
-
+		System.out.println(url);
 		if (driver.getCurrentUrl().contains("clubposts")) {
 			status = "Club";
-		} else {
+		} else if(driver.getCurrentUrl().contains("escribir")) {
+			Thread.sleep(2000);
+			findAndClick("mvp_close_dialog");
+			Thread.sleep(2000);
+			Actions action = new Actions(driver);
+			action.moveToElement(driver.findElement(By.xpath(prop.getProperty("longform_publicarTab")))).click().build().perform();
+			Thread.sleep(2000);
+			WebElement Text = driver.findElement(By.xpath(prop.getProperty("otras_cat")));
+			expected = Text.getText();
+			System.out.println(Text);
+			if (expected.contains("Artículo especial")) {
+				status = "normal";
+			} else {
+				status = "club";
+			}
+		}
+		else if(driver.getCurrentUrl().contains("newposts")) {
 			status = "normal";
 		}
+		System.out.println("Post Type is "+ status);
 		driver.manage().timeouts().implicitlyWait(3000, TimeUnit.SECONDS);
 		driver.close();
 		return status;
@@ -3493,5 +3516,5 @@ public class Adminproperty extends TestListenerAdapter {
 			arrval = name + "#" + blogroleName;
 		}
 		return arrval;
-
+	}
 }
