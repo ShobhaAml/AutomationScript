@@ -3476,6 +3476,9 @@ public class Adminproperty extends TestListenerAdapter {
 		case "Colaborador":
 			blogroleName = "UbCol";
 			break;
+		case "Director":
+			blogroleName = "Dir";
+			break;
 		}
 
 		findAndClick("navigation_header");
@@ -3490,5 +3493,5 @@ public class Adminproperty extends TestListenerAdapter {
 			arrval = name + "#" + blogroleName;
 		}
 		return arrval;
-	}
+
 }
