@@ -3453,7 +3453,6 @@ public class Adminproperty extends TestListenerAdapter {
 			publicar_tab.click();
 			WebElement Text = loopdriver.findElement(By.xpath(prop.getProperty("otras_cat")));
 			expected = Text.getText();
-			System.out.println(Text);
 			if (expected.contains("especial")) {
 				status = "normal";
 			} else {
