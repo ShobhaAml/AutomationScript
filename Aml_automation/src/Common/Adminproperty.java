@@ -3446,8 +3446,8 @@ public class Adminproperty extends TestListenerAdapter {
 		} else if(loopdriver.getCurrentUrl().contains("escribir")) {
 			loopdriver.manage().timeouts().implicitlyWait(3000, TimeUnit.SECONDS);
 			WebDriverWait wait = new WebDriverWait(loopdriver,30);
-			Thread.sleep(2000);
-			loopdriver.findElement( By.xpath(prop.getProperty("mvp_close_dialog"))).click();
+			WebElement dialog_box = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("mvp_close_dialog"))));
+			dialog_box.click();
 			Thread.sleep(2000);
 			WebElement publicar_tab = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("longform_publicarTab"))));
 			publicar_tab.click();
