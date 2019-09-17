@@ -3444,11 +3444,13 @@ public class Adminproperty extends TestListenerAdapter {
 		if (loopdriver.getCurrentUrl().contains("clubposts")) {
 			status = "Club";
 		} else if(loopdriver.getCurrentUrl().contains("escribir")) {
+			loopdriver.manage().timeouts().implicitlyWait(3000, TimeUnit.SECONDS);
+			WebDriverWait wait = new WebDriverWait(loopdriver,30);
 			Thread.sleep(2000);
 			loopdriver.findElement( By.xpath(prop.getProperty("mvp_close_dialog"))).click();
-			Thread.sleep(1000);
-			loopdriver.manage().timeouts().implicitlyWait(3000, TimeUnit.SECONDS);
-			loopdriver.findElement(By.xpath(prop.getProperty("longform_publicarTab"))).click();
+			Thread.sleep(2000);
+			WebElement publicar_tab = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("longform_publicarTab"))));
+			publicar_tab.click();
 			WebElement Text = loopdriver.findElement(By.xpath(prop.getProperty("otras_cat")));
 			expected = Text.getText();
 			System.out.println(Text);
