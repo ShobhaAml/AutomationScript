@@ -49,8 +49,10 @@ public class Dashboard_TODO_search {
 		
 		/*WITHOUT DB*/
 		adminProperties.LoginAdmin(prop.getProperty("admin_usename"), prop.getProperty("admin_pwd"));
-		blogroleName="admin";
-		Authorname=	"admin";
+		String arrval= adminProperties.fetch_Role_Author();
+		String[] arrval1= arrval.split("#");
+		blogroleName=arrval1[1];
+		Authorname=	arrval1[0];
 		blogrole="";
 		
 	
