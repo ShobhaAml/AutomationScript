@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.DataProvider;
@@ -33,7 +35,7 @@ public class CheckButtonsForPosttype {
 	String posttypearr="";
 	String Futurepostbutton="";
 	String programeCommbutton="Pasar a borrador,Editar,Destacar";
-	String eCommbutton="Rechazar,Editar,Destacar";
+	String eCommbutton="Editar,Quitar de portad";
 				
 	
 	 
@@ -49,8 +51,10 @@ public class CheckButtonsForPosttype {
 
 		/*WITHOUT DB*/
 		adminProperties.LoginAdmin(prop.getProperty("admin_usename"), prop.getProperty("admin_pwd"));
-		blogroleName="admin";
-		Authorname=	"admin";
+		String arrval= adminProperties.fetch_Role_Author();
+		String[] arrval1= arrval.split("#");
+		blogroleName=arrval1[1];
+		Authorname=	arrval1[0];
 		blogrole="";
 		
 		
@@ -206,9 +210,9 @@ public class CheckButtonsForPosttype {
 			{if(selfBrandfuture==""){selfBrandfuture= Buttons ;}else{selfBrandfuture=selfBrandfuture+","+ Buttons ;} }
 			 if(UBC_Others_branded.equalsIgnoreCase("Y"))
 			{if(Othersbranded==""){Othersbranded= Buttons ;}else{Othersbranded=Othersbranded+","+ Buttons ;} }
-			 System.out.println("Schedule ===="+UBC_Self_unbranded +"==" + UBC_Others_unbranded +"==" +UBC_Self_branded +"=="+  UBC_Others_branded);
+			 //System.out.println("Schedule ===="+UBC_Self_unbranded +"==" + UBC_Others_unbranded +"==" +UBC_Self_branded +"=="+  UBC_Others_branded);
 		}else if(rolebased.equalsIgnoreCase("UbCol")){
-			System.out.println( UbCol_Self_unbranded +" "+	UbCol_Others_unbranded	+" "+ UbCol_Self_branded	+" "+UbCol_Others_branded);
+			//System.out.println( UbCol_Self_unbranded +" "+	UbCol_Others_unbranded	+" "+ UbCol_Self_branded	+" "+UbCol_Others_branded);
 			
 			if(UbCol_Self_unbranded.equalsIgnoreCase("Y"))
 			{if(selffuture==""){selffuture= Buttons ;}else{selffuture=selffuture+","+ Buttons ;}   }
@@ -531,7 +535,8 @@ public class CheckButtonsForPosttype {
 		//	System.out.println("LOOP-----------------");
 			
 		for (int i =0; i < list.size(); i++) {
-		//	System.out.println("hiiiiiiiiiii" + i );
+			//System.out.println("hiiiiiiiiiii" + i + adminProperties.findElement(".//*[@id='posts_list']/tr/td").getText() );
+		if(!adminProperties.findElement(".//*[@id='posts_list']/tr/td").getText().equalsIgnoreCase("No se ha encontrado el contenido.")) {
 			String posttypeviaID= "normal";
 			String Comparebutton="";
 			
@@ -571,7 +576,7 @@ public class CheckButtonsForPosttype {
 			
 		    
 			System.out.println("postid=="+postid + "  posttypeviaID==" +posttypeviaID + "   category=="+category);
-			System.out.println(list.get(i).getAttribute("class"));
+			//System.out.println(list.get(i).getAttribute("class"));
 			//For future Scheduled post
 			if((list.get(i).getAttribute("class").equalsIgnoreCase("scheduled"))   ||  (list.get(i).getAttribute("class").equalsIgnoreCase("scheduled tomorrow"))  ||  (list.get(i).getAttribute("class").equalsIgnoreCase("scheduled today")))
 			{
@@ -591,8 +596,8 @@ public class CheckButtonsForPosttype {
 			else if(list.get(i).getAttribute("class").equalsIgnoreCase("tr-repost-incoming"))
 			{//Repost posts
 				if(blogroleName.equalsIgnoreCase("BC")){
-				OthersbrandedRepost="Editar,Borrar";
-				OtherRepost="Editar,Borrar";
+				OthersbrandedRepost="Borrar";
+				OtherRepost="Borrar";
 				}
 				Getactualresult(Comparebutton, "Repost",posttypeviaID,category );					
 			}
@@ -601,6 +606,10 @@ public class CheckButtonsForPosttype {
 				Getactualresult(Comparebutton, "normal",posttypeviaID,category );					
 			}
 			System.out.println(" ");
+		}else
+		{
+			System.out.println("No result found");
+		}
 		}
 	}	
 		else
