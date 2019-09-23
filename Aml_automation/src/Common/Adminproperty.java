@@ -1976,7 +1976,9 @@ public class Adminproperty extends TestListenerAdapter {
 		else if (icon.equalsIgnoreCase("richcontent"))
 			findAndClick("MVP_richContent");
 		else if (icon.equalsIgnoreCase("review"))
-            findAndClick("MVP_fichaReview");
+			findAndClick("MVP_fichaReview");
+		else if (icon.equalsIgnoreCase("hook"))
+			findAndClick("MVP_hook");
 		implicitWait();
 	}
 
@@ -2143,14 +2145,14 @@ public class Adminproperty extends TestListenerAdapter {
 			if (layout.equalsIgnoreCase(""))
 				findAndClick("MVP_insertarVideo");
 			else {
-				MVP_common_layout("mvp_layout6", layout);
+				MVP_common_layout("mvp_layout1", layout);
 				findAndClick("MVP_insertarVideo");
 			}
 		} else if (URL.contains("giphy")) {
-			MVP_common_layout("mvp_layout6", layout);
+			MVP_common_layout("mvp_layout1", layout);
 			findAndClick("MVPInsertButton");
 		} else {
-			MVP_common_layout("mvp_layout4", layout);
+			MVP_common_layout("mvp_layout1", layout);
 			findAndClick("MVP_Insertar");
 		}
 	}
@@ -2813,7 +2815,8 @@ public class Adminproperty extends TestListenerAdapter {
 			editarButtons.get(i).isDisplayed();
 		}
 		System.out.println("*****Images have been cropped sucessfully*****");
-		driver.findElement(By.xpath(prop.getProperty("longform_programorBtn"))).click();
+		implicitWait();
+		driver.findElement(By.xpath(prop.getProperty("longform_publishBtn"))).click();
 		System.out.println("*****Your post has been published sucessfully*****");
 	}
 
@@ -3026,7 +3029,7 @@ public class Adminproperty extends TestListenerAdapter {
 		action.build().perform();
 		Thread.sleep(2000);
 		insertCategoryAndTag_lfe(category, tag);
-		insertFbContent_lfe(fbText);
+		//insertFbContent_lfe(fbText);
 		imageCropperLfe();
 	}
 
@@ -3333,7 +3336,7 @@ public class Adminproperty extends TestListenerAdapter {
 
 	}
 
-	public void insertHook_MVP(String hookCustomerName, String hookLogoLink, String hookTextarea, String hookButtonText)
+	public void insertHook_MVP(String hookCustomerName, String hookLogoLink, String hookTextarea, String hookButtonText, String hookCustomerLogo, String hookImage)
 			throws InterruptedException, IOException, AWTException {
 
 		ClickICON(driver, "hook");
@@ -3341,7 +3344,9 @@ public class Adminproperty extends TestListenerAdapter {
 		findAndClick("Hook_Img1_Button");
 		findAndClick("Image_Upload");
 		Thread.sleep(1000);
-		Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\Images\\hooklogo.exe");
+		//Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\Images\\hooklogo.exe");
+		Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\DriverFiles\\fileupload.exe" + " "
+				+ System.getProperty("user.dir") + "\\src\\Images\\" + hookCustomerLogo);
 		Thread.sleep(5000);
 		Actions action = new Actions(driver);
 		action.moveToElement(driver.findElement(By.xpath(prop.getProperty("Image_Click"))));
@@ -3349,7 +3354,9 @@ public class Adminproperty extends TestListenerAdapter {
 		findAndClick("Hook_Img2_Button");
 		findAndClick("Image_Upload");
 		Thread.sleep(1000);
-		Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\Images\\hookimage.exe");
+		//Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\Images\\hookimage.exe");
+		Runtime.getRuntime().exec(System.getProperty("user.dir") + "\\src\\DriverFiles\\fileupload.exe" + " "
+				+ System.getProperty("user.dir") + "\\src\\Images\\" + hookImage);
 		Thread.sleep(5000);
 		action.moveToElement(driver.findElement(By.xpath(prop.getProperty("Image_Click"))));
 		action.click().build().perform();
