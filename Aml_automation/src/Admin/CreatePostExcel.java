@@ -1,9 +1,5 @@
 package Admin;
 
-import java.sql.Connection;
-import java.util.List;
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.Properties;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -11,10 +7,6 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindAll;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -42,7 +34,7 @@ public class CreatePostExcel {
 
 	@DataProvider(name = "testdata")
 	public Object[][] TestDataFeed() throws Exception {
-		Object[][] postdata = adminProperties.readExcel("Normal", 106);
+		Object[][] postdata = adminProperties.readExcel("Cms", 107);
 		return postdata;
 	}
 
@@ -73,7 +65,7 @@ public class CreatePostExcel {
 			String hookCustomerName, String hookLogoLink, String hookTextarea, String hookImage, String hookButtonText,
 			String richContent_alternativo, String rich_iFrame, String rich_URL, String flipboard_blogname,
 			String flipboard_magazine, String pivot_ExternalUrl, String pivot_ExternalNombre,
-			String pivot_ExternalArticletitle, String flipboard) throws Exception {
+			String pivot_ExternalArticletitle, String flipboard, String Pivot_Insta) throws Exception {
 		if (Run.trim().equalsIgnoreCase("Y")) {
 			String blogrole = "";
 			adminProperties.LoginAdmin(prop.getProperty("admin_usename"), prop.getProperty("admin_pwd"));
@@ -107,8 +99,8 @@ public class CreatePostExcel {
 				adminProperties.addNewline();
 			}
 			adminProperties.implicitWait();
-			if (!(primaryimage.equalsIgnoreCase("null"))) {
-				adminProperties.uploadPrimaryImage(primaryimage, browser);
+			if (!(image.equalsIgnoreCase("null"))) {
+				adminProperties.uploadPrimaryImage(image, browser);
 				adminProperties.addNewlines();
 			}
 			if (!Youtube_Video.equalsIgnoreCase("null")) {
@@ -270,29 +262,47 @@ public class CreatePostExcel {
 					adminProperties.add_pivot_Amazon(Pivot_amazon_search, Pivot_otherStorevalues);
 				}
 			}
-			if (!Pivot_newsletter.equalsIgnoreCase("null"))
-				// adminProperties.add_pivot_newsletter(Pivot_newsletter);
+			if (!Pivot_newsletter.equalsIgnoreCase("null")) {
+				adminProperties.add_pivot_newsletter(Pivot_newsletter);
+			}
 
-				adminProperties.implicitWait();
-			String Flipboardarrblognames = adminProperties.GetpivotflipboardValues();
-			System.out.println(Flipboardarrblognames);
 			adminProperties.implicitWait();
-			String[] arrFlipboardarrblognames = Flipboardarrblognames.split("##");
-			for (int i = 0; i < arrFlipboardarrblognames.length; i++) {
-				System.out.println(arrFlipboardarrblognames[i]);
-				adminProperties.addpivotFlipboard(arrFlipboardarrblognames[i]);
 
+			if (flipboard.equalsIgnoreCase("Y")) {
+				String Flipboardarrblognames = adminProperties.GetpivotflipboardValues();
+				System.out.println(Flipboardarrblognames);
+				adminProperties.implicitWait();
+				String[] arrFlipboardarrblognames = Flipboardarrblognames.split("##");
+				for (int i = 0; i < arrFlipboardarrblognames.length; i++) {
+					System.out.println(arrFlipboardarrblognames[i]);
+					adminProperties.addpivotFlipboard(arrFlipboardarrblognames[i]);
+
+				}
 			}
 
 			if (!Pivot_product_Article.equalsIgnoreCase("null")) {
-				/*
-				 * System.out.println("Pivot Article =" + Pivot_product_Article);
-				 * 
-				 * adminProperties.implicitWait(); adminProperties.addNewlines();
-				 * adminProperties.addpivotarticle(Pivot_product_Article,
-				 * Pivot_product_Article_posttype, Pivot_product_Article);
-				 * adminProperties.addNewlines();
-				 */
+
+				System.out.println("Pivot Article =" + Pivot_product_Article);
+
+				adminProperties.implicitWait();
+				adminProperties.addNewlines();
+				adminProperties.addpivotarticle(Pivot_product_Article, Pivot_product_Article_posttype,
+						Pivot_product_Article);
+				adminProperties.addNewlines();
+
+			}
+
+			// Add hook to CMS post
+			if (!hookCustomerName.equalsIgnoreCase("null")) {
+				adminProperties.addHook(hookCustomerLogo, hookCustomerName, hookLogoLink, hookTextarea, hookImage,
+						hookButtonText);
+			}
+
+			// Add pivot external to CMS post
+			adminProperties.implicitWait();
+			if (!pivot_ExternalUrl.equalsIgnoreCase("null")) {
+				adminProperties.addPivotExternalCMS(pivot_ExternalUrl, pivot_ExternalNombre,
+						pivot_ExternalArticletitle);
 			}
 			/*
 			 * adminProperties.implicitWait(); ((JavascriptExecutor)
@@ -301,14 +311,6 @@ public class CreatePostExcel {
 			 * if(blogrole.equalsIgnoreCase("Branded Collaborator")) { System.out.
 			 * println("Branded Collaborator don't have access to publish a post" ); } else{
 			 */
-			
-			// Add hook to CMS post
-			adminProperties.addHook(hookCustomerLogo, hookCustomerName, hookLogoLink, hookTextarea, hookImage,
-					hookButtonText);
-
-			// Add pivot external to CMS post
-			adminProperties.implicitWait();
-			adminProperties.addPivotExternalCMS(pivot_ExternalUrl, pivot_ExternalNombre, pivot_ExternalArticletitle);
 
 			adminProperties.findAndClick("publish_tab");
 			adminProperties.handleAuthenticationDialog(browser);
