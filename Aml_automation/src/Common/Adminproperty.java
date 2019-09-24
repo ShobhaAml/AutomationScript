@@ -109,8 +109,8 @@ public class Adminproperty extends TestListenerAdapter {
 		return driver;
 	}
 
-	public void uploadPrimaryImage(String primaryimage, String browser) throws Exception {
-		String primaryimagearr[] = primaryimage.split("@#@");
+	public void uploadPrimaryImage(String image, String browser) throws Exception {
+		String primaryimagearr[] = image.split("@#@");
 		for (int i = 0; i < primaryimagearr.length; i++) {
 			if ((primaryimagearr[i].contains(".gif")) || (primaryimagearr[i].contains(".GIF"))) {
 
@@ -140,14 +140,14 @@ public class Adminproperty extends TestListenerAdapter {
 		implicitWait();
 	}
 
-	public void uploadMultipleImage(String primaryimage, String browser) throws Exception {
+	public void uploadMultipleImage(String image, String browser) throws Exception {
 		findAndClick("toolbar_image");
 		if (browser.trim().equalsIgnoreCase("firefox")) {
 			findAndClick("post_content");
 		}
 		addNewlines();
 		implicitWait();
-		String primaryimagearr[] = primaryimage.split("@#@");
+		String primaryimagearr[] = image.split("@#@");
 		for (int i = 0; i < primaryimagearr.length; i++) {
 			findAndWrite("primary_image_insert",
 					System.getProperty("user.dir") + prop.getProperty("image_path") + "\\" + primaryimagearr[i]);
