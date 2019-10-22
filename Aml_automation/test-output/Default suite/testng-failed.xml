@@ -3,12 +3,12 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="Frontend.AmazonProductsForAdblocker">
+      <class name="AdminDashboardsanity.CheckButtonsForPosttype">
         <methods>
-          <include name="CompareAmazonProducts"/>
-          <include name="Setup"/>
+          <include name="getstatus"/>
+          <include name="getbutton" invocation-numbers="15"/>
         </methods>
-      </class> <!-- Frontend.AmazonProductsForAdblocker -->
+      </class> <!-- AdminDashboardsanity.CheckButtonsForPosttype -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
