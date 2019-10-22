@@ -1,67 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="1" failed="0" ignored="0" total="1" passed="0">
+<testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="407" started-at="2019-09-16T11:27:28Z" finished-at="2019-09-16T11:27:28Z">
+  <suite name="Default suite" duration-ms="11664289" started-at="2019-10-15T07:51:45Z" finished-at="2019-10-15T11:06:09Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="407" started-at="2019-09-16T11:27:28Z" finished-at="2019-09-16T11:27:28Z">
-      <class name="Frontend.AmazonProductsForAdblocker">
-        <test-method status="SKIP" signature="CompareAmazonProducts(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:Frontend.AmazonProductsForAdblocker@60438a68]" name="CompareAmazonProducts" duration-ms="0" started-at="2019-09-16T11:27:28Z" data-provider="testdata" finished-at="2019-09-16T11:27:28Z">
-          <exception class="java.lang.RuntimeException">
-            <message>
-              <![CDATA[java.lang.IllegalStateException: The hyperlink for cell D3 references relation rId2, but that didn't exist!]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[java.lang.RuntimeException: java.lang.IllegalStateException: The hyperlink for cell D3 references relation rId2, but that didn't exist!
-at org.testng.internal.MethodInvocationHelper.invokeMethodNoCheckedException(MethodInvocationHelper.java:49)
-at org.testng.internal.MethodInvocationHelper.invokeDataProvider(MethodInvocationHelper.java:131)
-at org.testng.internal.Parameters.handleParameters(Parameters.java:706)
-at org.testng.internal.ParameterHandler.handleParameters(ParameterHandler.java:49)
-at org.testng.internal.ParameterHandler.createParameters(ParameterHandler.java:37)
-at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:924)
-at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
-at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
-at org.testng.TestRunner.privateRun(TestRunner.java:648)
-at org.testng.TestRunner.run(TestRunner.java:505)
-at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)
-at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)
-at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)
-at org.testng.SuiteRunner.run(SuiteRunner.java:364)
-at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
-at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)
-at org.testng.TestNG.runSuitesSequentially(TestNG.java:1208)
-at org.testng.TestNG.runSuitesLocally(TestNG.java:1137)
-at org.testng.TestNG.runSuites(TestNG.java:1049)
-at org.testng.TestNG.run(TestNG.java:1017)
-at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
-at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
-at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
-Caused by: java.lang.IllegalStateException: The hyperlink for cell D3 references relation rId2, but that didn't exist!
-at org.apache.poi.xssf.usermodel.XSSFHyperlink.<init>(XSSFHyperlink.java:71)
-at org.apache.poi.xssf.usermodel.XSSFSheet.initHyperlinks(XSSFSheet.java:205)
-at org.apache.poi.xssf.usermodel.XSSFSheet.read(XSSFSheet.java:158)
-at org.apache.poi.xssf.usermodel.XSSFSheet.onDocumentRead(XSSFSheet.java:130)
-at org.apache.poi.xssf.usermodel.XSSFWorkbook.onDocumentRead(XSSFWorkbook.java:286)
-at org.apache.poi.POIXMLDocument.load(POIXMLDocument.java:159)
-at org.apache.poi.xssf.usermodel.XSSFWorkbook.<init>(XSSFWorkbook.java:207)
-at Frontend.AmazonProductsForAdblocker.readExcel(AmazonProductsForAdblocker.java:136)
-at Frontend.AmazonProductsForAdblocker.TestDataFeed(AmazonProductsForAdblocker.java:47)
-at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
-at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
-at java.lang.reflect.Method.invoke(Unknown Source)
-at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)
-at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:74)
-at org.testng.internal.MethodInvocationHelper.invokeMethodNoCheckedException(MethodInvocationHelper.java:45)
-... 22 more
-]]>
-            </full-stacktrace>
-          </exception> <!-- java.lang.RuntimeException -->
+    <test name="Default test" duration-ms="11664289" started-at="2019-10-15T07:51:45Z" finished-at="2019-10-15T11:06:09Z">
+      <class name="Frontend.BrokenLinks">
+        <test-method status="PASS" signature="Setup()[pri:0, instance:Frontend.BrokenLinks@3820cfe]" name="Setup" is-config="true" duration-ms="5874" started-at="2019-10-15T07:51:45Z" finished-at="2019-10-15T07:51:51Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- CompareAmazonProducts -->
-      </class> <!-- Frontend.AmazonProductsForAdblocker -->
+        </test-method> <!-- Setup -->
+        <test-method status="PASS" signature="verfiyLinks()[pri:0, instance:Frontend.BrokenLinks@3820cfe]" name="verfiyLinks" duration-ms="11658323" started-at="2019-10-15T07:51:51Z" finished-at="2019-10-15T11:06:09Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verfiyLinks -->
+      </class> <!-- Frontend.BrokenLinks -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

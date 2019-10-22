@@ -3432,48 +3432,46 @@ public class Adminproperty extends TestListenerAdapter {
 	}
 	
 	public String getID(String ID) throws Exception {
-		String expected = "";
-		String status = "";
-		String url = "https://testadmin.xataka.com/newposts/";
+		String expected, status;
+		String url = "https://testadmin." + prop.getProperty("getIDSiteName") + ".com/newposts/";
 		url = url + ID;
 		System.setProperty("webdriver.chrome.driver",
 				System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedriver.exe");
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("headless");
-		WebDriver loopdriver = new ChromeDriver(options);
-		loopdriver.get(url);
-		String username = prop.getProperty("Uadmin");
-		String pwd = prop.getProperty("Padmin");
-		loopdriver.findElement(By.xpath(prop.getProperty("login_username_txt"))).sendKeys(username);
-		loopdriver.findElement(By.xpath(prop.getProperty("login_pwd_txt"))).sendKeys(pwd);
-		loopdriver.findElement(By.xpath(prop.getProperty("login_submit_button"))).click();
-		loopdriver.manage().timeouts().implicitlyWait(1000, TimeUnit.SECONDS);
-		if (loopdriver.getCurrentUrl().contains("clubposts")) {
+		// options.addArguments("start-maximized");
+		WebDriver driver2 = new ChromeDriver(options);
+		driver2.get(url);
+		driver2.findElement(By.xpath(prop.getProperty("login_username_txt"))).sendKeys(prop.getProperty("Uadmin"));
+		driver2.findElement(By.xpath(prop.getProperty("login_pwd_txt"))).sendKeys(prop.getProperty("Padmin"));
+		driver2.findElement(By.xpath(prop.getProperty("login_submit_button"))).click();
+		driver2.manage().timeouts().implicitlyWait(2000, TimeUnit.SECONDS);
+		if (driver2.getCurrentUrl().contains("clubposts")) {
 			status = "Club";
-		} else if(loopdriver.getCurrentUrl().contains("escribir")) {
-			loopdriver.manage().timeouts().implicitlyWait(3000, TimeUnit.SECONDS);
-			WebDriverWait wait = new WebDriverWait(loopdriver,30);
-			WebElement dialog_box = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("mvp_close_dialog"))));
+		} else if (driver2.getCurrentUrl().contains("escribir")) {
+			driver2.manage().timeouts().implicitlyWait(2000, TimeUnit.SECONDS);
+			WebDriverWait wait = new WebDriverWait(driver2, 10);
+			WebElement dialog_box = wait
+					.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("mvp_close_dialog"))));
 			dialog_box.click();
-			Thread.sleep(2000);
-			WebElement publicar_tab = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("longform_publicarTab"))));
+			Thread.sleep(1000);
+			WebElement publicar_tab = wait
+					.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("longform_publicarTab"))));
 			publicar_tab.click();
-			WebElement Text = loopdriver.findElement(By.xpath(prop.getProperty("otras_cat")));
+			driver2.manage().timeouts().implicitlyWait(1000, TimeUnit.SECONDS);
+			WebElement Text = driver2.findElement(By.xpath(prop.getProperty("postmodules")));
 			expected = Text.getText();
-			if (expected.contains("especial")) {
+			if (expected.contains("Publicar en Amazon OnSite")) {
 				status = "normal";
 			} else {
 				status = "club";
 			}
-		}
-		else{
+		} else {
 			status = "normal";
 		}
-		loopdriver.manage().timeouts().implicitlyWait(3000, TimeUnit.SECONDS);
-		loopdriver.close();
+		driver2.close();
 		return status;
 	}
-
 
 	public String fetch_Role_Author() throws Exception {
 		String arrval = "";
