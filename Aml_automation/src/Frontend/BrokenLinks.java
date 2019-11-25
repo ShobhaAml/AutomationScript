@@ -31,7 +31,7 @@ public class BrokenLinks
     String server, blogname, path, device, testserver, browser;
     String usuariolink = "", author = "";
     WebDriver driver = null;
-    String desktopurl="https://guest:guest@testing.xataka.com/";
+    String desktopurl="https://guest:guest@testing.xataka.com";
    
    public WebDriver launchHeadlessBrowser()
    {
@@ -40,14 +40,17 @@ public class BrokenLinks
     chromeOptions.addArguments("--headless");
     chromeOptions.addArguments("--no-sandbox");
     WebDriver driver = new ChromeDriver(chromeOptions);
-	return driver;   
+	return driver;
+	   
    }
     
     @BeforeMethod
     public void Setup() throws Exception
     {
         prop = frontendProperties.ReadProperties();
-        driver = launchHeadlessBrowser();
+        driver = frontendProperties.frontcallproperty(prop.getProperty("url"),
+                prop.getProperty("browser"));
+       // driver = launchHeadlessBrowser();
         browser = prop.getProperty("browser");
         server = prop.getProperty("server");
         blogname = prop.getProperty("blogname");
@@ -101,7 +104,7 @@ public class BrokenLinks
         VerifyInternalPages(desktopurl + "/respuestas");
         VerifyInternalPages(desktopurl + "/respuestas/preguntar");
         // ** check for Archivos pages
-        VerifyInternalPages(desktopurl+"/archivos");
+        VerifyInternalPages(desktopurl + "/archivos");
         // Verify Editor Pages
         VerifyInternalPages(desktopurl + "/quienes-somos");
         // Verify Editor Pages
