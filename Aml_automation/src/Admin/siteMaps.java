@@ -9,6 +9,9 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 import org.jsoup.select.Elements;
 import org.xml.sax.SAXException;
@@ -33,12 +36,20 @@ public class siteMaps {
 		Elements parse_element = org.jsoup.Jsoup.parse(src).getElementsByClass("text");
 		for (org.jsoup.nodes.Element item : parse_element) {
 			if (item.text().contains("https"))
-				list.add(item.unwrap().toString());
+				list.add(item.unwrap().toString().replace("https://", ""));
 		}
 		driver.close();
-		Iterator<String> it = list.iterator();
+		/*Iterator<String> it = list.iterator();
 		while (it.hasNext()) {
 			System.out.println(it.next());
+			}*/
+		driver = new ChromeDriver();
+		
+		for(int i=0; i<list.size();i++)
+		{
+		driver.get("https://guest:guest@"+list.get(i));
+		Thread.sleep(2000);
 		}
+		System.out.println();
 	}
 }
