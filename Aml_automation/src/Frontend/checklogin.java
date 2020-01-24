@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 
 import Common.Frontend;
 
-public class Login {
+public class checklogin {
 	
 	Frontend frontendProperties = new Frontend();    
 	String browser="";

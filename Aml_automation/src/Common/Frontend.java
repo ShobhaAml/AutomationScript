@@ -49,6 +49,8 @@ import Common.Adminproperty;
     		ChromeOptions options = new ChromeOptions();
     		options.addArguments("start-maximize");
     		//options.addArguments("" + capabilities + "");
+
+
     		driver = new ChromeDriver(options);
 
     	} else {
@@ -65,7 +67,7 @@ import Common.Adminproperty;
 
 
 	public void clickMenu(String Linktext, String Rtype) {
-		//super.findAndClick("cookie");
+		super.findAndClick("cookie");
 		driver.findElement(By.xpath(prop.getProperty("Menu"))).click();
 		super.implicitWait();
 		if (Linktext.equalsIgnoreCase("EntraORegistrate")) {
@@ -99,6 +101,7 @@ import Common.Adminproperty;
 		implicitWait();
 		findAndWrite("standard_email", username);
 		findAndWrite("standard_password", password);
+		implicitWait();
 		findAndClick("standard_button");
 		String invalidmessage = "Success";
 		try {

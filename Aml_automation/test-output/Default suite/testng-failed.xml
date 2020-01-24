@@ -3,12 +3,12 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="AdminDashboardsanity.CheckButtonsForPosttype">
+      <class name="Frontend.BrokenLinks">
         <methods>
-          <include name="getstatus"/>
-          <include name="getbutton" invocation-numbers="15"/>
+          <include name="Setup"/>
+          <include name="verfiyLinks"/>
         </methods>
-      </class> <!-- AdminDashboardsanity.CheckButtonsForPosttype -->
+      </class> <!-- Frontend.BrokenLinks -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

@@ -25,7 +25,7 @@ public class siteMaps {
 	@Test
 	public void fetch_siteMap_URL() throws InterruptedException, ParserConfigurationException, SAXException, IOException {
 		ChromeOptions opt = new ChromeOptions();
-		System.setProperty("webdriver.chrome.driver", "//usr//local//bin//chromedriver 1.48.21 PM");
+		System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir") + "//src//Driverfiles//" + "chromedriver.exe");
 		driver = new ChromeDriver(opt);
 		opt.addArguments("start-maximized");
 		driver.get(siteMap_URL);

@@ -59,8 +59,15 @@ public class BrokenLinks
     }
 
     @Test
-    public void verfiyLinks() throws IOException
-    {
+    public void verfiyLinks() throws Exception
+    {  //***************CHECK LOGINS
+        
+        System.out.println("CHECK Standard LOGIN");
+        
+        StandardLogin("shobha@agilemedialab.in", "shobha");
+        
+        
+        
     	driver.get(desktopurl);
     	System.out.println("Main URL----------"+ desktopurl);
         List<WebElement> anchorTagsList = driver.findElements(By.tagName("a"));
@@ -68,8 +75,7 @@ public class BrokenLinks
         for (WebElement anchorTagElement : anchorTagsList) {
             if (anchorTagElement != null) {
                 String url = anchorTagElement.getAttribute("href");
-               // System.out.println(url+"-------------------------------");
-                               if (url != null
+                      if (url != null
                         && !url.contains("javascript")
                         && (!url.contains("utm_campaign=footer") && (!url
                                 .contains("#") && (!url.contains("youtu")) &&  (!url.contains("redirect?")) && ( !url.contains("mailto:?subject="))))) {
@@ -92,6 +98,11 @@ public class BrokenLinks
                     if (url.contains("/autor/")) {
                         author = url;
                     }
+                    System.out.println(" Verifing homepage Pages :  " + url
+                            + "**");
+                 	      
+                   // System.out.println(url+"-------------------------------");
+                    
                     verifyURLStatus(url);
                 }
             }
@@ -112,14 +123,23 @@ public class BrokenLinks
         if (usuariolink != "") {
             VerifyInternalPages(usuariolink);
         }
-       
+     
         
     }
+    
+    public void StandardLogin(String username, String password) throws Exception
+	   {
+		   System.out.println("****Sanity of STANDARD LOGIN******");
+		   frontendProperties.login(username, password,desktopurl,"std");
+		   frontendProperties.implicitWait();
+		   frontendProperties.implicitWait();
+	   		driver.close();
+		}
 
     public void VerifyInternalPages(String url) throws IOException
     {
-        System.out.println("********* Verifing Internal Pages  " + url
-                + "*******");
+        System.out.println("********************************************* Verifing Internal Pages :  " + url
+                + "***********************************************************************************************");
       //  driver = frontendProperties.frontcallproperty(url, prop.getProperty("browser"));
      	driver.get(url);
         List<WebElement> anchorTagsList = driver.findElements(By.tagName("a"));
@@ -152,7 +172,7 @@ public class BrokenLinks
                     if (url.contains("/usuario/")) {
                         usuariolink = url;
                     }
-                    // System.out.println(url1);
+            //  System.out.println("++++++++++++++++"+url1);
                     verifyURLStatus(url1);
                     
                 }
@@ -175,6 +195,6 @@ public class BrokenLinks
             // e.printStackTrace();
         }
         
-     //   frontendProperties.ExtractJSLogs(URL);
+      frontendProperties.ExtractJSLogs(URL);
     }
 }
