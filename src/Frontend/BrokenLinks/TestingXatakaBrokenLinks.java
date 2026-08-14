@@ -254,6 +254,9 @@ public class TestingXatakaBrokenLinks {
         }
 
         try {
+            if (looksLikeDomainWithoutScheme(trimmed)) {
+                trimmed = "https://" + trimmed;
+            }
             URI base = new URI(pageUrl);
             URI resolved = base.resolve(trimmed.replace(" ", "%20")).normalize();
             String scheme = resolved.getScheme();
@@ -282,6 +285,10 @@ public class TestingXatakaBrokenLinks {
         } catch (IllegalArgumentException e) {
             return null;
         }
+    }
+
+    private static boolean looksLikeDomainWithoutScheme(String value) {
+        return value.matches("^[A-Za-z0-9][A-Za-z0-9.-]*\\.[A-Za-z]{2,}(:[0-9]+)?([/?].*)?$");
     }
 
     private static String read(InputStream inputStream, int maxChars) throws IOException {
