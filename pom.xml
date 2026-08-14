@@ -38,6 +38,9 @@
             <brokenLinks.maxLinks>${brokenLinks.maxLinks}</brokenLinks.maxLinks>
             <brokenLinks.timeoutMs>${brokenLinks.timeoutMs}</brokenLinks.timeoutMs>
             <brokenLinks.failOnBroken>${brokenLinks.failOnBroken}</brokenLinks.failOnBroken>
+            <brokenLinks.maxBodyChars>${brokenLinks.maxBodyChars}</brokenLinks.maxBodyChars>
+            <brokenLinks.checkExternalLinks>${brokenLinks.checkExternalLinks}</brokenLinks.checkExternalLinks>
+            <brokenLinks.includeAssets>${brokenLinks.includeAssets}</brokenLinks.includeAssets>
           </systemPropertyVariables>
        </configuration>
       </plugin>
@@ -75,6 +78,9 @@
         <brokenLinks.maxLinks>500</brokenLinks.maxLinks>
         <brokenLinks.timeoutMs>15000</brokenLinks.timeoutMs>
         <brokenLinks.failOnBroken>true</brokenLinks.failOnBroken>
+        <brokenLinks.maxBodyChars>2000000</brokenLinks.maxBodyChars>
+        <brokenLinks.checkExternalLinks>false</brokenLinks.checkExternalLinks>
+        <brokenLinks.includeAssets>false</brokenLinks.includeAssets>
       </properties>
     </profile>
   </profiles>

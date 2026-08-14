@@ -3,7 +3,7 @@
 <suite name="Testing Xataka Broken Links">
   <test name="testing.xataka.com broken link check">
     <classes>
-      <class name="TestingXatakaBrokenLinks"/>
+      <class name="Frontend.BrokenLinks.TestingXatakaBrokenLinks"/>
     </classes>
   </test>
 </suite>
