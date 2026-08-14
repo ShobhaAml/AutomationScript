@@ -1,0 +1,8 @@
+WinWaitActive("Authentication Required")
+Send("guest")
+sleep(1000)
+Send("{TAB}")
+Send("guest")
+sleep(1000)
+Send("{TAB}")
+Send("{ENTER}")

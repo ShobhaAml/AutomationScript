@@ -1,0 +1,35 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">	
+<suite thread-count="1" verbose="1" name="Admin Sanity Suite" parallel="tests">
+         
+  <test name="Admin Login and Dashboard sanity">
+	 <classes>
+	   <class name="Admin.BrokenLinks_admin"/>
+	 </classes>
+   </test>
+   
+   
+   
+   
+   
+   
+ <!-- <test name="CMS Post creation sanity">
+     <classes>
+       <class name="Admin.CreatePostExcel"/>
+     </classes>
+   </test>
+    <test name="CF Post creation sanity">
+     <classes>
+       <class name="Admin.CreateMVPPostExcel"/>
+     </classes>
+   </test>  
+    <test name="LFE Post creation sanity">
+     <classes>
+       <class name="Admin.CreateLongformPostExcel"/>
+     </classes>
+   </test>
+      <test name="Ecommerce Post creation sanity">
+     <classes>
+       <class name="Admin.CreateEcommerceExcel"/>
+     </classes>
+   </test> -->
+</suite>

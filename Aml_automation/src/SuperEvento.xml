@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Super Evento Suite" verbose="1">
+  <test name="Super evento create and publish">
+    <classes>
+      <class name="Admin.SuperEventoTests"/>
+    </classes>
+  </test>
+</suite>
