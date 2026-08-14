@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Super Evento Xatakamovil Suite" verbose="1">
+  <test name="Shobha Super evento posts on Xatakamovil">
+    <classes>
+      <class name="Admin.SuperEventoXatakamovilTests"/>
+    </classes>
+  </test>
+</suite>
