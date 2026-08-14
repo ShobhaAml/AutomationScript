@@ -30,6 +30,15 @@
           <suiteXmlFiles>
             <suiteXmlFile>${SuiteXmlFile}</suiteXmlFile>
           </suiteXmlFiles>
+          <systemPropertyVariables>
+            <brokenLinks.baseUrl>${brokenLinks.baseUrl}</brokenLinks.baseUrl>
+            <brokenLinks.username>${brokenLinks.username}</brokenLinks.username>
+            <brokenLinks.password>${brokenLinks.password}</brokenLinks.password>
+            <brokenLinks.maxPages>${brokenLinks.maxPages}</brokenLinks.maxPages>
+            <brokenLinks.maxLinks>${brokenLinks.maxLinks}</brokenLinks.maxLinks>
+            <brokenLinks.timeoutMs>${brokenLinks.timeoutMs}</brokenLinks.timeoutMs>
+            <brokenLinks.failOnBroken>${brokenLinks.failOnBroken}</brokenLinks.failOnBroken>
+          </systemPropertyVariables>
        </configuration>
       </plugin>
       <plugin>
@@ -54,6 +63,21 @@
     </plugins>
     
   </build>
+  <profiles>
+    <profile>
+      <id>testing-xataka-broken-links</id>
+      <properties>
+        <SuiteXmlFile>src/TestingXatakaBrokenLinks.xml</SuiteXmlFile>
+        <brokenLinks.baseUrl>https://testing.xataka.com</brokenLinks.baseUrl>
+        <brokenLinks.username>guest</brokenLinks.username>
+        <brokenLinks.password>guest2026</brokenLinks.password>
+        <brokenLinks.maxPages>25</brokenLinks.maxPages>
+        <brokenLinks.maxLinks>500</brokenLinks.maxLinks>
+        <brokenLinks.timeoutMs>15000</brokenLinks.timeoutMs>
+        <brokenLinks.failOnBroken>true</brokenLinks.failOnBroken>
+      </properties>
+    </profile>
+  </profiles>
   <dependencies>
           <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
