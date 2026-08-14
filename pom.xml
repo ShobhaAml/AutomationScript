@@ -20,6 +20,9 @@
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-resources-plugin</artifactId>
      <version>3.1.0</version>
+     <configuration>
+       <encoding>UTF-8</encoding>
+     </configuration>
    </plugin>    
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -30,6 +33,22 @@
           <suiteXmlFiles>
             <suiteXmlFile>${SuiteXmlFile}</suiteXmlFile>
           </suiteXmlFiles>
+          <systemPropertyVariables>
+            <brokenLinks.baseUrl>${brokenLinks.baseUrl}</brokenLinks.baseUrl>
+            <brokenLinks.username>${brokenLinks.username}</brokenLinks.username>
+            <brokenLinks.password>${brokenLinks.password}</brokenLinks.password>
+            <brokenLinks.maxPages>${brokenLinks.maxPages}</brokenLinks.maxPages>
+            <brokenLinks.maxLinks>${brokenLinks.maxLinks}</brokenLinks.maxLinks>
+            <brokenLinks.timeoutMs>${brokenLinks.timeoutMs}</brokenLinks.timeoutMs>
+            <brokenLinks.failOnBroken>${brokenLinks.failOnBroken}</brokenLinks.failOnBroken>
+            <brokenLinks.maxBodyChars>${brokenLinks.maxBodyChars}</brokenLinks.maxBodyChars>
+            <brokenLinks.checkExternalLinks>${brokenLinks.checkExternalLinks}</brokenLinks.checkExternalLinks>
+            <brokenLinks.includeAssets>${brokenLinks.includeAssets}</brokenLinks.includeAssets>
+            <sanity.maxSitemaps>${sanity.maxSitemaps}</sanity.maxSitemaps>
+            <sanity.maxSitemapUrls>${sanity.maxSitemapUrls}</sanity.maxSitemapUrls>
+            <sanity.maxBodyChars>${sanity.maxBodyChars}</sanity.maxBodyChars>
+            <sanity.failOnError>${sanity.failOnError}</sanity.failOnError>
+          </systemPropertyVariables>
        </configuration>
       </plugin>
       <plugin>
@@ -46,14 +65,47 @@
               </includes> -->
   </configuration>
     </plugin>
- <plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-resources-plugin</artifactId>
-      <version>3.0.2</version>   
- </plugin>
     </plugins>
     
   </build>
+  <profiles>
+    <profile>
+      <id>testing-xataka-broken-links</id>
+      <properties>
+        <SuiteXmlFile>src/TestingXatakaBrokenLinks.xml</SuiteXmlFile>
+        <brokenLinks.baseUrl>https://testing.xataka.com</brokenLinks.baseUrl>
+        <brokenLinks.username>guest</brokenLinks.username>
+        <brokenLinks.password>guest2026</brokenLinks.password>
+        <brokenLinks.maxPages>25</brokenLinks.maxPages>
+        <brokenLinks.maxLinks>500</brokenLinks.maxLinks>
+        <brokenLinks.timeoutMs>15000</brokenLinks.timeoutMs>
+        <brokenLinks.failOnBroken>false</brokenLinks.failOnBroken>
+        <brokenLinks.maxBodyChars>2000000</brokenLinks.maxBodyChars>
+        <brokenLinks.checkExternalLinks>false</brokenLinks.checkExternalLinks>
+        <brokenLinks.includeAssets>false</brokenLinks.includeAssets>
+      </properties>
+    </profile>
+    <profile>
+      <id>testing-xataka-sanity-check</id>
+      <properties>
+        <SuiteXmlFile>src/TestingXatakaSanityCheck.xml</SuiteXmlFile>
+        <brokenLinks.baseUrl>https://testing.xataka.com</brokenLinks.baseUrl>
+        <brokenLinks.username>guest</brokenLinks.username>
+        <brokenLinks.password>guest2026</brokenLinks.password>
+        <brokenLinks.maxPages>25</brokenLinks.maxPages>
+        <brokenLinks.maxLinks>500</brokenLinks.maxLinks>
+        <brokenLinks.timeoutMs>15000</brokenLinks.timeoutMs>
+        <brokenLinks.failOnBroken>false</brokenLinks.failOnBroken>
+        <brokenLinks.maxBodyChars>2000000</brokenLinks.maxBodyChars>
+        <brokenLinks.checkExternalLinks>false</brokenLinks.checkExternalLinks>
+        <brokenLinks.includeAssets>false</brokenLinks.includeAssets>
+        <sanity.maxSitemaps>1000</sanity.maxSitemaps>
+        <sanity.maxSitemapUrls>0</sanity.maxSitemapUrls>
+        <sanity.maxBodyChars>5000000</sanity.maxBodyChars>
+        <sanity.failOnError>false</sanity.failOnError>
+      </properties>
+    </profile>
+  </profiles>
   <dependencies>
           <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
