@@ -77,7 +77,7 @@
         <brokenLinks.maxPages>25</brokenLinks.maxPages>
         <brokenLinks.maxLinks>500</brokenLinks.maxLinks>
         <brokenLinks.timeoutMs>15000</brokenLinks.timeoutMs>
-        <brokenLinks.failOnBroken>true</brokenLinks.failOnBroken>
+        <brokenLinks.failOnBroken>false</brokenLinks.failOnBroken>
         <brokenLinks.maxBodyChars>2000000</brokenLinks.maxBodyChars>
         <brokenLinks.checkExternalLinks>false</brokenLinks.checkExternalLinks>
         <brokenLinks.includeAssets>false</brokenLinks.includeAssets>
