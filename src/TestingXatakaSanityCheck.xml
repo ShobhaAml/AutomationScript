@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Testing Xataka Sanity And Broken Links">
+  <test name="testing.xataka.com sanity and broken link checks">
+    <classes>
+      <class name="Frontend.BrokenLinks.TestingXatakaBrokenLinks"/>
+      <class name="Frontend.BrokenLinks.TestingXatakaSanityCheck"/>
+    </classes>
+  </test>
+</suite>

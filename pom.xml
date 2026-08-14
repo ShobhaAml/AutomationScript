@@ -44,6 +44,10 @@
             <brokenLinks.maxBodyChars>${brokenLinks.maxBodyChars}</brokenLinks.maxBodyChars>
             <brokenLinks.checkExternalLinks>${brokenLinks.checkExternalLinks}</brokenLinks.checkExternalLinks>
             <brokenLinks.includeAssets>${brokenLinks.includeAssets}</brokenLinks.includeAssets>
+            <sanity.maxSitemaps>${sanity.maxSitemaps}</sanity.maxSitemaps>
+            <sanity.maxSitemapUrls>${sanity.maxSitemapUrls}</sanity.maxSitemapUrls>
+            <sanity.maxBodyChars>${sanity.maxBodyChars}</sanity.maxBodyChars>
+            <sanity.failOnError>${sanity.failOnError}</sanity.failOnError>
           </systemPropertyVariables>
        </configuration>
       </plugin>
@@ -79,6 +83,26 @@
         <brokenLinks.maxBodyChars>2000000</brokenLinks.maxBodyChars>
         <brokenLinks.checkExternalLinks>false</brokenLinks.checkExternalLinks>
         <brokenLinks.includeAssets>false</brokenLinks.includeAssets>
+      </properties>
+    </profile>
+    <profile>
+      <id>testing-xataka-sanity-check</id>
+      <properties>
+        <SuiteXmlFile>src/TestingXatakaSanityCheck.xml</SuiteXmlFile>
+        <brokenLinks.baseUrl>https://testing.xataka.com</brokenLinks.baseUrl>
+        <brokenLinks.username>guest</brokenLinks.username>
+        <brokenLinks.password>guest2026</brokenLinks.password>
+        <brokenLinks.maxPages>25</brokenLinks.maxPages>
+        <brokenLinks.maxLinks>500</brokenLinks.maxLinks>
+        <brokenLinks.timeoutMs>15000</brokenLinks.timeoutMs>
+        <brokenLinks.failOnBroken>false</brokenLinks.failOnBroken>
+        <brokenLinks.maxBodyChars>2000000</brokenLinks.maxBodyChars>
+        <brokenLinks.checkExternalLinks>false</brokenLinks.checkExternalLinks>
+        <brokenLinks.includeAssets>false</brokenLinks.includeAssets>
+        <sanity.maxSitemaps>1000</sanity.maxSitemaps>
+        <sanity.maxSitemapUrls>0</sanity.maxSitemapUrls>
+        <sanity.maxBodyChars>5000000</sanity.maxBodyChars>
+        <sanity.failOnError>false</sanity.failOnError>
       </properties>
     </profile>
   </profiles>
