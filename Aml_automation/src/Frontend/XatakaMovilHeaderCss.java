@@ -25,8 +25,11 @@ public class XatakaMovilHeaderCss {
     private static final String HEADER_SECTIONS_SELECTOR = ".o-siteheader-section__menu-toggle";
     private static final String HEADER_LOGIN_SELECTOR = ".o-siteheader-section__user .a-user";
     private static final String COLOR_BORDER_HEAD_LINK_RGB = "71, 107, 61";
-    private static final String EXPECTED_VISIBLE_STOP = "rgba(" + COLOR_BORDER_HEAD_LINK_RGB + ", 0.7)";
+    private static final String EXPECTED_OPAQUE_RGB_STOP = "rgb(" + COLOR_BORDER_HEAD_LINK_RGB + ")";
+    private static final String EXPECTED_OPAQUE_RGBA_STOP = "rgba(" + COLOR_BORDER_HEAD_LINK_RGB + ", 1)";
     private static final String EXPECTED_TRANSPARENT_STOP = "rgba(" + COLOR_BORDER_HEAD_LINK_RGB + ", 0)";
+    private static final double EXPECTED_BOX_OPACITY = 0.7;
+    private static final double OPACITY_DELTA = 0.01;
     private static final int PAGE_LOAD_TIMEOUT_SEC = 45;
     private static final int HEADER_WAIT_TIMEOUT_SEC = 45;
 
@@ -44,14 +47,22 @@ public class XatakaMovilHeaderCss {
 
         String sectionsGradient = backgroundImage(sectionsButton);
         String loginGradient = backgroundImage(loginButton);
+        String sectionsOpacity = opacity(sectionsButton);
+        String loginOpacity = opacity(loginButton);
 
         System.out.println("Secciones gradient: " + sectionsGradient);
+        System.out.println("Secciones opacity: " + sectionsOpacity);
         System.out.println("Entra o Regístrate gradient: " + loginGradient);
+        System.out.println("Entra o Regístrate opacity: " + loginOpacity);
 
         assertUsesExpectedGradient(sectionsGradient, "Secciones");
         assertUsesExpectedGradient(loginGradient, "Entra o Regístrate");
+        assertUsesExpectedOpacity(sectionsOpacity, "Secciones");
+        assertUsesExpectedOpacity(loginOpacity, "Entra o Regístrate");
         Assert.assertEquals(loginGradient, sectionsGradient,
                 "Secciones and Entra o Regístrate should use the same header action gradient.");
+        Assert.assertEquals(loginOpacity, sectionsOpacity,
+                "Secciones and Entra o Regístrate should use the same header action opacity.");
     }
 
     @AfterMethod(alwaysRun = true)
@@ -98,12 +109,25 @@ public class XatakaMovilHeaderCss {
                 "return window.getComputedStyle(arguments[0]).backgroundImage;", element);
     }
 
+    private String opacity(WebElement element) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        return (String) js.executeScript(
+                "return window.getComputedStyle(arguments[0]).opacity;", element);
+    }
+
     private static void assertUsesExpectedGradient(String gradient, String buttonName) {
         Assert.assertTrue(gradient.startsWith("linear-gradient"),
                 buttonName + " should use a linear-gradient background. Actual: " + gradient);
-        Assert.assertTrue(gradient.contains(EXPECTED_VISIBLE_STOP),
-                buttonName + " should use color-border-head-link at 70% opacity. Actual: " + gradient);
+        Assert.assertTrue(gradient.contains(EXPECTED_OPAQUE_RGB_STOP)
+                || gradient.contains(EXPECTED_OPAQUE_RGBA_STOP),
+                buttonName + " should use color-border-head-link at 100% opacity in the gradient. Actual: "
+                        + gradient);
         Assert.assertTrue(gradient.contains(EXPECTED_TRANSPARENT_STOP),
                 buttonName + " should fade color-border-head-link to 0% opacity. Actual: " + gradient);
+    }
+
+    private static void assertUsesExpectedOpacity(String opacity, String buttonName) {
+        Assert.assertEquals(Double.parseDouble(opacity), EXPECTED_BOX_OPACITY, OPACITY_DELTA,
+                buttonName + " should render the gradient box at 70% opacity. Actual: " + opacity);
     }
 }
