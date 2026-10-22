@@ -1,0 +1,34 @@
+name: Login identified by id
+sut_query: shifted=1
+tcp:
+  User: alex
+  Password: sample-only
+modules:
+  Login:
+    Username: "#username"
+    Password: "#password"
+    Sign in: "#sign-in"
+  Home:
+    Heading: "#heading"
+steps:
+  - action: Open
+  - module: Login
+    control: Username
+    action: Input
+    value: "{CP[User]}"
+  - module: Login
+    control: Password
+    action: Input
+    value: "{CP[Password]}"
+  - module: Login
+    control: Sign in
+    action: Input
+    value: "{CLICK}"
+  - module: Home
+    control: Heading
+    action: WaitOn
+    value: Home
+  - module: Home
+    control: Heading
+    action: Verify
+    value: Home
