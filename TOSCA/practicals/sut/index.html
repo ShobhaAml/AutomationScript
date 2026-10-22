@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Sample Shop</title>
+  <style>
+    body { font-family: sans-serif; margin: 2rem; }
+    label { display: block; margin: 0.5rem 0; }
+    .plans { display: flex; gap: 1rem; }
+    article { border: 1px solid #ccc; padding: 0.75rem; min-width: 10rem; }
+    #login-error { color: #990000; min-height: 1.2rem; }
+  </style>
+</head>
+<body>
+  <section id="login-view">
+    <h1>Sign in</h1>
+    <form id="login-form">
+      <label>Username <input id="username" name="username" autocomplete="username"></label>
+      <label>Password <input id="password" name="password" type="password" autocomplete="current-password"></label>
+      <button id="sign-in" type="submit">Sign in</button>
+      <p id="login-error"></p>
+    </form>
+  </section>
+  <section id="home-view" hidden>
+    <h1 id="heading">Home</h1>
+    <p id="session-user"></p>
+    <div class="plans">
+      <article data-plan="Monthly">
+        <h2>Monthly</h2>
+        <p class="price">2 per month</p>
+        <p class="trial">1 day free</p>
+      </article>
+      <article data-plan="Annual with ads">
+        <h2>Annual with ads</h2>
+        <p class="price">15 per year</p>
+        <p class="trial">1 day free</p>
+      </article>
+      <article data-plan="Annual no ads">
+        <h2>Annual no ads</h2>
+        <p class="price">30 per year</p>
+        <p class="trial">1 day free</p>
+      </article>
+    </div>
+    <p id="due-today" hidden>Due today</p>
+  </section>
+  <script>
+    const users = {
+      alex: { password: "sample-only", trial: true },
+      returning: { password: "sample-only", trial: false }
+    };
+    const params = new URLSearchParams(location.search);
+    const form = document.getElementById("login-form");
+    if (params.has("shifted")) {
+      const promo = document.createElement("input");
+      promo.id = "promo";
+      promo.placeholder = "Promo code";
+      form.insertBefore(promo, document.getElementById("username").parentElement);
+    }
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const name = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value;
+      const user = users[name];
+      const error = document.getElementById("login-error");
+      if (!user || user.password !== password) {
+        error.textContent = "Unknown user";
+        return;
+      }
+      error.textContent = "";
+      document.getElementById("login-view").hidden = true;
+      document.getElementById("home-view").hidden = false;
+      document.getElementById("session-user").textContent = name;
+      if (!user.trial) {
+        document.querySelectorAll(".trial").forEach((node) => node.remove());
+        document.getElementById("due-today").hidden = false;
+      }
+    });
+  </script>
+</body>
+</html>

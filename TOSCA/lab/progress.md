@@ -2,6 +2,16 @@
 
 Mark a line when you can do it without the lesson open.
 
+## Browser practicals
+
+Run from the repository root with `python3 TOSCA/practicals/run.py`.
+
+- [ ] Practical 1. Valid login is green, and you can name the ActionMode of each log line
+- [ ] Practical 2. `02-unknown-user/yours.yaml` is green from your own expected text
+- [ ] Practical 3. You can say why the index Module failed and why the id Module did not
+- [ ] Practical 4. You changed one sheet price, saw Verify fail, and restored it
+- [ ] Practical 5. Returning customer asserts "Due today" and does not look for a trial line
+
 ## Paper lab, no license required
 
 - [ ] Sorted a UI test into Module versus TestCase versus ExecutionList

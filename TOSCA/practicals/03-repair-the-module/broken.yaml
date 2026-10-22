@@ -1,0 +1,39 @@
+# This Module identifies Username as the first input on the page.
+# The sample shop is opened with an extra promo field above the username.
+# Run this file and read the failure. Then compare with solution.yaml.
+# expect: fail tells the runner that a failure is the correct result.
+name: Login identified by index
+expect: fail
+sut_query: shifted=1
+tcp:
+  User: alex
+  Password: sample-only
+modules:
+  Login:
+    Username: "input >> nth=0"
+    Password: "#password"
+    Sign in: "#sign-in"
+  Home:
+    Heading: "#heading"
+steps:
+  - action: Open
+  - module: Login
+    control: Username
+    action: Input
+    value: "{CP[User]}"
+  - module: Login
+    control: Password
+    action: Input
+    value: "{CP[Password]}"
+  - module: Login
+    control: Sign in
+    action: Input
+    value: "{CLICK}"
+  - module: Home
+    control: Heading
+    action: WaitOn
+    value: Home
+  - module: Home
+    control: Heading
+    action: Verify
+    value: Home

@@ -1,0 +1,53 @@
+name: Each plan shows its own price and trial
+tcp:
+  User: alex
+  Password: sample-only
+instances:
+  - Plan: Monthly
+    Price: 2 per month
+    Trial: 1 day free
+  - Plan: Annual with ads
+    Price: 15 per year
+    Trial: 1 day free
+  - Plan: Annual no ads
+    Price: 30 per year
+    Trial: 1 day free
+modules:
+  Login:
+    Username: "#username"
+    Password: "#password"
+    Sign in: "#sign-in"
+  PlanPicker:
+    Card:
+      selector: "[data-plan]"
+      match_attr: data-plan
+    Price:
+      selector: ".price"
+    Trial:
+      selector: ".trial"
+steps:
+  - action: Open
+  - module: Login
+    control: Username
+    action: Input
+    value: "{CP[User]}"
+  - module: Login
+    control: Password
+    action: Input
+    value: "{CP[Password]}"
+  - module: Login
+    control: Sign in
+    action: Input
+    value: "{CLICK}"
+  - module: PlanPicker
+    control: Card
+    action: Constraint
+    value: "{Sheet[Plan]}"
+  - module: PlanPicker
+    control: Price
+    action: Verify
+    value: "{Sheet[Price]}"
+  - module: PlanPicker
+    control: Trial
+    action: Verify
+    value: "{Sheet[Trial]}"
