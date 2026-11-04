@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Testing Xataka Broken Links">
+  <test name="testing.xataka.com broken link check">
+    <classes>
+      <class name="Frontend.BrokenLinks.TestingXatakaBrokenLinks"/>
+    </classes>
+  </test>
+</suite>
