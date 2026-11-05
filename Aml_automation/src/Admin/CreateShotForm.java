@@ -245,7 +245,7 @@ public class CreateShotForm {
         if (custom != null && custom.trim().length() > 0) {
             return By.xpath(custom.trim());
         }
-        return By.xpath("//textarea[contains(@placeholder,'Título') or contains(@placeholder,'Titulo')]");
+        return By.xpath("//div[contains(@class,'Title_input')]//textarea | //*[@id='input-post-title']");
     }
 
     private String createUrl() {
