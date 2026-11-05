@@ -123,25 +123,32 @@ public class CreateShotForm {
             // The React editor can skip the load event once the shell is interactive.
         }
         loginIfRequired();
-        wait.until(ExpectedConditions.or(
-                ExpectedConditions.visibilityOfElementLocated(dateLabel(START_LABEL)),
-                ExpectedConditions.visibilityOfElementLocated(titleLocator())));
+        waitForPageReady();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(dateField(START_LABEL)));
+    }
+
+    private void waitForPageReady() {
+        wait.until(webDriver -> "complete".equals(
+                ((JavascriptExecutor) webDriver).executeScript("return document.readyState")));
     }
 
     private void addDate(String label, String ddMMyyyy) {
-        WebElement input = dateInput(label);
-        js.executeScript("arguments[0].scrollIntoView({block:'center'});", input);
-        input.click();
-        input.sendKeys(Keys.chord(Keys.CONTROL, "a"));
-        input.sendKeys(Keys.DELETE);
-        input.sendKeys(ddMMyyyy);
-        input.sendKeys(Keys.TAB);
+        WebElement field = dateInput(label);
+        js.executeScript("arguments[0].scrollIntoView({block:'center'});", field);
+        field.click();
+        field.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        field.sendKeys(Keys.DELETE);
+        field.sendKeys(ddMMyyyy);
+        field.sendKeys(Keys.TAB);
         Assert.assertEquals(readDate(label), ddMMyyyy, label + " should be " + ddMMyyyy);
     }
 
     private String readDate(String label) {
-        WebElement input = dateInput(label);
-        String value = input.getAttribute("value");
+        WebElement field = dateInput(label);
+        String value = field.getAttribute("value");
+        if (value == null || value.length() == 0) {
+            value = field.getText();
+        }
         if (value == null) {
             value = "";
         }
@@ -154,16 +161,16 @@ public class CreateShotForm {
         if (custom != null && custom.trim().length() > 0) {
             return wait.until(ExpectedConditions.elementToBeClickable(By.xpath(custom.trim())));
         }
-        WebElement labelElement = wait.until(ExpectedConditions.visibilityOfElementLocated(dateLabel(label)));
-        String id = labelElement.getAttribute("for");
-        if (id != null && id.length() > 0) {
-            return driver.findElement(By.id(id));
-        }
-        return labelElement.findElement(By.xpath("following::input[1]"));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(dateField(label)));
     }
 
-    private By dateLabel(String label) {
-        return By.xpath("//label[contains(normalize-space(.),'" + label + "')]");
+    /**
+     * Start and end dates are MUI section lists, not input elements.
+     * An xpath ending in //input does not match this control.
+     */
+    private By dateField(String label) {
+        return By.xpath("//label[contains(normalize-space(.),'" + label
+                + "')]/following::div[contains(@class,'MuiPickersSectionList-root')][1]");
     }
 
     private void uploadImage(File image) {
