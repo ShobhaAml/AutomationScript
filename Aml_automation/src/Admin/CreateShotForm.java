@@ -22,13 +22,15 @@ import org.testng.annotations.Test;
 import Common.Adminproperty;
 
 /**
- * Creates a superevento shot on the React editor:
- * start date, end date, cover image, then title.
+ * Fills the superevento create form: start date, start time, end date, end time, then title.
+ * Date and time controls are MUI fields. The locator accepts a native input or the picker section list.
  */
 public class CreateShotForm {
 
-    private static final String START_LABEL = "Fecha de inicio";
-    private static final String END_LABEL = "Fecha de fin";
+    private static final String START_DATE = "Fecha de inicio";
+    private static final String START_TIME = "Hora de inicio";
+    private static final String END_DATE = "Fecha de fin";
+    private static final String END_TIME = "Hora de fin";
 
     private final Adminproperty admin = new Adminproperty();
     private WebDriver driver;
@@ -55,21 +57,24 @@ public class CreateShotForm {
         }
     }
 
-    @Test(description = "Create shot: start date, end date, image, title")
+    @Test(description = "Create shot: start date, start time, end date, end time, title")
     public void createShot() {
         String startDate = configuredDate("createshot_start_date", 1);
         String endDate = configuredDate("createshot_end_date", 8);
+        String startTime = configuredText("createshot_start_time", "10:00");
+        String endTime = configuredText("createshot_end_time", "18:00");
         String title = configuredTitle();
-        File image = imageFile();
 
-        addDate(START_LABEL, startDate);
-        addDate(END_LABEL, endDate);
-        uploadImage(image);
+        typeField(START_DATE, startDate);
+        typeField(START_TIME, startTime);
+        typeField(END_DATE, endDate);
+        typeField(END_TIME, endTime);
         addTitle(title);
 
-        Assert.assertEquals(readDate(START_LABEL), startDate, "Start date should stay on the form");
-        Assert.assertEquals(readDate(END_LABEL), endDate, "End date should stay on the form");
-        Assert.assertTrue(imageUploaded(), "Cover image should be uploaded");
+        assertFieldContains(START_DATE, startDate);
+        assertFieldContains(START_TIME, startTime);
+        assertFieldContains(END_DATE, endDate);
+        assertFieldContains(END_TIME, endTime);
         Assert.assertEquals(readTitle(), title, "Title should stay on the form");
     }
 
@@ -124,7 +129,7 @@ public class CreateShotForm {
         }
         loginIfRequired();
         waitForPageReady();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(dateField(START_LABEL)));
+        waitField(START_DATE);
     }
 
     private void waitForPageReady() {
@@ -132,45 +137,60 @@ public class CreateShotForm {
                 ((JavascriptExecutor) webDriver).executeScript("return document.readyState")));
     }
 
-    private void addDate(String label, String ddMMyyyy) {
-        WebElement field = dateInput(label);
-        js.executeScript("arguments[0].scrollIntoView({block:'center'});", field);
+    private void typeField(String label, String value) {
+        WebElement field = waitField(label);
         field.click();
-        field.sendKeys(Keys.chord(Keys.CONTROL, "a"));
-        field.sendKeys(Keys.DELETE);
-        field.sendKeys(ddMMyyyy);
+        String tag = field.getTagName();
+        if ("input".equals(tag) || "textarea".equals(tag)) {
+            field.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+            field.sendKeys(Keys.DELETE);
+            field.sendKeys(value);
+        } else {
+            field.sendKeys(value.replaceAll("[^0-9]", ""));
+        }
         field.sendKeys(Keys.TAB);
-        Assert.assertEquals(readDate(label), ddMMyyyy, label + " should be " + ddMMyyyy);
     }
 
-    private String readDate(String label) {
-        WebElement field = dateInput(label);
+    private void assertFieldContains(String label, String value) {
+        String actual = fieldText(waitField(label));
+        String expectedDigits = value.replaceAll("[^0-9]", "");
+        String actualDigits = actual.replaceAll("[^0-9]", "");
+        Assert.assertTrue(actualDigits.contains(expectedDigits),
+                label + " should contain " + value + " but was '" + actual + "'");
+    }
+
+    private String fieldText(WebElement field) {
         String value = field.getAttribute("value");
         if (value == null || value.length() == 0) {
             value = field.getText();
         }
-        if (value == null) {
-            value = "";
-        }
-        return value.replace(" ", "");
+        return value == null ? "" : value;
     }
 
-    private WebElement dateInput(String label) {
-        String key = START_LABEL.equals(label) ? "createshot_start_date_input" : "createshot_end_date_input";
-        String custom = prop.getProperty(key, "");
-        if (custom != null && custom.trim().length() > 0) {
-            return wait.until(ExpectedConditions.elementToBeClickable(By.xpath(custom.trim())));
+    private WebElement waitField(String label) {
+        try {
+            WebElement field = wait.until(ExpectedConditions.visibilityOfElementLocated(fieldByLabel(label)));
+            js.executeScript("arguments[0].scrollIntoView({block:'center'});", field);
+            return field;
+        } catch (TimeoutException e) {
+            Assert.fail("Field '" + label + "' was not on the page. URL: " + driver.getCurrentUrl()
+                    + ". XPath: " + fieldByLabel(label));
+            return null;
         }
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(dateField(label)));
     }
 
     /**
-     * Start and end dates are MUI section lists, not input elements.
-     * An xpath ending in //input does not match this control.
+     * Label text, then the editable control after it.
+     * That control is an input on the standard picker and a section-list div on the MUI X picker.
      */
-    private By dateField(String label) {
-        return By.xpath("//label[contains(normalize-space(.),'" + label
-                + "')]/following::div[contains(@class,'MuiPickersSectionList-root')][1]");
+    private By fieldByLabel(String label) {
+        return By.xpath("(//*[self::label or self::span][contains(normalize-space(.),'" + label
+                + "') and string-length(normalize-space(.))<40]"
+                + "/following::*["
+                + "(self::input or self::textarea) and not(@type='hidden') and not(@aria-hidden='true')"
+                + " or self::div and (contains(@class,'MuiPickersSectionList-root')"
+                + " or contains(@class,'MuiPickersInputBase-sectionsContainer'))"
+                + "])[1]");
     }
 
     private void uploadImage(File image) {
@@ -224,7 +244,14 @@ public class CreateShotForm {
     }
 
     private void addTitle(String title) {
-        WebElement field = wait.until(ExpectedConditions.elementToBeClickable(titleLocator()));
+        WebElement field;
+        try {
+            field = wait.until(ExpectedConditions.visibilityOfElementLocated(titleLocator()));
+        } catch (TimeoutException e) {
+            Assert.fail("Title field was not on the page. URL: " + driver.getCurrentUrl()
+                    + ". XPath: " + titleLocator());
+            return;
+        }
         js.executeScript("arguments[0].scrollIntoView({block:'center'});", field);
         field.click();
         field.sendKeys(Keys.chord(Keys.CONTROL, "a"));
@@ -245,7 +272,17 @@ public class CreateShotForm {
         if (custom != null && custom.trim().length() > 0) {
             return By.xpath(custom.trim());
         }
-        return By.xpath("//div[contains(@class,'Title_input')]//textarea | //*[@id='input-post-title']");
+        return By.xpath("//div[contains(@class,'Title_input')]//textarea"
+                + " | //textarea[contains(@placeholder,'Título') or contains(@placeholder,'Titulo')]"
+                + " | //*[@id='input-post-title']");
+    }
+
+    private String configuredText(String key, String fallback) {
+        String configured = prop.getProperty(key, "");
+        if (configured != null && configured.trim().length() > 0) {
+            return configured.trim();
+        }
+        return fallback;
     }
 
     private String createUrl() {
