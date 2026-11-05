@@ -9,6 +9,7 @@ import java.util.Properties;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -141,12 +142,15 @@ public class CreateShotForm {
         WebElement field = waitField(label);
         field.click();
         String tag = field.getTagName();
-        if ("input".equals(tag) || "textarea".equals(tag)) {
+        String toType = ("input".equals(tag) || "textarea".equals(tag))
+                ? value
+                : value.replaceAll("[^0-9]", "");
+        try {
             field.sendKeys(Keys.chord(Keys.CONTROL, "a"));
             field.sendKeys(Keys.DELETE);
-            field.sendKeys(value);
-        } else {
-            field.sendKeys(value.replaceAll("[^0-9]", ""));
+            field.sendKeys(toType);
+        } catch (RuntimeException e) {
+            new Actions(driver).sendKeys(toType).perform();
         }
         field.sendKeys(Keys.TAB);
     }
@@ -169,29 +173,65 @@ public class CreateShotForm {
 
     private WebElement waitField(String label) {
         try {
-            WebElement field = wait.until(ExpectedConditions.visibilityOfElementLocated(fieldByLabel(label)));
-            js.executeScript("arguments[0].scrollIntoView({block:'center'});", field);
-            return field;
+            wait.until(webDriver -> markField(label));
         } catch (TimeoutException e) {
             Assert.fail("Field '" + label + "' was not on the page. URL: " + driver.getCurrentUrl()
-                    + ". XPath: " + fieldByLabel(label));
+                    + ". Labels on the page: " + labelsOnPage());
             return null;
         }
+        WebElement field = driver.findElement(By.cssSelector("[data-createshot-field=\"" + label + "\"]"));
+        js.executeScript("arguments[0].scrollIntoView({block:'center'});", field);
+        return field;
     }
 
-    /**
-     * Label text, then the editable control after it.
-     * That control is an input on the standard picker and a section-list div on the MUI X picker.
-     */
-    private By fieldByLabel(String label) {
-        return By.xpath("(//*[self::label or self::span][contains(normalize-space(.),'" + label
-                + "') and string-length(normalize-space(.))<40]"
-                + "/following::*["
-                + "(self::input or self::textarea) and not(@type='hidden') and not(@aria-hidden='true')"
-                + " or self::div and (contains(@class,'MuiPickersSectionList-root')"
-                + " or contains(@class,'MuiPickersInputBase-sectionsContainer'))"
-                + "])[1]");
+    private boolean markField(String label) {
+        Object result = js.executeScript(FIND_FIELD, label);
+        return "OK".equals(result);
     }
+
+    private String labelsOnPage() {
+        Object result = js.executeScript(
+                "var out=[]; var all=document.querySelectorAll('*');"
+                        + "for (var i=0;i<all.length && out.length<30;i++){"
+                        + " var t=''; var n=all[i].childNodes;"
+                        + " for (var c=0;c<n.length;c++) if(n[c].nodeType===3) t+=n[c].textContent;"
+                        + " t=t.replace(/\\s+/g,' ').trim();"
+                        + " if(t.length>1 && t.length<60 && /fecha|hora|tulo|dd\\/mm/i.test(t)) out.push(t);"
+                        + "} return out.join(' | ');");
+        return result == null ? "" : result.toString();
+    }
+
+    private static final String FIND_FIELD =
+            "var label=arguments[0];"
+                    + "function ownText(el){var t=''; var n=el.childNodes;"
+                    + " for(var i=0;i<n.length;i++) if(n[i].nodeType===3) t+=n[i].textContent;"
+                    + " return t.replace(/\\s+/g,' ').trim();}"
+                    + "function visible(el){if(!el) return false; var s=window.getComputedStyle(el);"
+                    + " if(s.display==='none'||s.visibility==='hidden') return false;"
+                    + " var r=el.getBoundingClientRect(); return r.width>0&&r.height>0;}"
+                    + "function nearest(el){var node=el.parentElement;"
+                    + " for(var d=0;d<8&&node;d++){"
+                    + "  var all=node.querySelectorAll('textarea, input:not([type=hidden]), [contenteditable=true], .MuiInputBase-root, .MuiPickersInputBase-root');"
+                    + "  var fields=[];"
+                    + "  for(var i=0;i<all.length;i++){var f=all[i];"
+                    + "   if(f.getAttribute('aria-hidden')==='true') continue;"
+                    + "   if(el.contains(f)) continue;"
+                    + "   if(!visible(f)) continue;"
+                    + "   fields.push(f);}"
+                    + "  if(fields.length===1) return fields[0];"
+                    + "  node=node.parentElement;}"
+                    + " var list=document.querySelectorAll('textarea, input:not([type=hidden]), [contenteditable=true]');"
+                    + " for(var j=0;j<list.length;j++){var f=list[j];"
+                    + "  if(f.getAttribute('aria-hidden')==='true'||!visible(f)) continue;"
+                    + "  if(el.compareDocumentPosition(f)&4) return f;} return null;}"
+                    + "var all=document.querySelectorAll('*');"
+                    + "for(var i=0;i<all.length;i++){var t=ownText(all[i]);"
+                    + " if(t.indexOf(label)!==-1 && t.length<40){var field=nearest(all[i]);"
+                    + "  if(field){field.setAttribute('data-createshot-field', label); return 'OK';}}}"
+                    + "var aria=document.querySelector('[aria-label*=\"'+label+'\"]');"
+                    + "if(aria){var field=nearest(aria)||aria;"
+                    + " if(visible(field)){field.setAttribute('data-createshot-field', label); return 'OK';}}"
+                    + "return '';";
 
     private void uploadImage(File image) {
         Assert.assertTrue(image.isFile(), "Image file should exist: " + image.getAbsolutePath());
